@@ -1,0 +1,333 @@
+{
+  "language": "English",
+  "header": {
+    "title": "Recensement Cartographique",
+    "home": "Accueil",
+    "results": "Résultats",
+    "form": "Formulaire",
+    "lang": "English"
+  },
+  "home": {
+    "title": "Page d'accueil",
+    "content": "Présentation du projet..."
+  },
+  "results": {
+    "title": "Résultats",
+    "content": "Présentation des résultats...",
+    "knobs": {
+      "title": "Options de visualisation",
+      "graphtype": "Type de graphique:",
+      "scatterplot": "nuage de points",
+      "density": "nuage de points avec courbe de densité",
+      "contourScatter": "nuage de points avec topographie",
+      "contour": "contour",
+      "colorContour": "topographie",
+      "heatmap": "heatmap",
+      "numbers": "décomptes",
+      "percentage": "pourcentage",
+      "revColor": "inversé?",
+      "dotsize": "Taille des points",
+      "dotopacity": "Opacité des points",
+      "colormid": "Courbe de couleur",
+      "color": "Coloration",
+      "chooseRespondents": "Afficher les répondant.e.s provenants de...",
+      "selected": "sélectionné.e.s",
+      "custom": "Combiner des questions en un diagramme sur mesure",
+      "horizontal": "Axe horizontal",
+      "vertical": "Axe vertical",
+      "z": "3ième dimension",
+      "option": "choisissez une option",
+      "showdata": "Afficher les réponses de",
+      "aga": "Sobey Art Award Exhibition, Art Gallery of Alberta, Edmonton, 5 octobre 2019 au 5 janvier 2020",
+      "ba": "Expo \"Positions\", Galerie Bradley Ertaskiran, Montréal, 24 janvier au 7 mars 2020",
+      "engforms": "Formulaires anglais",
+      "frforms": "Formulaires français",
+      "respondents": "répondant.e.s",
+      "reset": "Réinitialiser",
+      "clickto": "Cliquez pour afficher / cacher",
+      "show": "afficher",
+      "hide": "cacher",
+      "questions": {
+        "0": "Début / fin de ma vie",
+        "1": "C'est facile / dur d'exister dans ce monde",
+        "2": "La vie n'est que la vie / besoin de signification",
+        "3": "Normes sociales universelles / culturelles",
+        "4": "Jamais quitté / me déplace constamment",
+        "5": "Profonde connexion / ne pense pas territoire",
+        "6": "Réalité concrète / grandes abstractions",
+        "7": "Je crois / ne crois pas légitimité ordre mondial",
+        "8": "Définis identité moi-même / avec groupes",
+        "9": "S'exposer mène à tolérance / confrontation",
+        "10": "Nous allons vers autodestruction / progrès",
+        "11": "Impact cosmologique / aucun impact",
+        "12": "Défendre l'économie / protéger la planète",
+        "13": "Donner ma vie / indifférent.e",
+        "14": "J'ai le pouvoir de changer / impuissant.e",
+        "15": "Pragmatisme / idéalisme",
+        "16": "Questions biaisées / équilibrées",
+        "17": "Représente ma position / n'importe quoi"
+      }
+    },
+    "back-to-top": "Remonter ",
+    "intro": "<h1>Enjeux existentiels:<br/>Exercice de cartographie</h1><p>Dans deux de mes récentes expositions, j'ai invité les personnes présentes à prendre quelques minutes pour remplir un questionnaire comprenant une variété de questions existentielles. Les participant·e·s devaient indiquer leur position en traçant un point sur une série de diagrammes.</p><h1>Résultats</h1><p>Au total, 1222 personnes ont rempli le questionnaire : 941 lors de l'exposition du «Sobey Art Award Exhibition» à la Art Gallery of Alberta, Edmonton (5 octobre 2019 au 5 janvier 2020) et 281 lors de mon exposition solo «Positions» à la Galerie Bradley Ertaskiran, Montréal (24 janvier au 7 mars 2020).</p><p>Dans les graphiques en nuage de points ci-dessous, chaque point correspond à la réponse d'un·e participant·e. Les questions apparaissent exactement comme sur le questionnaire original.</p>",
+    "intro--link-p1": "Vous trouverez plus d’informations sous les graphiques, ",
+    "intro--link-p2": "en bas de la page",
+    "analysis": {
+      "graph1": "<p>Graphique 1</p><ul><li><strong>La plupart des répondant·e·s se situent dans la première moitié de leur vie et trouvent qu'il est plutôt «facile d'exister dans ce monde».</strong><li>Dans l'ensemble, environ un tiers (360 répondants, soit 32%) trouvent qu’il est plutôt «difficile d'exister dans ce monde».</ul>",
+      "graph2": "<h3>Graphique 2</h3><ul><li><strong>La grande majorité des personnes interrogées</strong> (782 personnes, soit 66%) <strong>souhaitent que leur vie ait une signification au-delà de leur petite existence. </strong>Parmi ceux-ci, une majorité pense que la moralité et les normes sociales sont universelles.<li>Cependant, <strong>il n’y a aucun consensus quant à la question de la moralité et des normes sociales, à savoir si celles-ci sont «universelles» ou «subjectives et culturelles». </strong>Une très mince majorité de répondant·e·s (535, soit 45%) pensent que la moralité est subjective et culturelle plutôt qu'universelle (486, ou 41%), et une proportion significative est neutre ou ambivalente (146, ou 13%).</ul>",
+      "graph3": "<h3>Graphique 3</h3><ul><li>Il y a une forte concentration dans le quadrant supérieur droit, où <strong>une majorité de répondant·e·s</strong> (657, soit 56%) <strong>indiquent qu’ils·elles ressentent une profonde connexion avec le monde physique, et se déplacent fréquemment sur de grandes distances.</strong></ul>",
+      "graph4": "<h3>Graphique 4</h3><ul><li><strong>Une nette majorité de répondant·e·s</strong> (665, soit 57%) <strong>n'accepte pas la légitimité de l'ordre mondial actuel.</strong> Parmi ce groupe, la plupart des répondant·e·s (371) indiquent se soucier davantage des grandes questions et abstractions que de la réalité tangible de la vie.<li>Dans l'ensemble, les réponses sont dispersées sur tous les quadrants, et une grande proportion (332, soit 28%) est neutre ou ambivalente entre se soucier davantage de la «réalité tangible de la vie» ou des «grandes questions et abstractions».</ul>",
+      "graph5": "<h3>Graphique 5</h3><ul><li><strong>Il y a une unanimité quasi totale</strong> (1049 répondant·e·s, soit 92%): <strong>s’exposer à différents des systèmes de valeurs et croyances mène à une plus grande tolérance et compréhension mutuelle.</strong><li>Une majorité de répondant·e·s (589 ou 51%) affirment définir leur identité et leurs convictions eux-mêmes, mais beaucoup se définissent aussi en rapport avec leurs groupes d’appartenance (380, ou 33%), et une bonne proportion est neutre ou ambivalente (182 ou 16%).</ul>",
+      "graph6": "<h3>Graphique 6</h3><ul><li><strong>Il y a un fort consensus</strong> (938 répondant·e·s, soit 83%): <strong>nous, humains vivant aujourd'hui, aurons un impact d'importance cosmologique pour l'avenir de l'humanité.</strong><li><strong>Une forte majorité</strong> (653 répondant·e·s, soit 57%) <strong>estime que «nous allons vers l'autodestruction»</strong>, tandis qu'une petite minorité (266, soit 23%) estime que nous progressons constamment, et presque autant de répondant·e·s (223, soit 20%) sont neutres ou ambivalent·e·s.</ul>",
+      "graph7": "<h3>Graphique 7</h3><ul><li><strong>Une forte majorité</strong> (847 répondant·e·s, soit 75%) <strong>veut protéger la planète et réinventer un monde plus égalitaire et, parmi cette majorité, la plupart des répondant·e·s se disent prêt·e·s s à se consacrer à la cause.</strong><li>Une infime minorité affirme être fortement déterminée à défendre «la propriété privée, l'économie de libre marché et la liberté de l'individu» (70 répondant·e·s soit 6%). Une proportion plus importante est neutre ou ambivalente (161 répondant·e·s, soit 15%).</ul>",
+      "graph8": "<h3>Graphique 8</h3><ul><li><strong>Les réponses sont dispersées sur les quatre quadrants.</strong><li><strong>Une petite majorité de personnes</strong> (586 répondant·e·s, soit 51%) <strong>estime avoir le pouvoir de changer les choses au niveau structurel</strong>, alors qu’environ un tiers se sent impuissant (386, soit 34%).<li>Une petite majorité pense que l'idéalisme est plus important que le pragmatisme, et un tiers de tous les répondant·e·s (351, soit 31%) sont neutres ou ambivalent·e·s.</ul>",
+      "graph9": "<h3>Graphique 9</h3><ul><li>Heureusement, <strong>il y a un fort consensus parmi les répondant·e·s</strong> (871, soit 76%): <strong>ils·elles jugent que les questions étaient plutôt bien équilibrées et pertinentes, et que leurs réponses représentent vraiment leur position face à ces enjeux.</strong><li>Une petite proportion de répondant·e·s (100, soit 8%) juge les questions plutôt biaisées et / ou moralisatrices et / ou irritantes.<li>Une infime proportion affirme que leurs réponses au questionnaire ne sont pas significatives (19 répondant·e·s, soit moins de 2%).</ul>"
+    },
+    "footer": {
+      "select": "Selectionner et suivre des répondant·e·s",
+      "select--body": "Vous pouvez dessiner un rectangle pour sélectionner certains répondants et suivre leurs réponses d'un graphique à l'autre. (Cette fonction n'est pas disponible sur les écrans tactiles.)",
+      "analysis": "Analyse",
+      "analysis--body": "<p>(Analyse des données par Group Leger Analytics, interprétation complémentaire et commentaires de Nicolas Grenier.)<h2>PARTIE I - VOUS</h2><h3>Graphique 1</h3><ul><li><strong>La plupart des répondant·e·s se situent dans la première moitié de leur vie et trouvent qu'il est plutôt «facile d'exister dans ce monde».</strong><li>Dans l'ensemble, environ un tiers (360 répondants, soit 32%) trouvent qu’il est plutôt «difficile d'exister dans ce monde».</ul><h3>Graphique 2</h3><ul><li><strong>La grande majorité des personnes interrogées</strong> (782 personnes, soit 66%) <strong>souhaitent que leur vie ait une signification au-delà de leur petite existence. </strong>Parmi ceux-ci, une majorité pense que la moralité et les normes sociales sont universelles.<li>Cependant, <strong>il n’y a aucun consensus quant à la question de la moralité et des normes sociales, à savoir si celles-ci sont «universelles» ou «subjectives et culturelles». </strong>Une très mince majorité de répondant·e·s (535, soit 45%) pensent que la moralité est subjective et culturelle plutôt qu'universelle (486, ou 41%), et une proportion significative est neutre ou ambivalente (146, ou 13%).</ul><h2>PARTIE II - VOUS ET LE MONDE</h2><h3>Graphique 3</h3><ul><li>Il y a une forte concentration dans le quadrant supérieur droit, où <strong>une majorité de répondant·e·s</strong> (657, soit 56%) <strong>indiquent qu’ils·elles ressentent une profonde connexion avec le monde physique, et se déplacent fréquemment sur de grandes distances.</strong></ul><h3>Graphique 4</h3><ul><li><strong>Une nette majorité de répondant·e·s</strong> (665, soit 57%) <strong>n'accepte pas la légitimité de l'ordre mondial actuel.</strong> Parmi ce groupe, la plupart des répondant·e·s (371) indiquent se soucier davantage des grandes questions et abstractions que de la réalité tangible de la vie.<li>Dans l'ensemble, les réponses sont dispersées sur tous les quadrants, et une grande proportion (332, soit 28%) est neutre ou ambivalente entre se soucier davantage de la «réalité tangible de la vie» ou des «grandes questions et abstractions».</ul><h3>Graphique 5</h3><ul><li><strong>Il y a une unanimité quasi totale</strong> (1049 répondant·e·s, soit 92%): <strong>s’exposer à différents des systèmes de valeurs et croyances mène à une plus grande tolérance et compréhension mutuelle.</strong><li>Une majorité de répondant·e·s (589 ou 51%) affirment définir leur identité et leurs convictions eux-mêmes, mais beaucoup se définissent aussi en rapport avec leurs groupes d’appartenance (380, ou 33%), et une bonne proportion est neutre ou ambivalente (182 ou 16%).</ul><h2>PARTIE III - VOUS ET LE FUTURE</h2><h3>Graphique 6</h3><ul><li><strong>Il y a un fort consensus</strong> (938 répondant·e·s, soit 83%): <strong>nous, humains vivant aujourd'hui, aurons un impact d'importance cosmologique pour l'avenir de l'humanité.</strong><li><strong>Une forte majorité</strong> (653 répondant·e·s, soit 57%) <strong>estime que «nous allons vers l'autodestruction»</strong>, tandis qu'une petite minorité (266, soit 23%) estime que nous progressons constamment, et presque autant de répondant·e·s (223, soit 20%) sont neutres ou ambivalent·e·s.</ul><h3>Graphique 7</h3><ul><li><strong>Une forte majorité</strong> (847 répondant·e·s, soit 75%) <strong>veut protéger la planète et réinventer un monde plus égalitaire et, parmi cette majorité, la plupart des répondant·e·s se disent prêt·e·s s à se consacrer à la cause.</strong><li>Une infime minorité affirme être fortement déterminée à défendre «la propriété privée, l'économie de libre marché et la liberté de l'individu» (70 répondant·e·s soit 6%). Une proportion plus importante est neutre ou ambivalente (161 répondant·e·s, soit 15%).</ul><h3>Graphique 8</h3><ul><li><strong>Les réponses sont dispersées sur les quatre quadrants.</strong><li><strong>Une petite majorité de personnes</strong> (586 répondant·e·s, soit 51%) <strong>estime avoir le pouvoir de changer les choses au niveau structurel </strong>, alors qu’environ un tiers se sent impuissant (386, soit 34%).<li>Une petite majorité pense que l'idéalisme est plus important que le pragmatisme, et un tiers de tous les répondant·e·s (351, soit 31%) sont neutres ou ambivalent·e·s.</ul><h2>VOUS ET CET EXERCICE</h2><h3>Graphique 9</h3><ul><li>Heureusement, <strong>il y a un fort consensus parmi les répondant·e·s</strong> (871, soit 76%): <strong>ils·elles jugent que les questions étaient plutôt bien équilibrées et pertinentes, et que leurs réponses représentent vraiment leur position face à ces enjeux.</strong><li>Une petite proportion de répondant·e·s (100, soit 8%) juge les questions plutôt biaisées et / ou moralisatrices et / ou irritantes.<li>Une infime proportion affirme que leurs réponses au questionnaire ne sont pas significatives (19 répondant·e·s, soit moins de 2%).</ul>",
+      "objectives": "Objectifs",
+      "objectives--body": "<p>L’objectif de ce projet n’était pas d’obtenir des résultats pour les publier, mais plutôt d’inclure comme partie intégrante des expositions une expérience active de questionnement.</p><p>La structure schématique du questionnaire reflète certaines de mes peintures. Je voulais créer une expérience dans laquelle les visiteurs·euses pourraient se plonger dans les œuvres non seulement en regardant, mais aussi en se positionnant par rapport aux mêmes enjeux existentiels que j’aborde dans mon travail. Prendre position implique de choisir ceci plutôt que cela, ce qui nécessite une forme de mesure. Mais un cadre quantitatif est intrinsèquement inapproprié pour méditer sur des notions qualitatives telles que la moralité ou le progrès. J’ai donc utilisé un plan cartésien avec axes X et Y (pour la simplicité et familiarité), mais délibérément évité de présenter des grilles, chiffres ou métriques précis. Je ne voulais pas que l’accent soit mis sur la quantification, mais sur la navigation — je voulais que les participants naviguent à travers différents enjeux mis en relation les uns avec les autres et trouvent leur propre position aussi intuitivement que possible. C'est pourquoi ce questionnaire, contrairement à la plupart des sondages ou enquêtes, évitait délibérément tout ce qui peut être mesuré objectivement, comme l'âge, le revenu, l'origine ethnique, et toute question à laquelle on peut répondre par oui ou non. Le but était d'essayer de concrétiser, même modestement, la structure dans laquelle nous considérons les grandes questions existentielles. Plonger les répondant·e·s dans cette expérience était l'essence même du projet.</p><p>Bien sûr, des critiques légitimes peuvent être formulées sur plusieurs aspects du projet : la nature binaire des questions, le choix des thèmes, mes propres préjugés en tant qu'homme blanc, la difficulté à aborder de si grands enjeux avec honnêteté, et la tendance de ces questions à ramener les vieux pièges de l'universalisme. Malgré ces défauts, beaucoup plus de personnes que je ne le pensais ont pris le temps de compléter le questionnaire et m’ont transmis des commentaires positifs, ce qui, pour moi, indique que l'expérience pourrait être poussée plus loin. J'espère développer un questionnaire où les répondants pourraient donner des réponses multidimensionnelles, exprimer des positions contradictoires, critiquer les questions, etc. Il me semble pertinent de développer des alternatives expérimentales aux systèmes de mesure conventionnels et de voir ce que l'on peut faire avec de telles méthodes.</p>",
+      "comments": "Commentaires laissés par les répondant·e·s",
+      "comments--body": "<p>Un espace à la fin du questionnaire permettait de laisser, de façon optionnelle, des commentaires.</p><p>Environ 10 à 15% des répondants ont laissé un commentaire. Voici une liste non-exhaustive des commentaires reçus. Les commentaires les plus répétitifs («très intéressant», «bravo pour la belle expo», etc.) ont été enlevés, et certains commentaires ont été condensés ou abrégés durant la transcription.</p>",
+      "comments--montreal": "Montréal",
+      "considerations": "Considérations",
+      "considerations--body": "<h2>Extras : dessins, lignes et autres</h2><p>Environ 5 à 10% des questionnaires comprenaient des marques autres que des points. Malheureusement, pour des raisons d’un pragmatisme désolant (temps et budget), il est impossible de reproduire tout cela ici.<p>Dans la majorité des cas, il s’agit d’un ou plusieurs points additionnels, d’une ou plusieurs lignes, ou d’une forme englobant une zone d’une des cartes. Parfois (dans environ 1 ou 2 % des cas), il s’agit d’un dessin ou d’une inscription. En général, lorsque c’était possible, nous avons simplement considéré l’emplacement de ces marques sur le graphique comme s’il s’agissait d’un point.<p>Dans presque tous les cas, ces marques expriment clairement la volonté de ne pas se limiter à la logique cartésienne et à une réponse unique, qui apparaît comme réductrice. Cette critique revient également dans les commentaires.<h2>Pourquoi y a-t-il autant de points au centre ?</h2><p>En moyenne, 5,5% de toutes les réponses se trouvent au centre des graphiques (entre 3% et 11%, d’un graphique à l’autre), ce qui n’est pas autant que ce qu’on pourrait croire au premier coup d’œil. Toutefois, cela demeure significatif.<p>Compte tenu de la structure des graphiques avec un axe X / Y et de la nature existentielle des questions, le centre a probablement été utilisé comme position par défaut pour exprimer la neutralité et / ou l'ambivalence et / ou la position réelle dans laquelle les répondants se perçoivent et / ou une façon d'exprimer «aucune de ces réponses» ou «toutes ces réponses». (Parmi les répondant·e·s qui ont laissé des commentaires dans le questionnaire, plusieurs ont écrit qu'un seul point ne pouvait exprimer correctement leur position.)<h2>Catégories de répondants</h2><p><strong>Cette analyse est pour l’ensemble des répondant·e·s.</strong> Dans l’ensemble, il n’y a pas de différences majeures entre les réponses des populations de Montréal et d’Edmonton, ni entre les francophones et les anglophones. Toutefois, pour comparer les différentes catégories de répondant·e·s (Edmonton ou Montréal, questionnaires en français ou en anglais), allez dans «Options de visualisation», cliquez «Affichez les répondant·e·s provenant de…» et choisissez les groupes que vous voulez.<p>Les personnes ayant rempli ce questionnaire sont des adeptes des musées et des galeries et, à ce titre, ne sont pas nécessairement représentatifs de la population générale.<h2>Période visée</h2><p>Il faut noter que les derniers questionnaires furent déposés le 7 mars 2020, tout juste une semaine avant que la pandémie ne change nos vies. (Dans quelle mesure les réponses seraient-elles différentes si l'enquête devait être menée aujourd’hui ? Compte tenu de la nature du questionnaire, la pandémie serait-elle davantage une distraction ou modifierait-elle fondamentalement la façon dont les gens perçoivent ces enjeux ?)<h2>Représentation des points</h2><p>Afin de mieux montrer chaque point sur les graphiques en nuage de points, un algorithme a été appliqué afin de séparer légèrement les points les uns des autres. (Par exemple, si 35 répondant·e·s ont placé un point exactement au centre, ces points sont ici présentés non pas comme un point unique mais comme un groupe de points.)<h2>Attention aux chiffres</h2><p>La raison d’être de ce questionnaire est avant tout d’exister visuellement, et de remettre en question la façon dont on considère les enjeux de nature qualitative. Nous vivons dans un monde axé sur les données, où les chiffres sont souvent utilisés pour créer un sentiment de connaissance, d’expertise ou de prévisibilité qui cache l'incertitude fondamentale et radicale qui définit la condition humaine. Ici, nous avons essayé d'équilibrer l'utilisation des chiffres et des éléments visuels pour vous donner le meilleur portrait possible des résultats. Mais les chiffres ne peuvent vous donner qu'un portrait simplifié ; reportez-vous toujours aux graphiques en nuage de points pour interpréter les chiffres.",
+      "contact": "Contact et commentaires",
+      "contact--body": "Pour tout question, commentaire ou autre, merci de m'écrire à grenier.nicolas@gmail.com",
+      "acknowledgements": "Remerciements",
+      "acknowledgements--body": "<p>Le questionnaire a été conçu avec l'aide de <strong>Tyson Atkings, David Elliott</strong> et <strong>Chantal Gevrey</strong>.<p>Les questionnaires furent collectés grâce à l’équipe de la <strong>Art Gallery of Alberta</strong> (merci à la commissaire <strong>Lindsey Sharman</strong>) et à l’équipe de la <strong>Galerie Bradley Ertaskiran</strong> (merci à <strong>Soad Carrier</strong>, <strong>Cécile Bertévas</strong>, <strong>Mark Lowe</strong>, <strong>Russell Banx</strong>, <strong>Megan Bradley</strong> et <strong>Antoine Ertaskiran</strong>).<p>Les données reçues sur les questionnaires papier ont été compilées par <strong>Loucas Braconnier</strong>, avec l'aide de <strong>William Sabourin</strong>, <strong>Sarah Boutin</strong> et <strong>Mathieu Reed</strong>.<p>L'analyse des données a été réalisée par <strong>Bich Tran</strong> et <strong>Amélie Bériault-Poirier</strong> du <strong>Group Leger Analytics</strong>.<p>Cette interface pour la visualisation des données a été construite par <strong>Nicolas Epstein</strong>.<h1 style='margin-top: 3rem;'>Le projet a été rendu possible grâce au soutien de:<h1>"
+    },
+    "customgraph": "Carte sur mesure",
+    "part": "Partie",
+    "part1": {
+      "title": "Vous"
+    },
+    "part2": {
+      "title": "Vous et le monde",
+      "description": "<p>Pensez au territoire où vous avez grandi. Pensez à ses propriétés physiques naturelles: montagnes, vallées, plaines, forêts, milieux humides, rivières, lacs, mer, désert, etc. Imaginez ensuite ce territoire en rapport avec la totalité des espaces physiques de la planète.</p><p>Dans votre vie, jusqu'à quel point avez-vous appris à connaître le monde physique?</p>"
+    },
+    "part3": {
+      "title": "Vous et le futur",
+      "description": "<p>Essayez de vous représenter la totalité des activités humaines se déroulant sur la planète aujourd'hui.</p><p>Croyez-vous que l'humanité dans son ensemble se dirige dans une bonne direction, alignée sur une vision cohérente pour le futur?</p>"
+    },
+    "part4": {
+      "title": "Vous et cet exercice"
+    },
+    "savebtn": "Télécharger l'image"
+  },
+  "form": {
+    "title": "Formulaire",
+    "presentation": "Cet exercice est une sorte de questionnaire dans lequel je vous demande d'indiquer votre position sur une série de diagrammes, en rapport avec une variété de questions subjectives. Je prévois rassembler toutes les réponses que je collecterai dans une publication. Vos réponses seront anonymes.<br/>Dans chaque diagramme, tentez de voir où vous vous situez sur les échelles verticales et horizontales. Indiquez le ou les endroits où ces valeurs se croisent en traçant un point.",
+    "lang-select": "Langue",
+    "part": "Partie",
+    "demo": {
+      "description": "",
+      "top": "L'identité de genre est une construction sociale à 100%",
+      "bottom": "L'identité de genre est biologique à 100%",
+      "left": "Homme",
+      "right": "Femme"
+    },
+    "submit": "Soumettre"
+  },
+  "graph": {
+    "instructions": "<ol><li>Indiquer votre position en mettant un point à l'intersection des axes X et Y qui correspond à votre position.</li><li>Si un point unique ne représente pas l'esprit de votre position, vous pouvez ajouter un ou plusieurs autres points afin d'exprimer autrement votre position.</li><li>Utilisez les curseurs situés sous le graphique afin de nuancer davantage votre réponse.</li><ol>",
+    "connectcheckbox": "Connecter les points?",
+    "confidenceslider": {
+      "before": "Ma position est floue",
+      "after": "Ma position est claire et nette"
+    },
+    "fuckoffSlider": {
+      "before": "Ça va comme ça",
+      "after": "Fuck cette question"
+    },
+    "removepoint": "Retirer un point",
+    "reset": "Réinitialiser",
+    "position": "Position: x = {{x}}, y = {{y}}",
+    "size": "Taille"
+  },
+  "questions": {
+    "Beginning / end of my life": {
+      "en": {
+        "start": "Beginning of my life",
+        "end": "End of my life"
+      },
+      "fr": {
+        "start": "Début de ma vie",
+        "end": "Fin de ma vie"
+      }
+    },
+    "It's easy / hard to live in this world": {
+      "en": {
+        "start": "It's hard for me to exist in the world",
+        "end": "It's easy for me to exist in this world"
+      },
+      "fr": {
+        "start": "C'est dur pour moi d'exister dans ce monde",
+        "end": "C'est facile pour moi d'exister dans ce monde"
+      }
+    },
+    "Life is just life / part of larger whole": {
+      "en": {
+        "start": "Life is just life, there is no greater meaning to be found",
+        "end": "I want my life to be part of a larger whole, of something that has meaning beyond my small existence"
+      },
+      "fr": {
+        "start": "La vie n’est que ce qu’elle est, il n’y a pas de signification transcendante à y chercher",
+        "end": "J’ai besoin que ma vie soit reliée à quelque chose de plus grand, qui ait une signification au-delà de ma petite existence"
+      }
+    },
+    "Morality is universal / subjective": {
+      "en": {
+        "start": "Nothing is inherently good or bad, morality is completely subjective and cultural",
+        "end": "Morality and social norms are human universals"
+      },
+      "fr": {
+        "start": "Rien n'est fondamentalement bien ou mal, la moralité est subjective et culturelle",
+        "end": "La moralité et les normes sociales sont universelles"
+      }
+    },
+    "I never left / I keep moving": {
+      "en": {
+        "start": "I never left the place where I was born",
+        "end": "I constantly keep moving far and wide"
+      },
+      "fr": {
+        "start": "Je n'ai jamais quitté mon lieu de naissance",
+        "end": "Je me déplace constamment, sur de grandes distances"
+      }
+    },
+    "Deep connection / never think about land": {
+      "en": {
+        "start": "I never even think about the land",
+        "end": "I have a deep connection with the land and I can feel the vastness of the physical world in my bones"
+      },
+      "fr": {
+        "start": "Je n'ai jamais pensé au territoire physique où je me trouve",
+        "end": "J'ai une profonde connexion avec le monde physique, j'en ressens l'immensité dans mes tripes"
+      }
+    },
+    "I care only about concrete / abstractions": {
+      "en": {
+        "start": "I care only about the concrete and tangible reality of life",
+        "end": "I care only about the larger questions and abstractions"
+      },
+      "fr": {
+        "start": "Je me préoccupe exclusivement de la réalité concrète et tangible de la vie",
+        "end": "Je me préoccupe exclusivement des grandes questions et abstractions"
+      }
+    },
+    "I accept / I don't believe world order": {
+      "en": {
+        "start": "I don't believe in the legitimacy of the current world order",
+        "end": "I accept the legitimacy of the current world order, with its borders, states, nations, etc."
+      },
+      "fr": {
+        "start": "Je ne crois pas en la légitimité de l'ordre mondial actuel",
+        "end": "J'accepte la légitimité de l'ordre mondial actuel, avec ses frontières, états, nations, etc."
+      }
+    },
+    "I define myself / in relation to groups": {
+      "en": {
+        "start": "I define myself and my convictions on my own, not in relation to any group",
+        "end": "I define myself and my convictions in relation to groups with which I identify"
+      },
+      "fr": {
+        "start": "Je définis mon identité et mes convictions par moi-même",
+        "end": "Je définis mon identité et mes convictions en rapport avec les groupes auxquelles j'appartiens"
+      }
+    },
+    "Exposure leads to tolerance / violence": {
+      "en": {
+        "start": "Exposure to different beliefs and value systems leads to confusion / confrontation / violence",
+        "end": "Exposure to different beliefs and value systems leads to increased tolerance and mutual understanding"
+      },
+      "fr": {
+        "start": "S'exposer à différemts systèmes de valeurs et croyance mène à la confusion / confrontation / violence",
+        "end": "S'exposer à différents systèmes de valeurs et croyances mène à une plus grande tolérance et à une compréhension mutuelle"
+      }
+    },
+    "Going toward self-destruction / progress": {
+      "en": {
+        "start": "We're moving towards self-destruction",
+        "end": "We're making constant progress"
+      },
+      "fr": {
+        "start": "Nous allons vers l'autodestruction",
+        "end": "Nous progressons constamment"
+      }
+    },
+    "Impact on future of humanity / no impact": {
+      "en": {
+        "start": "We, humans living today, will have no impact whatsoever on the future of humanity",
+        "end": "We, humans living today, will have an impact of cosmological importance for the future of humanity"
+      },
+      "fr": {
+        "start": "Nous, humains vivant aujourd'hui, n'aurons absolument aucun impact sur le futur de l'humanité",
+        "end": "Nous, humains vivant aujourd'hui, aurons un impact d'une importance cosmologique pour le futur de l'humanité"
+      }
+    },
+    "We need individual / egalitarian world": {
+      "en": {
+        "start": "We need to fight the establishment and create a new vision to defend private property, the free market economy and the freedom of the individual",
+        "end": "We need to fight the establishment and create a radically new vision to protect our planet and reinvent a more egalitarian world"
+      },
+      "fr": {
+        "start": "Nous devons combattre le pouvoir dominant et créer une nouvelle vision pour défendre la propriété privée, l'économie de libre marché et la liberté de l'individu",
+        "end": "Nous devons combattre le pouvoir dominant et créer une vision radicalement nouvelle afin de protéger la planète et de réinventer un monde plus égalitaire"
+      }
+    },
+    "I'm ready to give my life / I don't care": {
+      "en": {
+        "start": "I don't care",
+        "end": "I'm ready to give my life for this"
+      },
+      "fr": {
+        "start": "Je suis totalement indifférent.e",
+        "end": "Je suis prêt.e à donner ma vie pour la cause"
+      }
+    },
+    "Pragmatism / Idealism": {
+      "en": {
+        "start": "Pragmatism is more important",
+        "end": "Idealism is more important"
+      },
+      "fr": {
+        "start": "Le pragmatisme est plus important",
+        "end": "L'idéalisme est plus important"
+      }
+    },
+    "I have power / feel powerless": {
+      "en": {
+        "start": "I feel powerless",
+        "end": "I have the power to change things on a structural level"
+      },
+      "fr": {
+        "start": "Je suis impuissant.e",
+        "end": "J'ai le pouvoir de changer les choses sur le plan structurel"
+      }
+    },
+    "Questions annoying / well balanced": {
+      "en": {
+        "start": "I found the questions biased and/or moralizing and/or annoying",
+        "end": "I thought the questions were relevant and well balanced"
+      },
+      "fr": {
+        "start": "J'ai trouvé les questions biaisées et/ou moralisatrices et/ou irritantes",
+        "end": "J'ai trouvé les questions pertinentes et bien équilibrées"
+      }
+    },
+    "My answers represent / it means nothing": {
+      "en": {
+        "start": "I answered randomly, it means nothing",
+        "end": "My answers truly represent how I feel about these issues"
+      },
+      "fr": {
+        "start": "J'ai répondu n'importe quoi, ça ne veut rien dire",
+        "end": "Mes réponses expriment parfaitement ma position face à ces enjeux"
+      }
+    }
+  }
+}
