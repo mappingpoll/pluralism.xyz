@@ -1,4 +1,11 @@
 import { interpolateRgbBasis } from "d3";
+import pkgInfo from "../package.json";
+
+export const APP_BASE_URL = process.env.NODE_ENV !== "production"
+  ? ""
+  : pkgInfo.publicPath.endsWith("/")
+  ? pkgInfo.publicPath.substring(0, pkgInfo.publicPath.length -1)
+  : pkgInfo.publicPath;
 
 export const NA_SYMBOL = "NA";
 

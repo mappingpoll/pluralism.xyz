@@ -1,3 +1,21 @@
 {
-  "workspaces": ["packages/*"]
+  "scripts": {
+    "lint": "yarn run eslint packages",
+    "lint:fix": "yarn run eslint --fix packages",
+    "build": "yarn node build.js",
+    "serve:dev": "http-server public/"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "esbuild": "^0.14.2",
+    "sql.js-httpvfs": "^0.8.11"
+  },
+  "devDependencies": {
+    "@yarnpkg/esbuild-plugin-pnp": "^2.0.0",
+    "@yarnpkg/sdks": "^2.6.0-rc.2",
+    "esbuild-css-modules-plugin": "^2.0.9",
+    "eslint": "^8.6.0"
+  }
 }

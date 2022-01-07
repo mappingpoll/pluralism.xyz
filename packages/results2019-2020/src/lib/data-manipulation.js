@@ -1,9 +1,9 @@
-import { cloneDeep } from "lodash";
+import cloneDeep from "lodash.clonedeep";
 import { UNCERTAINTY } from "../constants";
 import jitter from "../fetch/jitter";
 import { isValidDatum } from "./viztools";
 
-export function cleanQuestions(data, header) {
+export function cleanQuestions(data) {
   return Object.keys(data[0]).filter(
     q => q != "poll" && q != "Language" && q != "id"
   );
