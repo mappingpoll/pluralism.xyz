@@ -2,8 +2,8 @@
   "scripts": {
     "lint": "yarn run eslint packages",
     "lint:fix": "yarn run eslint --fix packages",
-    "build": "yarn node build.js",
     "serve:dev": "http-server public/",
+    "build:dev": "NODE_ENV=development yarn node build.js",
     "build:prod": "NODE_ENV=production yarn node build.js"
   },
   "workspaces": [

@@ -3,23 +3,24 @@
 set -e
 
 if [[ "$1" == "--dev" ]]; then
+  yarn install
   echo building dev
   yarn build:dev
   exit 0
 elif [[ "$1" == "--prod" ]]; then
   echo preparing prod branch
   git switch production
-  git rm public
-  git commit -m "cleanup"
+  if [[ -d "public" ]]; then rm -rf public; git commit -am "cleanup"; fi
 
   git switch master
+  yarn install
   echo building prod
   yarn build:prod
 
   git switch production
   git add public
   git commit -m "build: $(date)"
-  git push
+  # git push
   git switch master
   exit 0
 else
