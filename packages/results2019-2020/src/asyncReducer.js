@@ -1,5 +1,5 @@
 /* eslint-disable no-fallthrough */
-import { cloneDeep } from "lodash";
+import cloneDeep from "lodash.clonedeep";
 import assign from "lodash.assign";
 import { AXES_DOMAIN, DOMAIN, INITIAL_STATE } from "./constants";
 import { parseLocalCSV } from "./fetch/parseLocalCSV";
