@@ -1,4 +1,4 @@
-import {h} from "preact";
+import { h } from "preact";
 
 import { GRAPH_TYPE } from "./constants";
 import ColorContour from "../components/viz/color-contour";
@@ -11,13 +11,13 @@ import Mess from "../components/viz/Mess";
 import Numbers from "../components/viz/numbers";
 import Proportions from "../components/viz/proportions";
 
-export const isChosenAxis = a => a != "";
+export const isChosenAxis = (a) => a != "";
 
 export const hasXAxis = ({ x }) => isChosenAxis(x);
 
 export const hasXYAxes = ({ x, y }) => isChosenAxis(x) && isChosenAxis(y);
 
-export const canShowCustomViz = axes => hasXYAxes(axes);
+export const canShowCustomViz = (axes) => hasXYAxes(axes);
 
 // "symetrical" floor fn
 export function symFloor(n) {

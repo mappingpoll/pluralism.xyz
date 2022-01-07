@@ -26,19 +26,19 @@ export default function Scatterplot({
   }
 
   const ref = useD3(
-    svg => {
+    (svg) => {
       svg.selectAll("*").remove();
       // append dots
       svg
         .append("g")
         .selectAll("path")
         // filter out NAs
-        .data(data.filter(d => isValidDatum(d, pair)))
+        .data(data.filter((d) => isValidDatum(d, pair)))
         .join("path")
         .attr("stroke-width", options.size)
         .attr("stroke-opacity", options.opacity)
         .attr("class", getClasses)
-        .attr("d", d => `M${xScale(d[x])}, ${yScale(d[y])}h0`);
+        .attr("d", (d) => `M${xScale(d[x])}, ${yScale(d[y])}h0`);
 
       // draw axes, columns
       appendAxes(svg);

@@ -2,13 +2,28 @@
 
 set -e
 
-yarn workspace results2019-2020 build
+if [[ "$1" == "--dev" ]]; then
+  echo building dev
+  yarn build:dev
+  exit 0
+elif [[ "$1" == "--prod" ]]; then
+  echo preparing prod branch
+  git switch production
+  git rm public
+  git commit -m "cleanup"
 
-rm -rf public/
+  git switch master
+  echo building prod
+  yarn build:prod
 
-mkdir public
-mkdir public/results2019-2020
-
-cp -r packages/homepage/* public/
-cp -r packages/results2019-2020/build/* public/results2019-2020/
+  git switch production
+  git add public
+  git commit -m "build: $(date)"
+  git push
+  git switch master
+  exit 0
+else
+  echo must be run with --dev or --prod flag
+  exit 1
+fi
 

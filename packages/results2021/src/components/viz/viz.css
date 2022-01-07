@@ -1,74 +1,80 @@
-:root {
-  --label--top-bottom: 87%;
-  --label--left-right: 82%;
-  --label-lr--top-bottom-mobile: 9%;
-  --label-lr--left-right-mobile: 81%;
+.viz-container {
+  display: grid;
+  max-height: 80vh;
+  overflow: hidden;
+  grid-template-rows: 1fr auto 1fr;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-areas: 
+    ". top ."
+    "left graph right"
+    ". bottom .";
 }
 
-.vizContainer {
-  position: relative;
-  width: 100%;
-  max-width: 90vh;
-  margin: 0 auto;
-  /* border: 1px solid blue; */
+.graph {
+  grid-area: graph;
+  align-self: center;
+  justify-self: center;
+  max-width: calc(80vh * 5/6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
-.viz {
-  width: 100%;
-  height: auto;
-}
-
 /* GRAPH LABELS */
 
 .label {
-  position: absolute;
-  display: table-cell;
   text-align: center;
-  vertical-align: middle;
-
-  text-shadow: -1px -1px white, -1px 1px white, 1px 1px white, 1px -1px white;
+  max-width: 35ch;
+  /* text-shadow: -1px -1px white, -1px 1px white, 1px 1px white, 1px -1px white; */
   user-select: none;
   /* border: 1px solid red; */
-  line-height: 1;
+  /* line-height: 1; */
 }
 
 .top,
 .bottom {
-  max-width: 35ch;
+  display: flex;
+  justify-content: center;
 }
 
 .top {
-  bottom: var(--label--top-bottom);
-  left: 50%;
-  transform: translate(-50%);
+  grid-area: top;
+  align-items: flex-end;
 }
 
 .bottom {
-  top: var(--label--top-bottom);
-  left: 50%;
-  transform: translate(-50%);
+  grid-area: bottom;
+}
+
+.left, .right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .left {
-  top: 50%;
-  right: var(--label--left-right);
-  transform: translate(0, -50%);
+  grid-area: left;
+  align-items: flex-end;
 }
 .right {
-  top: 50%;
-  left: var(--label--left-right);
-  transform: translate(0, -50%);
+  grid-area: right;
+  align-items: flex-start;
 }
 
 /* SCATTERPLOTS */
 
 .dot {
   stroke: var(--svg-defaultdotcolor);
-  stroke-linecap: round;
+  stroke-linecap: square;
 }
 
-.dot:hover {
+.dot:hover, .rect:hover {
   stroke-opacity: 1;
+  fill-opacity: 1;
+}
+
+.rect {
+  fill: var(--svg-defaultdotcolor);
+  stroke: none;
 }
 
 .brushed {
@@ -119,31 +125,29 @@ svg {
     max-width: 100%;
   }
 
+  .graph {
+    max-width: 70vw;
+  }
+
   .label {
     font-size: 0.9em;
   }
 
-  .top,
-  .bottom {
-    width: 100%;
+  .top > .label,
+  .bottom > .label {
     max-width: 25ch;
   }
 
-  .right,
-  .left {
-    top: var(--label-lr--top-bottom-mobile);
-    bottom: var(--label-lr--top-bottom-mobile);
+  .right > .label,
+  .left > .label {
     transform: rotate(180deg);
     writing-mode: vertical-rl;
+    max-height: 25ch;
     line-height: 0.9;
   }
   .left {
-    right: var(--label-lr--left-right-mobile);
-    /* left: 0; */
   }
   .right {
-    left: var(--label-lr--left-right-mobile);
-    /* right: 0; */
   }
 
   svg {

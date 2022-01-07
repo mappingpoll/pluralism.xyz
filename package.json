@@ -3,7 +3,8 @@
     "lint": "yarn run eslint packages",
     "lint:fix": "yarn run eslint --fix packages",
     "build": "yarn node build.js",
-    "serve:dev": "http-server public/"
+    "serve:dev": "http-server public/",
+    "build:prod": "NODE_ENV=production yarn node build.js"
   },
   "workspaces": [
     "packages/*"

@@ -18,12 +18,14 @@ export class Database {
         throw new ReferenceError("question_num argument must be defined");
       const n = +question_num;
       const points = await this.queryDb(
-        `select (timestamp, point0, point1) from points where question_num = ${n}`
+        `select timestamp, point0, point1 from points where question_num = ${n}`
       );
       if (points == null) throw new Error("wtf");
-      return points[0].values.reduce(
-        (obj, row) => (obj[row[0]] = row.slice(1))
-      );
+      const values = points[0].values;
+      return values.reduce((obj, row) => {
+        obj[row[0]] = row.slice(1);
+        return obj;
+      }, {});
     } catch (e) {
       console.error(e);
     }

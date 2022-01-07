@@ -60,8 +60,8 @@ export const CUSTOM_COLORS = {
 export const DEFAULT_DOT_COLOR = "black";
 export const DEFAULT_COLOR_SCHEME = COLOR_SCHEME.nicolas4;
 export const DEFAULT_GRAPH_TYPE = GRAPH_TYPE.scatterplot;
-export const DEFAULT_DOT_SIZE = 22;
-export const DEFAULT_DOT_OPACITY = 0.28;
+export const DEFAULT_DOT_SIZE = 24;
+export const DEFAULT_DOT_OPACITY = 0.9;
 export const HIGHLIGHT_OPACITY = 1;
 export const HIGHLIGHT_COLOR = "red";
 export const DEFAULT_COLOR_MID = 1;
@@ -86,8 +86,8 @@ export const DATASETS = {
 };
 export const MARGIN = DEFAULT_CANVAS_MARGIN;
 export const UNCERTAINTY = 0.5;
-export const DOMAIN = [-1, 1];
-export const AXES_DOMAIN = [-1, 1];
+export const DOMAIN = [-1.0, 1.0];
+export const AXES_DOMAIN = [-1.0, 1.0];
 function rangeDiscreet(range) {
   const min = Math.min(...range),
     max = Math.max(...range);

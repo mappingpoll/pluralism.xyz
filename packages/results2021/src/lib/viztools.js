@@ -9,7 +9,6 @@ export function isValidDatum(datum, columns) {
 }
 
 export function getColorScale(color, rev = false) {
-  console.log("hello");
   let domain = DOMAIN;
   if (rev) domain = [domain[1], domain[0]];
   let colorScale;

@@ -1,3 +1,4 @@
+if (process.env.NODE_ENV === "production") require("preact/debug");
 import { h, render, Fragment } from "preact";
 
 import { I18nProvider } from "./lib/i18n";

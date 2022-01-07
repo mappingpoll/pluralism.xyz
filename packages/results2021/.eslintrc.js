@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
   },
   plugins: ["prettier"],
-  extends: ["preact", "plugin:prettier/recommended"],
+  extends: ["eslint:recommended", "preact", "plugin:prettier/recommended"],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,

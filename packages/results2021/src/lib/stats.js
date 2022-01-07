@@ -11,7 +11,6 @@ export function responsesPerQuestion({ db, questions }) {
 }
 
 export function pairwiseQuestions({ questions }) {
-  console.log({ questions });
   const pairs = [];
   let qs = Object.keys(questions);
   for (let i = 0; i < qs.length; i += 2) {

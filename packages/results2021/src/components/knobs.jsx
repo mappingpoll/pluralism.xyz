@@ -3,8 +3,8 @@ import { h } from "preact";
 import { DATASETS, GRAPH_TYPE } from "../lib/constants";
 import { hasXAxis } from "../lib/misc";
 import { useState } from "preact/hooks";
-import {questions} from "../lib/questions";
-import "./knobs.css"
+import { questions } from "../lib/questions";
+import "./knobs.css";
 import { i18n } from "../lib/i18n";
 
 export default function Knobs(props) {
@@ -41,10 +41,12 @@ export default function Knobs(props) {
     !state.customViz || !hasXAxis(state.userAxes);
 
   // EVENT HANDLERS
-  const handleSettingChange = (type, prop, callback = null) => event => {
-    dispatch({ type, payload: { [prop]: event.target.value } });
-    if (callback != null && typeof callback === "function") callback();
-  };
+  const handleSettingChange =
+    (type, prop, callback = null) =>
+    (event) => {
+      dispatch({ type, payload: { [prop]: event.target.value } });
+      if (callback != null && typeof callback === "function") callback();
+    };
   const handleGraphTypeChange = handleSettingChange(
     "CHANGE_GRAPH_TYPE",
     "graph"
@@ -57,7 +59,7 @@ export default function Knobs(props) {
   const handleWantsCustomGraphClick = handleSettingChange("TOGGLE_CUSTOM");
   const handleXSelectChange = handleSettingChange("SET_X_AXIS", "x");
   const handleYSelectChange = handleSettingChange("SET_Y_AXIS", "y");
-  const handleDatasetChange = event => {
+  const handleDatasetChange = (event) => {
     const clicked = event.target.value;
     let other,
       dataset = { ...state.options.dataset };
@@ -75,9 +77,9 @@ export default function Knobs(props) {
 
   const axesOptions =
     state.questions != null &&
-    Object.keys(state.questions).map(question_num => (
-      <option value={question_num.toString()}>
-      {questions[question_num].question}
+    Object.keys(state.questions).map((question_num) => (
+      <option key={question_num} value={question_num.toString()}>
+        {questions[question_num].question}
       </option>
     ));
   return (
@@ -86,11 +88,7 @@ export default function Knobs(props) {
       style={props.visible ? "" : "opacity: 0;pointer-events: none;"}
     >
       <div style="display: flex; justify-content: space-between; align-items: center">
-        <h1
-          class="title"
-          style="cursor: pointer"
-          onClick={handleShowHideClick}
-        >
+        <h1 class="title" style="cursor: pointer" onClick={handleShowHideClick}>
           Options
         </h1>
         <div class="show-hide" onClick={handleShowHideClick}>
@@ -103,46 +101,39 @@ export default function Knobs(props) {
         <div class="grid-container">
           <div class="knob">
             <div class="labeled-input">
-              <label for="graphselect">
-                {i18n("graph.type")}
-              </label>
+              <label for="graphselect">{i18n("graph.type")}</label>
               <select
                 id="graphselect"
                 name="graphselect"
                 onchange={handleGraphTypeChange}
               >
                 <option selected={isScatterplot} value={GRAPH_TYPE.scatterplot}>
-                {i18n( "graph.scatterplot" )}
+                  {i18n("graph.scatterplot")}
                 </option>
                 <option selected={isHeatmap} value={GRAPH_TYPE.heatmap}>
-                {i18n("graph.heatmap")}
+                  {i18n("graph.heatmap")}
                 </option>
                 <option selected={isNumbers} value={GRAPH_TYPE.numbers}>
-                {i18n("graph.numbers")}
+                  {i18n("graph.numbers")}
                 </option>
                 <option selected={isProportions} value={GRAPH_TYPE.proportions}>
-                {i18n("graph.proportions")}
+                  {i18n("graph.proportions")}
                 </option>
                 <option selected={isContour} value={GRAPH_TYPE.contour}>
-                {i18n("graph.contour")}
+                  {i18n("graph.contour")}
                 </option>
                 <option
                   selected={isColorContour}
                   value={GRAPH_TYPE.colorContour}
                 >
-                {i18n("graph.color_contour")}
+                  {i18n("graph.color_contour")}
                 </option>
               </select>
             </div>
           </div>
           <div class="subknob">
-            <div
-              class="labeled-input"
-              style={hasDots ? "" : "display: none"}
-            >
-              <label for="dotsize">
-                {i18n("graph.dot_size")}
-              </label>
+            <div class="labeled-input" style={hasDots ? "" : "display: none"}>
+              <label for="dotsize">{i18n("graph.dot_size")}</label>
               <input
                 type="range"
                 id="dotsize"
@@ -155,13 +146,8 @@ export default function Knobs(props) {
                 disabled={shouldDisableDotSize}
               />
             </div>
-            <div
-              class="labeled-input"
-              style={hasDots ? "" : "display: none"}
-            >
-              <label for="dotopacity">
-                {i18n("graph.opacity")}
-              </label>
+            <div class="labeled-input" style={hasDots ? "" : "display: none"}>
+              <label for="dotopacity">{i18n("graph.opacity")}</label>
               <input
                 type="range"
                 id="dotopacity"
@@ -184,7 +170,7 @@ export default function Knobs(props) {
               onclick={handleWantsCustomGraphClick}
             />
             <label for="customgraphcheckbox">
-                {i18n("graph.choose_custom")}
+              {i18n("graph.choose_custom")}
             </label>
           </div>
           <div
@@ -193,39 +179,30 @@ export default function Knobs(props) {
             style={state.customViz ? "" : "display: none"}
           >
             <div class="labeled-input">
-              <label for="xselect">
-                {i18n("graph.x_select")}
-              </label>
+              <label for="xselect">{i18n("graph.x_select")}</label>
               <select
                 id="xselect"
                 onchange={handleXSelectChange}
                 disabled={shouldDisableXAxisSelect}
               >
-                <option value="">
-                {i18n("graph.choose_option")}
-                </option>
+                <option value="">{i18n("graph.choose_option")}</option>
                 {axesOptions}
               </select>
             </div>
             <div class="labeled-input">
-              <label for="yselect">
-                {i18n("graph.y_select")}
-              </label>
+              <label for="yselect">{i18n("graph.y_select")}</label>
               <select
                 id="yselect"
                 onchange={handleYSelectChange}
                 disabled={shouldDisableYAxisSelect}
               >
-                <option value="">
-                {i18n("graph.choose_option")}
-                </option>
+                <option value="">{i18n("graph.choose_option")}</option>
                 {axesOptions}
               </select>
             </div>
           </div>
           <div class="knob">
-            Total = {totalRespondents}{" "}
-                {i18n("graph.respondents")}
+            Total = {totalRespondents} {i18n("graph.respondents")}
             {props.selected > 0 && (
               <span>
                 &nbsp;({props.selected}&nbsp;
@@ -236,7 +213,7 @@ export default function Knobs(props) {
 
           <div class="reset-btn">
             <button type="button" onclick={handleResetClick}>
-                {i18n("graph.reset")}
+              {i18n("graph.reset")}
             </button>
           </div>
         </div>

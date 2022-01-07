@@ -22,7 +22,6 @@ export default function App({ db }) {
 
   useEffect(() => {
     if (isLoading && db != null) {
-      console.log("db is ready");
       setIsLoading(false);
     }
   }, [db, isLoading]);
@@ -174,7 +173,7 @@ export default function App({ db }) {
 
       {!isLoading && (
         <div ref={mapsRef} class="maps">
-          {shouldShowCustomViz && (
+          {/* shouldShowCustomViz && (
             <div class="map">
               <div class="maptitle">{i18n("graphs.customgraph")}</div>
               <div class="mapviz">
@@ -186,22 +185,18 @@ export default function App({ db }) {
                 />
               </div>
             </div>
-          )}
-
-          <div class="map">
-            <div class="maptitle">
-              <div>{i18n("part.left")}</div>
-              <div>{i18n("part.right")}</div>
+          )*/}
+          {state.standardColumnSet.map((pair, i) => (
+            <div key={i} class="map">
+              <div class="maptitle">
+                <div>{i18n("part.left")}</div>
+                <div>{i18n("part.right")}</div>
+              </div>
+              <div class="mapviz">
+                <Viz db={db} state={state} pair={pair} dispatch={dispatch} />
+              </div>
             </div>
-            <div class="mapviz">
-              <Viz
-                db={db}
-                state={state}
-                pair={state.standardColumnSet?.[0]}
-                dispatch={dispatch}
-              />
-            </div>
-          </div>
+          ))}
         </div>
       )}
       <footer id="footer" ref={footerRef}>

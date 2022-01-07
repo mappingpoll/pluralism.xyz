@@ -1,7 +1,9 @@
-         const esbuild = require("esbuild");
+const esbuild = require("esbuild");
 const { pnpPlugin } = require("@yarnpkg/esbuild-plugin-pnp");
 const { copyFile, cp, readdir, mkdir, rm } = require("fs/promises");
 const path = require("path");
+
+const isDev = process.env.NODE_ENV === "development";
 
 const clean = async () => {
   await rm("public", { force: true, recursive: true });
@@ -15,21 +17,14 @@ const homepage = async () => {
   }
 }
 
-const results20192020 = async () => {
-  const outdir = "public/survey2019-2020"
-  await mkdir(outdir);
-  await copyFile("packages/results2019-2020/src/index.html", path.join(outdir, "index.html"));
-  await cp("packages/results2019-2020/src/assets", path.join(outdir, "assets"), { recursive: true });
-  await esbuild.build({
+const commonBuildConfig = {
     plugins: [
       pnpPlugin(),
     ],
-    entryPoints: ["packages/results2019-2020/src/index.jsx"],
     bundle: true,
-    sourcemap: true,
+    sourcemap: isDev,
     format: "esm",
-    target: ["es6"],
-    minify: true,
+    minify: !isDev,
     jsxFactory: "h",
     jsxFragment: "Fragment",
     loader: {
@@ -38,8 +33,19 @@ const results20192020 = async () => {
       ".jpg": "file",
     },
     logLevel: "debug",
+    watch: isDev,
+}
+
+const results20192020 = async () => {
+  const outdir = "public/survey2019-2020"
+  await mkdir(outdir);
+  await copyFile("packages/results2019-2020/src/index.html", path.join(outdir, "index.html"));
+  await cp("packages/results2019-2020/src/assets", path.join(outdir, "assets"), { recursive: true });
+  await esbuild.build({
+    ...commonBuildConfig,
+    entryPoints: ["packages/results2019-2020/src/index.jsx"],
+    target: ["es6"],
     outdir: outdir,
-    watch: false
   });
 }
 
@@ -58,31 +64,16 @@ const results2021 = async () => {
   await copyFile(workerPath, path.join(outdir, "assets", "sqlite.worker.js"));
   await copyFile(wasmPath, path.join(outdir, "assets", "sql-wasm.wasm"));
   await esbuild.build({
-    plugins: [
-      pnpPlugin(),
-    ],
+    ...commonBuildConfig,
     entryPoints: ["packages/results2021/src/index.jsx"],
+    target: ["es2020"],
     define: {
       APP_NAME: `"${appName}"`,
       APP_BASE_URL: `"/${appName}/"`,
       WORKER_PATH: `"/${appName}/assets/sqlite.worker.js"`,
       WASM_PATH: `"/${appName}/assets/sql-wasm.wasm"`,
     },
-    bundle: true,
-    sourcemap: true,
-    format: "esm",
-    target: ["es2020"],
-    minify: false,
-    jsxFactory: "h",
-    jsxFragment: "Fragment",
-    loader: {
-      ".png": "dataurl",
-      ".svg": "file",
-      ".jpg": "file",
-    },
-    logLevel: "debug",
     outdir: outdir,
-    watch: true,
   });
 }
 
