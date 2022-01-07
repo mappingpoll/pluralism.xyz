@@ -1,0 +1,152 @@
+:root {
+  --label--top-bottom: 87%;
+  --label--left-right: 82%;
+  --label-lr--top-bottom-mobile: 9%;
+  --label-lr--left-right-mobile: 81%;
+}
+
+.vizContainer {
+  position: relative;
+  width: 100%;
+  max-width: 90vh;
+  margin: 0 auto;
+  /* border: 1px solid blue; */
+}
+
+.viz {
+  width: 100%;
+  height: auto;
+}
+
+/* GRAPH LABELS */
+
+.label {
+  position: absolute;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+
+  text-shadow: -1px -1px white, -1px 1px white, 1px 1px white, 1px -1px white;
+  user-select: none;
+  /* border: 1px solid red; */
+  line-height: 1;
+}
+
+.top,
+.bottom {
+  max-width: 35ch;
+}
+
+.top {
+  bottom: var(--label--top-bottom);
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.bottom {
+  top: var(--label--top-bottom);
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.left {
+  top: 50%;
+  right: var(--label--left-right);
+  transform: translate(0, -50%);
+}
+.right {
+  top: 50%;
+  left: var(--label--left-right);
+  transform: translate(0, -50%);
+}
+
+/* SCATTERPLOTS */
+
+.dot {
+  stroke: var(--svg-defaultdotcolor);
+  stroke-linecap: round;
+}
+
+.dot:hover {
+  stroke-opacity: 1;
+}
+
+.brushed {
+  stroke-opacity: var(--scatterplot-highlight-opacity);
+  stroke: var(--scatterplot-highlight-color);
+}
+
+.notbrushed {
+  stroke-opacity: 0.04;
+}
+
+.inRange {
+  stroke-opacity: var(--scatterplot-highlight-opacity);
+}
+
+/* density-scatterplot */
+/* .densityline {
+  fill: none;
+  stroke: #444;
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+/*  CONTOUR PLOTS */
+
+.contourPath {
+  fill: none;
+  stroke: #444;
+  stroke-linejoin: round;
+}
+
+.savebtn {
+  position: relative;
+  top: 5em;
+  right: 0;
+}
+
+svg {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.1rem;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+@media only screen and (max-device-width: 414px) {
+  .vizContainer {
+    max-width: 100%;
+  }
+
+  .label {
+    font-size: 0.9em;
+  }
+
+  .top,
+  .bottom {
+    width: 100%;
+    max-width: 25ch;
+  }
+
+  .right,
+  .left {
+    top: var(--label-lr--top-bottom-mobile);
+    bottom: var(--label-lr--top-bottom-mobile);
+    transform: rotate(180deg);
+    writing-mode: vertical-rl;
+    line-height: 0.9;
+  }
+  .left {
+    right: var(--label-lr--left-right-mobile);
+    /* left: 0; */
+  }
+  .right {
+    left: var(--label-lr--left-right-mobile);
+    /* right: 0; */
+  }
+
+  svg {
+    font-size: 2.5rem;
+  }
+}

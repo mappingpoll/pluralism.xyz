@@ -1,0 +1,10 @@
+{
+  "name": "Existential Issues",
+  "short_name": "existential-issues",
+  "start_url": "/results2019-2020/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fff",
+  "theme_color": "#673ab8",
+  "icons": []
+}

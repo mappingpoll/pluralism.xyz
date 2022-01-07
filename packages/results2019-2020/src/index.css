@@ -1,0 +1,82 @@
+@import "./rangeslider.css";
+
+:root {
+  font-size: 1.2em;
+  --background-color: white;
+  --secondary-color: #eee;
+  --text-color: black;
+
+  --content-width: 45rem;
+  --content-padding: calc((100vw - var(var(--content-width))) / 2);
+
+  --slider-width: 18rem;
+  --slider-contrast: 25%;
+  --track-width: 95%;
+  --track-height: 5px;
+  --track-radius: 2.5px;
+  --track-color: #5f5f5f;
+
+  --thumb-width: 20px;
+  --thumb-height: 20px;
+  --thumb-color: #303030;
+
+  --scatterplot-highlight-color: black;
+  --scatterplot-highlight-opacity: 1;
+
+  --svg-defaultdotsize: 23;
+  --svg-defaultdotopacity: 0.2;
+  --svg-defaultdotcolor: rgb(29, 29, 29);
+  --svg-canvaswidth: 1000;
+  --svg-canvasheight: 1000;
+  --svg-canvasmargintop: 40;
+  --svg-canvasmarginright: 40;
+  --svg-canvasmarginbottom: 40;
+  --svg-canvasmarginleft: 40;
+
+  --background-primary: #bd2d14;
+  --intro--margin-bottom: 1rem;
+  --knobs--lip-height: 2rem;
+
+  --wavy-border-image: url(./assets/little_wave_template.png) 18 0 18 0 repeat;
+  --wavy-border-top-bottom: 18px solid transparent;
+}
+
+::selection,
+::-moz-selection {
+  background-color: var(--text-color);
+  color: var(--background-color);
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
+  font-family: Arial, Helvetica, sans-serif;
+
+  /* scroll-behavior: smooth; */
+}
+
+* {
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+select,
+button {
+  font-size: 1rem;
+}
+
+a {
+  color: white;
+  background-color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

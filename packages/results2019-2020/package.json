@@ -1,0 +1,35 @@
+{
+  "private": true,
+  "name": "results2019-2020",
+  "publicPath": "/survey2019-2020/",
+  "version": "0.0.0",
+  "license": "MIT",
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:react-hooks/recommended"
+    ],
+    "rules": {
+      "no-undef": "warn",
+      "no-unused-vars": "warn"
+    }
+  },
+  "eslintIgnore": [
+    "build/*"
+  ],
+  "dependencies": {
+    "d3": "^6.6.0",
+    "d3-fetch": "^3.0.1",
+    "lodash.assign": "^4.2.0",
+    "lodash.clonedeep": "^4.5.0",
+    "preact": "^10.1.0",
+    "preact-i18n": "^2.3.0-preactx",
+    "preact-render-to-string": "^5.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.4.1",
+    "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-react-hooks": "^4.3.0"
+  }
+}

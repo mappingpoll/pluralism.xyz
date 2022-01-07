@@ -1,0 +1,143 @@
+:root {
+  --content-lr-padding: calc((100% - var(--content-width)) / 2);
+  --knobs-font-size: 0.75rem;
+}
+
+.knobs {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  background-color: var(--background-color);
+  border-top: var(--wavy-border-top-bottom);
+  border-bottom: var(--wavy-border-top-bottom);
+  border-image: var(--wavy-border-image);
+  z-index: 500;
+
+  padding: 0.5rem var(--content-lr-padding);
+  transition: opacity 200ms ease;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: start;
+  align-items: center;
+}
+
+/* spacing after title when open */
+.grid-container > div:first-child {
+  margin-top: 1rem;
+}
+
+.knob,
+.subknob {
+  font-size: var(--knobs-font-size);
+  grid-column: 1 / 2;
+  justify-self: start;
+  width: 100%;
+}
+
+.subknob .labeled-input {
+  padding-left: 2rem;
+}
+.subknob .labeled-checkbox {
+  padding-left: 3rem;
+}
+
+.labeled-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.labeled-input > label {
+  flex-basis: 15ch;
+  white-space: nowrap;
+  margin-right: 1em;
+}
+
+.labeled-input > input {
+  flex-grow: 1;
+}
+.labeled-input > select {
+  font-size: var(--knobs-font-size);
+  /* flex-shrink: 2; */
+  flex-grow: 1;
+  max-width: 50%;
+}
+
+.labeled-checkbox {
+  text-indent: -1.4rem;
+  padding-left: 1.4rem;
+}
+
+input[type="checkbox"] {
+  margin-right: 0.4rem;
+}
+
+.show-hide {
+  /* text-decoration: underline; */
+  cursor: pointer;
+  grid-row: 1;
+  text-align: center;
+  user-select: none;
+}
+
+.show-hide,
+.reset-btn {
+  font-size: var(--knobs-font-size);
+  justify-self: end;
+  grid-column: 2 / 3;
+}
+
+.reset-btn > button {
+  font-size: var(--knobs-font-size);
+}
+
+@media only screen and (max-device-width: 414px) {
+  .knobs {
+    /* position: static; */
+    padding: 0 0.5rem;
+    margin: 0;
+  }
+
+  .grid-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .knob,
+  .subknob {
+  }
+
+  .knob {
+  }
+
+  /* .subknob .labeled-input {
+    padding-left: 0;
+  } */
+  /* .labeled-input > label {
+    flex-basis: 15ch;
+    margin-right: 1em;
+  }
+
+  .labeled-input > input,
+  .labeled-input > select {
+    max-width: 90%;
+    margin: 0 auto;
+  } */
+
+  /* .show-hide {
+    display: none;
+  } */
+}

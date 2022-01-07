@@ -1,0 +1,262 @@
+.results {
+}
+
+.en-fr {
+  display: inline-block;
+  background: black;
+  color: white;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.4rem;
+  margin: 1.75rem 0;
+}
+
+.en-fr > span {
+  cursor: pointer;
+  line-height: 1.2;
+}
+
+.en-fr > span:hover {
+  text-decoration: underline;
+}
+
+.intro {
+  position: relative;
+  background: var(--background-primary);
+  padding: 2rem calc((100% - var(--content-width)) / 2);
+  z-index: 600;
+}
+
+.intro,
+footer > section {
+  font-family: "Times New Roman", Times, serif;
+  color: white;
+}
+
+footer > section {
+  padding: 0.25rem calc((100% - var(--content-width)) / 2);
+  padding-bottom: 2rem;
+}
+
+/* .intro h1,
+footer h1 {
+  font-size: 2.4rem;
+  line-height: 1.2;
+  font-weight: 400;
+  margin: 1em 0;
+} */
+h1 {
+  font-size: 2rem;
+  line-height: 1.2;
+  font-weight: 400;
+  margin: 1em 0;
+}
+
+h2 {
+  font-size: 1.9rem;
+  font-weight: 400;
+}
+h3 {
+  font-size: 1.75rem;
+  font-weight: 400;
+}
+
+aside h3 {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.intro p,
+footer p,
+footer li {
+  font-size: 1.3rem;
+}
+
+/* .plus-divider {
+  font-weight: bold;
+}
+.plus-divider:after {
+  white-space: pre;
+  content: " +         +         +         +         +         +         +         +         +         +         +         +         +         +         +         +         +";
+} */
+
+aside {
+  overflow: hidden;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  color: #4b41ff;
+}
+aside::before,
+aside::after {
+  font-size: 1.2rem;
+  color: #4b41ff;
+  font-weight: bold;
+  text-align: center;
+  text-overflow: "";
+  overflow: hidden;
+  white-space: pre;
+  content: "+       +       +       +       +       +       +       +       +       +       +       +       +       +       +";
+}
+
+.empty-after::after {
+  content: "";
+}
+
+footer > section,
+.maps {
+  border-bottom: var(--wavy-border-top-bottom);
+  border-image: var(--wavy-border-image);
+}
+
+.map {
+  margin: 5rem 0;
+  padding: 0 1rem;
+}
+
+.map:last-of-type {
+  margin-bottom: 0;
+}
+
+.maptitle,
+.mapdescription {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+.maptitle {
+  display: flex;
+  justify-content: space-between;
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+.maptitle div:nth-child(1) {
+  white-space: nowrap;
+  text-align: left;
+}
+.maptitle div:nth-child(2) {
+  text-align: right;
+}
+
+.mapviz {
+  max-width: 55rem;
+  margin: 6rem auto;
+}
+
+footer {
+  font-family: "Times New Roman", Times, serif;
+  color: white;
+  background: var(--background-primary);
+}
+table {
+  font-size: 1.1rem;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+table,
+td {
+  text-align: center;
+  border: 1px solid white;
+}
+td {
+  padding: 0.1rem 0;
+}
+
+.acknowledgements {
+  background-color: white;
+  color: black;
+}
+
+.acknowledgements > img {
+  display: block;
+  max-height: 5em;
+  max-width: 100%;
+  margin: 2rem 0;
+}
+.acknowledgements > h1 {
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  overflow-wrap: break-word;
+  /* word-break: break-all; */
+}
+
+.back-to-top {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  display: inline-block;
+  font-weight: bold;
+  padding: 0 0.2rem;
+  opacity: 0;
+  font-size: 1.5rem;
+  background-color: var(--text-color);
+  color: var(--background-color);
+  cursor: pointer;
+  z-index: 1000;
+  user-select: none;
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-device-width: 414px) {
+  .intro {
+    padding: 0.25rem 0.5rem;
+  }
+
+  section {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    font-weight: 400;
+    margin: 1em 0;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+    font-weight: 400;
+  }
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+
+  .intro p,
+  footer p,
+  footer li {
+    font-size: 1rem;
+  }
+
+  .map {
+    margin-bottom: 1rem;
+    user-select: none;
+    padding: 0 0.5rem;
+  }
+
+  .maptitle {
+    display: block;
+  }
+
+  .maptitle div:nth-child(2) {
+    text-align: left;
+  }
+
+  .mapdescription {
+    text-align: justify;
+  }
+
+  .mapviz {
+    max-width: 100%;
+    margin: 7rem auto;
+  }
+
+  footer > section {
+    /* width: 100vw; */
+    overflow: hidden;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
