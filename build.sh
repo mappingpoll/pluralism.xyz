@@ -10,7 +10,8 @@ if [[ "$1" == "--dev" ]]; then
 elif [[ "$1" == "--prod" ]]; then
   echo preparing prod branch
   git switch production
-  if [[ -d "public" ]]; then rm -rf public; git commit -am "cleanup"; fi
+  rm -rf public
+  git commit -am clean
 
   git switch master
   yarn install
@@ -21,7 +22,7 @@ elif [[ "$1" == "--prod" ]]; then
   git add public
   git commit -m "build: $(date)"
   # git push
-  git switch master
+  # git switch master
   exit 0
 else
   echo must be run with --dev or --prod flag
