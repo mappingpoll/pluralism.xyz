@@ -21,8 +21,8 @@ elif [[ "$1" == "--prod" ]]; then
   git switch production
   git add public
   git commit -m "build: $(date)"
-  # git push
-  # git switch master
+  git push
+  git switch master
   exit 0
 else
   echo must be run with --dev or --prod flag
