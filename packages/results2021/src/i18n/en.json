@@ -5,7 +5,8 @@
     "x_select": "X Axis",
     "y_select": "Y Axis",
     "reset": "Reset",
-    "customgraph": "Custom Graph"
+    "customgraph": "Custom Graph",
+    "choose_option": "--"
   },
   "back-to-top": "Go up",
   "questions": {

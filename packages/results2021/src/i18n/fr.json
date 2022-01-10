@@ -4,7 +4,8 @@
     "x_select": "Axe X",
     "y_select": "Axe Y",
     "reset": "Réinitialiser",
-    "customgraph": "Graphique sur mesure"
+    "customgraph": "Graphique sur mesure",
+    "choose_option": "--"
   },
   "back-to-top": "Remonter"
 }
