@@ -1,9 +1,13 @@
 {
   "intro": {
   },
-  "graphs": {
+  "graph": {
+    "x_select": "X Axis",
+    "y_select": "Y Axis",
+    "reset": "Reset",
     "customgraph": "Custom Graph"
   },
+  "back-to-top": "Go up",
   "questions": {
     "2": {
       "title": "Instructions",

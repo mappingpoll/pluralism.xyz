@@ -1,3 +1,10 @@
 {
-  "intro": {}
+  "intro": {},
+  "graph": {
+    "x_select": "Axe X",
+    "y_select": "Axe Y",
+    "reset": "Réinitialiser",
+    "customgraph": "Graphique sur mesure"
+  },
+  "back-to-top": "Remonter"
 }

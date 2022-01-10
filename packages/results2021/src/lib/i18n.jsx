@@ -12,11 +12,10 @@ export function findTranslation(locale, path) {
   for (const key of keys) {
     result = result[key];
     if (result == null || !result) return path;
+    if (typeof result === "string") return result;
   }
 
-  if (typeof result != "string") return path;
-
-  return result;
+  return path;
 }
 
 export const Locale = createContext();

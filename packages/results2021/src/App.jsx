@@ -141,7 +141,7 @@ export function App({ db }) {
         {i18n("back-to-top")}
         <img
           style="max-height: 1em; padding-top: 0.2em"
-          src={`..${APP_BASE_URL}/assets/up-arrow.svg`}
+          src={"./assets/up-arrow.svg"}
         />
       </div>
 

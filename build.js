@@ -22,8 +22,8 @@ const commonBuildConfig = {
       pnpPlugin(),
     ],
     bundle: true,
-    sourcemap: isDev,
     format: "esm",
+    sourcemap: isDev,
     minify: !isDev,
     jsxFactory: "h",
     jsxFragment: "Fragment",
@@ -37,7 +37,8 @@ const commonBuildConfig = {
 }
 
 const results20192020 = async () => {
-  const outdir = "public/survey2019-2020"
+  const appName = "survey2019-2020"
+  const outdir = `public/${appName}`
   await mkdir(outdir);
   await copyFile("packages/results2019-2020/src/index.html", path.join(outdir, "index.html"));
   await cp("packages/results2019-2020/src/assets", path.join(outdir, "assets"), { recursive: true });
@@ -45,8 +46,11 @@ const results20192020 = async () => {
     ...commonBuildConfig,
     entryPoints: ["packages/results2019-2020/src/index.jsx"],
     target: ["es6"],
+    define: {
+      APP_NAME: `"${appName}"`,
+      APP_BASE_URL: `"/${appName}"`,
+    },
     outdir: outdir,
-    watch: false,
   });
 }
 
@@ -57,8 +61,6 @@ const results2021 = async () => {
   // yarn will take care of expanding these
   const workerPath = require.resolve("sql.js-httpvfs/dist/sqlite.worker.js");
   const wasmPath = require.resolve("sql.js-httpvfs/dist/sql-wasm.wasm");
-  console.log(workerPath);
-  console.log(wasmPath);
   
   await copyFile("packages/results2021/src/index.html", path.join(outdir, "index.html"));
   await cp("packages/results2021/src/assets", path.join(outdir, "assets" ), { recursive: true });

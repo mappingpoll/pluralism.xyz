@@ -1,7 +1,6 @@
 import { parseLocalCSV } from "./fetch/parseLocalCSV";
 import { applyJitter, cleanQuestions } from "./lib/data-manipulation";
 import { calcHeatmap } from "./lib/viztools";
-import {APP_BASE_URL} from "./constants";
 
 const data = new (function () {
   this.done = false;
@@ -27,7 +26,7 @@ const data = new (function () {
   }
 
   this.makeRawData = async () => {
-    const data = await parseLocalCSV(`.${APP_BASE_URL}/assets/data/all_maps.csv`);
+    const data = await parseLocalCSV("./assets/data/all_maps.csv");
     this.standardValues.rawData = data;
   };
 

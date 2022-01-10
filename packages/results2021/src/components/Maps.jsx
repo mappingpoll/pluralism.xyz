@@ -27,7 +27,7 @@ export function Maps({ state, dispatch, db }) {
     } else if ((x && !y) || (!x && y)) {
       return Object.keys(questions).map((n, i) => (
         <div key={i} class="map">
-          <div class="maptitle">{i18n("graphs.customgraph")}</div>
+          <div class="maptitle">{i18n("graph.customgraph")}</div>
           <div class="mapviz">
             <Viz
               db={db}
@@ -42,7 +42,7 @@ export function Maps({ state, dispatch, db }) {
     } else if (x && y) {
       return (
         <div class="map">
-          <div class="maptitle">{i18n("graphs.customgraph")}</div>
+          <div class="maptitle">{i18n("graph.customgraph")}</div>
           <div class="mapviz">
             <Viz db={db} state={state} pair={[x, y]} dispatch={dispatch} />
           </div>

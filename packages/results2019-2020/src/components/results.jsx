@@ -5,7 +5,7 @@ import { reducer } from "../asyncReducer";
 
 import { canShowCustomViz } from "../lib/misc";
 import { Viz } from "./viz/viz";
-import { APP_BASE_URL, INITIAL_STATE } from "../constants";
+import { INITIAL_STATE } from "../constants";
 import Knobs from "./knobs";
 import Notify from "./notify";
 import cloneDeep from "lodash.clonedeep";
@@ -134,10 +134,10 @@ export default function Results() {
   }, []);
 
   return (
-    <div class="results">
+    <div className="results">
       <div
-        class="back-to-top"
-        onclick={handleBackToTopClick}
+        className="back-to-top"
+        onClick={handleBackToTopClick}
         style={
           showBackToTop
             ? "opacity: 1;"
@@ -147,14 +147,14 @@ export default function Results() {
         <Text id="results.back-to-top">Go up </Text>
         <img
           style="max-height: 1em; padding-top: 0.2em"
-          src={`..${APP_BASE_URL}/assets/up-arrow.svg`}
+          src={"./assets/up-arrow.svg"}
         />
       </div>
-      <div ref={introRef} class="intro">
+      <div ref={introRef} className="intro">
         <SiteMenu style="margin-top: 0;" />
-        <div class="en-fr">
-          <span onclick={() => swapLang("en")}>English</span>&nbsp;/&nbsp;
-          <span onclick={() => swapLang("fr")}>Français</span>
+        <div className="en-fr">
+          <span onClick={() => swapLang("en")}>English</span>&nbsp;/&nbsp;
+          <span onClick={() => swapLang("fr")}>Français</span>
         </div>
         <MarkupText id="results.intro">
           <h1>
@@ -176,7 +176,7 @@ export default function Results() {
           <Text id="results.intro--link-p1">
             You will find more information under the graphs, at{" "}
           </Text>
-          <a href="#null" onclick={handleToBottomClick}>
+          <a href="#null" onClick={handleToBottomClick}>
             <Text id="results.intro--link-p2">the bottom of the page</Text>
           </a>
           .
@@ -190,13 +190,13 @@ export default function Results() {
 
       {notification}
 
-      <div ref={mapsRef} class="maps">
+      <div ref={mapsRef} className="maps">
         {shouldShowCustomViz && (
-          <div class="map">
-            <div class="maptitle">
+          <div className="map">
+            <div className="maptitle">
               <Text id="results.customgraph">Custom graph</Text>
             </div>
-            <div class="mapviz">
+            <div className="mapviz">
               <Viz
                 state={state}
                 columns={state.vizColumns}
@@ -206,8 +206,8 @@ export default function Results() {
           </div>
         )}
 
-        <div class="map">
-          <div class="maptitle">
+        <div className="map">
+          <div className="maptitle">
             <div>
               <Text id="results.part">PART</Text> I
             </div>
@@ -215,7 +215,7 @@ export default function Results() {
               <Text id="results.part1.title">YOU</Text>
             </div>
           </div>
-          <div class="mapviz">
+          <div className="mapviz">
             <Viz
               state={state}
               columns={state.standardColumnSet?.[0]}
@@ -223,7 +223,7 @@ export default function Results() {
             />
           </div>
 
-          <div class="mapviz">
+          <div className="mapviz">
             <Viz
               state={state}
               columns={state.standardColumnSet?.[1]}
@@ -231,8 +231,8 @@ export default function Results() {
             />
           </div>
         </div>
-        <div class="map">
-          <div class="maptitle">
+        <div className="map">
+          <div className="maptitle">
             <div>
               <Text id="results.part">Part</Text> II
             </div>
@@ -240,7 +240,7 @@ export default function Results() {
               <Text id="results.part2.title">You and the world</Text>
             </div>
           </div>
-          <div class="mapdescription">
+          <div className="mapdescription">
             <MarkupText id="results.part2.description">
               <p>
                 Think of the land where you grew up. Think of its natural
@@ -254,7 +254,7 @@ export default function Results() {
               </p>
             </MarkupText>
           </div>
-          <div class="mapviz">
+          <div className="mapviz">
             <Viz
               state={state}
               columns={state.standardColumnSet?.[2]}
@@ -262,7 +262,7 @@ export default function Results() {
             />
           </div>
 
-          <div class="mapviz">
+          <div className="mapviz">
             <Viz
               state={state}
               columns={state.standardColumnSet?.[3]}
@@ -270,7 +270,7 @@ export default function Results() {
             />
           </div>
 
-          <div class="mapviz">
+          <div className="mapviz">
             <Viz
               state={state}
               columns={state.standardColumnSet?.[4]}
@@ -278,8 +278,8 @@ export default function Results() {
             />
           </div>
         </div>
-        <div class="map">
-          <div class="maptitle">
+        <div className="map">
+          <div className="maptitle">
             <div>
               <Text id="results.part">Part</Text> III
             </div>
@@ -287,7 +287,7 @@ export default function Results() {
               <Text id="results.part3.title">You and the future</Text>
             </div>
           </div>
-          <div class="mapdescription">
+          <div className="mapdescription">
             <MarkupText id="results.part3.description">
               <p>
                 Try to picture the totality of human activities taking place on
@@ -299,7 +299,7 @@ export default function Results() {
               </p>
             </MarkupText>
           </div>
-          <div class="mapviz">
+          <div className="mapviz">
             <Viz
               state={state}
               columns={state.standardColumnSet?.[5]}
@@ -307,7 +307,7 @@ export default function Results() {
             />
           </div>
 
-          <div class="mapviz">
+          <div className="mapviz">
             <Viz
               state={state}
               columns={state.standardColumnSet?.[6]}
@@ -315,7 +315,7 @@ export default function Results() {
             />
           </div>
 
-          <div class="mapviz">
+          <div className="mapviz">
             <Viz
               state={state}
               columns={state.standardColumnSet?.[7]}
@@ -323,14 +323,14 @@ export default function Results() {
             />
           </div>
         </div>
-        <div class="map">
-          <div class="maptitle">
+        <div className="map">
+          <div className="maptitle">
             <div />
             <div>
               <Text id="results.part4.title">You and this exercise</Text>
             </div>
           </div>
-          <div class="mapviz">
+          <div className="mapviz">
             <Viz
               state={state}
               columns={state.standardColumnSet?.[8]}
@@ -338,7 +338,7 @@ export default function Results() {
             />
           </div>
 
-          <aside class="empty-after">
+          <aside className="empty-after">
             <p>
               <strong>
                 <Text id="results.footer.select">
@@ -355,7 +355,7 @@ export default function Results() {
             </p>
             <img
               style="display: block; max-width: min(80vw, 400px); margin: 2rem auto 6rem;"
-              src={`..${APP_BASE_URL}/assets/transparency_select_blue.png`}
+              src={"./assets/transparency_select_blue.png"}
               alt="an example of a mouse pointer selecting a rectangular section of points from a scatterplot"
             />
           </aside>
@@ -1319,7 +1319,7 @@ export default function Results() {
           isOpen={footerSectionIsOpen(footerSection.CONTACT)}>
           <p><Text id="results.footer.contact--body">For any questions, comments or other, feel free to contact me at grenier.nicolas@gmail.com</Text></p>
         </CollapsibleSection>
-        <section class="acknowledgements">
+        <section className="acknowledgements">
           <h1 lang="en">
             <Text id="results.footer.acknowledgements">
               Acknowledge&shy;ments
@@ -1369,19 +1369,19 @@ export default function Results() {
             </h1>
           </MarkupText>
           <img
-            src={`..${APP_BASE_URL}/assets/logo-conseil-des-arts-du-canada.png`}
+            src={"./assets/logo-conseil-des-arts-du-canada.png"}
             alt="logo of the canada council for the arts"
           />
           <img
-            src={`..${APP_BASE_URL}/assets/national-gallery-of-canada-logo-vector.png`}
+            src={"./assets/national-gallery-of-canada-logo-vector.png"}
             alt="logo of the national art gallery of canada"
           />
           <img
-            src={`..${APP_BASE_URL}/assets/AGA_BW_Vrt.jpg`}
+            src={"./assets/AGA_BW_Vrt.jpg"}
             alt="logo of the art gallery of alberta"
           />
           <img
-            src={`..${APP_BASE_URL}/assets/hero-text-sobeys-en_0.png`}
+            src={"./assets/hero-text-sobeys-en_0.png"}
             alt="logo of the sobey art award"
           />
         </section>
