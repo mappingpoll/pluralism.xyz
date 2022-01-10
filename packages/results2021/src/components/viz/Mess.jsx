@@ -68,7 +68,6 @@ export function Mess({
 
   const getColor = (user) =>
     user === state.user ? HIGHLIGHT_COLOR : DEFAULT_COLOR;
-  const getZ = (user) => (user === state.user ? 1000 : 0);
 
   const ref = useD3(
     (svg) => {
@@ -82,7 +81,6 @@ export function Mess({
         .attr("class", "rect")
         .attr("fill-opacity", getOpacity)
         .attr("fill", (d) => getColor(d.user))
-        .attr("z-index", (d) => getZ(d.user))
         .attr("x", (d) => xScale(d.x.value[0]))
         .attr("width", (d) =>
           Math.abs(xScale(d.x.value[1]) - xScale(d.x.value[0]))
@@ -103,13 +101,13 @@ export function Mess({
         .attr("class", "rect")
         .attr("fill", (d) => getColor(d.user))
         .attr("fill-opacity", getOpacity)
-        .attr("z-index", (d) => getZ(d.user))
         .attr("x", (d) => xScale(d.x.value[0]))
         .attr("width", (d) =>
           Math.abs(xScale(d.x.value[1]) - xScale(d.x.value[0]))
         )
         .attr("y", (d) => yScale(d.y?.value[0] ?? 0) - DEFAULT_DOT_SIZE / 2)
         .attr("height", DEFAULT_DOT_SIZE)
+        .attr("data-user", (d) => d.user)
         .on("click", handleClick);
 
       // append Y lines
@@ -121,32 +119,30 @@ export function Mess({
         .attr("class", "rect")
         .attr("fill", (d) => getColor(d.user))
         .attr("fill-opacity", getOpacity)
-        .attr("z-index", (d) => getZ(d.user))
         .attr("x", (d) => xScale(d.x?.value[0] ?? 0) - DEFAULT_DOT_SIZE / 2)
         .attr("width", DEFAULT_DOT_SIZE)
         .attr("y", (d) => yScale(d.y.value[1]))
         .attr("height", (d) =>
           Math.abs(yScale(d.y.value[1]) - yScale(d.y.value[0]))
         )
+        .attr("data-user", (d) => d.user)
         .on("click", handleClick);
       // .attr("height", (d) => yScale(Math.abs(d.y.value[1] - d.y.value[0])));
 
       // apped points
       svg
         .append("g")
-        .selectAll("path")
+        .selectAll("rect")
         .data(points)
-        .join("path")
-        .attr("class", "dot")
-        .attr("stroke", (d) => getColor(d.user))
-        .attr("stroke-width", options.size)
-        .attr("stroke-opacity", getOpacity)
-        .attr("z-index", (d) => getZ(d.user))
-        .attr(
-          "d",
-          (d) =>
-            `M${xScale(d.x?.value[0] ?? 0)}, ${yScale(d.y?.value[0] ?? 0)}h0`
-        )
+        .join("rect")
+        .attr("class", "rect")
+        .attr("fill", (d) => getColor(d.user))
+        .attr("fill-opacity", getOpacity)
+        .attr("x", (d) => xScale(d.x?.value[0] ?? 0) - DEFAULT_DOT_SIZE / 2)
+        .attr("width", DEFAULT_DOT_SIZE)
+        .attr("y", (d) => yScale(d.y?.value[0] ?? 0) - DEFAULT_DOT_SIZE / 2)
+        .attr("height", DEFAULT_DOT_SIZE)
+        .attr("data-user", (d) => d.user)
         .on("click", handleClick);
 
       // draw axes, columns

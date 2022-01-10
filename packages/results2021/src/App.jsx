@@ -31,15 +31,15 @@ export function App({ db }) {
   const footerRef = useRef();
   const mapsRef = useRef();
 
-  const getIntroY = useCallback(
+  const getIntroBottom = useCallback(
     () => introRef.current?.getBoundingClientRect().bottom ?? false,
     [introRef]
   );
-  const getFooterY = useCallback(
+  const getFooterTop = useCallback(
     () => footerRef.current?.getBoundingClientRect().top ?? false,
     [footerRef]
   );
-  const getMapsY = useCallback(
+  const getMapsBottom = useCallback(
     () => mapsRef.current?.getBoundingClientRect().bottom ?? false,
     [mapsRef]
   );
@@ -85,14 +85,14 @@ export function App({ db }) {
 
   useEffect(() => {
     document.onscroll = () => {
-      const height = getMapsY();
+      const height = getMapsBottom();
       if (height) {
         if (height < window.innerHeight / 2) setShouldShowKnobs(false);
         else if (!shouldShowKnobs) {
           setShouldShowKnobs(true);
         }
       }
-      const introY = getIntroY();
+      const introY = getIntroBottom();
       if (introY) {
         const thresholdY = introY - 10;
         if (thresholdY < 0 && !showBackToTop) {
@@ -102,15 +102,15 @@ export function App({ db }) {
         }
       }
     };
-  }, [getIntroY, getMapsY, shouldShowKnobs, showBackToTop]);
+  }, [getIntroBottom, getMapsBottom, shouldShowKnobs, showBackToTop]);
 
   const handleToBottomClick = useCallback(() => {
-    const footerY = getFooterY();
+    const footerY = getFooterTop();
     if (footerY) window.scrollTo(0, footerY - 20);
-  }, [getFooterY]);
+  }, [getFooterTop]);
 
   function handleBackToTopClick() {
-    const mapsY = getMapsY();
+    const mapsY = getMapsBottom();
     if (!mapsY) {
       return;
     }
@@ -119,7 +119,7 @@ export function App({ db }) {
       collapseFooter();
       return;
     }
-    const introY = getIntroY();
+    const introY = getIntroBottom();
     if (introY && introY < -1) {
       window.scrollTo(0, window.pageYOffset + introY + 1);
       return;
@@ -153,6 +153,7 @@ export function App({ db }) {
         reducer={{ state, dispatch }}
         selected={latestCount}
         visible={shouldShowKnobs}
+        getIntroBottom={getIntroBottom}
       />
 
       <Notification {...notification} />
