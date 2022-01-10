@@ -3,40 +3,72 @@ import { h, Fragment } from "preact";
 import { useD3 } from "../../hooks/useD3";
 import { DEFAULT_DOT_SIZE, VIEWBOX } from "../../lib/constants";
 import { xScale, yScale } from "../../lib/scales";
-import { appendAxes } from "./scatterplot-axes";
-import { brushFn, makeBrushTool } from "../../lib/viztools";
-import { useMobileContext } from "../../context/mobile-context";
+// import { brushFn, makeBrushTool } from "../../lib/viztools";
+// import { useMobileContext } from "../../hooks/useMobileContext";
+import { appendAxes } from "./Axes";
 
-export default function Mess({
+export function Mess({
   data,
-  pair,
-  opacity,
   options,
   brushMap,
+  state,
   dispatch,
+  // dispatch,
 }) {
-  const isMobile = useMobileContext();
-  const hasBrushing = Object.keys(brushMap).length > 0;
+  // const isMobile = useMobileContext();
+  // const hasBrushing = Object.keys(brushMap).length > 0;
+  //
+  // function getClasses(d) {
+  //   let classes = "dot";
+  //   if (hasBrushing) {
+  //     classes += brushMap[d.id] ? " brushed" : " notbrushed";
+  //   }
+  //   return classes;
+  // }
 
-  function getClasses(d) {
-    let classes = "dot";
-    if (hasBrushing) {
-      classes += brushMap[d.id] ? " brushed" : " notbrushed";
-    }
-    return classes;
+  function handleClick(ev) {
+    const el = ev.target;
+    const user = el.getAttribute("data-user");
+    dispatch({ type: "SELECT", payload: user });
   }
 
-  const describesBox = (d) => d.x?.value[1] && d.y?.value[1];
-  const boxData = data.filter(describesBox);
+  const describesRectangle = (d) => d.x?.value[1] && d.y?.value[1];
+  const rectangles = data.filter(describesRectangle);
 
   const describesLineX = (d) => d.x?.value[1] && !d.y?.value[1];
-  const lineXData = data.filter(describesLineX);
+  const linesX = data.filter(describesLineX);
 
   const describesLineY = (d) => !d.x?.value[1] && d.y?.value[1];
-  const lineYData = data.filter(describesLineY).slice(0, 4);
+  const linesY = data.filter(describesLineY).slice(0, 4);
 
   const describesPoint = (d) => !d.x?.value[1] && !d.y?.value[1];
-  const pointData = data.filter(describesPoint);
+  const points = data.filter(describesPoint);
+
+  const DEFAULT_COLOR = "#1a1a1a";
+  const HIGHLIGHT_COLOR = "palevioletred";
+
+  const MAX_AREA = 4; // 2 X 2;
+  const MIN_OPACITY = 0.1;
+  const MAX_OPACITY = 0.5;
+  const OPACITY_RANGE = MAX_OPACITY - MIN_OPACITY;
+  const MIN_LENGTH = 0.1;
+
+  const len = ([a, b]) => {
+    if (!a) return MIN_LENGTH;
+    if (!b) return MIN_LENGTH;
+    let l = Math.abs(b - a);
+
+    return l > MIN_LENGTH ? l : MIN_LENGTH;
+  };
+  const area = (d) => len(d.x?.value ?? [0, 0]) * len(d.y?.value ?? [0, 0]);
+  const getOpacity = (d) => {
+    const r = area(d) / MAX_AREA;
+    return MIN_OPACITY + OPACITY_RANGE - OPACITY_RANGE * r;
+  };
+
+  const getColor = (user) =>
+    user === state.user ? HIGHLIGHT_COLOR : DEFAULT_COLOR;
+  const getZ = (user) => (user === state.user ? 1000 : 0);
 
   const ref = useD3(
     (svg) => {
@@ -45,10 +77,12 @@ export default function Mess({
       svg
         .append("g")
         .selectAll("rect")
-        .data(boxData)
+        .data(rectangles)
         .join("rect")
         .attr("class", "rect")
-        .attr("fill-opacity", opacity)
+        .attr("fill-opacity", getOpacity)
+        .attr("fill", (d) => getColor(d.user))
+        .attr("z-index", (d) => getZ(d.user))
         .attr("x", (d) => xScale(d.x.value[0]))
         .attr("width", (d) =>
           Math.abs(xScale(d.x.value[1]) - xScale(d.x.value[0]))
@@ -56,62 +90,73 @@ export default function Mess({
         .attr("y", (d) => yScale(d.y.value[1]))
         .attr("height", (d) =>
           Math.abs(yScale(d.y.value[1]) - yScale(d.y.value[0]))
-        );
+        )
+        .attr("data-user", (d) => d.user)
+        .on("click", handleClick);
 
       // append X lines
       svg
         .append("g")
         .selectAll("rect")
-        .data(lineXData)
+        .data(linesX)
         .join("rect")
         .attr("class", "rect")
-        .attr("fill-opacity", opacity)
+        .attr("fill", (d) => getColor(d.user))
+        .attr("fill-opacity", getOpacity)
+        .attr("z-index", (d) => getZ(d.user))
         .attr("x", (d) => xScale(d.x.value[0]))
         .attr("width", (d) =>
           Math.abs(xScale(d.x.value[1]) - xScale(d.x.value[0]))
         )
         .attr("y", (d) => yScale(d.y?.value[0] ?? 0) - DEFAULT_DOT_SIZE / 2)
-        .attr("height", DEFAULT_DOT_SIZE);
+        .attr("height", DEFAULT_DOT_SIZE)
+        .on("click", handleClick);
 
       // append Y lines
       svg
         .append("g")
         .selectAll("rect")
-        .data(lineYData)
+        .data(linesY)
         .join("rect")
         .attr("class", "rect")
-        .attr("fill-opacity", opacity)
+        .attr("fill", (d) => getColor(d.user))
+        .attr("fill-opacity", getOpacity)
+        .attr("z-index", (d) => getZ(d.user))
         .attr("x", (d) => xScale(d.x?.value[0] ?? 0) - DEFAULT_DOT_SIZE / 2)
         .attr("width", DEFAULT_DOT_SIZE)
         .attr("y", (d) => yScale(d.y.value[1]))
         .attr("height", (d) =>
           Math.abs(yScale(d.y.value[1]) - yScale(d.y.value[0]))
-        );
+        )
+        .on("click", handleClick);
       // .attr("height", (d) => yScale(Math.abs(d.y.value[1] - d.y.value[0])));
 
       // apped points
       svg
         .append("g")
         .selectAll("path")
-        .data(pointData)
+        .data(points)
         .join("path")
-        .attr("class", getClasses)
+        .attr("class", "dot")
+        .attr("stroke", (d) => getColor(d.user))
         .attr("stroke-width", options.size)
-        .attr("stroke-opacity", opacity)
+        .attr("stroke-opacity", getOpacity)
+        .attr("z-index", (d) => getZ(d.user))
         .attr(
           "d",
           (d) =>
             `M${xScale(d.x?.value[0] ?? 0)}, ${yScale(d.y?.value[0] ?? 0)}h0`
-        );
+        )
+        .on("click", handleClick);
 
       // draw axes, columns
       appendAxes(svg);
 
       // add brushing on desktop
-      if (!isMobile)
-        svg.append("g").call(makeBrushTool(brushFn(data, pair, dispatch)));
+      // if (!isMobile)
+      //   svg.append("g").call(makeBrushTool(brushFn(data, pair, dispatch)));
     },
-    [data, pair, brushMap, options.size, opacity]
+    [data, brushMap, options.size]
   );
 
   return (

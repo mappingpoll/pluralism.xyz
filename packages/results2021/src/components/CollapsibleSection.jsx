@@ -1,8 +1,8 @@
 import { h } from "preact";
 
-import "./collapsible-section.css";
+import "./CollapsibleSection";
 
-export default function CollapsibleSection({ children, title, cb, isOpen }) {
+export function CollapsibleSection({ children, title, cb, isOpen }) {
   return (
     <section class={isOpen ? "open" : "collapsed"}>
       <div class="title" onclick={cb}>

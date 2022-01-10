@@ -21,5 +21,6 @@ export function useDb() {
       setDb(db);
     }
   }, [dbWorker]);
+
   return { db };
 }

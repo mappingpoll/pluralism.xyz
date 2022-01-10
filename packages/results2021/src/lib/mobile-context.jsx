@@ -1,7 +1,5 @@
 import { h, createContext } from "preact";
-import { useContext } from "preact/hooks";
 
-// Mobile check
 const mobileCheck = function () {
   if (typeof navigator !== "undefined" && typeof window !== "undefined") {
     return (function (a) {
@@ -26,13 +24,4 @@ export function MobileContextProvider({ children }) {
       {children}
     </MobileContext.Provider>
   );
-}
-
-export function useMobileContext() {
-  const context = useContext(MobileContext);
-  if (context == null && typeof window !== "undefined")
-    throw new Error(
-      "useMobileContext must be used with a MobileContextProvider"
-    );
-  return context;
 }

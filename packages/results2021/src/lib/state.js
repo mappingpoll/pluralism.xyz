@@ -12,13 +12,13 @@ import {
 const { pairs } = pairwiseQuestions({ questions });
 
 export const initialState = {
+  user: "",
   questions,
   vizColumns: [...pairs],
-  standardColumnSet: [...pairs],
-  customViz: false,
-  userAxes: {
-    x: "",
-    y: "",
+  surveyPairs: [...pairs],
+  customPair: {
+    x: null,
+    y: null,
   },
   brushMap: {},
   colorScale: getColorScale(DEFAULT_COLOR_SCHEME),

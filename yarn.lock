@@ -9749,7 +9749,6 @@ __metadata:
     lodash.assign: ^4.2.0
     lodash.clonedeep: ^4.5.0
     preact: ^10.6.4
-    preact-render-to-string: ^5.1.2
     prettier: ^2.5.1
     sql.js-httpvfs: ^0.8.11
   languageName: unknown

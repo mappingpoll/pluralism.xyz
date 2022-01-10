@@ -1,8 +1,8 @@
 import { h } from "preact";
 
-import "./site-menu.css";
+import "./SiteMenu.css";
 
-export default function SiteMenu(props) {
+export function SiteMenu(props) {
   return (
     <div class="site-menu" style={props.style}>
       <h1>Nicolas Grenier</h1>

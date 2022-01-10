@@ -4,7 +4,7 @@ import { scaleLinear, axisBottom, axisLeft } from "d3";
 import { xScale, yScale } from "../../lib/scales";
 import { ORIGIN, AXES_DOMAIN } from "../../lib/constants";
 import { useD3 } from "../../hooks/useD3";
-import "./scatterplot-axes.css";
+import "./Axes.css";
 
 const xAxisScale = scaleLinear(AXES_DOMAIN).range([
   xScale(AXES_DOMAIN[0]),
@@ -16,13 +16,13 @@ const yAxisScale = scaleLinear(AXES_DOMAIN).range([
   yScale(AXES_DOMAIN[0]),
 ]);
 
-export const xAxis = g =>
+export const xAxis = (g) =>
   g
     .attr("transform", `translate(0, ${ORIGIN.y})`)
     .attr("class", "axis")
     .call(axisBottom(xAxisScale).ticks("").tickSizeOuter(0));
 
-export const yAxis = g =>
+export const yAxis = (g) =>
   g
     .attr("transform", `translate(${ORIGIN.x}, 0)`)
     .attr("class", "axis")
@@ -83,7 +83,7 @@ const scaledArrowTips = [
 
 export const ARROW_PATHS = scaledArrowTips.map((arrow, i) => {
   let v1, v2;
-  const translate = n => (p, j) =>
+  const translate = (n) => (p, j) =>
     p +
     CARDINAL_MATRICES[i][n][j][0] * ARROW_FEATHER_SIZE +
     CARDINAL_MATRICES[i][n][j][1] * ARROW_LENGTH;
@@ -92,12 +92,12 @@ export const ARROW_PATHS = scaledArrowTips.map((arrow, i) => {
   return [...arrow, ...v1, ...v2];
 });
 
-export const arrowheads = g => {
+export const arrowheads = (g) => {
   g.attr("class", "arrowhead")
     .selectAll("path")
     .data(ARROW_PATHS)
     .join("path")
-    .attr("d", d => `M${d[0]} ${d[1]} L ${d[2]} ${d[3]} L ${d[4]} ${d[5]} Z`);
+    .attr("d", (d) => `M${d[0]} ${d[1]} L ${d[2]} ${d[3]} L ${d[4]} ${d[5]} Z`);
 };
 // export const zAxis = colorScale => g =>
 //   g
@@ -119,7 +119,7 @@ export function appendAxes(svg) {
 }
 
 export function Axes(props) {
-  const ref = useD3(svg => appendAxes(svg));
+  const ref = useD3((svg) => appendAxes(svg));
   return (
     <svg
       ref={ref}

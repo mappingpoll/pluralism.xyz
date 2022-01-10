@@ -1,6 +1,6 @@
 import cloneDeep from "lodash.clonedeep";
 import { UNCERTAINTY } from "./constants";
-import jitter from "../fetch/jitter";
+import jitter from "./jitter";
 import { isValidDatum } from "./viztools";
 
 export function zipPoints({ x, y }) {
@@ -8,8 +8,9 @@ export function zipPoints({ x, y }) {
 
   for (const user in x) {
     const row = {
-      x: { user, value: x[user] },
-      y: y[user] ? { user, value: y[user] } : null,
+      user,
+      x: { value: x[user] },
+      y: y[user] ? { value: y[user] } : null,
     };
 
     result.push(row);
@@ -17,8 +18,9 @@ export function zipPoints({ x, y }) {
   for (const user in y) {
     if (!x[user]) {
       const row = {
+        user,
         x: null,
-        y: { user, value: y[user] },
+        y: { value: y[user] },
       };
       result.push(row);
     }

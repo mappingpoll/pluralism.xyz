@@ -63,17 +63,19 @@
 /* SCATTERPLOTS */
 
 .dot {
-  stroke: var(--svg-defaultdotcolor);
+  /* stroke: var(--svg-defaultdotcolor); */
   stroke-linecap: square;
 }
 
 .dot:hover, .rect:hover {
-  stroke-opacity: 1;
-  fill-opacity: 1;
+  fill: cornflowerblue;
+  stroke: cornflowerblue;
+  stroke-opacity: 0.6;
+  fill-opacity: 0.6;
 }
 
 .rect {
-  fill: var(--svg-defaultdotcolor);
+  /* fill: var(--svg-defaultdotcolor); */
   stroke: none;
 }
 

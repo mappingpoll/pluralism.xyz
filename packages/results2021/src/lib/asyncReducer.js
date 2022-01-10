@@ -5,7 +5,6 @@ import assign from "lodash.assign";
 import { AXES_DOMAIN } from "./constants";
 import {
   filterDataByDataset,
-  getCustomColumns,
   applyJitter,
   countStandardSetGraphRegions,
   countGraphRegionProportions,
@@ -26,17 +25,14 @@ export async function reducer(state, action) {
         filteredData,
         state.questions
       );
-      const standardProportions = state.standardColumnSet.reduce(
-        (obj, pair) => {
-          obj[pair[0]] = countGraphRegionProportions(
-            null,
-            null,
-            standardRegionCounts[pair[0]]
-          );
-          return obj;
-        },
-        {}
-      );
+      const standardProportions = state.surveyPairs.reduce((obj, pair) => {
+        obj[pair[0]] = countGraphRegionProportions(
+          null,
+          null,
+          standardRegionCounts[pair[0]]
+        );
+        return obj;
+      }, {});
       return assign(
         { ...state },
         {
@@ -76,14 +72,19 @@ export async function reducer(state, action) {
       return assign({ ...state }, { options });
     }
     case "TOGGLE_CUSTOM": {
-      const customViz = !state.customViz;
-      return assign({ ...state }, { customViz });
+      return assign({ ...state }, { customPair: initialState.customPair });
     }
-    case "SET_X_AXIS":
+    case "SET_X_AXIS": {
+      const { x } = action.payload;
+      return assign({ ...state }, { customPair: { ...state.customPair, x } });
+    }
     case "SET_Y_AXIS": {
-      const userAxes = assign({ ...state.userAxes }, action.payload);
-      const vizColumns = getCustomColumns(state.questions, userAxes);
-      return assign({ ...state }, { userAxes, vizColumns });
+      const { y } = action.payload;
+      return assign({ ...state }, { customPair: { ...state.customPair, y } });
+    }
+    case "SELECT": {
+      const user = action.payload;
+      return assign({ ...state, user });
     }
     case "BRUSH": {
       const brushMap = action.payload;

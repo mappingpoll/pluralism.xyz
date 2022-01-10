@@ -46,6 +46,7 @@ const results20192020 = async () => {
     entryPoints: ["packages/results2019-2020/src/index.jsx"],
     target: ["es6"],
     outdir: outdir,
+    watch: false,
   });
 }
 
