@@ -160,14 +160,18 @@ export function App({ db }) {
 
       {!isLoading ? (
         <div ref={mapsRef} class="maps">
-          <Maps state={state} dispatch={dispatch} db={db} />
+          <Maps db={db} reducer={{ state, dispatch }} />
         </div>
       ) : (
         <div style={"height: 200vh"} />
       )}
 
       <footer ref={footerRef}>
-        <Footer collapseFn={setCollapseFooter} />
+        <Footer
+          db={db}
+          reducer={{ state, dispatch }}
+          collapseFn={setCollapseFooter}
+        />
       </footer>
     </div>
   );

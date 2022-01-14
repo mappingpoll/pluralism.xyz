@@ -6,8 +6,9 @@ import { zipPoints } from "../../lib/data-manipulation";
 import "./Viz.css";
 import { Mess } from "./Mess";
 
-export function Viz({ db, state, pair, dispatch }) {
+export function Viz({ db, pair, reducer }) {
   const { i18n } = useLocale();
+  const { state, dispatch } = reducer;
 
   const [data, setData] = useState(null);
 

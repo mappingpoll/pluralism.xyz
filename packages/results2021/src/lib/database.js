@@ -43,7 +43,13 @@ export class Database {
 
   getComments = async () => {
     try {
-      return this.queryDb("select comment from form");
+      const data = await this.queryDb("select timestamp, comment from form");
+      if (data == null) throw new Error("wtf");
+      console.log(data);
+      return data[0].values.reduce((arr, row) => {
+        if (!row[1]) return arr;
+        return [...arr, { user: row[0], value: row[1] }];
+      }, []);
     } catch (e) {
       console.error(e);
     }

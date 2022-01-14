@@ -10,6 +10,10 @@ const clean = async () => {
   await mkdir("public");
 };
 
+const images = async () => {
+  await cp("images", "public/images", {recursive: true})
+}
+
 const homepage = async () => {
   const files = await readdir("packages/homepage");
   for (const file of files) {
@@ -84,6 +88,7 @@ const results2021 = async () => {
 const build = async () => {
   try {
     await clean();
+    await images();
     await homepage();
     await results20192020();
     await results2021();

@@ -6,8 +6,10 @@ export function SiteMenu(props) {
   return (
     <div class="site-menu" style={props.style}>
       <h1>
-        Nicolas Grenier
-        <span style="font-family: arial; font-weight: normal">
+        <span style={{ "font-family": '"Times New Roman", Times, serif' }}>
+          Nicolas Grenier{" "}
+        </span>
+        <span style="font-weight: normal">
           {" // "}
           <a href="https://pluralism.xyz/" style="font-size: 0.9em">
             pluralism.xyz

@@ -1,22 +1,26 @@
 import { h, Fragment } from "preact";
-import { useEffect, useRef, useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 
-import { useLocale } from "../hooks/useLocale";
 import { CollapsibleSection } from "./CollapsibleSection";
 import { SiteMenu } from "./SiteMenu";
 
 const SECTION = {
   COMMENTS: 1,
-  ANALYSIS: 2,
-  CONSIDERATIONS: 4,
-  ABOUT: 8,
-  CONTACT: 16,
 };
 
-export function Footer({ collapseFn }) {
-  const { i18n } = useLocale();
+export function Footer({ collapseFn, db, reducer }) {
+  const { state, dispatch } = reducer;
 
   const [openSection, setOpenSection] = useState(0);
+
+  const [comments, setComments] = useState(null);
+
+  useEffect(() => {
+    if (db == null) return;
+    (async () => {
+      setComments(await db.getComments());
+    })();
+  }, [db, setComments]);
 
   useEffect(() => {
     collapseFn(() => setOpenSection(0));
@@ -31,54 +35,66 @@ export function Footer({ collapseFn }) {
     <>
       {/* COMMENTS */}
       <CollapsibleSection
-        title={i18n("footer.title")}
+        title={"Comments"}
         cb={() => toggleFooterSectionOpenClose(SECTION.COMMENTS)}
         isOpen={sectionIsOpen(SECTION.COMMENTS)}
-        //collapseOverride={collapseOverride}
       >
         <p>
           A space at the end of the questionnaire allowed those who wanted to
           leave comments.
         </p>
-        <p>
-          About 10-15% of respondents left a comment. Here is a non-exhaustive
-          list of comments received. The most repetitive comments ("very
-          interesting," "congrats for the great show," etc.) have been removed,
-          and some comments were condensed or shortened during transcription..
-        </p>
+        <table>
+          <tbody>
+            {comments != null &&
+              comments.map((c, i) => (
+                <tr key={i}>
+                  <td
+                    style={c.user === state.user && "color: red"}
+                    onClick={() =>
+                      dispatch({ type: "SELECT", payload: c.user })
+                    }
+                  >
+                    "{c.value}"
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
       </CollapsibleSection>
 
-      {/* ANALYSIS */}
-      <CollapsibleSection
-        title={i18n("footer.section2.title")}
-        cb={() => toggleFooterSectionOpenClose(SECTION.ANALYSIS)}
-        isOpen={sectionIsOpen(SECTION.ANALYSIS)}
-      />
-      {/* CONSIDERATIONS */}
-      <CollapsibleSection
-        title={i18n("footer.considerations.title")}
-        cb={() => toggleFooterSectionOpenClose(SECTION.CONSIDERATIONS)}
-        isOpen={sectionIsOpen(SECTION.CONSIDERATIONS)}
-      />
-      {/* OBJECTIVES */}
-      <CollapsibleSection
-        title={i18n("footer.objectives.title")}
-        cb={() => toggleFooterSectionOpenClose(SECTION.ABOUT)}
-        isOpen={sectionIsOpen(SECTION.ABOUT)}
-      />
-      {/* CONTACT */}
-      <CollapsibleSection
-        title={i18n("footer.contact.title")}
-        cb={() => toggleFooterSectionOpenClose(SECTION.CONTACT)}
-        isOpen={sectionIsOpen(SECTION.CONTACT)}
-      >
-        <p>{i18n("footer.contact.body")}</p>
-      </CollapsibleSection>
-      <section class="acknowledgements">
-        <h1 lang="en">{i18n("footer.acknowledgements.title")}</h1>
+      <section className="acknowledgements">
+        <h1 lang="en">Acknowledge&shy;ments</h1>
+        <p>
+          The questionnaire was conceived by Nicolas&nbsp;Grenier, with help
+          from Melania&nbsp;Yue, Luke&nbsp;Harnden, Antoinen&nbsp;Midant,
+          Natalie&nbsp;Parades, Stacie&nbsp; Martinez and Marc&nbsp;Arranaga.
+          Editing by Saelan Twerdy. Thanks to Jay&nbsp;Wingate and
+          Luis&nbsp;De&nbsp;Jesus for their support.
+        </p>
+        <p>
+          This interface for data visualisation was built by{" "}
+          <a
+            style="background: inherit; color: inherit;"
+            href="https://nilueps.net"
+          >
+            Nicolas&nbsp;Epstein
+          </a>
+          .
+        </p>
+        <h1 style="margin-top: 3rem;">
+          The project was made possible thanks to the support of:
+        </h1>
+        <img
+          src={"/images/logo-conseil-des-arts-du-canada.png"}
+          alt="logo of the canada council for the arts"
+        />
+        <img
+          src={"/images/Calq_noir.png"}
+          alt="logo of the conseil des arts et lettres du quebec"
+        />
       </section>
-      <section style="border: none; background: white; padding-bottom: 0">
-        <SiteMenu style="padding-bottom: 2.5rem; margin-bottom: 0" />
+      <section style="border: none; background: black; padding-top: 3rem; padding-bottom: 1rem;">
+        <SiteMenu />
       </section>
     </>
   );

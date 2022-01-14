@@ -4,8 +4,11 @@ import "./CollapsibleSection";
 
 export function CollapsibleSection({ children, title, cb, isOpen }) {
   return (
-    <section class={isOpen ? "open" : "collapsed"}>
-      <div class="title" onclick={cb}>
+    <section style={!isOpen && "padding-bottom: 0"}>
+      <div
+        style="display: flex; justify-content: space-between; align-items: center"
+        onclick={cb}
+      >
         <h1>{title}</h1>
         <h1>
           <strong>{!isOpen ? "+" : "−"}</strong>

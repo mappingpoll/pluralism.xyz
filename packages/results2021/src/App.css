@@ -26,17 +26,28 @@
   padding: 3rem calc((100% - var(--content-width)) / 2);
   z-index: 600;
   font-family: Arial, Helvetica, sans-serif;
-}
-
-.intro,
-footer > section {
-  font-family: "Times New Roman", Times, serif;
   color: white;
 }
 
 footer > section {
+  font-family: Arial, Helvetica, sans-serif;
   padding: 0.25rem calc((100% - var(--content-width)) / 2);
   padding-bottom: 2rem;
+}
+
+footer > section h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  user-select: none;
+  cursor: pointer;
+}
+
+footer > section td {
+  border: 1px solid black;
+  padding: 0.4rem 1rem;
+}
+ footer > section tr {
 }
 
 /* .intro h1,
@@ -108,6 +119,10 @@ footer > section,
   border-image: var(--wavy-border-image);
 }
 
+.maps {
+  padding-bottom: 12rem;
+}
+
 .map {
   margin: 5rem 0;
   padding: 0 1rem;
@@ -115,6 +130,14 @@ footer > section,
 
 .map:last-of-type {
   margin-bottom: 0;
+}
+
+.mapsection {
+  font-size: 2.5rem;
+  line-height: 1.5;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .maptitle,
@@ -125,7 +148,7 @@ footer > section,
 .maptitle {
   display: flex;
   justify-content: space-between;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   text-transform: uppercase;
   margin-top: 1.5rem;
@@ -144,10 +167,26 @@ footer > section,
   margin: 6rem auto;
 }
 
+.maptext {
+  text-align: justify;
+  color: #bababa;
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+.maptext p {
+  margin-bottom: 0.1rem;
+}
+.maptext table {
+  display: inline-block;
+}
+.maptext td {
+  text-align: left;
+  padding-right: 2rem;
+}
+
 footer {
   font-family: "Times New Roman", Times, serif;
-  color: white;
-  background: var(--background-primary);
+  color: black;
 }
 table {
   font-size: 1.1rem;
@@ -170,7 +209,7 @@ td {
 
 .acknowledgements > img {
   display: block;
-  max-height: 5em;
+  max-height: 20em;
   max-width: 100%;
   margin: 2rem 0;
 }

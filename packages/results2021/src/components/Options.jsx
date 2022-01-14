@@ -1,28 +1,22 @@
 import { h } from "preact";
-import { useRef, useState } from "preact/hooks";
+import { useState } from "preact/hooks";
 
 import { axisOptions } from "../lib/questions";
-import { useLocale } from "../hooks/useLocale";
 import "./Options.css";
 
 export function Options(props) {
-  const { state, dispatch } = props.reducer;
+  const { dispatch } = props.reducer;
   const { getIntroBottom } = props;
 
   let [showOptions, setShowOptions] = useState(false);
-  // const [showAxisControls, setShowAxisControls] = useState(false);
-  const { i18n } = useLocale();
 
-  // ALIASES
-  // const totalRespondents = state.data?.length;
-
-  // EVENT HANDLERS
   const handleSettingChange =
     (type, prop, callback = null) =>
     (event) => {
       dispatch({ type, payload: { [prop]: event.target.value } });
       if (callback != null && typeof callback === "function") callback();
     };
+
   // const handleGraphTypeChange = handleSettingChange(
   //   "CHANGE_GRAPH_TYPE",
   //   "graph"
@@ -32,6 +26,7 @@ export function Options(props) {
   //   "CHANGE_DOT_OPACITY",
   //   "opacity"
   // );
+
   function handleShowHideClick() {
     setShowOptions(!showOptions);
     dispatch({ type: "TOGGLE_CUSTOM" });
@@ -120,16 +115,16 @@ export function Options(props) {
           </div>*/}
           <div id="axesselectors">
             <div class="labeled-input">
-              <label for="xselect">{i18n("graph.x_select")}</label>
+              <label for="xselect">X Axis:</label>
               <select id="xselect" onchange={handleXSelectChange}>
-                <option value="">{i18n("graph.choose_option")}</option>
+                <option value="">-- (show all answers)</option>
                 {axisOptions}
               </select>
             </div>
             <div class="labeled-input">
-              <label for="yselect">{i18n("graph.y_select")}</label>
+              <label for="yselect">Y Axis:</label>
               <select id="yselect" onchange={handleYSelectChange}>
-                <option value="">{i18n("graph.choose_option")}</option>
+                <option value="">-- (show all answers)</option>
                 {axisOptions}
               </select>
             </div>
@@ -145,7 +140,7 @@ export function Options(props) {
           </div>*/}
           <div class="reset-btn">
             <button type="button" onclick={handleResetClick}>
-              {i18n("graph.reset")}
+              Reset
             </button>
           </div>
         </div>

@@ -26,24 +26,6 @@ export function Mess({
   //   return classes;
   // }
 
-  function handleClick(ev) {
-    const el = ev.target;
-    const user = el.getAttribute("data-user");
-    dispatch({ type: "SELECT", payload: user });
-  }
-
-  const describesRectangle = (d) => d.x?.value[1] && d.y?.value[1];
-  const rectangles = data.filter(describesRectangle);
-
-  const describesLineX = (d) => d.x?.value[1] && !d.y?.value[1];
-  const linesX = data.filter(describesLineX);
-
-  const describesLineY = (d) => !d.x?.value[1] && d.y?.value[1];
-  const linesY = data.filter(describesLineY).slice(0, 4);
-
-  const describesPoint = (d) => !d.x?.value[1] && !d.y?.value[1];
-  const points = data.filter(describesPoint);
-
   const DEFAULT_COLOR = "#1a1a1a";
   const HIGHLIGHT_COLOR = "palevioletred";
 
@@ -54,20 +36,53 @@ export function Mess({
   const MIN_LENGTH = 0.1;
 
   const len = ([a, b]) => {
-    if (!a) return MIN_LENGTH;
-    if (!b) return MIN_LENGTH;
+    if (!a && !b) return MIN_LENGTH;
     let l = Math.abs(b - a);
 
     return l > MIN_LENGTH ? l : MIN_LENGTH;
   };
   const area = (d) => len(d.x?.value ?? [0, 0]) * len(d.y?.value ?? [0, 0]);
+
   const getOpacity = (d) => {
-    const r = area(d) / MAX_AREA;
+    if (d.user === state.user) return 1;
+    const r = d.area / MAX_AREA;
     return MIN_OPACITY + OPACITY_RANGE - OPACITY_RANGE * r;
   };
 
-  const getColor = (user) =>
-    user === state.user ? HIGHLIGHT_COLOR : DEFAULT_COLOR;
+  const getFill = (d) =>
+    d.user === state.user ? HIGHLIGHT_COLOR : DEFAULT_COLOR;
+
+  const sortFn = (a, b) => b.area - a.area;
+
+  function handleClick(ev) {
+    const el = ev.target;
+    const user = el.getAttribute("data-user");
+    dispatch({ type: "SELECT", payload: user });
+  }
+
+  const describesRectangle = (d) => d.x?.value[1] && d.y?.value[1];
+  const rectangles = data
+    .filter(describesRectangle)
+    .map((d) => ({ ...d, area: area(d) }))
+    .sort(sortFn);
+
+  const describesLineX = (d) => d.x?.value[1] && !d.y?.value[1];
+  const linesX = data
+    .filter(describesLineX)
+    .map((d) => ({ ...d, area: area(d) }))
+    .sort(sortFn);
+
+  const describesLineY = (d) => !d.x?.value[1] && d.y?.value[1];
+  const linesY = data
+    .filter(describesLineY)
+    .map((d) => ({ ...d, area: area(d) }))
+    .sort(sortFn);
+
+  const describesPoint = (d) => !d.x?.value[1] && !d.y?.value[1];
+  const points = data
+    .filter(describesPoint)
+    .map((d) => ({ ...d, area: area(d) }))
+    .sort(sortFn);
 
   const ref = useD3(
     (svg) => {
@@ -79,8 +94,8 @@ export function Mess({
         .data(rectangles)
         .join("rect")
         .attr("class", "rect")
+        .attr("fill", getFill)
         .attr("fill-opacity", getOpacity)
-        .attr("fill", (d) => getColor(d.user))
         .attr("x", (d) => xScale(d.x.value[0]))
         .attr("width", (d) =>
           Math.abs(xScale(d.x.value[1]) - xScale(d.x.value[0]))
@@ -99,7 +114,7 @@ export function Mess({
         .data(linesX)
         .join("rect")
         .attr("class", "rect")
-        .attr("fill", (d) => getColor(d.user))
+        .attr("fill", getFill)
         .attr("fill-opacity", getOpacity)
         .attr("x", (d) => xScale(d.x.value[0]))
         .attr("width", (d) =>
@@ -117,7 +132,7 @@ export function Mess({
         .data(linesY)
         .join("rect")
         .attr("class", "rect")
-        .attr("fill", (d) => getColor(d.user))
+        .attr("fill", getFill)
         .attr("fill-opacity", getOpacity)
         .attr("x", (d) => xScale(d.x?.value[0] ?? 0) - DEFAULT_DOT_SIZE / 2)
         .attr("width", DEFAULT_DOT_SIZE)
@@ -136,7 +151,7 @@ export function Mess({
         .data(points)
         .join("rect")
         .attr("class", "rect")
-        .attr("fill", (d) => getColor(d.user))
+        .attr("fill", getFill)
         .attr("fill-opacity", getOpacity)
         .attr("x", (d) => xScale(d.x?.value[0] ?? 0) - DEFAULT_DOT_SIZE / 2)
         .attr("width", DEFAULT_DOT_SIZE)
