@@ -138,7 +138,7 @@ export function App({ db }) {
             : "opacity: 0; pointer-events: none; cursor: default;"
         }
       >
-        {i18n("back-to-top")}
+        Go up{" "}
         <img
           style="max-height: 1em; padding-top: 0.2em"
           src={"./assets/up-arrow.svg"}

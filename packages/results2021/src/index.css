@@ -74,9 +74,5 @@ button {
 a {
   color: white;
   background-color: black;
-  text-decoration: none;
 }
 
-a:hover {
-  text-decoration: underline;
-}

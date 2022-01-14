@@ -33,7 +33,7 @@ const commonBuildConfig = {
       ".jpg": "file",
     },
     logLevel: "debug",
-    watch: isDev,
+    watch: false,
 }
 
 const results20192020 = async () => {
@@ -77,6 +77,7 @@ const results2021 = async () => {
       WASM_PATH: `"/${appName}/assets/sql-wasm.wasm"`,
     },
     outdir: outdir,
+    watch: isDev,
   });
 }
 

@@ -1,6 +1,6 @@
 .site-menu {
-  color: black;
-  margin: 1.75rem 0;
+  color: white;
+  margin-bottom: 3rem;
 }
 .site-menu h1,
 .site-menu h3 {
@@ -10,10 +10,10 @@
   font-weight: bold;
 }
 .site-menu a {
-  font-size: 1.4rem;
-  color: black;
   background-color: transparent;
+  text-decoration: none;
 }
+
 .site-menu a:hover {
   text-decoration: underline;
 }
