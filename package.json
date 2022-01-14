@@ -14,9 +14,14 @@
     "sql.js-httpvfs": "^0.8.11"
   },
   "devDependencies": {
+    "@chialab/esbuild-plugin-html": "^0.14.10",
     "@yarnpkg/esbuild-plugin-pnp": "^2.0.0",
     "@yarnpkg/sdks": "^2.6.0-rc.2",
     "esbuild-css-modules-plugin": "^2.0.9",
-    "eslint": "^8.6.0"
+    "eslint": "^8.6.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-prettier": "^0.0.0-empty",
+    "prettier": "^2.5.1"
   }
 }

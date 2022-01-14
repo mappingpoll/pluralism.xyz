@@ -701,6 +701,42 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@chialab/esbuild-plugin-html@npm:^0.14.10":
+  version: 0.14.10
+  resolution: "@chialab/esbuild-plugin-html@npm:0.14.10"
+  dependencies:
+    "@chialab/esbuild-rna": ^0.14.10
+    "@chialab/node-resolve": ^0.14.10
+  checksum: ac3ac40603f90f36c3c7a5befdea261367c66adb033475ec8218c5bd85cf33dbac8bdd199767b017ab06104664e8ba1d27b00f355e6a3ac8e1a6e66b55bdc344
+  languageName: node
+  linkType: hard
+
+"@chialab/esbuild-rna@npm:^0.14.10":
+  version: 0.14.10
+  resolution: "@chialab/esbuild-rna@npm:0.14.10"
+  dependencies:
+    "@chialab/estransform": ^0.14.10
+    "@chialab/node-resolve": ^0.14.10
+  checksum: 6b369a4d99ad6206179ed4132b9ac2930176086e52f01da4b2e8100455b1e5f7a01cbf8dab5b257376adbabb24a7e4de2092b8c099d6606d0c1e0135388bd7c3
+  languageName: node
+  linkType: hard
+
+"@chialab/estransform@npm:^0.14.10":
+  version: 0.14.10
+  resolution: "@chialab/estransform@npm:0.14.10"
+  dependencies:
+    "@parcel/source-map": ^2.0.0
+  checksum: 531bcf9df1809f7768c7ef53d63cf44cff8f1578f241c2f8451e68174f3fd7ee9f8437c7a3bf218cdfebd0d9bd8ae269b2b9fdd95e04f17f59710089272a9b1a
+  languageName: node
+  linkType: hard
+
+"@chialab/node-resolve@npm:^0.14.10":
+  version: 0.14.10
+  resolution: "@chialab/node-resolve@npm:0.14.10"
+  checksum: 097209ffee6ce68afe18ef09ecd1a0535d0d23ec4a1b632a13328e63dbd05b4e06750a906fafbf395d84378dc8ae0429d84cf1379d238e353e11e321955965ec
+  languageName: node
+  linkType: hard
+
 "@csstools/convert-colors@npm:^1.4.0":
   version: 1.4.0
   resolution: "@csstools/convert-colors@npm:1.4.0"
@@ -1050,6 +1086,16 @@ __metadata:
     mkdirp: ^1.0.4
     rimraf: ^3.0.2
   checksum: c96381d4a37448ea280951e46233f7e541058cf57a57d4094dd4bdcaae43fa5872b5f2eb6bfb004591a68e29c5877abe3cdc210cb3588cbf20ab2877f31a7de7
+  languageName: node
+  linkType: hard
+
+"@parcel/source-map@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@parcel/source-map@npm:2.0.0"
+  dependencies:
+    detect-libc: ^1.0.3
+    globby: ^11.0.3
+  checksum: 57d964efc4ae6fbebcc3abae4132fe06be8edecbdcb361ef69754f1d0a1814e9a4d7c65aaf93e37fedac41a14e7a535b876d1cc56a27673eb49c3e7a58d7ccad
   languageName: node
   linkType: hard
 
@@ -3614,7 +3660,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"detect-libc@npm:^1.0.2":
+"detect-libc@npm:^1.0.2, detect-libc@npm:^1.0.3":
   version: 1.0.3
   resolution: "detect-libc@npm:1.0.3"
   bin:
@@ -9801,11 +9847,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
+    "@chialab/esbuild-plugin-html": ^0.14.10
     "@yarnpkg/esbuild-plugin-pnp": ^2.0.0
     "@yarnpkg/sdks": ^2.6.0-rc.2
     esbuild: ^0.14.2
     esbuild-css-modules-plugin: ^2.0.9
     eslint: ^8.6.0
+    eslint-config-prettier: ^8.3.0
+    eslint-plugin-prettier: ^4.0.0
+    eslint-prettier: ^0.0.0-empty
+    prettier: ^2.5.1
     sql.js-httpvfs: ^0.8.11
   languageName: unknown
   linkType: soft

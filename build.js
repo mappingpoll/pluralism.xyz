@@ -1,6 +1,6 @@
 const esbuild = require("esbuild");
 const { pnpPlugin } = require("@yarnpkg/esbuild-plugin-pnp");
-const { copyFile, cp, readdir, mkdir, rm } = require("fs/promises");
+const { copyFile, readdir, cp, mkdir, rm } = require("fs/promises");
 const path = require("path");
 
 const isDev = process.env.NODE_ENV === "development";
@@ -11,36 +11,44 @@ const clean = async () => {
 };
 
 const images = async () => {
-  await cp("images", "public/images", {recursive: true})
-}
+  await cp("images", "public/images", { recursive: true });
+};
+
+const commonBuildConfig = {
+  plugins: [pnpPlugin()],
+  bundle: true,
+  format: "esm",
+  sourcemap: isDev,
+  minify: !isDev,
+  jsxFactory: "h",
+  jsxFragment: "Fragment",
+  logLevel: "debug",
+  watch: isDev,
+};
 
 const homepage = async () => {
   const files = await readdir("packages/homepage");
   for (const file of files) {
-    await copyFile(path.join("packages/homepage", file), path.join("public", file));
+    await copyFile(
+      path.join("packages/homepage", file),
+      path.join("public", file)
+    );
   }
-}
-
-const commonBuildConfig = {
-    plugins: [
-      pnpPlugin(),
-    ],
-    bundle: true,
-    format: "esm",
-    sourcemap: isDev,
-    minify: !isDev,
-    jsxFactory: "h",
-    jsxFragment: "Fragment",
-    logLevel: "debug",
-    watch: false,
-}
+};
 
 const results20192020 = async () => {
-  const appName = "survey2019-2020"
-  const outdir = `public/${appName}`
+  const appName = "survey2019-2020";
+  const outdir = `public/${appName}`;
   await mkdir(outdir);
-  await copyFile("packages/results2019-2020/src/index.html", path.join(outdir, "index.html"));
-  await cp("packages/results2019-2020/src/assets", path.join(outdir, "assets"), { recursive: true });
+  await copyFile(
+    "packages/results2019-2020/src/index.html",
+    path.join(outdir, "index.html")
+  );
+  await cp(
+    "packages/results2019-2020/src/assets",
+    path.join(outdir, "assets"),
+    { recursive: true }
+  );
   await esbuild.build({
     ...commonBuildConfig,
     entryPoints: ["packages/results2019-2020/src/index.jsx"],
@@ -52,18 +60,23 @@ const results20192020 = async () => {
     },
     outdir: outdir,
   });
-}
+};
 
 const results2021 = async () => {
-  const appName = "survey2021"
+  const appName = "survey2021";
   const outdir = `public/${appName}`;
   await mkdir(outdir);
   // yarn will take care of expanding these
   const workerPath = require.resolve("sql.js-httpvfs/dist/sqlite.worker.js");
   const wasmPath = require.resolve("sql.js-httpvfs/dist/sql-wasm.wasm");
-  
-  await copyFile("packages/results2021/src/index.html", path.join(outdir, "index.html"));
-  await cp("packages/results2021/src/assets", path.join(outdir, "assets" ), { recursive: true });
+
+  await copyFile(
+    "packages/results2021/src/index.html",
+    path.join(outdir, "index.html")
+  );
+  await cp("packages/results2021/src/assets", path.join(outdir, "assets"), {
+    recursive: true,
+  });
   await copyFile(workerPath, path.join(outdir, "assets", "sqlite.worker.js"));
   await copyFile(wasmPath, path.join(outdir, "assets", "sql-wasm.wasm"));
   await esbuild.build({
@@ -78,9 +91,8 @@ const results2021 = async () => {
       WASM_PATH: `"/${appName}/assets/sql-wasm.wasm"`,
     },
     outdir: outdir,
-    watch: isDev,
   });
-}
+};
 
 const build = async () => {
   try {
@@ -93,7 +105,6 @@ const build = async () => {
     console.error(err);
     process.exit(1);
   }
-}
+};
 
 build();
-
