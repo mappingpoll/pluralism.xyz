@@ -36,7 +36,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0.4rem 0;
 }
 
 .labeled-input > label {
@@ -88,14 +87,4 @@ input[type="checkbox"] {
     display: flex;
     flex-direction: column;
   }
-
-  .labeled-input > input,
-  .labeled-input > select {
-    max-width: 90%;
-    margin: 0 auto;
-  } */
-
-  /* .show-hide {
-    display: none;
-  } */
 }

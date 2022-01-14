@@ -147,7 +147,7 @@ export default function Results() {
         <Text id="results.back-to-top">Go up </Text>
         <img
           style="max-height: 1em; padding-top: 0.2em"
-          src={"./assets/up-arrow.svg"}
+          src={"/images/up-arrow.svg"}
         />
       </div>
       <div ref={introRef} className="intro">
@@ -355,7 +355,7 @@ export default function Results() {
             </p>
             <img
               style="display: block; max-width: min(80vw, 400px); margin: 2rem auto 6rem;"
-              src={"./assets/transparency_select_blue.png"}
+              src={"/images/transparency_select_blue.png"}
               alt="an example of a mouse pointer selecting a rectangular section of points from a scatterplot"
             />
           </aside>
@@ -1369,19 +1369,19 @@ export default function Results() {
             </h1>
           </MarkupText>
           <img
-            src={"./assets/logo-conseil-des-arts-du-canada.png"}
+            src={"/images/logo-conseil-des-arts-du-canada.png"}
             alt="logo of the canada council for the arts"
           />
           <img
-            src={"./assets/national-gallery-of-canada-logo-vector.png"}
+            src={"/images/national-gallery-of-canada-logo-vector.png"}
             alt="logo of the national art gallery of canada"
           />
           <img
-            src={"./assets/AGA_BW_Vrt.jpg"}
+            src={"/images/AGA_BW_Vrt.jpg"}
             alt="logo of the art gallery of alberta"
           />
           <img
-            src={"./assets/hero-text-sobeys-en_0.png"}
+            src={"/images/hero-text-sobeys-en_0.png"}
             alt="logo of the sobey art award"
           />
         </section>

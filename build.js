@@ -31,11 +31,6 @@ const commonBuildConfig = {
     minify: !isDev,
     jsxFactory: "h",
     jsxFragment: "Fragment",
-    loader: {
-      ".png": "dataurl",
-      ".svg": "file",
-      ".jpg": "file",
-    },
     logLevel: "debug",
     watch: false,
 }
@@ -49,6 +44,7 @@ const results20192020 = async () => {
   await esbuild.build({
     ...commonBuildConfig,
     entryPoints: ["packages/results2019-2020/src/index.jsx"],
+    publicPath: `https://www.pluralism.xyz/${appName}`,
     target: ["es6"],
     define: {
       APP_NAME: `"${appName}"`,
@@ -73,6 +69,7 @@ const results2021 = async () => {
   await esbuild.build({
     ...commonBuildConfig,
     entryPoints: ["packages/results2021/src/index.jsx"],
+    publicPath: `https://www.pluralism.xyz/${appName}`,
     target: ["es2020"],
     define: {
       APP_NAME: `"${appName}"`,

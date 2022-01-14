@@ -141,7 +141,7 @@ export function App({ db }) {
         Go up{" "}
         <img
           style="max-height: 1em; padding-top: 0.2em"
-          src={"./assets/up-arrow.svg"}
+          src={"/images/up-arrow.svg"}
         />
       </div>
 
