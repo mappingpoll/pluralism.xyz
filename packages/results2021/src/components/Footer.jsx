@@ -3,6 +3,7 @@ import { useEffect, useState } from "preact/hooks";
 
 import { CollapsibleSection } from "./CollapsibleSection";
 import { SiteMenu } from "./SiteMenu";
+import { ACTION } from "../lib/asyncReducer"
 
 const SECTION = {
   COMMENTS: 1,
@@ -49,9 +50,11 @@ export function Footer({ collapseFn, db, reducer }) {
               comments.map((c, i) => (
                 <tr key={i}>
                   <td
-                    style={c.user === state.user && "color: red"}
-                    onClick={() =>
-                      dispatch({ type: "SELECT", payload: c.user })
+                    style={state.user.includes(c.user) && "color: red"}
+                    onClick={ev =>
+                      ev.shiftKey 
+                      ? dispatch({ type: ACTION.SELECT_ADD, payload: c.user })
+                      : dispatch({ type: ACTION.SELECT_ONE, payload: c.user }) 
                     }
                   >
                     "{c.value}"

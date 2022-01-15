@@ -12,7 +12,7 @@ import {
 const { pairs } = pairwiseQuestions({ questions });
 
 export const initialState = {
-  user: "",
+  user: [],
   questions,
   vizColumns: [...pairs],
   surveyPairs: [...pairs],

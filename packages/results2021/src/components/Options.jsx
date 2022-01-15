@@ -1,5 +1,6 @@
 import { h } from "preact";
 import { useState } from "preact/hooks";
+import { ACTION } from "../lib/asyncReducer";
 
 import { axisOptions } from "../lib/questions";
 import "./Options.css";
@@ -29,7 +30,7 @@ export function Options(props) {
 
   function handleShowHideClick() {
     setShowOptions(!showOptions);
-    dispatch({ type: "TOGGLE_CUSTOM" });
+    dispatch({ type: ACTION.TOGGLE_CUSTOM });
   }
 
   const scroll = () => {
@@ -39,10 +40,10 @@ export function Options(props) {
     window.scrollTo(0, target);
   };
 
-  const handleXSelectChange = handleSettingChange("SET_X_AXIS", "x", scroll);
-  const handleYSelectChange = handleSettingChange("SET_Y_AXIS", "y", scroll);
+  const handleXSelectChange = handleSettingChange(ACTION.SET_X_AXIS, "x", scroll);
+  const handleYSelectChange = handleSettingChange(ACTION.SET_Y_AXIS, "y", scroll);
   const handleResetClick = () => {
-    dispatch({ type: "RESET" });
+    dispatch({ type: ACTION.RESET });
     scroll();
   };
 

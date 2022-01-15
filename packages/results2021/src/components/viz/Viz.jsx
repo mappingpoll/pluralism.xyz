@@ -1,13 +1,13 @@
 import { h, Fragment } from "preact";
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useRef, useState } from "preact/hooks";
 
-import { useLocale } from "../../hooks/useLocale";
+import { questions} from "../../lib/questions";
 import { zipPoints } from "../../lib/data-manipulation";
 import "./Viz.css";
 import { Mess } from "./Mess";
+import { ACTION } from "../../lib/asyncReducer";
 
 export function Viz({ db, pair, reducer }) {
-  const { i18n } = useLocale();
   const { state, dispatch } = reducer;
 
   const [data, setData] = useState(null);
@@ -40,16 +40,16 @@ export function Viz({ db, pair, reducer }) {
       </div>
 
       <div class="right">
-        <div class="label">{i18n(`questions.${x}.max`)}</div>
+        <div class="label">{questions[x].max}</div>
       </div>
       <div class="left">
-        <div class="label">{i18n(`questions.${x}.min`)}</div>
+        <div class="label">{questions[x].min}</div>
       </div>
       <div class="top">
-        <div class="label">{i18n(`questions.${y}.max`)}</div>
+        <div class="label">{questions[y].max}</div>
       </div>
       <div class="bottom">
-        <div class="label">{i18n(`questions.${y}.min`)}</div>
+        <div class="label">{questions[y].min}</div>
       </div>
     </div>
   );

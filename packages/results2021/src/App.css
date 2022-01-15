@@ -47,8 +47,6 @@ footer > section td {
   border: 1px solid black;
   padding: 0.4rem 1rem;
 }
- footer > section tr {
-}
 
 /* .intro h1,
 footer h1 {
@@ -117,6 +115,7 @@ footer > section,
 .maps {
   border-bottom: var(--wavy-border-top-bottom);
   border-image: var(--wavy-border-image);
+  user-select: none;
 }
 
 .maps {

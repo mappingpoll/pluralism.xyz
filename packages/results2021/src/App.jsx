@@ -19,6 +19,7 @@ import { Maps } from "./components/Maps";
 import { Footer } from "./components/Footer";
 
 import "./App.css";
+import { ACTION } from "./lib/asyncReducer";
 
 export function App({ db }) {
   const { i18n } = useLocale();
@@ -126,6 +127,14 @@ export function App({ db }) {
     }
     window.scrollTo(0, 0);
   }
+
+  useEffect(() => {
+    if (mapsRef.current != null) {
+      mapsRef.current.onclick = ev => {
+        if (ev.target.tagName !== "rect") dispatch({ type: ACTION.SELECT_NONE })
+      }
+    }
+  }, [mapsRef, dispatch])
 
   return (
     <div>

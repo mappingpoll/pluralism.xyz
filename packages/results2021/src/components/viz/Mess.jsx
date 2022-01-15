@@ -2,9 +2,8 @@ import { h, Fragment } from "preact";
 
 import { useD3 } from "../../hooks/useD3";
 import { DEFAULT_DOT_SIZE, VIEWBOX } from "../../lib/constants";
+import { ACTION } from "../../lib/asyncReducer"
 import { xScale, yScale } from "../../lib/scales";
-// import { brushFn, makeBrushTool } from "../../lib/viztools";
-// import { useMobileContext } from "../../hooks/useMobileContext";
 import { appendAxes } from "./Axes";
 
 export function Mess({
@@ -13,18 +12,7 @@ export function Mess({
   brushMap,
   state,
   dispatch,
-  // dispatch,
 }) {
-  // const isMobile = useMobileContext();
-  // const hasBrushing = Object.keys(brushMap).length > 0;
-  //
-  // function getClasses(d) {
-  //   let classes = "dot";
-  //   if (hasBrushing) {
-  //     classes += brushMap[d.id] ? " brushed" : " notbrushed";
-  //   }
-  //   return classes;
-  // }
 
   const DEFAULT_COLOR = "#1a1a1a";
   const HIGHLIGHT_COLOR = "palevioletred";
@@ -44,20 +32,21 @@ export function Mess({
   const area = (d) => len(d.x?.value ?? [0, 0]) * len(d.y?.value ?? [0, 0]);
 
   const getOpacity = (d) => {
-    if (d.user === state.user) return 1;
+    if (state.user.includes(d.user)) return 1;
     const r = d.area / MAX_AREA;
     return MIN_OPACITY + OPACITY_RANGE - OPACITY_RANGE * r;
   };
 
   const getFill = (d) =>
-    d.user === state.user ? HIGHLIGHT_COLOR : DEFAULT_COLOR;
+    state.user.includes(d.user) ? HIGHLIGHT_COLOR : DEFAULT_COLOR;
 
   const sortFn = (a, b) => b.area - a.area;
 
   function handleClick(ev) {
     const el = ev.target;
     const user = el.getAttribute("data-user");
-    dispatch({ type: "SELECT", payload: user });
+    const action = ev.shiftKey ? ACTION.SELECT_ADD : ACTION.SELECT_ONE;
+    dispatch({ type: action, payload: user });
   }
 
   const describesRectangle = (d) => d.x?.value[1] && d.y?.value[1];
@@ -162,10 +151,6 @@ export function Mess({
 
       // draw axes, columns
       appendAxes(svg);
-
-      // add brushing on desktop
-      // if (!isMobile)
-      //   svg.append("g").call(makeBrushTool(brushFn(data, pair, dispatch)));
     },
     [data, brushMap, options.size]
   );

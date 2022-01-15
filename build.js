@@ -3,6 +3,19 @@ const { pnpPlugin } = require("@yarnpkg/esbuild-plugin-pnp");
 const { copyFile, readdir, cp, mkdir, rm } = require("fs/promises");
 const path = require("path");
 
+const absImages = {
+    name: "absImages",
+    setup(build) {
+      build.onResolve({ filter: /^(?:url\()?\/images\// }, args => {
+        // let absPath = require('path').resolve(args.resolveDir, args.path)
+        return {
+          path: args.path,
+          external: true,
+        }
+      })
+    }
+  }
+
 const isDev = process.env.NODE_ENV === "development";
 
 const clean = async () => {
@@ -15,7 +28,7 @@ const images = async () => {
 };
 
 const commonBuildConfig = {
-  plugins: [pnpPlugin()],
+  plugins: [absImages, pnpPlugin()],
   bundle: true,
   format: "esm",
   sourcemap: isDev,
@@ -23,6 +36,7 @@ const commonBuildConfig = {
   jsxFactory: "h",
   jsxFragment: "Fragment",
   logLevel: "debug",
+  loader: {'.png': 'file'},
   watch: isDev,
 };
 
