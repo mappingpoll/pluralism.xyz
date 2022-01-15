@@ -1,23 +1,21 @@
 import { h } from "preact";
 
-import "./CollapsibleSection";
-
 export function CollapsibleSection({ children, title, cb, isOpen }) {
   return (
-    <section style={!isOpen && "padding-bottom: 0"}>
+    <section>
       <div
-        style="display: flex; justify-content: space-between; align-items: center"
+        class="collapse-title"
         onclick={cb}
       >
         <h1>{title}</h1>
-        <h1>
+        <h1 class="show-hide">
           <strong>{!isOpen ? "+" : "−"}</strong>
         </h1>
       </div>
       {isOpen && children}
       {isOpen && (
-        <h1 style="text-align: right; cursor: pointer;" onclick={cb}>
-          <strong>−</strong>
+        <h1 class="show-hide" onclick={cb}>
+          −
         </h1>
       )}
     </section>

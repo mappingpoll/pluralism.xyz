@@ -4,7 +4,7 @@ import assign from "lodash.assign";
 
 import { initialState } from "./state";
 
-export const ACTION= {
+export const ACTION = {
   RESET: "reset",
   SET_Y_AXIS: "set_y_axis",
   SET_X_AXIS: "set_x_axis",
@@ -12,7 +12,7 @@ export const ACTION= {
   SELECT_ADD: "select_add",
   SELECT_NONE: "select_none",
   TOGGLE_CUSTOM: "toggle_custom",
-}
+};
 
 export async function reducer(state, action) {
   switch (action.type) {
@@ -39,7 +39,7 @@ export async function reducer(state, action) {
       return assign({ ...state, user: [...state.user, user] });
     }
     case ACTION.SELECT_NONE: {
-      return assign({...state}, {user: []});
+      return assign({ ...state }, { user: [] });
     }
     default:
       throw new ReferenceError(`unknown action: '${action.type}' received`);

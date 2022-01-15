@@ -1,3 +1,5 @@
+@import 'reset.css';
+
 :root {
   font-size: 12pt;
   --content-width: 45rem;
@@ -8,6 +10,7 @@ body {
 }
 
 header {
+  margin-top: 3rem;
   margin-bottom: 8rem;
 }
 
@@ -22,6 +25,7 @@ a:hover {
 
 h2 {
   text-transform: uppercase;
+  margin-bottom: 1rem;
 }
 
 ul {

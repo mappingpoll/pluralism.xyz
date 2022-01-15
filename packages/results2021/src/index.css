@@ -1,13 +1,15 @@
+@import "./reset.css";
 @import "./rangeslider.css";
 
 :root {
-  font-size: 1.2em;
+  font-size: 12pt;
   --background-color: white;
   --secondary-color: #eee;
   --text-color: black;
 
   --content-width: 45rem;
-  --content-padding: calc((100vw - var(var(--content-width))) / 2);
+  --content-padding: calc((100vw - var(--content-width)) / 2);
+  --content-lr-padding: calc((100% - var(--content-width)) / 2);
 
   --slider-width: 18rem;
   --slider-contrast: 25%;
@@ -49,30 +51,11 @@
 
 html,
 body {
-  height: 100%;
-  width: 100%;
   padding: 0;
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   background-color: var(--background-color);
   font-family: Arial, Helvetica, sans-serif;
-
-  /* scroll-behavior: smooth; */
 }
 
-* {
-  box-sizing: border-box;
-  font-family: inherit;
+p {
+  margin-bottom: 1em;
 }
-
-select,
-button {
-  font-size: 1rem;
-}
-
-a {
-  color: white;
-  background-color: black;
-}
-

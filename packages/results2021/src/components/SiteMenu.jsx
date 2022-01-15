@@ -1,29 +1,19 @@
 import { h } from "preact";
 
-import "./SiteMenu.css";
-
-export function SiteMenu(props) {
+export function SiteMenu() {
   return (
-    <div class="site-menu" style={props.style}>
+    <div class="site-menu">
       <h1>
-        <span style={{ "font-family": '"Times New Roman", Times, serif' }}>
-          Nicolas Grenier{" "}
-        </span>
+        <a href="https://nicolasgrenier.com" style="font-family: 'Times New Roman', Times, serif">
+          Nicolas Grenier
+        </a>
         <span style="font-weight: normal">
           {" // "}
-          <a href="https://pluralism.xyz/" style="font-size: 0.9em">
+          <a href="https://pluralism.xyz/" style="font-size: 0.95em">
             pluralism.xyz
           </a>
         </span>
       </h1>
-      {/*<h3>
-        <a href="https://nicolasgrenier.com/Exhibitions-Projects">
-          Exhibitions &amp; Projects /
-        </a>
-        <a href="https://nicolasgrenier.com/Paintings">/ Paintings /</a>
-        <a href="https://nicolasgrenier.com/Research">/ Research /</a>
-        <a href="https://nicolasgrenier.com/About">/ About&nbsp;</a>
-      </h3>*/}
     </div>
   );
 }

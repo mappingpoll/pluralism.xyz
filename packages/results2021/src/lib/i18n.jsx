@@ -2,7 +2,6 @@ import { h, Fragment, createContext } from "preact";
 import { useState } from "preact/hooks";
 
 import en from "../i18n/en.json";
-import fr from "../i18n/fr.json";
 
 export function findTranslation(locale, path) {
   let keys = path.split(".");

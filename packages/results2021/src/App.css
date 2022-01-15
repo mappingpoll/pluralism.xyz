@@ -1,41 +1,23 @@
-.en-fr {
-  display: inline-block;
-  background: black;
-  color: white;
-  font-family: "Times New Roman", Times, serif;
-  font-size: 1.4rem;
-  margin: 1.75rem 0;
-}
-
-.en-fr > span {
-  cursor: pointer;
-  line-height: 1.2;
-}
-
-.en-fr > span:hover {
-  text-decoration: underline;
-}
-
-.intro > h1,p {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.intro {
+header {
   position: relative;
-  background: black;
-  padding: 3rem calc((100% - var(--content-width)) / 2);
-  z-index: 600;
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+header a {
   color: white;
 }
 
-footer > section {
-  font-family: Arial, Helvetica, sans-serif;
-  padding: 0.25rem calc((100% - var(--content-width)) / 2);
-  padding-bottom: 2rem;
+header, footer {
+  padding: 3rem calc((100% - var(--content-width)) / 2);
+  background-color: black;
+  color: white;
 }
 
-footer > section h1 {
+section {
+  padding: 1rem calc((100% - var(--content-width)) / 2);
+  user-select: none;
+}
+
+section h1 {
   font-size: 1.8rem;
   font-weight: bold;
   text-transform: uppercase;
@@ -43,31 +25,9 @@ footer > section h1 {
   cursor: pointer;
 }
 
-footer > section td {
+section td {
   border: 1px solid black;
   padding: 0.4rem 1rem;
-}
-
-/* .intro h1,
-footer h1 {
-  font-size: 2.4rem;
-  line-height: 1.2;
-  font-weight: 400;
-  margin: 1em 0;
-} */
-h1 {
-  font-size: 1.7rem;
-  line-height: 1.2;
-  font-weight: 400;
-}
-
-h2 {
-  font-size: 1.5rem;
-  font-weight: 400;
-}
-h3 {
-  font-size: 1.3;
-  font-weight: 400;
 }
 
 aside h3 {
@@ -75,68 +35,31 @@ aside h3 {
   font-weight: 400;
 }
 
-.intro p,
-footer p,
-footer li {
-  font-size: 1rem;
-}
-
-/* .plus-divider {
-  font-weight: bold;
-}
-.plus-divider:after {
-  white-space: pre;
-  content: " +         +         +         +         +         +         +         +         +         +         +         +         +         +         +         +         +";
-} */
-
-aside {
-  overflow: hidden;
-  max-width: var(--content-width);
-  margin: 0 auto;
-  color: #4b41ff;
-}
-aside::before,
-aside::after {
-  font-size: 1.2rem;
-  color: #4b41ff;
-  font-weight: bold;
-  text-align: center;
-  text-overflow: "";
-  overflow: hidden;
-  white-space: pre;
-  content: "+       +       +       +       +       +       +       +       +       +       +       +       +       +       +";
-}
-
-.empty-after::after {
-  content: "";
-}
-
-footer > section,
+section,
 .maps {
-  border-bottom: var(--wavy-border-top-bottom);
   border-image: var(--wavy-border-image);
-  user-select: none;
+  border-bottom: var(--wavy-border-top-bottom);
 }
 
 .maps {
+  padding-top: 8rem;
   padding-bottom: 12rem;
 }
 
 .map {
-  margin: 5rem 0;
-  padding: 0 1rem;
+  padding: 5rem 1rem;
 }
 
 .map:last-of-type {
   margin-bottom: 0;
 }
 
-.mapsection {
-  font-size: 2.5rem;
-  line-height: 1.5;
+.map-section-title {
+  font-size: 3.5rem;
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;
+  margin: 12rem 0;
 }
 
 .maptitle,
@@ -144,26 +67,30 @@ footer > section,
   max-width: var(--content-width);
   margin: 0 auto;
 }
+
 .maptitle {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   font-size: 1.5rem;
   font-weight: bold;
   text-transform: uppercase;
-  margin-top: 1.5rem;
   margin-bottom: 2rem;
 }
+
 .maptitle div:nth-child(1) {
   white-space: nowrap;
   text-align: left;
+  margin-right: 2rem;
 }
+
 .maptitle div:nth-child(2) {
   text-align: right;
+  flex-grow: 1;
 }
 
 .mapviz {
-  max-width: 55rem;
-  margin: 6rem auto;
+  margin: 0 auto;
 }
 
 .maptext {
@@ -171,6 +98,7 @@ footer > section,
   color: #bababa;
   max-width: var(--content-width);
   margin: 0 auto;
+  margin-top: 1rem;
 }
 .maptext p {
   margin-bottom: 0.1rem;
@@ -180,24 +108,18 @@ footer > section,
 }
 .maptext td {
   text-align: left;
+  vertical-align: top;
+}
+
+.maptext td:nth-child(1) {
   padding-right: 2rem;
 }
 
-footer {
-  font-family: "Times New Roman", Times, serif;
-  color: black;
-}
-table {
-  font-size: 1.1rem;
+.accordion table {
   border-collapse: collapse;
-  margin: 0 auto;
 }
-table,
-td {
+.accordion td {
   text-align: center;
-  border: 1px solid white;
-}
-td {
   padding: 0.1rem 0;
 }
 
@@ -207,17 +129,14 @@ td {
 }
 
 .acknowledgements > img {
-  display: block;
   max-height: 20em;
-  max-width: 100%;
   margin: 2rem 0;
 }
+
 .acknowledgements > h1 {
   -webkit-hyphens: auto;
   -ms-hyphens: auto;
   hyphens: auto;
-  overflow-wrap: break-word;
-  /* word-break: break-all; */
 }
 
 .back-to-top {
@@ -236,51 +155,113 @@ td {
   user-select: none;
 }
 
-/* Smartphones (portrait) ----------- */
-@media only screen and (max-device-width: 414px) {
-  .intro {
-    padding: 0.25rem 0.5rem;
-  }
+.collapse-title {
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  section {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+.show-hide {
+  text-align: right;
+  user-select: none;
+}
+
+.options {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  background-color: var(--background-color);
+  border-top: var(--wavy-border-top-bottom);
+  border-bottom: var(--wavy-border-top-bottom);
+  border-image: var(--wavy-border-image);
+  z-index: 500;
+
+  padding: 0.5rem var(--content-lr-padding);
+  transition: opacity 200ms ease;
+}
+
+.labeled-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.labeled-input > label {
+  flex-basis: 15ch;
+  white-space: nowrap;
+  margin-right: 1em;
+}
+
+.labeled-input > input {
+  flex-grow: 1;
+}
+
+.labeled-input > select {
+  flex-grow: 1;
+  max-width: 75%;
+}
+
+.labeled-checkbox {
+  text-indent: -1.4rem;
+  padding-left: 1.4rem;
+}
+
+input[type="checkbox"] {
+  margin-right: 0.4rem;
+}
+
+.reset-btn {
+  text-align: right;
+}
+.site-menu a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-menu a:hover {
+  text-decoration: underline;
+}
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-device-width: 430px) {
+  header {
+    padding: 0.25rem 0.5rem;
   }
 
   h1 {
     font-size: 1.5rem;
     line-height: 1.2;
-    font-weight: 400;
-    margin: 1em 0;
   }
 
   h2 {
     font-size: 1.4rem;
-    font-weight: 400;
-  }
-  h3 {
-    font-size: 1.2rem;
-    font-weight: 400;
   }
 
-  .intro p,
-  footer p,
-  footer li {
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  header p,
+  .accordion p,
+  .accordion li {
     font-size: 1rem;
   }
 
   .map {
-    margin-bottom: 1rem;
     user-select: none;
-    padding: 0 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
 
-  .maptitle {
-    display: block;
-  }
-
-  .maptitle div:nth-child(2) {
-    text-align: left;
+  .map-section-title {
+    font-size: 2.2rem;
+    margin: 5rem 0;
   }
 
   .mapdescription {
@@ -289,11 +270,10 @@ td {
 
   .mapviz {
     max-width: 100%;
-    margin: 7rem auto;
+    margin: 0 auto;
   }
 
-  footer > section {
-    /* width: 100vw; */
+  section {
     overflow: hidden;
     padding-left: 0.5rem;
     padding-right: 0.5rem;

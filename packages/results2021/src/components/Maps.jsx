@@ -1,13 +1,13 @@
 import { h, Fragment } from "preact";
 import { useMemo } from "preact/hooks";
 
-import { useLocale } from "../hooks/useLocale";
 import { questions } from "../lib/questions";
+import { makeVizTextContent } from "../lib/viztools";
 import { Viz } from "./viz/Viz";
 import { SurveyResults } from "./SurveyResults";
+import { SurveyPair } from "./SurveyPair";
 
 export function Maps({ db, reducer }) {
-  const { i18n } = useLocale();
   const { state } = reducer;
 
   const graphs = useMemo(() => {
@@ -17,27 +17,23 @@ export function Maps({ db, reducer }) {
       return <SurveyResults db={db} reducer={reducer} />;
       // A single custom axis
     } else if ((x && !y) || (!x && y)) {
-      return Object.keys(questions).map((n, i) => (
-        <div key={i} class="map">
-          <div class="maptitle">{i18n("graph.customgraph")}</div>
-          <div class="mapviz">
-            <Viz db={db} pair={[x || n, y || n]} reducer={reducer} />
-          </div>
-        </div>
-      ));
+      return Object.keys(questions).map((n, i) => {
+        const pair = [x || n, y || n];
+        return <SurveyPair
+          key={i}
+          viz={<Viz db={db} pair={pair} reducer={reducer} />}
+          content={makeVizTextContent(pair)} />;
+      }
+      )
       // two custom axes
     } else if (x && y) {
+      const pair = [x, y];
       return (
-        <div class="map">
-          <div class="maptitle">{i18n("graph.customgraph")}</div>
-          <div class="mapviz">
-            <Viz db={db} pair={[x, y]} reducer={reducer} />
-          </div>
-        </div>
+        <SurveyPair viz={<Viz db={db} pair={pair} reducer={reducer} />} content={makeVizTextContent(pair)} />
       );
     }
     throw new Error("uh oh");
-  }, [db, i18n, state, reducer]);
+  }, [db, state, reducer]);
 
   return <>{graphs}</>;
 }

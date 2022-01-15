@@ -2,6 +2,27 @@ import * as d3 from "d3";
 import { CUSTOM_COLORS, DOMAIN, NA_SYMBOL, VIEWBOX } from "./constants";
 import { rangeSize, symFloor } from "./misc";
 import { xScale, yScale } from "./scales";
+import { questions } from "./questions";
+
+const getTitle = q => questions[q].title;
+const getQuestion = q => questions[q].question;
+
+const getTableContent = q => {
+  const max = questions[q].max;
+  const midMax = questions[q]?.midmax ?? false;
+  const zero = questions[q]?.zero ?? false;
+  const midMin = questions[q]?.midmin ?? false;
+  const min = questions[q].min;
+  return {
+    max: { value: zero ? "+10" : "+", name: max },
+    midMax: midMax ? { value: "+5", name: midMax } : false,
+    zero: zero ? { value: "0", name: zero } : false,
+    midMin: midMin ? { value: "-5", name: midMin } : false,
+    min: { value: zero ? "-10" : "-", name: min },
+  }
+}
+
+export const makeVizTextContent = pair => pair.reduce((obj, v, i) => ({ ...obj, [i === 0 ? "x" : "y"]: { title: getTitle(v), question: getQuestion(v), table: getTableContent(v) } }), {})
 
 export function isValidDatum(datum, columns) {
   if (columns instanceof Array !== true) columns = [columns];

@@ -8,25 +8,21 @@ import {
 } from "preact/hooks";
 import cloneDeep from "lodash.clonedeep";
 
-import { useLocale } from "./hooks/useLocale";
 import { useAsyncReducer } from "./hooks/useAsyncReducer";
 import { initialState } from "./lib/state";
 
 import { Intro } from "./components/Intro";
 import { Options } from "./components/Options";
-import { Notification } from "./components/Notification";
 import { Maps } from "./components/Maps";
-import { Footer } from "./components/Footer";
+import { Accordion } from "./components/Accordion";
 
 import "./App.css";
 import { ACTION } from "./lib/asyncReducer";
+import { SiteMenu } from "./components/SiteMenu";
 
 export function App({ db }) {
-  const { i18n } = useLocale();
 
   const [state, dispatch] = useAsyncReducer(cloneDeep(initialState));
-
-  const [notification, setNotification] = useState({});
 
   const introRef = useRef();
   const footerRef = useRef();
@@ -60,29 +56,6 @@ export function App({ db }) {
     () => (state.brushMap != null ? Object.keys(state.brushMap).length : 0),
     [state.brushMap]
   );
-
-  useEffect(() => {
-    if (latestCount !== 0) {
-      setNotification({ visible: false });
-      setTimeout(
-        () =>
-          setNotification({
-            visible: shouldShowKnobs,
-            message: `${latestCount}&nbsp;${i18n("selected")}`,
-          }),
-        1
-      );
-    } else {
-      setNotification({});
-    }
-  }, [i18n, state.brushMap, setNotification, shouldShowKnobs, latestCount]);
-
-  // useEffect(() => {
-  //   if (shouldShowCustomViz) {
-  //     const introY = getIntroY();
-  //     if (introY) window.scrollBy(0, introY);
-  //   }
-  // }, [shouldShowCustomViz, getIntroY]);
 
   useEffect(() => {
     document.onscroll = () => {
@@ -149,14 +122,14 @@ export function App({ db }) {
       >
         Go up{" "}
         <img
-          style="max-height: 1em; padding-top: 0.2em"
+          style="display: inline-block; max-height: 1em; padding-top: 0.2em"
           src={"/images/up-arrow.svg"}
         />
       </div>
 
-      <div ref={introRef} class="intro">
+      <header ref={introRef} class="intro">
         <Intro onclick={handleToBottomClick} />
-      </div>
+      </header>
 
       <Options
         reducer={{ state, dispatch }}
@@ -164,8 +137,6 @@ export function App({ db }) {
         visible={shouldShowKnobs}
         getIntroBottom={getIntroBottom}
       />
-
-      <Notification {...notification} />
 
       {!isLoading ? (
         <div ref={mapsRef} class="maps">
@@ -175,12 +146,15 @@ export function App({ db }) {
         <div style={"height: 200vh"} />
       )}
 
-      <footer ref={footerRef}>
-        <Footer
+      <div ref={footerRef} class="accordion">
+        <Accordion
           db={db}
           reducer={{ state, dispatch }}
           collapseFn={setCollapseFooter}
         />
+      </div>
+      <footer>
+        <SiteMenu />
       </footer>
     </div>
   );

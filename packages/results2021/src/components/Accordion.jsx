@@ -9,7 +9,7 @@ const SECTION = {
   COMMENTS: 1,
 };
 
-export function Footer({ collapseFn, db, reducer }) {
+export function Accordion({ collapseFn, db, reducer }) {
   const { state, dispatch } = reducer;
 
   const [openSection, setOpenSection] = useState(0);
@@ -66,7 +66,7 @@ export function Footer({ collapseFn, db, reducer }) {
       </CollapsibleSection>
 
       <section className="acknowledgements">
-        <h1 lang="en">Acknowledge&shy;ments</h1>
+        <h1 style="margin-top: 1rem" lang="en">Acknowledge&shy;ments</h1>
         <p>
           The questionnaire was conceived by Nicolas&nbsp;Grenier, with help
           from Melania&nbsp;Yue, Luke&nbsp;Harnden, Antoinen&nbsp;Midant,
@@ -84,9 +84,9 @@ export function Footer({ collapseFn, db, reducer }) {
           </a>
           .
         </p>
-        <h1 style="margin-top: 3rem;">
+        <h3 style="margin-top: 3rem;">
           The project was made possible thanks to the support of:
-        </h1>
+        </h3>
         <img
           src={"/images/logo-conseil-des-arts-du-canada.png"}
           alt="logo of the canada council for the arts"
@@ -95,9 +95,6 @@ export function Footer({ collapseFn, db, reducer }) {
           src={"/images/Calq_noir.png"}
           alt="logo of the conseil des arts et lettres du quebec"
         />
-      </section>
-      <section style="border: none; background: black; padding-top: 3rem; padding-bottom: 1rem;">
-        <SiteMenu />
       </section>
     </>
   );
