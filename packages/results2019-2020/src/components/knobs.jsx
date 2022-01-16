@@ -4,7 +4,7 @@ import { Text } from "preact-i18n";
 import { DATASETS, GRAPH_TYPE } from "../constants";
 import { hasXAxis } from "../lib/misc";
 import { useState } from "preact/hooks";
-import "./knobs.css"
+import "./knobs.css";
 
 export default function Knobs(props) {
   const { state, dispatch } = props.reducer;
@@ -36,23 +36,18 @@ export default function Knobs(props) {
   const shouldDisableDotSize = !isScatterplot;
   const shouldDisableDotOpacity = shouldDisableDotSize;
   const shouldDisableXAxisSelect = !state.customViz;
-  const shouldDisableYAxisSelect =
-    !state.customViz || !hasXAxis(state.userAxes);
+  const shouldDisableYAxisSelect = !state.customViz || !hasXAxis(state.userAxes);
 
   // EVENT HANDLERS
-  const handleSettingChange = (type, prop, callback = null) => event => {
-    dispatch({ type, payload: { [prop]: event.target.value } });
-    if (callback != null && typeof callback === "function") callback();
-  };
-  const handleGraphTypeChange = handleSettingChange(
-    "CHANGE_GRAPH_TYPE",
-    "graph"
-  );
+  const handleSettingChange =
+    (type, prop, callback = null) =>
+    event => {
+      dispatch({ type, payload: { [prop]: event.target.value } });
+      if (callback != null && typeof callback === "function") callback();
+    };
+  const handleGraphTypeChange = handleSettingChange("CHANGE_GRAPH_TYPE", "graph");
   const handleDotSizeChange = handleSettingChange("CHANGE_DOT_SIZE", "size");
-  const handleDotOpacityChange = handleSettingChange(
-    "CHANGE_DOT_OPACITY",
-    "opacity"
-  );
+  const handleDotOpacityChange = handleSettingChange("CHANGE_DOT_OPACITY", "opacity");
   const handleWantsCustomGraphClick = handleSettingChange("TOGGLE_CUSTOM");
   const handleXSelectChange = handleSettingChange("SET_X_AXIS", "x");
   const handleYSelectChange = handleSettingChange("SET_Y_AXIS", "y");
@@ -60,10 +55,8 @@ export default function Knobs(props) {
     const clicked = event.target.value;
     let other,
       dataset = { ...state.options.dataset };
-    if (DATASETS.form.includes(clicked))
-      other = clicked === "aga" ? "ba" : "aga";
-    else if (DATASETS.language.includes(clicked))
-      other = clicked === "en" ? "fr" : "en";
+    if (DATASETS.form.includes(clicked)) other = clicked === "aga" ? "ba" : "aga";
+    else if (DATASETS.language.includes(clicked)) other = clicked === "en" ? "fr" : "en";
     dataset[clicked] = !dataset[clicked];
     if (!dataset[clicked] && !dataset[other]) {
       dataset[other] = true;
@@ -75,21 +68,14 @@ export default function Knobs(props) {
   const axesOptions =
     state.questions != null &&
     state.questions.map((option, idx) => (
-      <option value={`${idx}`}>
+      <option key={idx} value={`${idx}`}>
         <Text id={`results.knobs.questions.${idx}`}>{option}</Text>
       </option>
     ));
   return (
-    <div
-      class="knobs"
-      style={props.visible ? "" : "opacity: 0;pointer-events: none;"}
-    >
+    <div class="knobs" style={props.visible ? "" : "opacity: 0;pointer-events: none;"}>
       <div style="display: flex; justify-content: space-between; align-items: center">
-        <h1
-          class="title"
-          style="cursor: pointer"
-          onClick={handleShowHideClick}
-        >
+        <h1 class="title" style="cursor: pointer" onClick={handleShowHideClick}>
           Options
         </h1>
         <div class="show-hide" onClick={handleShowHideClick}>
@@ -105,11 +91,7 @@ export default function Knobs(props) {
               <label for="graphselect">
                 <Text id="results.knobs.graphtype">Graph type</Text>
               </label>
-              <select
-                id="graphselect"
-                name="graphselect"
-                onchange={handleGraphTypeChange}
-              >
+              <select id="graphselect" name="graphselect" onchange={handleGraphTypeChange}>
                 <option selected={isScatterplot} value={GRAPH_TYPE.scatterplot}>
                   <Text id="results.knobs.scatterplot">scatterplot</Text>
                 </option>
@@ -125,20 +107,14 @@ export default function Knobs(props) {
                 <option selected={isContour} value={GRAPH_TYPE.contour}>
                   <Text id="results.knobs.contour">contour</Text>
                 </option>
-                <option
-                  selected={isColorContour}
-                  value={GRAPH_TYPE.colorContour}
-                >
+                <option selected={isColorContour} value={GRAPH_TYPE.colorContour}>
                   <Text id="results.knobs.colorContour">topography</Text>
                 </option>
               </select>
             </div>
           </div>
           <div class="subknob">
-            <div
-              class="labeled-input"
-              style={hasDots ? "" : "display: none"}
-            >
+            <div class="labeled-input" style={hasDots ? "" : "display: none"}>
               <label for="dotsize">
                 <Text id="results.knobs.dotsize">Dot size</Text>
               </label>
@@ -154,10 +130,7 @@ export default function Knobs(props) {
                 disabled={shouldDisableDotSize}
               />
             </div>
-            <div
-              class="labeled-input"
-              style={hasDots ? "" : "display: none"}
-            >
+            <div class="labeled-input" style={hasDots ? "" : "display: none"}>
               <label for="dotopacity">
                 <Text id="results.knobs.dotopacity">Dot opacity</Text>
               </label>
@@ -182,16 +155,10 @@ export default function Knobs(props) {
               onclick={() => setWantsChooseRespondents(!wantsChooseRespondents)}
             />
             <label for="dataselectors-checkbox">
-              <Text id="results.knobs.chooseRespondents">
-                Show respondents from...
-              </Text>
+              <Text id="results.knobs.chooseRespondents">Show respondents from...</Text>
             </label>
           </div>
-          <div
-            id="dataselectors"
-            class="subknob"
-            style={wantsChooseRespondents ? "" : "display: none"}
-          >
+          <div id="dataselectors" class="subknob" style={wantsChooseRespondents ? "" : "display: none"}>
             <div class="labeled-checkbox">
               <input
                 type="checkbox"
@@ -203,8 +170,7 @@ export default function Knobs(props) {
               />
               <label for="aga">
                 <Text id="results.knobs.aga">
-                  Sobey Art Award Exhibition, Art Gallery of Alberta, Edmonton,
-                  October 5, 2019 - January 5, 2020
+                  Sobey Art Award Exhibition, Art Gallery of Alberta, Edmonton, October 5, 2019 - January 5, 2020
                 </Text>
               </label>
             </div>
@@ -219,8 +185,7 @@ export default function Knobs(props) {
               />
               <label for="ba">
                 <Text id="results.knobs.ba">
-                  Exhibition "Positions", Galerie Bradley Ertaskiran, Montreal,
-                  January 24 - March 7, 2020
+                  Exhibition "Positions", Galerie Bradley Ertaskiran, Montreal, January 24 - March 7, 2020
                 </Text>
               </label>
             </div>
@@ -260,25 +225,15 @@ export default function Knobs(props) {
               onclick={handleWantsCustomGraphClick}
             />
             <label for="customgraphcheckbox">
-              <Text id="results.knobs.custom">
-                Combine questions into a custom diagram...
-              </Text>
+              <Text id="results.knobs.custom">Combine questions into a custom diagram...</Text>
             </label>
           </div>
-          <div
-            id="axesselectors"
-            class="subknob"
-            style={state.customViz ? "" : "display: none"}
-          >
+          <div id="axesselectors" class="subknob" style={state.customViz ? "" : "display: none"}>
             <div class="labeled-input">
               <label for="xselect">
                 <Text id="results.knobs.horizontal">Horizontal axis</Text>
               </label>
-              <select
-                id="xselect"
-                onchange={handleXSelectChange}
-                disabled={shouldDisableXAxisSelect}
-              >
+              <select id="xselect" onchange={handleXSelectChange} disabled={shouldDisableXAxisSelect}>
                 <option value="">
                   <Text id="results.knobs.option">choose an option</Text>
                 </option>
@@ -289,11 +244,7 @@ export default function Knobs(props) {
               <label for="yselect">
                 <Text id="results.knobs.vertical">Vertical axis</Text>
               </label>
-              <select
-                id="yselect"
-                onchange={handleYSelectChange}
-                disabled={shouldDisableYAxisSelect}
-              >
+              <select id="yselect" onchange={handleYSelectChange} disabled={shouldDisableYAxisSelect}>
                 <option value="">
                   <Text id="results.knobs.option">choose an option</Text>
                 </option>
@@ -302,8 +253,7 @@ export default function Knobs(props) {
             </div>
           </div>
           <div class="knob">
-            Total = {totalRespondents}{" "}
-            <Text id="results.knobs.respondents">respondents</Text>
+            Total = {totalRespondents} <Text id="results.knobs.respondents">respondents</Text>
             {props.selected > 0 && (
               <span>
                 &nbsp;({props.selected}&nbsp;

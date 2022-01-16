@@ -4,9 +4,7 @@ import jitter from "../fetch/jitter";
 import { isValidDatum } from "./viztools";
 
 export function cleanQuestions(data) {
-  return Object.keys(data[0]).filter(
-    q => q != "poll" && q != "Language" && q != "id"
-  );
+  return Object.keys(data[0]).filter(q => q != "poll" && q != "Language" && q != "id");
 }
 
 export function getPairwiseColumns(questions) {
@@ -29,18 +27,14 @@ export function filterDataByDataset(data, dataset) {
   return data.filter(d => {
     for (let condition in dataset) {
       if (d.Language === condition && !dataset[condition]) return false;
-      if (d.poll.toLowerCase() === condition && !dataset[condition])
-        return false;
+      if (d.poll.toLowerCase() === condition && !dataset[condition]) return false;
     }
     return true;
   });
 }
 
 export function filterDataByRange(data, column, range) {
-  return data.filter(
-    d =>
-      isValidDatum(d, column) && range[0] <= d[column] && d[column] <= range[1]
-  );
+  return data.filter(d => isValidDatum(d, column) && range[0] <= d[column] && d[column] <= range[1]);
 }
 
 export function inRange(n, range) {
@@ -49,10 +43,7 @@ export function inRange(n, range) {
 }
 
 export function inStandardColumnSet(columnSet, columns) {
-  return (
-    columnSet.find(pair => pair[0] === columns[0] && pair[1] === columns[1]) !=
-    null
-  );
+  return columnSet.find(pair => pair[0] === columns[0] && pair[1] === columns[1]) != null;
 }
 
 export function applyJitter(data) {
@@ -66,8 +57,7 @@ export function applyJitter(data) {
 }
 
 function sumRegionCounts(region) {
-  const sumProps = obj =>
-    Object.keys(obj).reduce((sum, key) => sum + obj[key], 0);
+  const sumProps = obj => Object.keys(obj).reduce((sum, key) => sum + obj[key], 0);
 
   return (
     region.origin +

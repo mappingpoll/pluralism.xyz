@@ -38,13 +38,7 @@ export const CUSTOM_COLORS = {
     "#1e83ff",
     "#03a2ff",
   ]),
-  nicolas2: interpolateRgbBasis([
-    "#efddff",
-    "#e6abe6",
-    "#d65da4",
-    "#d65da4",
-    "#640700",
-  ]),
+  nicolas2: interpolateRgbBasis(["#efddff", "#e6abe6", "#d65da4", "#d65da4", "#640700"]),
   nicolas3: interpolateRgbBasis(["#eeeeee", "#272727"]),
   nicolas4: interpolateRgbBasis([
     "#e2e2e2",

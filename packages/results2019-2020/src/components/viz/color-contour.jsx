@@ -11,19 +11,12 @@ export default function ColorContour({ data, columns: columns2d, options }) {
       svg.selectAll("*").remove();
 
       // compute the density data
-      const densityData = computeDensity(
-        data,
-        options.contourBandwidth,
-        columns2d
-      );
+      const densityData = computeDensity(data, options.contourBandwidth, columns2d);
 
       // Prepare a color palette
       const color = getColorScale(
         options.color,
-        [
-          Math.min(...densityData.map(d => d.value)),
-          Math.max(...densityData.map(d => d.value)),
-        ],
+        [Math.min(...densityData.map(d => d.value)), Math.max(...densityData.map(d => d.value))],
         options.reverseColor
       );
 
@@ -42,13 +35,7 @@ export default function ColorContour({ data, columns: columns2d, options }) {
       // draw axes, columns
       appendAxes(svg);
     },
-    [
-      data,
-      columns2d,
-      options.color,
-      options.contourBandwidth,
-      options.reverseColor,
-    ]
+    [data, columns2d, options.color, options.contourBandwidth, options.reverseColor]
   );
 
   return (

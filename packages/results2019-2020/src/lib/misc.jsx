@@ -1,4 +1,4 @@
-import {h} from "preact";
+import { h } from "preact";
 import { GRAPH_TYPE } from "../constants";
 import ColorContour from "../components/viz/color-contour";
 import ContourChart from "../components/viz/contour";

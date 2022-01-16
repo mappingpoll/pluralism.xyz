@@ -8,12 +8,7 @@ function getDefinition(lang) {
   return lang === "fr" ? frDefinition : {};
 }
 
-let userLang =
-  typeof navigator !== "undefined"
-    ? navigator.language.slice(0, 2) === "fr"
-      ? "fr"
-      : "en"
-    : "en";
+let userLang = typeof navigator !== "undefined" ? (navigator.language.slice(0, 2) === "fr" ? "fr" : "en") : "en";
 
 export const Language = createContext();
 
@@ -29,9 +24,7 @@ export function LanguageContextProvider({ children }) {
   }
   return (
     <IntlProvider definition={definition}>
-      <Language.Provider value={{ userLang, swapLang }}>
-        {children}
-      </Language.Provider>
+      <Language.Provider value={{ userLang, swapLang }}>{children}</Language.Provider>
     </IntlProvider>
   );
 }
@@ -39,9 +32,7 @@ export function LanguageContextProvider({ children }) {
 export function useLanguageContext() {
   const context = useContext(Language);
   if (context == null) {
-    throw new Error(
-      "useLanguageContext must be used with a LanguageContextProvider"
-    );
+    throw new Error("useLanguageContext must be used with a LanguageContextProvider");
   }
   return context;
 }

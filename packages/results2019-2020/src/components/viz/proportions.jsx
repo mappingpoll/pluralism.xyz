@@ -3,20 +3,15 @@ import { useD3 } from "../../hooks/useD3";
 import { VIEWBOX } from "../../constants";
 import { appendAxes } from "./scatterplot-axes";
 import { appendLabel } from "./labels";
-import {
-  countGraphRegionProportions,
-  inStandardColumnSet,
-} from "../../lib/data-manipulation";
+import { countGraphRegionProportions, inStandardColumnSet } from "../../lib/data-manipulation";
 
 export default function Proportions({ state, columns }) {
   let [x, y] = columns;
 
   let proportions;
 
-  if (inStandardColumnSet(state.standardColumnSet, columns))
-    proportions = state.standardProportions[x];
-  else
-    proportions = countGraphRegionProportions(state.processedRawData, columns);
+  if (inStandardColumnSet(state.standardColumnSet, columns)) proportions = state.standardProportions[x];
+  else proportions = countGraphRegionProportions(state.processedRawData, columns);
 
   const ref = useD3(
     svg => {

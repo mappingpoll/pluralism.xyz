@@ -31,17 +31,10 @@ export async function reducer(state, action) {
       }
 
       const questions = cleanQuestions(jitteryData);
-      const standardRegionCounts = countStandardSetGraphRegions(
-        rawData,
-        questions
-      );
+      const standardRegionCounts = countStandardSetGraphRegions(rawData, questions);
       const standardColumnSet = getPairwiseColumns(questions);
       const standardProportions = standardColumnSet.reduce((obj, pair) => {
-        obj[pair[0]] = countGraphRegionProportions(
-          null,
-          null,
-          standardRegionCounts[pair[0]]
-        );
+        obj[pair[0]] = countGraphRegionProportions(null, null, standardRegionCounts[pair[0]]);
         return obj;
       }, {});
 
@@ -67,21 +60,11 @@ export async function reducer(state, action) {
       options.dataset = action.payload.dataset;
       const filteredData = filterDataByDataset(state.rawData, options.dataset);
       const jittery = applyJitter(filteredData);
-      const standardRegionCounts = countStandardSetGraphRegions(
-        filteredData,
-        state.questions
-      );
-      const standardProportions = state.standardColumnSet.reduce(
-        (obj, pair) => {
-          obj[pair[0]] = countGraphRegionProportions(
-            null,
-            null,
-            standardRegionCounts[pair[0]]
-          );
-          return obj;
-        },
-        {}
-      );
+      const standardRegionCounts = countStandardSetGraphRegions(filteredData, state.questions);
+      const standardProportions = state.standardColumnSet.reduce((obj, pair) => {
+        obj[pair[0]] = countGraphRegionProportions(null, null, standardRegionCounts[pair[0]]);
+        return obj;
+      }, {});
       return assign(
         { ...state },
         {
@@ -97,20 +80,12 @@ export async function reducer(state, action) {
       const options = assign(state.options, {
         reverseColor: !state.options.reverseColor,
       });
-      const colorScale = getColorScale(
-        options.color,
-        AXES_DOMAIN,
-        options.reverseColor
-      );
+      const colorScale = getColorScale(options.color, AXES_DOMAIN, options.reverseColor);
       return assign({ ...state }, { options, colorScale });
     }
     case "CHANGE_COLOR_SCHEME": {
       const options = assign(state.options, action.payload);
-      const colorScale = getColorScale(
-        options.color,
-        AXES_DOMAIN,
-        options.reverseColor
-      );
+      const colorScale = getColorScale(options.color, AXES_DOMAIN, options.reverseColor);
       return assign({ ...state }, { options, colorScale });
     }
     case "CHANGE_GRAPH_TYPE":

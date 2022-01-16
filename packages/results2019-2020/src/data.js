@@ -35,9 +35,7 @@ const data = new (function () {
   };
 
   this.makeColumnPairs = () => {
-    this.standardValues.columnPairs = cleanQuestions(
-      this.standardValues.rawData
-    );
+    this.standardValues.columnPairs = cleanQuestions(this.standardValues.rawData);
   };
 
   this.makeHeatmaps = () => {

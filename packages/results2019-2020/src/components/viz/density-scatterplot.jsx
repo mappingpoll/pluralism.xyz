@@ -2,12 +2,7 @@
 import { h, Fragment } from "preact";
 import { scaleLinear, line, curveCardinal } from "d3";
 import { useD3 } from "../../hooks/useD3";
-import {
-  DEFAULT_CANVAS_HEIGHT,
-  DEFAULT_CANVAS_WIDTH,
-  DOMAIN,
-  AXES_DOMAIN,
-} from "../../constants";
+import { DEFAULT_CANVAS_HEIGHT, DEFAULT_CANVAS_WIDTH, DOMAIN, AXES_DOMAIN } from "../../constants";
 import { appendAxes } from "./scatterplot-axes";
 import { xScale, yScale } from "../../lib/scales";
 import { brushFn, isValidDatum, makeBrushTool } from "../../lib/viztools";
@@ -16,13 +11,7 @@ import { symFloor } from "../../lib/misc";
 import { inRange } from "../../lib/data-manipulation";
 import { useMobileContext } from "../../context/mobile-context";
 
-export default function DensityScatterplot({
-  data,
-  columns,
-  options,
-  brushMap,
-  callback,
-}) {
+export default function DensityScatterplot({ data, columns, options, brushMap, callback }) {
   let [x, y] = columns;
 
   const isMobile = useMobileContext();
@@ -55,8 +44,7 @@ export default function DensityScatterplot({
       appendAxes(svg);
 
       // add brushing on desktop
-      if (!isMobile)
-        svg.append("g").call(makeBrushTool(brushFn(data, columns, callback)));
+      if (!isMobile) svg.append("g").call(makeBrushTool(brushFn(data, columns, callback)));
 
       // calc h and v densities
       function calcDensity(column, range) {
@@ -106,18 +94,10 @@ export default function DensityScatterplot({
         .curve(curveFn);
 
       // draw horizontal density chart
-      svg
-        .append("path")
-        .attr("class", "densityline")
-        .datum(hDensity)
-        .attr("d", hLine);
+      svg.append("path").attr("class", "densityline").datum(hDensity).attr("d", hLine);
 
       // draw vertical density chart
-      svg
-        .append("path")
-        .attr("class", "densityline")
-        .datum(vDensity)
-        .attr("d", vLine);
+      svg.append("path").attr("class", "densityline").datum(vDensity).attr("d", vLine);
 
       // draw axes, columns
       appendAxes(svg);

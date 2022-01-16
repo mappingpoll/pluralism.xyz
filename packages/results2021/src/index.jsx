@@ -9,9 +9,9 @@ import "./index.css";
 function Index() {
   const { db } = useDb();
   return (
-      <MobileContextProvider>
-        <App db={db} />
-      </MobileContextProvider>
+    <MobileContextProvider>
+      <App db={db} />
+    </MobileContextProvider>
   );
 }
 

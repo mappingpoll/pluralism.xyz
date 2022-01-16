@@ -1,4 +1,4 @@
-import {h} from "preact";
+import { h } from "preact";
 import "./notify.css";
 
 export default function Notify(props) {

@@ -15,12 +15,12 @@ function submit() {
     const init = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     };
-    const url = window.origin + "/submit";
+    const url = `${window.origin}/submit`;
     console.log(data);
     fetch(url, init).then(res => {
-      if (res.status === 200) window.location.assign(window.location.origin + "/results");
+      if (res.status === 200) window.location.assign(`${window.location.origin}/results`);
       else {
         console.log("uh oh");
         submitBtn.style.opacity = "1";

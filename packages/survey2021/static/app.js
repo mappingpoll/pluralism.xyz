@@ -7,14 +7,13 @@ const wagon = document.querySelector(".wagon");
 const reset = document.querySelector(".reset");
 const display = document.querySelector(".valueDisplay");
 
-const svgTriangle = "<svg class='bi bi-triangle' xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' fill='currentColor' viewBox='0 0 16 16'><path transform='rotate(90, 8, 8)' d='M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z'></path></svg>";
+const svgTriangle =
+  "<svg class='bi bi-triangle' xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' fill='currentColor' viewBox='0 0 16 16'><path transform='rotate(90, 8, 8)' d='M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z'></path></svg>";
 
 const questionKey = window.location.pathname.slice(1); // skip leading slash
 
 const cachedPoints =
-  window.localStorage.getItem(questionKey) != null
-    ? JSON.parse(localStorage.getItem(questionKey))
-    : null;
+  window.localStorage.getItem(questionKey) != null ? JSON.parse(localStorage.getItem(questionKey)) : null;
 const defaultPoints = [0];
 
 setControlIsActive(cachedPoints != null);
@@ -27,7 +26,7 @@ setReferenceGeometry();
 
 let normalizedPoints = cachedPoints ?? defaultPoints;
 
-let displayHandler
+let displayHandler;
 
 if (isDisplayable) {
   displayHandler = showValue(window.valueRange);
@@ -53,7 +52,7 @@ function makeDot() {
   dot.className = "dot";
   dot.innerHTML = svgTriangle;
   makeInteractive(dot);
-  if (isDisplayable) makeDisplayable(dot, displayHandler)
+  if (isDisplayable) makeDisplayable(dot, displayHandler);
   dots.appendChild(dot);
   return dot;
 }
@@ -121,16 +120,18 @@ function updateWith(points) {
 }
 
 function moveDotTo(dot, value) {
-  dot.style.top = value + "px";
+  dot.style.top = `${value}px`;
   updateWagon();
 }
 
 function getDotTops() {
-  return getDots().map((dot) => +dot.style.top.slice(0, -2));
+  return getDots().map(dot => +dot.style.top.slice(0, -2));
 }
 
 function getDotTopsNormalized() {
-  let t = getDotTops().map(normalize).map(v => Math.round(v * 1000) / 1000);
+  let t = getDotTops()
+    .map(normalize)
+    .map(v => Math.round(v * 1000) / 1000);
   if (t.length > 1) t = t.sort((a, b) => a - b);
   return t;
 }
@@ -139,8 +140,8 @@ function updateWagon() {
   let tops = getDotTops();
   if (tops.length === 2) tops = tops.sort((a, b) => a - b);
   let [top, bottom] = [tops[0], tops[1] ?? tops[0]];
-  wagon.style.top = top + "px";
-  wagon.style.height = bottom - top + "px";
+  wagon.style.top = `${top}px`;
+  wagon.style.height = `${bottom - top}px`;
 }
 
 function makeInteractive(element) {
@@ -186,7 +187,7 @@ function makeInteractive(element) {
 
   function touchDrag(event) {
     drag({
-      clientY: event.changedTouches[0].clientY
+      clientY: event.changedTouches[0].clientY,
     });
   }
 
@@ -200,8 +201,8 @@ function restrictY(value) {
   return value <= referenceGeometry.top
     ? 0
     : value >= referenceGeometry.bottom
-      ? referenceGeometry.height
-      : value - referenceGeometry.top;
+    ? referenceGeometry.height
+    : value - referenceGeometry.top;
 }
 
 if (reset != null) {
@@ -240,7 +241,7 @@ function makeDisplayable(dot, handler) {
 
 function showValue(range) {
   const d = Math.abs(range[1] - range[0]);
-  const clamp = v => range[0] + (v + 1) * d / 2;
+  const clamp = v => range[0] + ((v + 1) * d) / 2;
   return () => {
     const p = getDotTopsNormalized().map(clamp).map(Math.round);
     display.textContent = p.toString();

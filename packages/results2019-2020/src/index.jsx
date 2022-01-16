@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV === "development") {
-  require("preact/debug")
+  require("preact/debug");
 }
 import { h, render } from "preact";
 
@@ -12,11 +12,10 @@ function App() {
   return (
     <LanguageContextProvider>
       <MobileContextProvider>
-          <Results />
+        <Results />
       </MobileContextProvider>
     </LanguageContextProvider>
   );
 }
 
-render(<App/>, document.body)
-
+render(<App />, document.body);

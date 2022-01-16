@@ -21,18 +21,12 @@ export const MobileContext = createContext();
 
 export function MobileContextProvider({ children }) {
   const isMobileClient = mobileCheck();
-  return (
-    <MobileContext.Provider value={isMobileClient}>
-      {children}
-    </MobileContext.Provider>
-  );
+  return <MobileContext.Provider value={isMobileClient}>{children}</MobileContext.Provider>;
 }
 
 export function useMobileContext() {
   const context = useContext(MobileContext);
   if (context == null && typeof window !== "undefined")
-    throw new Error(
-      "useMobileContext must be used with a MobileContextProvider"
-    );
+    throw new Error("useMobileContext must be used with a MobileContextProvider");
   return context;
 }

@@ -1,21 +1,23 @@
 import { h, Fragment } from "preact";
 
 export function SurveyPair({ viz, content, describe = true }) {
-  const {x, y} = content;
+  const { x, y } = content;
 
   return (
     <div class="map">
       <div class="maptitle">
-        <div>{ x.title }</div>
-        <div>{ y?.title }</div>
+        <div>{x.title}</div>
+        <div>{y?.title}</div>
       </div>
       <div class="mapviz">{viz}</div>
       <div class="maptext">
-        {
-          describe && [x, y].map((v, i) => (
-            <>
+        {describe &&
+          [x, y].map((v, i) => (
+            <Fragment key={i}>
               <p>
-                <strong style="text-transform: uppercase">{i === 0 ? "X" : "Y"}: {v.title}</strong>
+                <strong style="text-transform: uppercase">
+                  {i === 0 ? "X" : "Y"}: {v.title}
+                </strong>
                 <br />
                 <strong>{v.question}</strong>
               </p>
@@ -48,10 +50,9 @@ export function SurveyPair({ viz, content, describe = true }) {
                 </tr>
               </table>
               <p />
-            </>
-          ))
-        }
+            </Fragment>
+          ))}
       </div>
     </div>
-  )
+  );
 }

@@ -3,7 +3,7 @@ export class Database {
     this.worker = dbWorker;
   }
 
-  queryDb = async (query) => {
+  queryDb = async query => {
     if (this.worker.db == null) return null;
     try {
       return await this.worker.db.exec(query);
@@ -12,14 +12,11 @@ export class Database {
     }
   };
 
-  getPointsForQuestion = async (question_num) => {
+  getPointsForQuestion = async question_num => {
     try {
-      if (!question_num)
-        throw new ReferenceError("question_num argument must be defined");
+      if (!question_num) throw new ReferenceError("question_num argument must be defined");
       const n = +question_num;
-      const points = await this.queryDb(
-        `select timestamp, point0, point1 from points where question_num = ${n}`
-      );
+      const points = await this.queryDb(`select timestamp, point0, point1 from points where question_num = ${n}`);
       if (points == null) throw new Error("wtf");
       const values = points[0].values;
       return values.reduce((obj, row) => {
@@ -54,7 +51,7 @@ export class Database {
     }
   };
 
-  countResponsesForQ = async (n) => {
+  countResponsesForQ = async n => {
     try {
       let query = "slect count(*) from points";
       if (n) query += ` where question_num = ${n}`;

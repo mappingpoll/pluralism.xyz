@@ -11,11 +11,7 @@ export default function ContourChart({ data, columns, options }) {
       svg.selectAll("*").remove();
 
       // compute the density data
-      const densityData = computeDensity(
-        data,
-        options.contourBandwidth,
-        columns
-      );
+      const densityData = computeDensity(data, options.contourBandwidth, columns);
 
       // Add the contour
       svg

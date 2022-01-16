@@ -4,21 +4,10 @@ import { useD3 } from "../../hooks/useD3";
 import { DEFAULT_CANVAS_HEIGHT, DEFAULT_CANVAS_WIDTH } from "../../constants";
 import { xScale, yScale } from "../../lib/scales";
 import { appendAxes } from "./scatterplot-axes";
-import {
-  brushFn,
-  computeDensity,
-  isValidDatum,
-  makeBrushTool,
-} from "../../lib/viztools";
+import { brushFn, computeDensity, isValidDatum, makeBrushTool } from "../../lib/viztools";
 import { useMobileContext } from "../../context/mobile-context";
 
-export default function ContourScatterplot({
-  data,
-  columns,
-  options,
-  brushMap,
-  callback,
-}) {
+export default function ContourScatterplot({ data, columns, options, brushMap, callback }) {
   let [x, y] = columns;
   const isMobile = useMobileContext();
   const hasBrushing = Object.keys(brushMap).length > 0;
@@ -39,11 +28,7 @@ export default function ContourScatterplot({
       svg
         .append("g")
         .selectAll("path")
-        .data(
-          data
-            .map((d, i) => (brushMap[i] ? { ...d, brushed: true } : d))
-            .filter(d => isValidDatum(d, columns))
-        )
+        .data(data.map((d, i) => (brushMap[i] ? { ...d, brushed: true } : d)).filter(d => isValidDatum(d, columns)))
         .join("path")
         .attr("stroke-width", options.size)
         .attr("stroke-opacity", options.opacity)
@@ -51,11 +36,7 @@ export default function ContourScatterplot({
         .attr("d", d => `M${xScale(d[x])}, ${yScale(d[y])}h0`);
 
       // compute the density data
-      const densityData = computeDensity(
-        data,
-        options.contourBandwidth,
-        columns
-      );
+      const densityData = computeDensity(data, options.contourBandwidth, columns);
 
       // Add the contour: several "path"
       svg
@@ -71,17 +52,9 @@ export default function ContourScatterplot({
       appendAxes(svg);
 
       // add brushing
-      if (!isMobile)
-        svg.append("g").call(makeBrushTool(brushFn(data, columns, callback)));
+      if (!isMobile) svg.append("g").call(makeBrushTool(brushFn(data, columns, callback)));
     },
-    [
-      data,
-      columns,
-      brushMap,
-      options.size,
-      options.opacity,
-      options.contourBandwidth,
-    ]
+    [data, columns, brushMap, options.size, options.opacity, options.contourBandwidth]
   );
 
   return (

@@ -6,15 +6,9 @@ import { ORIGIN, AXES_DOMAIN } from "../../constants";
 import { useD3 } from "../../hooks/useD3";
 import "./scatterplot-axes.css";
 
-const xAxisScale = scaleLinear(AXES_DOMAIN).range([
-  xScale(AXES_DOMAIN[0]),
-  xScale(AXES_DOMAIN[1]),
-]);
+const xAxisScale = scaleLinear(AXES_DOMAIN).range([xScale(AXES_DOMAIN[0]), xScale(AXES_DOMAIN[1])]);
 
-const yAxisScale = scaleLinear(AXES_DOMAIN).range([
-  yScale(AXES_DOMAIN[1]),
-  yScale(AXES_DOMAIN[0]),
-]);
+const yAxisScale = scaleLinear(AXES_DOMAIN).range([yScale(AXES_DOMAIN[1]), yScale(AXES_DOMAIN[0])]);
 
 export const xAxis = g =>
   g
@@ -84,9 +78,7 @@ const scaledArrowTips = [
 export const ARROW_PATHS = scaledArrowTips.map((arrow, i) => {
   let v1, v2;
   const translate = n => (p, j) =>
-    p +
-    CARDINAL_MATRICES[i][n][j][0] * ARROW_FEATHER_SIZE +
-    CARDINAL_MATRICES[i][n][j][1] * ARROW_LENGTH;
+    p + CARDINAL_MATRICES[i][n][j][0] * ARROW_FEATHER_SIZE + CARDINAL_MATRICES[i][n][j][1] * ARROW_LENGTH;
   v1 = arrow.map(translate(0));
   v2 = arrow.map(translate(1));
   return [...arrow, ...v1, ...v2];

@@ -1,10 +1,5 @@
 import { h, Fragment } from "preact";
-import {
-  UNCERTAINTY,
-  DEFAULT_CANVAS_HEIGHT,
-  DEFAULT_CANVAS_WIDTH,
-  VIEWBOX,
-} from "../../constants";
+import { UNCERTAINTY, DEFAULT_CANVAS_HEIGHT, DEFAULT_CANVAS_WIDTH, VIEWBOX } from "../../constants";
 import { xScale, yScale, xBand, yBand } from "../../lib/scales";
 import { calcHeatmap, getColorScale } from "../../lib/viztools";
 import { useD3 } from "../../hooks/useD3";
@@ -29,11 +24,7 @@ export default function Heatmap({ data, columns, options }) {
             return v + sum;
           }, 0) / heatmap.length;
       max = average + (max - average) * 0.4;
-      const colorScale = getColorScale(
-        options.color,
-        [min, max],
-        options.reverseColor
-      );
+      const colorScale = getColorScale(options.color, [min, max], options.reverseColor);
       svg.selectAll("*").remove();
       svg
         .append("g")

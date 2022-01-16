@@ -1,7 +1,7 @@
 import { h, Fragment } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 
-import { questions} from "../../lib/questions";
+import { questions } from "../../lib/questions";
 import { zipPoints } from "../../lib/data-manipulation";
 import "./Viz.css";
 import { Mess } from "./Mess";
@@ -28,15 +28,7 @@ export function Viz({ db, pair, reducer }) {
   return (
     <div class="viz-container">
       <div class="graph">
-        {data != null && (
-          <Mess
-            data={data}
-            options={options}
-            brushMap={brushMap}
-            state={state}
-            dispatch={dispatch}
-          />
-        )}
+        {data != null && <Mess data={data} options={options} brushMap={brushMap} state={state} dispatch={dispatch} />}
       </div>
 
       <div class="right">

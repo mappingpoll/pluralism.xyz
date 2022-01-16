@@ -7,14 +7,16 @@ import OPTIONS from "./static/options.js";
 const app = express();
 const port = process.env.PORT ?? 3000;
 
-initDb().catch(console.error).finally(() => console.log("Successfully connected to DB"));
+initDb()
+  .catch(console.error)
+  .finally(() => console.log("Successfully connected to DB"));
 
 i18n.configure({
   locales: ["en"],
   directory: "./locales",
   objectNotation: true,
   updateFiles: false,
-  missingKeyFn: () => ""
+  missingKeyFn: () => "",
 });
 
 app.set("views", "views");
@@ -35,7 +37,7 @@ app.get("/", (req, res) => {
 app.get("/:number(\\d{1,2})", (req, res) => {
   let { number } = req.params;
   number = +number;
-  const opts = { ...OPTIONS.default, ...OPTIONS["p" + number] };
+  const opts = { ...OPTIONS.default, ...OPTIONS[`p${number}`] };
   opts.back = `/${number > 2 ? number - 1 : ""}`;
   opts.forward = `/${number === OPTIONS.lastQ ? "comment" : number + 1}`;
   opts.questionNum = number;
@@ -68,7 +70,9 @@ app.get("/comment", (req, res) => {
 const { insertEntry, listEntries } = dbClient();
 app.post("/submit", (req, res) => {
   try {
-    insertEntry(req.body).catch(console.error).finally(() => console.log("Successfully inserted entry"));
+    insertEntry(req.body)
+      .catch(console.error)
+      .finally(() => console.log("Successfully inserted entry"));
     res.status(200);
     res.send();
   } catch (e) {
@@ -90,7 +94,7 @@ app.get("/submit", (req, res) => {
     iWantResults: res.__("submit.form.iWantResults"),
     email: res.__("submit.form.email"),
     submit: res.__("submit.form.submit"),
-    forwardLabel: res.__("submit.forwardLabel")
+    forwardLabel: res.__("submit.forwardLabel"),
   };
   res.render("submit", opts);
 });

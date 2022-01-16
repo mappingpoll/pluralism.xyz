@@ -1,11 +1,5 @@
 import { h, Fragment } from "preact";
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "preact/hooks";
+import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks";
 import cloneDeep from "lodash.clonedeep";
 
 import { useAsyncReducer } from "./hooks/useAsyncReducer";
@@ -21,25 +15,15 @@ import { ACTION } from "./lib/asyncReducer";
 import { SiteMenu } from "./components/SiteMenu";
 
 export function App({ db }) {
-
   const [state, dispatch] = useAsyncReducer(cloneDeep(initialState));
 
   const introRef = useRef();
   const footerRef = useRef();
   const mapsRef = useRef();
 
-  const getIntroBottom = useCallback(
-    () => introRef.current?.getBoundingClientRect().bottom ?? false,
-    [introRef]
-  );
-  const getFooterTop = useCallback(
-    () => footerRef.current?.getBoundingClientRect().top ?? false,
-    [footerRef]
-  );
-  const getMapsBottom = useCallback(
-    () => mapsRef.current?.getBoundingClientRect().bottom ?? false,
-    [mapsRef]
-  );
+  const getIntroBottom = useCallback(() => introRef.current?.getBoundingClientRect().bottom ?? false, [introRef]);
+  const getFooterTop = useCallback(() => footerRef.current?.getBoundingClientRect().top ?? false, [footerRef]);
+  const getMapsBottom = useCallback(() => mapsRef.current?.getBoundingClientRect().bottom ?? false, [mapsRef]);
 
   const [shouldShowKnobs, setShouldShowKnobs] = useState(true);
   let [showBackToTop, setShowBackToTop] = useState(false);
@@ -104,27 +88,19 @@ export function App({ db }) {
   useEffect(() => {
     if (mapsRef.current != null) {
       mapsRef.current.onclick = ev => {
-        if (ev.target.tagName !== "rect") dispatch({ type: ACTION.SELECT_NONE })
-      }
+        if (ev.target.tagName !== "rect") dispatch({ type: ACTION.SELECT_NONE });
+      };
     }
-  }, [mapsRef, dispatch])
+  }, [mapsRef, dispatch]);
 
   return (
     <div>
       <div
         class="back-to-top"
         onclick={handleBackToTopClick}
-        style={
-          showBackToTop
-            ? "opacity: 1;"
-            : "opacity: 0; pointer-events: none; cursor: default;"
-        }
+        style={showBackToTop ? "opacity: 1;" : "opacity: 0; pointer-events: none; cursor: default;"}
       >
-        Go up{" "}
-        <img
-          style="display: inline-block; max-height: 1em; padding-top: 0.2em"
-          src={"/images/up-arrow.svg"}
-        />
+        Go up <img style="display: inline-block; max-height: 1em; padding-top: 0.2em" src={"/images/up-arrow.svg"} />
       </div>
 
       <header ref={introRef} class="intro">
@@ -147,11 +123,7 @@ export function App({ db }) {
       )}
 
       <div ref={footerRef} class="accordion">
-        <Accordion
-          db={db}
-          reducer={{ state, dispatch }}
-          collapseFn={setCollapseFooter}
-        />
+        <Accordion db={db} reducer={{ state, dispatch }} collapseFn={setCollapseFooter} />
       </div>
       <footer>
         <SiteMenu />

@@ -19,18 +19,14 @@ export function Maps({ db, reducer }) {
     } else if ((x && !y) || (!x && y)) {
       return Object.keys(questions).map((n, i) => {
         const pair = [x || n, y || n];
-        return <SurveyPair
-          key={i}
-          viz={<Viz db={db} pair={pair} reducer={reducer} />}
-          content={makeVizTextContent(pair)} />;
-      }
-      )
+        return (
+          <SurveyPair key={i} viz={<Viz db={db} pair={pair} reducer={reducer} />} content={makeVizTextContent(pair)} />
+        );
+      });
       // two custom axes
     } else if (x && y) {
       const pair = [x, y];
-      return (
-        <SurveyPair viz={<Viz db={db} pair={pair} reducer={reducer} />} content={makeVizTextContent(pair)} />
-      );
+      return <SurveyPair viz={<Viz db={db} pair={pair} reducer={reducer} />} content={makeVizTextContent(pair)} />;
     }
     throw new Error("uh oh");
   }, [db, state, reducer]);

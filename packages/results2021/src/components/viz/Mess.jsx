@@ -2,18 +2,11 @@ import { h, Fragment } from "preact";
 
 import { useD3 } from "../../hooks/useD3";
 import { DEFAULT_DOT_SIZE, VIEWBOX } from "../../lib/constants";
-import { ACTION } from "../../lib/asyncReducer"
+import { ACTION } from "../../lib/asyncReducer";
 import { xScale, yScale } from "../../lib/scales";
 import { appendAxes } from "./Axes";
 
-export function Mess({
-  data,
-  options,
-  brushMap,
-  state,
-  dispatch,
-}) {
-
+export function Mess({ data, options, brushMap, state, dispatch }) {
   const DEFAULT_COLOR = "#1a1a1a";
   const HIGHLIGHT_COLOR = "palevioletred";
 
@@ -29,16 +22,15 @@ export function Mess({
 
     return l > MIN_LENGTH ? l : MIN_LENGTH;
   };
-  const area = (d) => len(d.x?.value ?? [0, 0]) * len(d.y?.value ?? [0, 0]);
+  const area = d => len(d.x?.value ?? [0, 0]) * len(d.y?.value ?? [0, 0]);
 
-  const getOpacity = (d) => {
+  const getOpacity = d => {
     if (state.user.includes(d.user)) return 1;
     const r = d.area / MAX_AREA;
     return MIN_OPACITY + OPACITY_RANGE - OPACITY_RANGE * r;
   };
 
-  const getFill = (d) =>
-    state.user.includes(d.user) ? HIGHLIGHT_COLOR : DEFAULT_COLOR;
+  const getFill = d => (state.user.includes(d.user) ? HIGHLIGHT_COLOR : DEFAULT_COLOR);
 
   const sortFn = (a, b) => b.area - a.area;
 
@@ -49,32 +41,32 @@ export function Mess({
     dispatch({ type: action, payload: user });
   }
 
-  const describesRectangle = (d) => d.x?.value[1] && d.y?.value[1];
+  const describesRectangle = d => d.x?.value[1] && d.y?.value[1];
   const rectangles = data
     .filter(describesRectangle)
-    .map((d) => ({ ...d, area: area(d) }))
+    .map(d => ({ ...d, area: area(d) }))
     .sort(sortFn);
 
-  const describesLineX = (d) => d.x?.value[1] && !d.y?.value[1];
+  const describesLineX = d => d.x?.value[1] && !d.y?.value[1];
   const linesX = data
     .filter(describesLineX)
-    .map((d) => ({ ...d, area: area(d) }))
+    .map(d => ({ ...d, area: area(d) }))
     .sort(sortFn);
 
-  const describesLineY = (d) => !d.x?.value[1] && d.y?.value[1];
+  const describesLineY = d => !d.x?.value[1] && d.y?.value[1];
   const linesY = data
     .filter(describesLineY)
-    .map((d) => ({ ...d, area: area(d) }))
+    .map(d => ({ ...d, area: area(d) }))
     .sort(sortFn);
 
-  const describesPoint = (d) => !d.x?.value[1] && !d.y?.value[1];
+  const describesPoint = d => !d.x?.value[1] && !d.y?.value[1];
   const points = data
     .filter(describesPoint)
-    .map((d) => ({ ...d, area: area(d) }))
+    .map(d => ({ ...d, area: area(d) }))
     .sort(sortFn);
 
   const ref = useD3(
-    (svg) => {
+    svg => {
       svg.selectAll("*").remove();
       // append boxes
       svg
@@ -85,15 +77,11 @@ export function Mess({
         .attr("class", "rect")
         .attr("fill", getFill)
         .attr("fill-opacity", getOpacity)
-        .attr("x", (d) => xScale(d.x.value[0]))
-        .attr("width", (d) =>
-          Math.abs(xScale(d.x.value[1]) - xScale(d.x.value[0]))
-        )
-        .attr("y", (d) => yScale(d.y.value[1]))
-        .attr("height", (d) =>
-          Math.abs(yScale(d.y.value[1]) - yScale(d.y.value[0]))
-        )
-        .attr("data-user", (d) => d.user)
+        .attr("x", d => xScale(d.x.value[0]))
+        .attr("width", d => Math.abs(xScale(d.x.value[1]) - xScale(d.x.value[0])))
+        .attr("y", d => yScale(d.y.value[1]))
+        .attr("height", d => Math.abs(yScale(d.y.value[1]) - yScale(d.y.value[0])))
+        .attr("data-user", d => d.user)
         .on("click", handleClick);
 
       // append X lines
@@ -105,13 +93,11 @@ export function Mess({
         .attr("class", "rect")
         .attr("fill", getFill)
         .attr("fill-opacity", getOpacity)
-        .attr("x", (d) => xScale(d.x.value[0]))
-        .attr("width", (d) =>
-          Math.abs(xScale(d.x.value[1]) - xScale(d.x.value[0]))
-        )
-        .attr("y", (d) => yScale(d.y?.value[0] ?? 0) - DEFAULT_DOT_SIZE / 2)
+        .attr("x", d => xScale(d.x.value[0]))
+        .attr("width", d => Math.abs(xScale(d.x.value[1]) - xScale(d.x.value[0])))
+        .attr("y", d => yScale(d.y?.value[0] ?? 0) - DEFAULT_DOT_SIZE / 2)
         .attr("height", DEFAULT_DOT_SIZE)
-        .attr("data-user", (d) => d.user)
+        .attr("data-user", d => d.user)
         .on("click", handleClick);
 
       // append Y lines
@@ -123,13 +109,11 @@ export function Mess({
         .attr("class", "rect")
         .attr("fill", getFill)
         .attr("fill-opacity", getOpacity)
-        .attr("x", (d) => xScale(d.x?.value[0] ?? 0) - DEFAULT_DOT_SIZE / 2)
+        .attr("x", d => xScale(d.x?.value[0] ?? 0) - DEFAULT_DOT_SIZE / 2)
         .attr("width", DEFAULT_DOT_SIZE)
-        .attr("y", (d) => yScale(d.y.value[1]))
-        .attr("height", (d) =>
-          Math.abs(yScale(d.y.value[1]) - yScale(d.y.value[0]))
-        )
-        .attr("data-user", (d) => d.user)
+        .attr("y", d => yScale(d.y.value[1]))
+        .attr("height", d => Math.abs(yScale(d.y.value[1]) - yScale(d.y.value[0])))
+        .attr("data-user", d => d.user)
         .on("click", handleClick);
       // .attr("height", (d) => yScale(Math.abs(d.y.value[1] - d.y.value[0])));
 
@@ -142,11 +126,11 @@ export function Mess({
         .attr("class", "rect")
         .attr("fill", getFill)
         .attr("fill-opacity", getOpacity)
-        .attr("x", (d) => xScale(d.x?.value[0] ?? 0) - DEFAULT_DOT_SIZE / 2)
+        .attr("x", d => xScale(d.x?.value[0] ?? 0) - DEFAULT_DOT_SIZE / 2)
         .attr("width", DEFAULT_DOT_SIZE)
-        .attr("y", (d) => yScale(d.y?.value[0] ?? 0) - DEFAULT_DOT_SIZE / 2)
+        .attr("y", d => yScale(d.y?.value[0] ?? 0) - DEFAULT_DOT_SIZE / 2)
         .attr("height", DEFAULT_DOT_SIZE)
-        .attr("data-user", (d) => d.user)
+        .attr("data-user", d => d.user)
         .on("click", handleClick);
 
       // draw axes, columns

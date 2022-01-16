@@ -21,11 +21,7 @@ export const Locale = createContext();
 
 export function I18nProvider(props) {
   const [userLang, setUserLang] = useState(
-    typeof navigator !== "undefined"
-      ? navigator.language.slice(0, 2) === "fr"
-        ? "fr"
-        : "en"
-      : "en"
+    typeof navigator !== "undefined" ? (navigator.language.slice(0, 2) === "fr" ? "fr" : "en") : "en"
   );
 
   function swapLang(lang) {
@@ -41,7 +37,7 @@ export function I18nProvider(props) {
       value={{
         userLang,
         swapLang,
-        i18n: (path) => findTranslation(userLang, path),
+        i18n: path => findTranslation(userLang, path),
       }}
     >
       {props.children}

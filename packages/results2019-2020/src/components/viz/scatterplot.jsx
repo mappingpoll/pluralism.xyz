@@ -6,13 +6,7 @@ import { appendAxes } from "./scatterplot-axes";
 import { brushFn, isValidDatum, makeBrushTool } from "../../lib/viztools";
 import { useMobileContext } from "../../context/mobile-context";
 
-export default function Scatterplot({
-  data,
-  columns,
-  options,
-  brushMap,
-  dispatch,
-}) {
+export default function Scatterplot({ data, columns, options, brushMap, dispatch }) {
   let [x, y] = columns;
   const isMobile = useMobileContext();
   const hasBrushing = Object.keys(brushMap).length > 0;
@@ -44,8 +38,7 @@ export default function Scatterplot({
       appendAxes(svg);
 
       // add brushing on desktop
-      if (!isMobile)
-        svg.append("g").call(makeBrushTool(brushFn(data, columns, dispatch)));
+      if (!isMobile) svg.append("g").call(makeBrushTool(brushFn(data, columns, dispatch)));
     },
     [data, columns, brushMap, options.size, options.opacity]
   );

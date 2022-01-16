@@ -2,7 +2,7 @@ import { h } from "preact";
 import { Text } from "preact-i18n";
 import { graphType2Component } from "../../lib/misc";
 import { questions } from "../../i18n/fr.json";
-import "./viz.css"
+import "./viz.css";
 
 export function Viz({ state, columns, dispatch }) {
   const { data, colorScale, options, brushMap } = state;

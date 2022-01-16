@@ -40,26 +40,22 @@ export function getPairwiseColumns(questions) {
 
 export function getCustomColumns(questions, axes) {
   return Object.values(axes)
-    .filter((a) => a !== "")
-    .map((a) => questions[a]);
+    .filter(a => a !== "")
+    .map(a => questions[a]);
 }
 
 export function filterDataByDataset(data, dataset) {
-  return data.filter((d) => {
+  return data.filter(d => {
     for (let condition in dataset) {
       if (d.Language === condition && !dataset[condition]) return false;
-      if (d.poll.toLowerCase() === condition && !dataset[condition])
-        return false;
+      if (d.poll.toLowerCase() === condition && !dataset[condition]) return false;
     }
     return true;
   });
 }
 
 export function filterDataByRange(data, column, range) {
-  return data.filter(
-    (d) =>
-      isValidDatum(d, column) && range[0] <= d[column] && d[column] <= range[1]
-  );
+  return data.filter(d => isValidDatum(d, column) && range[0] <= d[column] && d[column] <= range[1]);
 }
 
 export function inRange(n, range) {
@@ -68,11 +64,7 @@ export function inRange(n, range) {
 }
 
 export function inStandardColumnSet(columnSet, columns) {
-  return (
-    columnSet.find(
-      (pair) => pair[0] === columns[0] && pair[1] === columns[1]
-    ) != null
-  );
+  return columnSet.find(pair => pair[0] === columns[0] && pair[1] === columns[1]) != null;
 }
 
 export function applyJitter(data) {
@@ -86,8 +78,7 @@ export function applyJitter(data) {
 }
 
 function sumRegionCounts(region) {
-  const sumProps = (obj) =>
-    Object.keys(obj).reduce((sum, key) => sum + obj[key], 0);
+  const sumProps = obj => Object.keys(obj).reduce((sum, key) => sum + obj[key], 0);
 
   return (
     region.origin +
@@ -138,7 +129,7 @@ export function countGraphRegions(data, columns) {
     axes: { n: 0, e: 0, s: 0, w: 0 },
     outerAxes: { n: 0, e: 0, s: 0, w: 0 },
   };
-  data.forEach((respondent) => {
+  data.forEach(respondent => {
     let x = respondent[a],
       y = respondent[b];
     if (typeof x === "number" && typeof y === "number") {
@@ -146,7 +137,7 @@ export function countGraphRegions(data, columns) {
       if (x === 0 && y === 0) {
         region.origin++;
         // quadrants
-      } else if ([x, y].every((n) => n >= -10 && n <= 10 && n !== 0)) {
+      } else if ([x, y].every(n => n >= -10 && n <= 10 && n !== 0)) {
         if (x < 0 && y < 0) {
           region.quadrants.sw++;
         } else if (x > 0 && y < 0) {
@@ -178,7 +169,7 @@ export function countGraphRegions(data, columns) {
           region.axes.e++;
         }
         //outer quadrants
-      } else if ([x, y].every((n) => n < -10 || n > 10)) {
+      } else if ([x, y].every(n => n < -10 || n > 10)) {
         if (x < -10 && y < -10) {
           region.outerQuadrants.sw++;
         } else if (x > 10 && y < -10) {

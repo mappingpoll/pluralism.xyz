@@ -12,7 +12,7 @@ export function Options(props) {
 
   const handleSettingChange =
     (type, prop, callback = null) =>
-    (event) => {
+    event => {
       dispatch({ type, payload: { [prop]: event.target.value } });
       if (callback != null && typeof callback === "function") callback();
     };
@@ -37,17 +37,10 @@ export function Options(props) {
   };
 
   return (
-    <div
-      class="options"
-      style={props.visible ? "" : "opacity: 0;pointer-events: none;"}
-    >
+    <div class="options" style={props.visible ? "" : "opacity: 0;pointer-events: none;"}>
       <div class="collapse-title" onClick={handleShowHideClick}>
-        <h1>
-          Options
-        </h1>
-        <h1 class="show-hide">
-          {showOptions ? "−" : "+"}
-        </h1>
+        <h1>Options</h1>
+        <h1 class="show-hide">{showOptions ? "−" : "+"}</h1>
       </div>
       {showOptions && (
         <div>

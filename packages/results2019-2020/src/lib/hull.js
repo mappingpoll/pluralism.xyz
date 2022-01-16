@@ -46,12 +46,7 @@
         }
         return n[i].exports;
       }
-      for (
-        var u = "function" == typeof require && require, i = 0;
-        i < t.length;
-        i++
-      )
-        o(t[i]);
+      for (var u = "function" == typeof require && require, i = 0; i < t.length; i++) o(t[i]);
       return o;
     }
     return r;
@@ -60,22 +55,13 @@
       1: [
         function (require, module, exports) {
           function _cross(o, a, b) {
-            return (
-              (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
-            );
+            return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
           }
 
           function _upperTangent(pointset) {
             const lower = [];
             for (let l = 0; l < pointset.length; l++) {
-              while (
-                lower.length >= 2 &&
-                _cross(
-                  lower[lower.length - 2],
-                  lower[lower.length - 1],
-                  pointset[l]
-                ) <= 0
-              ) {
+              while (lower.length >= 2 && _cross(lower[lower.length - 2], lower[lower.length - 1], pointset[l]) <= 0) {
                 lower.pop();
               }
               lower.push(pointset[l]);
@@ -88,14 +74,7 @@
             const reversed = pointset.reverse(),
               upper = [];
             for (let u = 0; u < reversed.length; u++) {
-              while (
-                upper.length >= 2 &&
-                _cross(
-                  upper[upper.length - 2],
-                  upper[upper.length - 1],
-                  reversed[u]
-                ) <= 0
-              ) {
+              while (upper.length >= 2 && _cross(upper[upper.length - 2], upper[upper.length - 1], reversed[u]) <= 0) {
                 upper.pop();
               }
               upper.push(reversed[u]);
@@ -126,10 +105,7 @@
               }
               return pointset.map(pt => {
                 /*jslint evil: true */
-                const _getXY = new Function(
-                  "pt",
-                  `return [pt${format[0]},` + `pt${format[1]}];`
-                );
+                const _getXY = new Function("pt", `return [pt${format[0]},` + `pt${format[1]}];`);
                 return _getXY(pt);
               });
             },
@@ -177,10 +153,7 @@
           Grid.prototype = {
             cellPoints(x, y) {
               // (Number, Number) -> Array
-              return this._cells[x] !== undefined &&
-                this._cells[x][y] !== undefined
-                ? this._cells[x][y]
-                : [];
+              return this._cells[x] !== undefined && this._cells[x][y] !== undefined ? this._cells[x][y] : [];
             },
 
             rangePoints(bbox) {
@@ -271,10 +244,7 @@
             let lastPoint = pointset[0];
             for (let i = 1; i < pointset.length; i++) {
               const currentPoint = pointset[i];
-              if (
-                lastPoint[0] !== currentPoint[0] ||
-                lastPoint[1] !== currentPoint[1]
-              ) {
+              if (lastPoint[0] !== currentPoint[0] || lastPoint[1] !== currentPoint[1]) {
                 unique.push(currentPoint);
               }
               lastPoint = currentPoint;
@@ -380,13 +350,7 @@
             return point;
           }
 
-          function _concave(
-            convex,
-            maxSqEdgeLen,
-            maxSearchArea,
-            grid,
-            edgeSkipList
-          ) {
+          function _concave(convex, maxSqEdgeLen, maxSearchArea, grid, edgeSkipList) {
             let midPointInserted = false;
 
             for (let i = 0; i < convex.length - 1; i++) {
@@ -394,10 +358,7 @@
               // generate a key in the format X0,Y0,X1,Y1
               const keyInSkipList = `${edge[0][0]},${edge[0][1]},${edge[1][0]},${edge[1][1]}`;
 
-              if (
-                _sqLength(edge[0], edge[1]) < maxSqEdgeLen ||
-                edgeSkipList.has(keyInSkipList)
-              ) {
+              if (_sqLength(edge[0], edge[1]) < maxSqEdgeLen || edgeSkipList.has(keyInSkipList)) {
                 continue;
               }
 
@@ -411,21 +372,11 @@
                 bBoxWidth = bBoxAround[2] - bBoxAround[0];
                 bBoxHeight = bBoxAround[3] - bBoxAround[1];
 
-                midPoint = _midPoint(
-                  edge,
-                  grid.rangePoints(bBoxAround),
-                  convex
-                );
+                midPoint = _midPoint(edge, grid.rangePoints(bBoxAround), convex);
                 scaleFactor++;
-              } while (
-                midPoint === null &&
-                (maxSearchArea[0] > bBoxWidth || maxSearchArea[1] > bBoxHeight)
-              );
+              } while (midPoint === null && (maxSearchArea[0] > bBoxWidth || maxSearchArea[1] > bBoxHeight));
 
-              if (
-                bBoxWidth >= maxSearchArea[0] &&
-                bBoxHeight >= maxSearchArea[1]
-              ) {
+              if (bBoxWidth >= maxSearchArea[0] && bBoxHeight >= maxSearchArea[1]) {
                 edgeSkipList.add(keyInSkipList);
               }
 
@@ -437,13 +388,7 @@
             }
 
             if (midPointInserted) {
-              return _concave(
-                convex,
-                maxSqEdgeLen,
-                maxSearchArea,
-                grid,
-                edgeSkipList
-              );
+              return _concave(convex, maxSqEdgeLen, maxSearchArea, grid, edgeSkipList);
             }
 
             return convex;
@@ -452,9 +397,7 @@
           function hull(pointset, concavity, format) {
             let maxEdgeLen = concavity || 20;
 
-            const points = _filterDuplicates(
-              _sortByX(formatUtil.toXy(pointset, format))
-            );
+            const points = _filterDuplicates(_sortByX(formatUtil.toXy(pointset, format)));
 
             if (points.length < 4) {
               return points.concat([points[0]]);
@@ -471,9 +414,7 @@
               return convex.indexOf(pt) < 0;
             });
 
-            const cellSize = Math.ceil(
-              1 / (points.length / (occupiedArea[0] * occupiedArea[1]))
-            );
+            const cellSize = Math.ceil(1 / (points.length / (occupiedArea[0] * occupiedArea[1])));
 
             const concave = _concave(
               convex,

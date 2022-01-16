@@ -19,9 +19,5 @@ export const MobileContext = createContext();
 
 export function MobileContextProvider({ children }) {
   const isMobileClient = mobileCheck();
-  return (
-    <MobileContext.Provider value={isMobileClient}>
-      {children}
-    </MobileContext.Provider>
-  );
+  return <MobileContext.Provider value={isMobileClient}>{children}</MobileContext.Provider>;
 }

@@ -2,7 +2,6 @@ import * as d3 from "d3";
 import { CUSTOM_COLORS, NA_SYMBOL, VIEWBOX } from "../constants";
 import { rangeSize, symFloor } from "./misc";
 import { xScale, yScale } from "./scales";
-import svgExport from "./svg-export";
 
 export function isValidDatum(datum, columns) {
   if (columns instanceof Array !== true) columns = [columns];
@@ -12,8 +11,7 @@ export function isValidDatum(datum, columns) {
 export function getColorScale(color, domain, rev = false) {
   if (rev) domain = [domain[1], domain[0]];
   let colorScale;
-  if (CUSTOM_COLORS[color] == null)
-    colorScale = d3.scaleSequential(d3[color]).domain(domain);
+  if (CUSTOM_COLORS[color] == null) colorScale = d3.scaleSequential(d3[color]).domain(domain);
   else colorScale = d3.scaleSequential(CUSTOM_COLORS[color]).domain(domain);
   return colorScale;
 }
@@ -48,10 +46,6 @@ export function calcHeatmap(data, columns) {
   return heatmap;
 }
 
-export function saveSVG(id) {
-  svgExport.downloadSvg(document.querySelector(`#${id}`).firstChild, "viz");
-}
-
 export function makeBrushTool(emit) {
   return d3
     .brush()
@@ -72,8 +66,7 @@ export function brushFn(data, columns, cb) {
     const extent = selection;
     const brushed = data.reduce(
       (map, d) =>
-        isValidDatum(d, columns) &&
-        isBrushed(extent, xScale(d[columns[0]]), yScale(d[columns[1]]))
+        isValidDatum(d, columns) && isBrushed(extent, xScale(d[columns[0]]), yScale(d[columns[1]]))
           ? { ...map, [d.id]: true }
           : map,
       {}

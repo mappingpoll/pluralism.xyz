@@ -3,17 +3,13 @@ import { useD3 } from "../../hooks/useD3";
 import { VIEWBOX } from "../../constants";
 import { appendAxes } from "./scatterplot-axes";
 import { appendLabel } from "./labels";
-import {
-  countGraphRegions,
-  inStandardColumnSet,
-} from "../../lib/data-manipulation";
+import { countGraphRegions, inStandardColumnSet } from "../../lib/data-manipulation";
 
 export default function Numbers({ state, columns }) {
   let [x, y] = columns;
 
   let counts;
-  if (inStandardColumnSet(state.standardColumnSet, columns))
-    counts = state.standardRegionCounts[x];
+  if (inStandardColumnSet(state.standardColumnSet, columns)) counts = state.standardRegionCounts[x];
   else counts = countGraphRegions(state.processedRawData, columns);
   const ref = useD3(
     svg => {
@@ -25,8 +21,7 @@ export default function Numbers({ state, columns }) {
       // origin
       appendLabel(svg, counts.origin, 0, 0);
       // quadrants
-      const getQuadrantTotal = quadrant =>
-        counts.quadrants[quadrant] + counts.outerQuadrants[quadrant];
+      const getQuadrantTotal = quadrant => counts.quadrants[quadrant] + counts.outerQuadrants[quadrant];
       const nw = getQuadrantTotal("nw");
       const ne = getQuadrantTotal("ne");
       const se = getQuadrantTotal("se");
@@ -37,8 +32,7 @@ export default function Numbers({ state, columns }) {
       appendLabel(svg, sw, -5, -5);
 
       // axes
-      const getAxisTotal = cardinal =>
-        counts.axes[cardinal] + counts.outerAxes[cardinal];
+      const getAxisTotal = cardinal => counts.axes[cardinal] + counts.outerAxes[cardinal];
       const n = getAxisTotal("n");
       const e = getAxisTotal("e");
       const s = getAxisTotal("s");

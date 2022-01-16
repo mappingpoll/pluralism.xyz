@@ -6,7 +6,8 @@ dotenv.config();
 const env = process.env.NODE_ENV;
 
 const respondentsTableQuery = "CREATE TABLE IF NOT EXISTS respondents (timestamp TEXT PRIMARY KEY UNIQUE NOT NULL)";
-const pointsTableQuery = "CREATE TABLE IF NOT EXISTS points (" +
+const pointsTableQuery =
+  "CREATE TABLE IF NOT EXISTS points (" +
   "timestamp TEXT NOT NULL," +
   "question_num INTEGER NOT NULL," +
   "point0 REAL NOT NULL," +
@@ -14,7 +15,8 @@ const pointsTableQuery = "CREATE TABLE IF NOT EXISTS points (" +
   "FOREIGN KEY (timestamp)" +
   "REFERENCES respondents (timestamp)" +
   ")";
-const formTableQuery = "CREATE TABLE IF NOT EXISTS form (" +
+const formTableQuery =
+  "CREATE TABLE IF NOT EXISTS form (" +
   "timestamp TEXT NOT NULL," +
   "comment TEXT," +
   "submittedInGallery INTEGER," +
@@ -28,7 +30,6 @@ const respondentQuery = "INSERT INTO respondents (timestamp) VALUES ($1)";
 const pointsQuery = "INSERT INTO points (timestamp, question_num, point0, point1) VALUES ($1, $2, $3, $4)";
 const formQuery = "INSERT INTO form (timestamp, comment, submittedInGallery, email) VALUES ($1, $2, $3, $4)";
 
-
 let pool;
 
 if (env === "dev") {
@@ -37,8 +38,8 @@ if (env === "dev") {
   pool = new pg.Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
-      rejectUnauthorized: false
-    }
+      rejectUnauthorized: false,
+    },
   });
 }
 
@@ -51,7 +52,7 @@ const initDb = async () => {
   const client = await pool.connect();
   try {
     await client.query("BEGIN");
-    await Promise.all(initQueries.map( async q => await client.query(q)));
+    await Promise.all(initQueries.map(async q => await client.query(q)));
     await client.query("COMMIT");
   } catch (e) {
     await client.query("ROLLBACK");
@@ -62,7 +63,7 @@ const initDb = async () => {
 };
 
 const dbClient = () => {
-  const insertEntry = async (data) => {
+  const insertEntry = async data => {
     const client = await pool.connect();
 
     try {
@@ -90,11 +91,9 @@ const dbClient = () => {
     }
   };
 
-  const listEntries = () => {
-  };
+  const listEntries = () => {};
   return { insertEntry, listEntries };
 };
-
 
 export { initDb, dbClient };
 // if (env === 'dev') {

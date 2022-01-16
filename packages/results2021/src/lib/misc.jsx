@@ -1,10 +1,10 @@
-export const isChosenAxis = (a) => a != "";
+export const isChosenAxis = a => a != "";
 
 export const hasXAxis = ({ x }) => isChosenAxis(x);
 
 export const hasXYAxes = ({ x, y }) => isChosenAxis(x) && isChosenAxis(y);
 
-export const canShowCustomViz = (axes) => hasXYAxes(axes);
+export const canShowCustomViz = axes => hasXYAxes(axes);
 
 // "symetrical" floor fn
 export function symFloor(n) {

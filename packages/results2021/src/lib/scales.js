@@ -1,12 +1,6 @@
 import { scaleLinear, scaleBand } from "d3";
 
-import {
-  DOMAIN,
-  DOMAIN_DISCREET,
-  MARGIN,
-  DEFAULT_CANVAS_WIDTH,
-  DEFAULT_CANVAS_HEIGHT,
-} from "./constants";
+import { DOMAIN, DOMAIN_DISCREET, MARGIN, DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT } from "./constants";
 
 const xScale = scaleLinear()
   .domain(DOMAIN)

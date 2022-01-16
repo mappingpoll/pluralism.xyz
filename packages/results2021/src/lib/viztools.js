@@ -19,22 +19,28 @@ const getTableContent = q => {
     zero: zero ? { value: "0", name: zero } : false,
     midMin: midMin ? { value: "-5", name: midMin } : false,
     min: { value: zero ? "-10" : "-", name: min },
-  }
-}
+  };
+};
 
-export const makeVizTextContent = pair => pair.reduce((obj, v, i) => ({ ...obj, [i === 0 ? "x" : "y"]: { title: getTitle(v), question: getQuestion(v), table: getTableContent(v) } }), {})
+export const makeVizTextContent = pair =>
+  pair.reduce(
+    (obj, v, i) => ({
+      ...obj,
+      [i === 0 ? "x" : "y"]: { title: getTitle(v), question: getQuestion(v), table: getTableContent(v) },
+    }),
+    {}
+  );
 
 export function isValidDatum(datum, columns) {
   if (columns instanceof Array !== true) columns = [columns];
-  return columns.every((c) => datum[c] !== NA_SYMBOL);
+  return columns.every(c => datum[c] !== NA_SYMBOL);
 }
 
 export function getColorScale(color, rev = false) {
   let domain = DOMAIN;
   if (rev) domain = [domain[1], domain[0]];
   let colorScale;
-  if (CUSTOM_COLORS[color] == null)
-    colorScale = d3.scaleSequential(d3[color]).domain(domain);
+  if (CUSTOM_COLORS[color] == null) colorScale = d3.scaleSequential(d3[color]).domain(domain);
   else colorScale = d3.scaleSequential(CUSTOM_COLORS[color]).domain(domain);
   return colorScale;
 }
@@ -56,7 +62,7 @@ export function calcHeatmap(data, columns) {
   }
   // format totals into array
   for (let pair in totals) {
-    const [x, y] = pair.split(",").map((t) => +t);
+    const [x, y] = pair.split(",").map(t => +t);
     heatmap.push({ x, y, value: totals[pair] });
   }
   // iterate over domain to include dataless coords as 0 values
@@ -89,8 +95,7 @@ export function brushFn(data, columns, cb) {
     const extent = selection;
     const brushed = data.reduce(
       (map, d) =>
-        isValidDatum(d, columns) &&
-        isBrushed(extent, xScale(d[columns[0]]), yScale(d[columns[1]]))
+        isValidDatum(d, columns) && isBrushed(extent, xScale(d[columns[0]]), yScale(d[columns[1]]))
           ? { ...map, [d.id]: true }
           : map,
       {}
@@ -112,8 +117,8 @@ export function computeDensity(data, bandwidth, columns2d) {
   const [x, y] = columns2d;
   return d3
     .contourDensity()
-    .x((d) => xScale(d[x]))
-    .y((d) => yScale(d[y]))
+    .x(d => xScale(d[x]))
+    .y(d => yScale(d[y]))
     .size([rangeSize(xScale.range()), rangeSize(yScale.range())])
     .cellSize(2)
     .thresholds(20)
