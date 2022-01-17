@@ -1,6 +1,6 @@
 import { Database } from "../lib/database";
 import { initWorker } from "../lib/dbWorker";
-import { useState, useEffect } from "preact/hooks";
+import { useState, useEffect } from "../lib/utils";
 
 export function useDb() {
   const [db, setDb] = useState(null);

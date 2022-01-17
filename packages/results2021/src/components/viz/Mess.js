@@ -1,14 +1,14 @@
-import { h, Fragment } from "preact";
+import { html } from "../../lib/utils";
 
 import { useD3 } from "../../hooks/useD3";
-import { DEFAULT_DOT_SIZE, VIEWBOX } from "../../lib/constants";
+import { DEFAULT_DOT_COLOR, DEFAULT_DOT_SIZE, VIEWBOX } from "../../lib/constants";
 import { ACTION } from "../../lib/asyncReducer";
 import { xScale, yScale } from "../../lib/scales";
 import { appendAxes } from "./Axes";
 
-export function Mess({ data, options, brushMap, state, dispatch }) {
+export function Mess({ data, brushMap, state, dispatch }) {
   const DEFAULT_COLOR = "#1a1a1a";
-  const HIGHLIGHT_COLOR = "palevioletred";
+  const HIGHLIGHT_COLOR = "red";
 
   const MAX_AREA = 4; // 2 X 2;
   const MIN_OPACITY = 0.1;
@@ -37,7 +37,10 @@ export function Mess({ data, options, brushMap, state, dispatch }) {
   function handleClick(ev) {
     const el = ev.target;
     const user = el.getAttribute("data-user");
-    const action = ev.shiftKey ? ACTION.SELECT_ADD : ACTION.SELECT_ONE;
+    const isSelected = state.user.includes(user);
+    let action;
+    if (isSelected) action = ev.shiftKey ? ACTION.SELECT_REMOVE : ACTION.SELECT_NONE;
+    else action = ev.shiftKey ? ACTION.SELECT_ADD : ACTION.SELECT_ONE;
     dispatch({ type: action, payload: user });
   }
 
@@ -62,8 +65,11 @@ export function Mess({ data, options, brushMap, state, dispatch }) {
   const describesPoint = d => !d.x?.value[1] && !d.y?.value[1];
   const points = data
     .filter(describesPoint)
-    .map(d => ({ ...d, area: area(d) }))
+    .map(d => ({ ...d, area: MIN_LENGTH * MIN_LENGTH }))
     .sort(sortFn);
+
+  const unselectdPoints = points.filter(d => !state.user.includes(d.user));
+  const selectedPoints = points.filter(d => state.user.includes(d.user));
 
   const ref = useD3(
     svg => {
@@ -117,14 +123,30 @@ export function Mess({ data, options, brushMap, state, dispatch }) {
         .on("click", handleClick);
       // .attr("height", (d) => yScale(Math.abs(d.y.value[1] - d.y.value[0])));
 
-      // apped points
+      // apped unselected points
       svg
         .append("g")
         .selectAll("rect")
-        .data(points)
+        .data(unselectdPoints)
         .join("rect")
         .attr("class", "rect")
-        .attr("fill", getFill)
+        .attr("fill", DEFAULT_DOT_COLOR)
+        .attr("fill-opacity", getOpacity)
+        .attr("x", d => xScale(d.x?.value[0] ?? 0) - DEFAULT_DOT_SIZE / 2)
+        .attr("width", DEFAULT_DOT_SIZE)
+        .attr("y", d => yScale(d.y?.value[0] ?? 0) - DEFAULT_DOT_SIZE / 2)
+        .attr("height", DEFAULT_DOT_SIZE)
+        .attr("data-user", d => d.user)
+        .on("click", handleClick);
+
+      // apped unselected points
+      svg
+        .append("g")
+        .selectAll("rect")
+        .data(selectedPoints)
+        .join("rect")
+        .attr("class", "rect")
+        .attr("fill", HIGHLIGHT_COLOR)
         .attr("fill-opacity", getOpacity)
         .attr("x", d => xScale(d.x?.value[0] ?? 0) - DEFAULT_DOT_SIZE / 2)
         .attr("width", DEFAULT_DOT_SIZE)
@@ -136,18 +158,16 @@ export function Mess({ data, options, brushMap, state, dispatch }) {
       // draw axes, columns
       appendAxes(svg);
     },
-    [data, brushMap, options.size]
+    [data, brushMap]
   );
 
-  return (
-    <>
-      <svg
-        ref={ref}
-        viewBox={VIEWBOX.join(",")}
-        width={VIEWBOX[2]}
-        height={VIEWBOX[3]}
-        style="width: 100%; height: auto;"
-      />
-    </>
-  );
+  return html`
+    <svg
+      ref=${ref}
+      viewBox=${VIEWBOX.join(",")}
+      width=${VIEWBOX[2]}
+      height=${VIEWBOX[3]}
+      style="width: 100%; height: auto;"
+    />
+  `;
 }

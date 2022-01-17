@@ -1,4 +1,4 @@
-import { useCallback, useState } from "preact/hooks";
+import { useCallback, useState } from "../lib/utils";
 import { reducer } from "../lib/asyncReducer";
 
 export function useAsyncReducer(initState) {

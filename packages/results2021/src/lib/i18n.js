@@ -1,12 +1,11 @@
-import { h, Fragment, createContext } from "preact";
-import { useState } from "preact/hooks";
+import { html, createContext, useState } from "./utils";
 
 import en from "../i18n/en.json";
 
 export function findTranslation(locale, path) {
   let keys = path.split(".");
 
-  let result = locale === "en" ? en : fr;
+  let result = locale === "en" ? en : null; // fixthis
 
   for (const key of keys) {
     result = result[key];
@@ -32,15 +31,13 @@ export function I18nProvider(props) {
     }
   }
 
-  return (
-    <Locale.Provider
-      value={{
-        userLang,
-        swapLang,
-        i18n: path => findTranslation(userLang, path),
-      }}
+  return html`<${Locale.Provider}
+    value=${{
+      userLang,
+      swapLang,
+      i18n: path => findTranslation(userLang, path),
+    }}
     >
-      {props.children}
-    </Locale.Provider>
-  );
+    ${props.children}
+    </${Locale.Provider}>`;
 }

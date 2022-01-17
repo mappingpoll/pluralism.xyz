@@ -1,4 +1,4 @@
-import { useContext } from "preact/hooks";
+import { useContext } from "../lib/utils";
 
 import { Locale } from "../lib/i18n";
 

@@ -1,4 +1,4 @@
-import { h } from "preact";
+import { html } from "./utils";
 
 import en from "../i18n/en.json";
 import { pairwiseQuestions } from "./stats";
@@ -9,7 +9,7 @@ export const { pairs } = pairwiseQuestions({ questions });
 
 const options = [
   "Distracted / Focused",
-  "Art and political change",
+  "Art & political change",
   "Age",
   "Gender",
   "Money / Income",
@@ -34,10 +34,9 @@ const options = [
   "Concerns / Relevant or not",
 ];
 
-export const axisOptions = Object.keys(questions).map((question_num, i) => {
-  return (
-    <option key={question_num} value={+question_num}>
-      {options[i]}
-    </option>
-  );
-});
+export const axisOptions = custom =>
+  Object.keys(questions).map((question_num, i) => {
+    return html`<option key=${question_num} value=${question_num} selected=${custom === question_num.toString()}>
+      ${options[i]}
+    </option>`;
+  });

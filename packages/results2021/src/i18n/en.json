@@ -8,9 +8,9 @@
     },
     "3": {
       "title": "Art & Politics",
-      "question": "How impactful is art on political change?",
-      "max": "Art has no impact on political change",
-      "min": "Culture is the core of all revolutions"
+      "question": "Do you think that art can change things on a political level?",
+      "max": "Culture is the core of all revolutions",
+      "min": "Art has no impact on political change"
     },
     "5": {
       "title": "Age",
@@ -51,7 +51,7 @@
       "title": "Taking Care",
       "question": "Outside of professional responsibilities, is taking care of other people a large part of your life?",
       "max": "Everything I do in my life is for other persons who depend on me for their survival",
-      "min": "I don’t have to take care of anyone, I just do whatever I want"
+      "min": "I don't have to take care of anyone, I just do whatever I want"
     },
     "12": {
       "title": "Change/Past",
@@ -68,8 +68,8 @@
     "14": {
       "title": "Direction",
       "question": "Try to picture the totality of human activities taking place on the planet today. Towards what kind of future do you think humanity is heading in the next century?",
-      "max": "We’ll make constant progress and achieve civilizational maturity and wisdom",
-      "min": "It’ll be harder to live on earth, the social order will collapse, we’ll enter a new dark age"
+      "max": "We'll make constant progress and achieve civilizational maturity and wisdom",
+      "min": "It'll be harder to live on earth, the social order will collapse, we'll enter a new dark age"
     },
     "15": {
       "title": "Responsibility",
@@ -81,8 +81,8 @@
       "title": "Technology",
       "question": "To what degree do you think technology will advance in the next few hundred years",
       "max": "Technological progress will give us control over life, death, time, and space",
-      "zero": "Nothing will happen, we’ll just have more stupid apps on our phones",
-      "min": "Something will happen, and we’ll enter a phase of technological regression"
+      "zero": "Nothing will happen, we'll just have more stupid apps on our phones",
+      "min": "Something will happen, and we'll enter a phase of technological regression"
     },
     "17": {
       "title": "Impact",
@@ -100,19 +100,19 @@
       "title": "Responsibility",
       "question": "If you benefited directly or indirectly from past crimes, know or unknown to you, would you be willing to make amends?",
       "max": "I would be ready to make amends for the crimes of previous generations from which I benefited",
-      "min": "I shouldn’t be held responsible for crimes I didn't commit"
+      "min": "I shouldn't be held responsible for crimes I didn't commit"
     },
     "21": {
       "title": "All good",
       "question": "Imagine that, in 2041, climate change is under control, extreme poverty has been eradicated, and governments cooperate efficiently to solve global issues while prioritizing the interests of all humanity. How will we have done it?",
-      "max": "If all goes well, it’ll be because capitalism helped us innovate, creating economic growth and prosperity for all",
-      "min": "If all goes well, it’ll be because radical change took place and a beautiful post-capitalist world emerged"
+      "max": "If all goes well, it'll be because capitalism helped us innovate, creating economic growth and prosperity for all",
+      "min": "If all goes well, it'll be because radical change took place and a beautiful post-capitalist world emerged"
     },
     "22": {
       "title": "Hell",
       "question": "Imagine that, in 20 years, the earth is hotter than we thought it could be by then, there are millions of climate change refugees moving from place to place, and governments are falling apart. What will be your situation?",
-      "max": "If all goes wrong, it’ll be among those privileged enough to enjoy a secure, climatized dome",
-      "min": "If all goes wrong, I’ll be roasting in the heat with no resources"
+      "max": "If all goes wrong, I'll be among those privileged enough to enjoy a secure, climatized dome",
+      "min": "If all goes wrong, I'll be roasting in the heat with no resources"
     },
     "23": {
       "title": "Redistribution",

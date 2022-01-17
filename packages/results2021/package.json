@@ -7,7 +7,6 @@
     "d3": "^7.2.1",
     "lodash.assign": "^4.2.0",
     "lodash.clonedeep": "^4.5.0",
-    "preact": "^10.6.4",
     "sql.js-httpvfs": "^0.8.11"
   }
 }

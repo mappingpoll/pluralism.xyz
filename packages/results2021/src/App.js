@@ -1,20 +1,19 @@
-import { h, Fragment } from "preact";
-import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks";
 import cloneDeep from "lodash.clonedeep";
 
+import { html, useCallback, useEffect, useRef, useState } from "./lib/utils";
 import { useAsyncReducer } from "./hooks/useAsyncReducer";
 import { initialState } from "./lib/state";
-
+import { useDb } from "./hooks/useDb";
+import { ACTION } from "./lib/asyncReducer";
 import { Intro } from "./components/Intro";
 import { Options } from "./components/Options";
 import { Maps } from "./components/Maps";
 import { Accordion } from "./components/Accordion";
-
-import "./App.css";
-import { ACTION } from "./lib/asyncReducer";
 import { SiteMenu } from "./components/SiteMenu";
+import "./App.css";
 
-export function App({ db }) {
+export function App() {
+  const { db } = useDb();
   const [state, dispatch] = useAsyncReducer(cloneDeep(initialState));
 
   const introRef = useRef();
@@ -35,11 +34,6 @@ export function App({ db }) {
       setIsLoading(false);
     }
   }, [db, isLoading]);
-
-  const latestCount = useMemo(
-    () => (state.brushMap != null ? Object.keys(state.brushMap).length : 0),
-    [state.brushMap]
-  );
 
   useEffect(() => {
     document.onscroll = () => {
@@ -93,41 +87,29 @@ export function App({ db }) {
     }
   }, [mapsRef, dispatch]);
 
-  return (
-    <div>
-      <div
-        class="back-to-top"
-        onclick={handleBackToTopClick}
-        style={showBackToTop ? "opacity: 1;" : "opacity: 0; pointer-events: none; cursor: default;"}
-      >
-        Go up <img style="display: inline-block; max-height: 1em; padding-top: 0.2em" src={"/images/up-arrow.svg"} />
-      </div>
-
-      <header ref={introRef} class="intro">
-        <Intro onclick={handleToBottomClick} />
+  return html`<div>
+      <header ref=${introRef} class="intro">
+        <${Intro} onclick=${handleToBottomClick} />
       </header>
 
-      <Options
-        reducer={{ state, dispatch }}
-        selected={latestCount}
-        visible={shouldShowKnobs}
-        getIntroBottom={getIntroBottom}
-      />
-
-      {!isLoading ? (
-        <div ref={mapsRef} class="maps">
-          <Maps db={db} reducer={{ state, dispatch }} />
-        </div>
-      ) : (
-        <div style={"height: 200vh"} />
-      )}
-
-      <div ref={footerRef} class="accordion">
-        <Accordion db={db} reducer={{ state, dispatch }} collapseFn={setCollapseFooter} />
+      <${Options} reducer=${{ state, dispatch }} visible=${shouldShowKnobs} getIntroBottom=${getIntroBottom} />
+      ${!isLoading
+        ? html`<div ref=${mapsRef} class="maps">
+            <${Maps} db=${db} reducer=${{ state, dispatch }} />
+          </div> `
+        : html`<div style="height: 200vh" /> `}
+      <div ref=${footerRef} class="accordion">
+        <${Accordion} db=${db} reducer=${{ state, dispatch }} collapseFn=${setCollapseFooter} />
       </div>
       <footer>
-        <SiteMenu />
+        <${SiteMenu} />
       </footer>
     </div>
-  );
+    <div
+      class="back-to-top"
+      onclick=${handleBackToTopClick}
+      style=${showBackToTop ? "opacity: 1;" : "opacity: 0; pointer-events: none; cursor: default;"}
+    >
+      Go up <img style="display: inline-block; max-height: 1em; padding-top: 0.2em" src="/images/up-arrow.svg" />
+    </div>`;
 }

@@ -1,9 +1,7 @@
-import { h } from "preact";
 import { scaleLinear, axisBottom, axisLeft } from "d3";
 
 import { xScale, yScale } from "../../lib/scales";
 import { ORIGIN, AXES_DOMAIN } from "../../lib/constants";
-import { useD3 } from "../../hooks/useD3";
 import "./Axes.css";
 
 const xAxisScale = scaleLinear(AXES_DOMAIN).range([xScale(AXES_DOMAIN[0]), xScale(AXES_DOMAIN[1])]);
@@ -91,35 +89,9 @@ export const arrowheads = g => {
     .join("path")
     .attr("d", d => `M${d[0]} ${d[1]} L ${d[2]} ${d[3]} L ${d[4]} ${d[5]} Z`);
 };
-// export const zAxis = colorScale => g =>
-//   g
-//     .attr("class", "zaxis")
-//     .attr("transform", `translate(0, ${DEFAULT_CANVAS_HEIGHT - TRACK_HEIGHT})`)
-//     .selectAll("rect")
-//     .data(DOMAIN_DISCREET)
-//     .join("rect")
-//     .attr("x", d => zScale(d))
-//     .attr("width", zScale.bandwidth())
-//     .attr("height", TRACK_HEIGHT)
-//     .attr("stroke", d => colorScale(d))
-//     .attr("fill", d => colorScale(d));
 
 export function appendAxes(svg) {
   svg.append("g").call(xAxis);
   svg.append("g").call(yAxis);
   svg.append("g").call(arrowheads);
-}
-
-export function Axes(props) {
-  const ref = useD3(svg => appendAxes(svg));
-  return (
-    <svg
-      ref={ref}
-      class={props.class}
-      style={props.style}
-      width={props.width}
-      height={props.height}
-      viewBox={`0, 0, ${props.width}, ${props.height}`}
-    />
-  );
 }

@@ -1,5 +1,4 @@
-import { h, Fragment } from "preact";
-import { useMemo } from "preact/hooks";
+import { html, useMemo } from "../lib/utils";
 
 import { questions } from "../lib/questions";
 import { makeVizTextContent } from "../lib/viztools";
@@ -14,22 +13,21 @@ export function Maps({ db, reducer }) {
     const { x, y } = state.customPair;
     // default view with survey pairs
     if (!x && !y) {
-      return <SurveyResults db={db} reducer={reducer} />;
+      return html`<${SurveyResults} db=${db} reducer=${reducer} />`;
       // A single custom axis
     } else if ((x && !y) || (!x && y)) {
       return Object.keys(questions).map((n, i) => {
         const pair = [x || n, y || n];
-        return (
-          <SurveyPair key={i} viz={<Viz db={db} pair={pair} reducer={reducer} />} content={makeVizTextContent(pair)} />
-        );
+        const viz = html`<${Viz} db=${db} pair=${pair} reducer=${reducer} />`;
+        return html`<${SurveyPair} key=${i} viz=${viz} content=${makeVizTextContent(pair)} />`;
       });
       // two custom axes
     } else if (x && y) {
       const pair = [x, y];
-      return <SurveyPair viz={<Viz db={db} pair={pair} reducer={reducer} />} content={makeVizTextContent(pair)} />;
+      const viz = html`<${Viz} db=${db} pair=${pair} reducer=${reducer} />`;
+      return html`<${SurveyPair} viz=${viz} content=${makeVizTextContent(pair)} />`;
     }
-    throw new Error("uh oh");
   }, [db, state, reducer]);
 
-  return <>{graphs}</>;
+  return graphs;
 }
