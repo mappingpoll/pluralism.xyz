@@ -20,7 +20,7 @@ elif [[ "$1" == "--prod" ]]; then
 
   git switch production
   mv build public
-  git add build
+  git add public
   git commit -m "build: $(date)"
   git push
   git switch master
