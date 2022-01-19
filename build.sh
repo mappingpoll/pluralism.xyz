@@ -19,7 +19,8 @@ elif [[ "$1" == "--prod" ]]; then
   yarn build:prod
 
   git switch production
-  git add public
+  mv build public
+  git add build
   git commit -m "build: $(date)"
   git push
   git switch master

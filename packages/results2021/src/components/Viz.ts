@@ -1,0 +1,124 @@
+import { html } from "htm/preact";
+import { css } from "@emotion/css";
+import { useMemo } from "preact/hooks";
+
+import { Pair, questions } from "../lib/questions";
+import { mapPairToXYData } from "../lib/data";
+import { Graph } from "./Graphs";
+import { Reducer } from "../lib/reducer";
+
+const styles = css`
+  display: grid;
+  max-height: 80vh;
+  grid-template-rows: 1fr auto 1fr;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-areas:
+    ". top ."
+    "left graph right"
+    ". bottom .";
+
+  .graph {
+    grid-area: graph;
+    align-self: center;
+    justify-self: center;
+    max-width: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem 1rem;
+  }
+  /* GRAPH LABELS */
+
+  .label {
+    text-align: center;
+    max-width: 35ch;
+  }
+
+  .top,
+  .bottom,
+  .left,
+  .right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .top {
+    grid-area: top;
+  }
+
+  .bottom {
+    grid-area: bottom;
+  }
+
+  .left,
+  .right {
+    flex-direction: column;
+  }
+
+  .left {
+    grid-area: left;
+    align-items: flex-end;
+  }
+  .right {
+    grid-area: right;
+    align-items: flex-start;
+  }
+
+  @media only screen and (max-device-width: 414px) {
+    .vizContainer {
+      max-width: 100%;
+    }
+
+    .graph {
+      max-width: 70vw;
+      margin: 0;
+    }
+
+    .label {
+      font-size: 0.9em;
+    }
+
+    .top .label,
+    .bottom .label {
+      max-width: 25ch;
+    }
+
+    .right .label,
+    .left .label {
+      transform: rotate(180deg);
+      writing-mode: vertical-rl;
+      max-height: 25ch;
+      line-height: 0.9;
+    }
+  }
+`;
+
+interface VizProps {
+  pair: Pair;
+  reducer: Reducer;
+}
+
+export function Viz({ pair, reducer }: VizProps) {
+  const { state } = reducer;
+  const data = useMemo(() => mapPairToXYData(pair), [pair]);
+
+  const { x, y } = pair;
+
+  return html`<div class=${styles}>
+    <div class="graph">${data != null && html`<${Graph[state.graph]} data=${data} reducer=${reducer} />`}</div>
+
+    <div class="right">
+      <div class="label">${questions[x].max}</div>
+    </div>
+    <div class="left">
+      <div class="label">${questions[x].min}</div>
+    </div>
+    <div class="top">
+      <div class="label">${questions[y].max}</div>
+    </div>
+    <div class="bottom">
+      <div class="label">${questions[y].min}</div>
+    </div>
+  </div>`;
+}

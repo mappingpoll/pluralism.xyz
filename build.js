@@ -2,6 +2,8 @@ const esbuild = require("esbuild");
 const { copyFile, readdir, cp, mkdir, rm } = require("fs/promises");
 const path = require("path");
 
+const BUILD_DIR = "build";
+
 const preserveAbsImgPath = {
   name: "absImages",
   setup(build) {
@@ -17,12 +19,12 @@ const preserveAbsImgPath = {
 const isDev = process.env.NODE_ENV === "development";
 
 const clean = async () => {
-  await rm("public", { force: true, recursive: true });
-  await mkdir("public");
+  await rm(BUILD_DIR, { force: true, recursive: true });
+  await mkdir(BUILD_DIR);
 };
 
 const images = async () => {
-  await cp("images", "public/images", { recursive: true });
+  await cp("images", `${BUILD_DIR}/images`, { recursive: true });
 };
 
 const buildConfig = {
@@ -35,61 +37,57 @@ const buildConfig = {
   logLevel: "info",
 };
 
-const homepage = async () => {
-  const files = await readdir("packages/homepage");
+async function copyDirContent(dir, outdir) {
+  const files = await readdir(dir);
   for (const file of files) {
-    await copyFile(path.join("packages/homepage", file), path.join("public", file));
+    await copyFile(path.join(dir, file), path.join(outdir, file));
   }
+}
+
+const homepage = async () => {
+  await copyDirContent("packages/homepage", BUILD_DIR);
 };
 
 const results20192020 = async () => {
-  const appName = "survey2019-2020";
-  const outdir = `public/${appName}`;
-  await mkdir(outdir);
-  await copyFile("packages/results2019-2020/src/index.html", path.join(outdir, "index.html"));
-  await cp("packages/results2019-2020/src/assets", path.join(outdir, "assets"), { recursive: true });
+  const APP_NAME = "survey2019-2020";
+  const OUTDIR = `${BUILD_DIR}/${APP_NAME}`;
+
+  await mkdir(OUTDIR);
+  await copyFile("packages/results2019-2020/src/index.html", path.join(OUTDIR, "index.html"));
+  await cp("packages/results2019-2020/src/assets", path.join(OUTDIR, "assets"), { recursive: true });
   await esbuild.build({
     ...buildConfig,
     entryPoints: ["packages/results2019-2020/src/index.jsx"],
-    publicPath: `https://www.pluralism.xyz/${appName}`,
+    publicPath: `https://www.pluralism.xyz/${APP_NAME}`,
     target: ["es6"],
     jsxFactory: "h",
     jsxFragment: "Fragment",
     define: {
-      APP_NAME: `"${appName}"`,
-      APP_BASE_URL: `"/${appName}"`,
+      APP_NAME: `"${APP_NAME}"`,
+      APP_BASE_URL: `"/${APP_NAME}"`,
     },
-    outdir,
+    outdir: OUTDIR,
   });
 };
 
 const results2021 = async () => {
-  const appName = "survey2021";
-  const outdir = `public/${appName}`;
-  await mkdir(outdir);
+  const APP_NAME = "survey2021";
+  const DIR = "packages/results2021/src";
+  const OUTDIR = `${BUILD_DIR}/${APP_NAME}`;
 
-  // yarn will take care of expanding these
-  const workerPath = require.resolve("sql.js-httpvfs/dist/sqlite.worker.js");
-  const wasmPath = require.resolve("sql.js-httpvfs/dist/sql-wasm.wasm");
+  await mkdir(OUTDIR);
+  await copyDirContent(path.join(DIR, "public"), OUTDIR);
 
-  await copyFile("packages/results2021/src/index.html", path.join(outdir, "index.html"));
-  await cp("packages/results2021/src/assets", path.join(outdir, "assets"), {
-    recursive: true,
-  });
-  await copyFile(workerPath, path.join(outdir, "assets", "sqlite.worker.js"));
-  await copyFile(wasmPath, path.join(outdir, "assets", "sql-wasm.wasm"));
   await esbuild.build({
     ...buildConfig,
-    entryPoints: ["packages/results2021/src/index.js"],
-    publicPath: `https://www.pluralism.xyz/${appName}`,
+    entryPoints: [`${DIR}/index.ts`],
+    publicPath: `https://www.pluralism.xyz/${APP_NAME}`,
     target: ["es2020"],
     define: {
-      APP_NAME: `"${appName}"`,
-      APP_BASE_URL: `"/${appName}/"`,
-      WORKER_PATH: `"/${appName}/assets/sqlite.worker.js"`,
-      WASM_PATH: `"/${appName}/assets/sql-wasm.wasm"`,
+      APP_NAME: `"${APP_NAME}"`,
+      APP_BASE_URL: `"/${APP_NAME}/"`,
     },
-    outdir,
+    outdir: OUTDIR,
   });
 };
 

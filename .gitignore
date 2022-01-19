@@ -6,7 +6,7 @@
 !.yarn/sdks
 !.yarn/versions
 
-**/node_modules/
-public/
+node_modules/
+build/
 .vim/
 .vscode/

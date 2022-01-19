@@ -1,17 +1,19 @@
 module.exports = {
+  root: true,
   env: {
-    node: true,
     browser: true,
+    node: true,
   },
-  extends: ["eslint:recommended", "plugin:prettier/recommended", "preact"],
-  plugins: ["prettier"],
+  parser: "@typescript-eslint/parser",
+  plugins: ["@typescript-eslint", "prettier"],
+  extends: ["eslint:recommended", "preact", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
   parserOptions: {
     ecmaVersion: "latest",
+    tsconfigRootDir: __dirname,
+    project: "./tsconfig.json",
   },
   rules: {
     "no-undef": "warn",
-    "no-unused-vars": "warn",
     "no-irregular-whitespace": "warn",
-    quotes: ["warn", "double"],
   },
 };

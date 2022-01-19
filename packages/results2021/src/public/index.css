@@ -1,0 +1,247 @@
+@import "./reset.css";
+@import "./rangeslider.css";
+
+:root {
+  font-size: 12pt;
+  --background-color: white;
+  --text-color: black;
+
+  --base-grey: #1a1a1a;
+
+  --selection-bg: red;
+  --selection-fg: white;
+
+  --user-bg: #18ad2a;
+  --user-fg: white;
+
+  --content-width: 45rem;
+  --content-padding: calc((100vw - var(--content-width)) / 2);
+  --content-lr-padding: calc((100% - var(--content-width)) / 2);
+
+  --slider-width: 18rem;
+  --slider-contrast: 25%;
+  --track-width: 95%;
+  --track-height: 5px;
+  --track-radius: 2.5px;
+  --track-color: #5f5f5f;
+
+  --thumb-width: 20px;
+  --thumb-height: 20px;
+  --thumb-color: #303030;
+
+  --svg-canvaswidth: 1000;
+  --svg-canvasheight: 1000;
+  --svg-canvasmargintop: 40;
+  --svg-canvasmarginright: 40;
+  --svg-canvasmarginbottom: 40;
+  --svg-canvasmarginleft: 40;
+
+  --wavy-border-image: url(/images/little_wave_template.png) 18 0 18 0 repeat;
+  --wavy-border: 18px solid transparent;
+}
+
+::selection,
+::-moz-selection {
+  background-color: var(--text-color);
+  color: var(--background-color);
+}
+
+html,
+body {
+  padding: 0;
+  background-color: var(--background-color);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+.axis {
+  stroke: black;
+  stroke-width: 3;
+}
+
+.arrowhead {
+  fill: black;
+  stroke: black;
+  stroke-linejoin: miter;
+  stroke-miterlimit: 16;
+}
+
+.maps {
+  border-image: var(--wavy-border-image);
+  border-bottom: var(--wavy-border);
+}
+
+.maps {
+  padding-top: 8rem;
+  padding-bottom: 12rem;
+}
+
+.map {
+  padding: 5rem 1rem;
+}
+
+.map:last-of-type {
+  margin-bottom: 0;
+}
+
+.map-section-title {
+  font-size: 3.5rem;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 12rem 0;
+}
+
+.maptitle,
+.mapdescription {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.maptitle {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.maptitle div:nth-child(1) {
+  white-space: nowrap;
+  text-align: left;
+  margin-right: 2rem;
+}
+
+.maptitle div:nth-child(2) {
+  text-align: right;
+  flex-grow: 1;
+}
+
+.mapviz {
+  margin: 0 auto;
+}
+
+.maptext {
+  text-align: justify;
+  color: #bababa;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+.maptext p {
+  margin-bottom: 0.1rem;
+}
+.maptext table {
+  display: inline-block;
+}
+.maptext td {
+  text-align: left;
+  vertical-align: top;
+}
+
+.maptext td:nth-child(1) {
+  padding-right: 2rem;
+}
+
+.acknowledgements {
+  background-color: white;
+  color: black;
+}
+
+.acknowledgements > img {
+  max-height: 20em;
+  margin: 2rem 0;
+}
+
+.acknowledgements > h1 {
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+.labeled-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.labeled-input > label {
+  flex-basis: 15ch;
+  white-space: nowrap;
+  margin-right: 1em;
+}
+
+.labeled-input > input {
+  flex-grow: 1;
+}
+
+.labeled-input > select {
+  flex-grow: 1;
+  max-width: 75%;
+}
+
+.labeled-checkbox {
+  text-indent: -1.4rem;
+  padding-left: 1.4rem;
+}
+
+input[type="checkbox"] {
+  margin-right: 0.4rem;
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-device-width: 430px) {
+  header {
+    padding: 0.25rem 0.5rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  header p,
+  .accordion p,
+  .accordion li {
+    font-size: 1rem;
+  }
+
+  .map {
+    user-select: none;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .map-section-title {
+    font-size: 2.2rem;
+    margin: 5rem 0;
+  }
+
+  .mapdescription {
+    text-align: justify;
+  }
+
+  .mapviz {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  section {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
