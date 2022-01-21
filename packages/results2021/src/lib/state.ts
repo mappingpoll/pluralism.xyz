@@ -1,5 +1,6 @@
 import { BASE_OPACITY, OPACITY_K } from "./constants";
 import { Pair } from "./questions";
+import { graphs } from "../components/graphs";
 
 export interface State {
   selectedUsers: string[];
@@ -8,7 +9,7 @@ export interface State {
     base: number;
     k: number;
   };
-  graph: string;
+  graph: keyof typeof graphs;
 }
 
 export const initialState: State = {
@@ -18,5 +19,5 @@ export const initialState: State = {
     base: BASE_OPACITY,
     k: OPACITY_K,
   },
-  graph: "Rectangles",
+  graph: "Boxes",
 };

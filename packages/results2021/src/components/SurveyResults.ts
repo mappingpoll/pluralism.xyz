@@ -1,16 +1,16 @@
 import { html } from "htm/preact";
 
 import { Pair, pairs } from "../lib/questions";
-import { describeViz } from "../lib/viztools";
+import { describeGraph } from "../lib/viztools";
 import { Reducer } from "../lib/reducer";
 import { SurveyPair } from "./SurveyPair";
-import { Viz } from "./Viz";
+import { Graph } from "./Graph";
 
 export function SurveyResults({ reducer }: { reducer: Reducer }) {
-  const makeViz = (pair: Pair) => html`<${Viz} pair=${pair} reducer=${reducer} />`;
+  const makeGraph = (pair: Pair) => html`<${Graph} pair=${pair} reducer=${reducer} />`;
 
   return html`
-    <${SurveyPair} viz=${makeViz(pairs[0])} description=${{ x: { title: "Introduction" } }} noDescribe />
+    <${SurveyPair} graph=${makeGraph(pairs[0])} description=${{ x: { title: "Introduction" } }} noDescribe />
     <div class="map-section-title">
       Part I:
       <br />
@@ -18,7 +18,7 @@ export function SurveyResults({ reducer }: { reducer: Reducer }) {
     </div>
     ${pairs
       .slice(1, 4)
-      .map((pair, i) => html`<${SurveyPair} key=${i} viz=${makeViz(pair)} description=${describeViz(pair)} />`)}
+      .map((pair, i) => html`<${SurveyPair} key=${i} graph=${makeGraph(pair)} description=${describeGraph(pair)} />`)}
     <div class="map-section-title">
       Part II:
       <br />
@@ -26,7 +26,7 @@ export function SurveyResults({ reducer }: { reducer: Reducer }) {
     </div>
     ${pairs
       .slice(4, 8)
-      .map((pair, i) => html`<${SurveyPair} key=${i} viz=${makeViz(pair)} description=${describeViz(pair)} />`)}
+      .map((pair, i) => html`<${SurveyPair} key=${i} graph=${makeGraph(pair)} description=${describeGraph(pair)} />`)}
     <div class="map-section-title">
       Part III:
       <br />
@@ -34,7 +34,7 @@ export function SurveyResults({ reducer }: { reducer: Reducer }) {
     </div>
     ${pairs
       .slice(8, 11)
-      .map((pair, i) => html`<${SurveyPair} key=${i} viz=${makeViz(pair)} description=${describeViz(pair)} />`)}
+      .map((pair, i) => html`<${SurveyPair} key=${i} graph=${makeGraph(pair)} description=${describeGraph(pair)} />`)}
     <div class="map-section-title">
       Part IV:
       <br />
@@ -42,6 +42,6 @@ export function SurveyResults({ reducer }: { reducer: Reducer }) {
     </div>
     ${pairs
       .slice(11)
-      .map((pair, i) => html`<${SurveyPair} key=${i} viz=${makeViz(pair)} description=${describeViz(pair)} />`)}
+      .map((pair, i) => html`<${SurveyPair} key=${i} graph=${makeGraph(pair)} description=${describeGraph(pair)} />`)}
   `;
 }

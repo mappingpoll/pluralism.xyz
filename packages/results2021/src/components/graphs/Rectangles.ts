@@ -11,7 +11,8 @@ import { ActionType } from "../../lib/reducer";
 import { xScale, yScale } from "../../lib/scales";
 import { isClientUser } from "../../lib/user";
 import { appendAxes } from "./Axes";
-import { Datum, LineX, LineY, Point, Props, Rect } from "./types";
+import { Datum, LineX, LineY, Point, GraphProps, Rect } from "./types";
+import { TwoDee } from "./TwoDee";
 
 const styles = css`
   width: 100%;
@@ -43,7 +44,7 @@ const describesRectangle = (d: XYDatum) => d.x?.[1] != null && d.y?.[1] != null;
 const describesLineX = (d: XYDatum) => d.x?.[1] != null && d.y?.[1] == null;
 const describesLineY = (d: XYDatum) => d.x?.[1] == null && d.y?.[1] != null;
 
-export function Rectangles({ data, reducer }: Props) {
+export function Rectangles({ data, reducer, pair }: GraphProps) {
   const { state, dispatch } = reducer;
 
   const isSelected = useCallback((user: string) => state.selectedUsers.includes(user), [state.selectedUsers]);
@@ -197,6 +198,8 @@ export function Rectangles({ data, reducer }: Props) {
   ]);
 
   return html`
-    <svg ref=${ref} viewBox=${VIEWBOX.join(",")} width=${VIEWBOX[2]} height=${VIEWBOX[3]} class=${styles} />
+    <${TwoDee} pair=${pair}>
+      <svg ref=${ref} viewBox=${VIEWBOX.join(",")} width=${VIEWBOX[2]} height=${VIEWBOX[3]} class=${styles} />
+    <//>
   `;
 }

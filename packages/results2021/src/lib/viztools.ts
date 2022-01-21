@@ -48,7 +48,7 @@ const describeAxis = (v: string): AxisDescription => ({
   table: getTableContent(v),
 });
 
-export const describeViz = ({ x, y }: Pair): VizDescription => ({
+export const describeGraph = ({ x, y }: Pair): VizDescription => ({
   x: describeAxis(x),
   y: describeAxis(y),
 });

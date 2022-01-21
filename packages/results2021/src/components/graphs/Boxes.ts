@@ -1,48 +1,93 @@
+import { css } from "@emotion/css";
 import { html } from "htm/preact";
 import { useEffect, useRef } from "preact/hooks";
-import * as Three from "three";
+import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { VIEWBOX } from "../../lib/constants";
-import { Props } from "./types";
+import { color } from "../../lib/style";
+import { GraphProps } from "./types";
 
-export function Boxes({ data, reducer }: Props) {
+const styles = css`
+  background-color: ${color.bg};
+  width: 100%;
+  height: 100%;
+  display: block;
+`;
+
+export function Boxes({ data, reducer, pair }: GraphProps) {
   const ref = useScene<HTMLDivElement>();
 
-  return html`<div ref=${ref}></div>`;
+  return html`<canvas ref=${ref} class=${styles}></canvas>`;
 }
 
 function useScene<T extends HTMLElement>() {
   const ref = useRef<T>();
 
   useEffect(() => {
-    if (ref.current != null) {
-      const w = VIEWBOX[2];
-      const h = VIEWBOX[3];
-      const scene = new Three.Scene();
-      const camera = new Three.PerspectiveCamera(75, w / h, 0.1, 1000);
+    if (ref.current == null) return;
+    const w = VIEWBOX[2];
+    const h = VIEWBOX[3];
 
-      const renderer = new Three.WebGL1Renderer();
+    const renderer = new THREE.WebGL1Renderer({ canvas: ref.current, alpha: true, antialias: true });
+    renderer.setSize(w, h);
 
-      renderer.setSize(w, h);
+    const scene = new THREE.Scene();
 
-      ref.current.appendChild(renderer.domElement);
+    // Camera
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 100);
+    camera.position.z = 2;
 
-      const geometry = new Three.BoxGeometry();
-      const material = new Three.MeshBasicMaterial({ color: 0x00f323 });
-      const cube = new Three.Mesh(geometry, material);
+    const controls = new OrbitControls(camera, ref.current);
+    controls.target.set(0, 0, 0);
+    controls.enableDamping = true;
+    controls.update();
 
-      scene.add(cube);
+    // Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 5);
+    scene.add(ambientLight);
+    const light = new THREE.DirectionalLight(0xffffff, 2);
+    light.position.set(-1, 2, 5);
+    scene.add(light);
 
-      camera.position.z = 5;
+    // Boxes
+    const geometry = new THREE.BoxGeometry();
+    const material = new THREE.MeshPhongMaterial({ color: 0x1a1a1a });
+    const cube = new THREE.Mesh(geometry, material);
 
-      function animate() {
-        requestAnimationFrame(animate);
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
-        renderer.render(scene, camera);
-      }
+    scene.add(cube);
 
-      animate();
+    // Axes
+    const axisMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
+    const points = [];
+    points.push(new THREE.Vector3(1, 0, 0));
+    points.push(new THREE.Vector3(0, 0, 0));
+    points.push(new THREE.Vector3(0, 1, 0));
+    points.push(new THREE.Vector3(0, 0, 0));
+    points.push(new THREE.Vector3(0, 0, 1));
+
+    const axisGeometry = new THREE.BufferGeometry().setFromPoints(points);
+    const axes = new THREE.Line(axisGeometry, axisMaterial);
+    scene.add(axes);
+
+    camera.position.z = 10;
+
+    let renderRequested = false;
+    function render() {
+      renderRequested = false;
+      controls.update();
+      renderer.render(scene, camera);
     }
+    render();
+
+    function requestRenderIfNotReqquested() {
+      if (!renderRequested) {
+        renderRequested = true;
+        requestAnimationFrame(render);
+      }
+    }
+    controls.addEventListener("change", requestRenderIfNotReqquested);
+    window.onresize = render;
+    render();
   }, []);
 
   return ref;

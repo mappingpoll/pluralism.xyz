@@ -1,4 +1,5 @@
 import assign from "lodash.assign";
+import { graphs } from "../components/graphs";
 
 import { initialState, State } from "./state";
 
@@ -10,6 +11,7 @@ export enum ActionType {
   SelectAdd,
   SelectRemove,
   SelectNone,
+  Set_Graph_Style,
 }
 
 export interface Action {
@@ -33,6 +35,10 @@ export function reducer(state: State, action: Action): State {
     case ActionType.Set_Y_Axis: {
       const { y } = action.payload as { y: string };
       return assign({ ...state }, { customPair: { ...state.customPair, y } });
+    }
+    case ActionType.Set_Graph_Style: {
+      const { graph } = action.payload as { graph: keyof typeof graphs };
+      return assign({ ...state }, { graph });
     }
     case ActionType.SelectOne: {
       const user = action.payload as string;

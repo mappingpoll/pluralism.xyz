@@ -1,22 +1,25 @@
 import { css } from "@emotion/css";
 import { html } from "htm/preact";
-import { FunctionComponent } from "preact";
-import { VizDescription } from "../lib/viztools";
+import { VizDescription as GraphDescription } from "../lib/viztools";
+import { Graph } from "./graphs/types";
 
 const styles = css`
   padding: 5rem 0;
-
   figure {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
 interface Props {
-  viz: FunctionComponent;
-  description: Partial<VizDescription>;
+  graph: Graph;
+  description: Partial<GraphDescription>;
   noDescribe: boolean;
 }
 
-export function SurveyPair({ viz, description, noDescribe = false }: Props) {
+export function SurveyPair({ graph, description, noDescribe = false }: Props) {
   const { x, y } = description;
 
   return html`
@@ -25,7 +28,7 @@ export function SurveyPair({ viz, description, noDescribe = false }: Props) {
         <div>${x?.title}</div>
         <div>${y?.title}</div>
       </header>
-      <figure class="mapviz">${viz}</figure>
+      <figure class="graph">${graph}</figure>
       <aside class="maptext">
         ${!noDescribe &&
         [x, y].map(

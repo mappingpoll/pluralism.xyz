@@ -31,8 +31,9 @@ const buildConfig = {
   plugins: [preserveAbsImgPath],
   bundle: true,
   format: "esm",
+  target: ["es6"],
   sourcemap: isDev,
-  minify: !isDev,
+  minify: false,
   watch: isDev,
   logLevel: "info",
 };
@@ -59,7 +60,6 @@ const results20192020 = async () => {
     ...buildConfig,
     entryPoints: ["packages/results2019-2020/src/index.jsx"],
     publicPath: `https://www.pluralism.xyz/${APP_NAME}`,
-    target: ["es6"],
     jsxFactory: "h",
     jsxFragment: "Fragment",
     define: {
@@ -82,7 +82,6 @@ const results2021 = async () => {
     ...buildConfig,
     entryPoints: [`${DIR}/index.ts`],
     publicPath: `https://www.pluralism.xyz/${APP_NAME}`,
-    target: ["es2020"],
     define: {
       APP_NAME: `"${APP_NAME}"`,
       APP_BASE_URL: `"/${APP_NAME}/"`,

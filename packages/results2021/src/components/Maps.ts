@@ -2,8 +2,8 @@ import { html } from "htm/preact";
 import { useMemo } from "preact/hooks";
 
 import { questions } from "../lib/questions";
-import { describeViz } from "../lib/viztools";
-import { Viz } from "./Viz";
+import { describeGraph } from "../lib/viztools";
+import { Graph } from "./Graph";
 import { SurveyResults } from "./SurveyResults";
 import { SurveyPair } from "./SurveyPair";
 import { ActionType, Reducer } from "../lib/reducer";
@@ -25,14 +25,14 @@ export function Maps({ reducer }: { reducer: Reducer }) {
       // A single custom axis
       return Object.keys(questions).map((n, i) => {
         const pair = { x: x || n, y: y || n };
-        const viz = html`<${Viz} pair=${pair} reducer=${reducer} />`;
-        return html`<${SurveyPair} key=${i} viz=${viz} description=${describeViz(pair)} />`;
+        const graph = html`<${Graph} pair=${pair} reducer=${reducer} />`;
+        return html`<${SurveyPair} key=${i} graph=${graph} description=${describeGraph(pair)} />`;
       });
     } else if (x && y) {
       // two custom axes
       const pair = { x, y };
-      const viz = html`<${Viz} pair=${pair} reducer=${reducer} />`;
-      return html`<${SurveyPair} viz=${viz} description=${describeViz(pair)} />`;
+      const graph = html`<${Graph} pair=${pair} reducer=${reducer} />`;
+      return html`<${SurveyPair} graph=${graph} description=${describeGraph(pair)} />`;
     }
   }, [state.customPair, reducer]);
 

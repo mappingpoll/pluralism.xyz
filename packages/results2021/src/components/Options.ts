@@ -4,6 +4,7 @@ import { ActionType, Reducer } from "../lib/reducer";
 
 import { questions, axisOptions } from "../lib/questions";
 import { Collapsible } from "./Collapsible";
+import { graphs } from "./graphs";
 
 const styles = (visible: boolean) => css`
   position: -webkit-sticky;
@@ -26,6 +27,11 @@ const getAxisOptions = (chosen?: string) =>
     return html`<option key=${n} value=${n} selected=${chosen && chosen === n}>${axisOptions[i]}</option>`;
   });
 
+const getGraphOptions = (chosen?: string) =>
+  Object.keys(graphs).map((g, i) => {
+    return html`<option key=${i} value=${g} selected=${chosen && chosen === g}>${g}</option>`;
+  });
+
 interface Props {
   reducer: Reducer;
   visible: boolean;
@@ -41,6 +47,7 @@ export function Options({ reducer, visible }: Props) {
 
   const handleXSelectChange = handleSettingChange(ActionType.Set_X_Axis, "x");
   const handleYSelectChange = handleSettingChange(ActionType.Set_Y_Axis, "y");
+  const handleGraphSelectChange = handleSettingChange(ActionType.Set_Graph_Style, "graph");
 
   const handleResetClick = () => {
     dispatch({ type: ActionType.Reset });
@@ -50,6 +57,12 @@ export function Options({ reducer, visible }: Props) {
   return html`
     <${Collapsible} title="Options" style=${styles(visible)}>
       <div>
+        <div class="labeled-input">
+          <label for="graphselect">Style:</label>
+          <select id="graphselect" onchange=${handleGraphSelectChange}>
+            ${getGraphOptions(state.graph)}
+          </select>
+        </div>
         <div id="axesselectors">
           <div class="labeled-input">
             <label for="xselect">X Axis:</label>

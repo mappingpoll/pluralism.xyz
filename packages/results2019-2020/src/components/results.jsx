@@ -36,7 +36,7 @@ export default function Results() {
 
   const getLatestCount = useCallback(
     () => (state.brushMap != null ? Object.keys(state.brushMap).length : 0),
-    [state.brushMap]
+    [state.brushMap],
   );
 
   useEffect(() => {
@@ -51,9 +51,9 @@ export default function Results() {
                 {latestCount}&nbsp;
                 <Text id="results.knobs.selected">selected</Text>
               </span>
-            </Notify>
+            </Notify>,
           ),
-        1
+        1,
       );
     } else {
       setNotification(null);
@@ -187,7 +187,7 @@ export default function Results() {
             <div className="maptitle">
               <Text id="results.customgraph">Custom graph</Text>
             </div>
-            <div className="mapviz">
+            <div className="graph">
               <Viz state={state} columns={state.vizColumns} dispatch={dispatch} />
             </div>
           </div>
@@ -202,11 +202,11 @@ export default function Results() {
               <Text id="results.part1.title">YOU</Text>
             </div>
           </div>
-          <div className="mapviz">
+          <div className="graph">
             <Viz state={state} columns={state.standardColumnSet?.[0]} dispatch={dispatch} />
           </div>
 
-          <div className="mapviz">
+          <div className="graph">
             <Viz state={state} columns={state.standardColumnSet?.[1]} dispatch={dispatch} />
           </div>
         </div>
@@ -229,15 +229,15 @@ export default function Results() {
               <p>In your life, how much did you get to know the physical world?</p>
             </MarkupText>
           </div>
-          <div className="mapviz">
+          <div className="graph">
             <Viz state={state} columns={state.standardColumnSet?.[2]} dispatch={dispatch} />
           </div>
 
-          <div className="mapviz">
+          <div className="graph">
             <Viz state={state} columns={state.standardColumnSet?.[3]} dispatch={dispatch} />
           </div>
 
-          <div className="mapviz">
+          <div className="graph">
             <Viz state={state} columns={state.standardColumnSet?.[4]} dispatch={dispatch} />
           </div>
         </div>
@@ -259,15 +259,15 @@ export default function Results() {
               </p>
             </MarkupText>
           </div>
-          <div className="mapviz">
+          <div className="graph">
             <Viz state={state} columns={state.standardColumnSet?.[5]} dispatch={dispatch} />
           </div>
 
-          <div className="mapviz">
+          <div className="graph">
             <Viz state={state} columns={state.standardColumnSet?.[6]} dispatch={dispatch} />
           </div>
 
-          <div className="mapviz">
+          <div className="graph">
             <Viz state={state} columns={state.standardColumnSet?.[7]} dispatch={dispatch} />
           </div>
         </div>
@@ -278,7 +278,7 @@ export default function Results() {
               <Text id="results.part4.title">You and this exercise</Text>
             </div>
           </div>
-          <div className="mapviz">
+          <div className="graph">
             <Viz state={state} columns={state.standardColumnSet?.[8]} dispatch={dispatch} />
           </div>
 

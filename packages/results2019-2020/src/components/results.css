@@ -138,7 +138,7 @@ footer > section,
   text-align: right;
 }
 
-.mapviz {
+.graph {
   max-width: 55rem;
   margin: 6rem auto;
 }
@@ -248,7 +248,7 @@ td {
     text-align: justify;
   }
 
-  .mapviz {
+  .graph {
     max-width: 100%;
     margin: 7rem auto;
   }

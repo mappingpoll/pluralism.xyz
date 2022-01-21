@@ -1,11 +1,33 @@
 import { html } from "htm/preact";
 import { css } from "@emotion/css";
-import { useMemo } from "preact/hooks";
+import { Pair, questions } from "../../lib/questions";
+import { VNode } from "preact";
 
-import { Pair, questions } from "../lib/questions";
-import { mapPairToXYData } from "../lib/data";
-import { Graph } from "./Graphs";
-import { Reducer } from "../lib/reducer";
+interface Props {
+  pair: Pair;
+  children: VNode;
+}
+
+export function TwoDee({ pair, children }: Props) {
+  const { x, y } = pair;
+
+  return html`<div class=${styles}>
+    <div class="graph">${children}</div>
+
+    <div class="right">
+      <div class="label">${questions[x].max}</div>
+    </div>
+    <div class="left">
+      <div class="label">${questions[x].min}</div>
+    </div>
+    <div class="top">
+      <div class="label">${questions[y].max}</div>
+    </div>
+    <div class="bottom">
+      <div class="label">${questions[y].min}</div>
+    </div>
+  </div>`;
+}
 
 const styles = css`
   display: grid;
@@ -93,32 +115,3 @@ const styles = css`
     }
   }
 `;
-
-interface VizProps {
-  pair: Pair;
-  reducer: Reducer;
-}
-
-export function Viz({ pair, reducer }: VizProps) {
-  const { state } = reducer;
-  const data = useMemo(() => mapPairToXYData(pair), [pair]);
-
-  const { x, y } = pair;
-
-  return html`<div class=${styles}>
-    <div class="graph">${data != null && html`<${Graph[state.graph]} data=${data} reducer=${reducer} />`}</div>
-
-    <div class="right">
-      <div class="label">${questions[x].max}</div>
-    </div>
-    <div class="left">
-      <div class="label">${questions[x].min}</div>
-    </div>
-    <div class="top">
-      <div class="label">${questions[y].max}</div>
-    </div>
-    <div class="bottom">
-      <div class="label">${questions[y].min}</div>
-    </div>
-  </div>`;
-}
