@@ -13,6 +13,7 @@ import { isClientUser } from "../../lib/user";
 import { appendAxes } from "./Axes";
 import { Datum, LineX, LineY, Point, GraphProps, Rect } from "./types";
 import { TwoDee } from "./TwoDee";
+import { describesLineX, describesLineY, describesRectangle } from "./dataTransform";
 
 const styles = css`
   width: 100%;
@@ -39,10 +40,6 @@ const len = ([a, b]: Points) => {
 const area = (d: XYDatum) => (d.x ? len(d.x) : MIN_LENGTH) * (d.y ? len(d.y) : MIN_LENGTH);
 
 const sortFn = (a: Datum, b: Datum) => b.area - a.area;
-
-const describesRectangle = (d: XYDatum) => d.x?.[1] != null && d.y?.[1] != null;
-const describesLineX = (d: XYDatum) => d.x?.[1] != null && d.y?.[1] == null;
-const describesLineY = (d: XYDatum) => d.x?.[1] == null && d.y?.[1] != null;
 
 export function Rectangles({ data, reducer, pair }: GraphProps) {
   const { state, dispatch } = reducer;

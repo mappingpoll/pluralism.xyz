@@ -1,11 +1,16 @@
 import { css } from "@emotion/css";
 import { html } from "htm/preact";
-import { useEffect, useRef } from "preact/hooks";
+import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { mergeBufferGeometries } from "three/examples/jsm/utils/BufferGeometryUtils";
 import { VIEWBOX } from "../../lib/constants";
-import { color } from "../../lib/style";
+import { XYData } from "../../lib/data";
+import { color, getFill } from "../../lib/style";
+import { Rectangle } from "./dataTransform";
 import { GraphProps } from "./types";
+
+const SQRT3 = Math.sqrt(3);
 
 const styles = css`
   background-color: ${color.bg};
@@ -15,31 +20,64 @@ const styles = css`
 `;
 
 export function Boxes({ data, reducer, pair }: GraphProps) {
-  const ref = useScene<HTMLDivElement>();
+  const boxes = useMemo(() => {
+    const rectangles = intersectRectangles(data2Rectangles(data));
+    const maxLayers = rectangles.reduce((max, r) => (r.layer > max ? r.layer : max), 0);
+    const thickness = 1 / maxLayers;
 
-  return html`<canvas ref=${ref} class=${styles}></canvas>`;
-}
+    const geometries = [];
+    const color = new THREE.Color();
+    for (const r of rectangles) {
+      const box = new THREE.BoxGeometry(r.width, thickness, r.height);
+      const posMat = new THREE.Matrix4();
+      posMat.makeTranslation(r.x0 + r.width / 2, r.layer * thickness + thickness / 2, r.y0 + r.height / 2);
+      box.applyMatrix4(posMat);
 
-function useScene<T extends HTMLElement>() {
-  const ref = useRef<T>();
+      color.set(getFill(reducer.state, r.user));
+      const rgb = color.toArray().map(v => v * 255);
 
+      const numVerts = box.getAttribute("position").count;
+      const colors = new Uint8Array(3 * numVerts);
+
+      colors.forEach((_, i) => (colors[i] = rgb[i % 3]));
+
+      const colorAttr = new THREE.BufferAttribute(colors, 3, true);
+
+      box.setAttribute("color", colorAttr);
+      geometries.push(box);
+    }
+    const mergedGeometry = mergeBufferGeometries(geometries);
+    const boxMaterial = new THREE.MeshPhongMaterial({ vertexColors: true });
+    const mesh = new THREE.Mesh(mergedGeometry, boxMaterial);
+    return mesh;
+  }, [pair.x, pair.y]);
+
+  const canvas = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
-    if (ref.current == null) return;
     const w = VIEWBOX[2];
     const h = VIEWBOX[3];
 
-    const renderer = new THREE.WebGL1Renderer({ canvas: ref.current, alpha: true, antialias: true });
-    renderer.setSize(w, h);
-
     const scene = new THREE.Scene();
 
-    // Camera
-    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 100);
-    camera.position.z = 2;
+    // Camera;
+    const camera = new THREE.OrthographicCamera(
+      -Math.SQRT2 - Rectangle.MIN_LENGTH,
+      Math.SQRT2 + Rectangle.MIN_LENGTH,
+      SQRT3,
+      -Math.SQRT2 - Rectangle.MIN_LENGTH,
+      0,
+      2 * SQRT3,
+    );
+    camera.position.set(1, 1, 1);
 
-    const controls = new OrbitControls(camera, ref.current);
+    const controls = new OrbitControls(camera, canvas.current as HTMLCanvasElement);
     controls.target.set(0, 0, 0);
-    controls.enableDamping = true;
+    controls.enablePan = false;
+    controls.enableZoom = false;
+    controls.minAzimuthAngle = 0;
+    controls.maxAzimuthAngle = Math.PI / 2;
+    controls.minPolarAngle = 0;
+    controls.maxPolarAngle = Math.PI / 2;
     controls.update();
 
     // Lights
@@ -50,45 +88,74 @@ function useScene<T extends HTMLElement>() {
     scene.add(light);
 
     // Boxes
-    const geometry = new THREE.BoxGeometry();
-    const material = new THREE.MeshPhongMaterial({ color: 0x1a1a1a });
-    const cube = new THREE.Mesh(geometry, material);
-
-    scene.add(cube);
+    scene.add(boxes);
 
     // Axes
     const axisMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
-    const points = [];
-    points.push(new THREE.Vector3(1, 0, 0));
-    points.push(new THREE.Vector3(0, 0, 0));
-    points.push(new THREE.Vector3(0, 1, 0));
-    points.push(new THREE.Vector3(0, 0, 0));
-    points.push(new THREE.Vector3(0, 0, 1));
+    const farCorner = new THREE.Vector3(-1, 0, -1);
+    const yAxisGeo = new THREE.BufferGeometry().setFromPoints([farCorner, new THREE.Vector3(-1, 1, -1)]);
+    const xAxisGeo = new THREE.BufferGeometry().setFromPoints([farCorner, new THREE.Vector3(1, 0, -1)]);
+    const zAxisGeo = new THREE.BufferGeometry().setFromPoints([farCorner, new THREE.Vector3(-1, 0, 1)]);
+    const xAxis = new THREE.Line(xAxisGeo, axisMaterial);
+    const yAxis = new THREE.Line(yAxisGeo, axisMaterial);
+    const zAxis = new THREE.Line(zAxisGeo, axisMaterial);
+    scene.add(xAxis, yAxis, zAxis);
 
-    const axisGeometry = new THREE.BufferGeometry().setFromPoints(points);
-    const axes = new THREE.Line(axisGeometry, axisMaterial);
-    scene.add(axes);
+    // Render
+    const renderer = new THREE.WebGL1Renderer({ canvas: canvas.current as HTMLCanvasElement, antialias: true });
+    renderer.setClearColor(color.bg);
+    renderer.setSize(w, h);
 
-    camera.position.z = 10;
-
-    let renderRequested = false;
     function render() {
-      renderRequested = false;
-      controls.update();
       renderer.render(scene, camera);
     }
     render();
 
-    function requestRenderIfNotReqquested() {
-      if (!renderRequested) {
-        renderRequested = true;
-        requestAnimationFrame(render);
-      }
-    }
-    controls.addEventListener("change", requestRenderIfNotReqquested);
-    window.onresize = render;
-    render();
-  }, []);
+    controls.addEventListener("change", render);
 
-  return ref;
+    return () => {
+      scene.remove(light, boxes, xAxis, yAxis, zAxis);
+      controls.dispose();
+      light.dispose();
+      boxes.geometry.dispose();
+      axisMaterial.dispose();
+      xAxisGeo.dispose();
+      yAxisGeo.dispose();
+      zAxisGeo.dispose();
+    };
+  }, [boxes]);
+
+  return html`<canvas ref=${canvas} class=${styles}></canvas>`;
+}
+
+class UserRectangle extends Rectangle {
+  user = "";
+  static intersection(a: UserRectangle, b: UserRectangle): UserRectangle {
+    const r = Rectangle.intersection(a, b) as UserRectangle;
+    r.user = b.user;
+    return r;
+  }
+}
+
+function data2Rectangles(data: XYData): UserRectangle[] {
+  const rectangles = [];
+  for (const d of data) {
+    const r = new Rectangle(d) as UserRectangle;
+    r.user = d.user;
+    rectangles.push(r);
+  }
+  return rectangles.sort((a, b) => a.area - b.area);
+}
+
+function intersectRectangles(rects: UserRectangle[]): UserRectangle[] {
+  const stack: UserRectangle[] = [];
+
+  for (const r of rects) {
+    const ontoStack = [];
+    for (const s of stack) {
+      if (UserRectangle.doOverlap(r, s)) ontoStack.push(UserRectangle.intersection(r, s));
+    }
+    stack.push(r, ...ontoStack);
+  }
+  return stack;
 }

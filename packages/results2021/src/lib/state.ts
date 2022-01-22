@@ -19,5 +19,5 @@ export const initialState: State = {
     base: BASE_OPACITY,
     k: OPACITY_K,
   },
-  graph: "Boxes",
+  graph: "Rectangles",
 };

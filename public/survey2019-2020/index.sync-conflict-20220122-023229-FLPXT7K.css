@@ -35,11 +35,7 @@
   display: table-cell;
   text-align: center;
   vertical-align: middle;
-  text-shadow:
-    -1px -1px white,
-    -1px 1px white,
-    1px 1px white,
-    1px -1px white;
+  text-shadow: -1px -1px white, -1px 1px white, 1px 1px white, 1px -1px white;
   user-select: none;
   line-height: 1;
 }
@@ -95,10 +91,7 @@
   right: 0;
 }
 svg {
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 1.1rem;
   text-anchor: middle;
   dominant-baseline: central;
@@ -203,7 +196,7 @@ svg {
   text-indent: -1.4rem;
   padding-left: 1.4rem;
 }
-input[type=checkbox] {
+input[type="checkbox"] {
   margin-right: 0.4rem;
 }
 .show-hide {
@@ -309,10 +302,7 @@ input[type=checkbox] {
   display: inline-block;
   background: black;
   color: white;
-  font-family:
-    "Times New Roman",
-    Times,
-    serif;
+  font-family: "Times New Roman", Times, serif;
   font-size: 1.4rem;
   margin: 1.75rem 0;
 }
@@ -331,10 +321,7 @@ input[type=checkbox] {
 }
 .intro,
 footer > section {
-  font-family:
-    "Times New Roman",
-    Times,
-    serif;
+  font-family: "Times New Roman", Times, serif;
   color: white;
 }
 footer > section {
@@ -422,10 +409,7 @@ footer > section,
   margin: 6rem auto;
 }
 footer {
-  font-family:
-    "Times New Roman",
-    Times,
-    serif;
+  font-family: "Times New Roman", Times, serif;
   color: white;
   background: var(--background-primary);
 }
@@ -526,18 +510,18 @@ td {
 }
 
 /* packages/results2019-2020/src/rangeslider.css */
-input[type=range] {
+input[type="range"] {
   -webkit-appearance: none;
   max-width: var(--track-width);
   margin: 0.5rem 0;
 }
-input[type=range]:disabled {
+input[type="range"]:disabled {
   opacity: 0.25;
 }
-input[type=range]:focus {
+input[type="range"]:focus {
   outline: none;
 }
-input[type=range]::-webkit-slider-runnable-track {
+input[type="range"]::-webkit-slider-runnable-track {
   width: var(--track-width);
   height: 5px;
   cursor: pointer;
@@ -545,7 +529,7 @@ input[type=range]::-webkit-slider-runnable-track {
   border-radius: var(--track-radius);
   border: 0 solid none;
 }
-input[type=range]::-webkit-slider-thumb {
+input[type="range"]::-webkit-slider-thumb {
   border: 0 solid #000000;
   height: var(--thumb-height);
   width: var(--thumb-width);
@@ -555,10 +539,10 @@ input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   margin-top: -7.5px;
 }
-input[type=range]:focus::-webkit-slider-runnable-track {
+input[type="range"]:focus::-webkit-slider-runnable-track {
   background: #9f9f9f;
 }
-input[type=range]::-moz-range-track {
+input[type="range"]::-moz-range-track {
   width: var(--track-width);
   height: 5px;
   cursor: pointer;
@@ -566,7 +550,7 @@ input[type=range]::-moz-range-track {
   border-radius: var(--track-radius);
   border: 0 solid none;
 }
-input[type=range]::-moz-range-thumb {
+input[type="range"]::-moz-range-thumb {
   border: 0 solid #000000;
   height: var(--thumb-height);
   width: var(--thumb-width);
@@ -574,7 +558,7 @@ input[type=range]::-moz-range-thumb {
   background: #303030;
   cursor: ew-resize;
 }
-input[type=range]::-ms-track {
+input[type="range"]::-ms-track {
   width: var(--track-width);
   height: 5px;
   cursor: pointer;
@@ -583,17 +567,17 @@ input[type=range]::-ms-track {
   border-width: 20px 0;
   color: transparent;
 }
-input[type=range]::-ms-fill-lower {
+input[type="range"]::-ms-fill-lower {
   background: #1f1f1f;
   border: 0 solid none;
   border-radius: 5px;
 }
-input[type=range]::-ms-fill-upper {
+input[type="range"]::-ms-fill-upper {
   background: var(--track-color);
   border: 0 solid none;
   border-radius: 5px;
 }
-input[type=range]::-ms-thumb {
+input[type="range"]::-ms-thumb {
   border: 0 solid #000000;
   height: var(--thumb-height);
   width: var(--thumb-width);
@@ -601,13 +585,13 @@ input[type=range]::-ms-thumb {
   background: #303030;
   cursor: ew-resize;
 }
-input[type=range]:focus::-ms-fill-lower {
+input[type="range"]:focus::-ms-fill-lower {
   background: var(--track-color);
 }
-input[type=range]:focus::-ms-fill-upper {
+input[type="range"]:focus::-ms-fill-upper {
   background: #9f9f9f;
 }
-input[type=range]:disabled {
+input[type="range"]:disabled {
   opacity: 0.25;
 }
 
@@ -659,10 +643,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--background-color);
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 * {
   box-sizing: border-box;
