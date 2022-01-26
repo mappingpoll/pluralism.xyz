@@ -27,6 +27,10 @@ const images = async () => {
   await cp("images", `${BUILD_DIR}/images`, { recursive: true });
 };
 
+const assets = async () => {
+  await cp("assets", `${BUILD_DIR}/assets`, { recursive: true });
+}
+
 const buildConfig = {
   plugins: [preserveAbsImgPath],
   bundle: true,
@@ -94,6 +98,7 @@ const build = async () => {
   try {
     await clean();
     await images();
+    await assets();
     await homepage();
     await results20192020();
     await results2021();

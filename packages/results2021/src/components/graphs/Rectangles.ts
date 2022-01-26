@@ -6,14 +6,13 @@ import { useCallback, useEffect, useMemo, useRef } from "preact/hooks";
 import { color, getFill } from "../../lib/style";
 import { MIN_OPACITY, OPACITY_RANGE, VIEWBOX } from "../../lib/constants";
 
-import { Points, XYDatum } from "../../lib/data";
+import { Points, XYDatum, describesLineX, describesLineY, describesRectangle } from "../../lib/data";
 import { ActionType } from "../../lib/reducer";
 import { xScale, yScale } from "../../lib/scales";
 import { isClientUser } from "../../lib/user";
 import { appendAxes } from "./Axes";
 import { Datum, LineX, LineY, Point, GraphProps, Rect } from "./types";
 import { TwoDee } from "./TwoDee";
-import { describesLineX, describesLineY, describesRectangle } from "./dataTransform";
 
 const styles = css`
   width: 100%;
@@ -89,9 +88,7 @@ export function Rectangles({ data, reducer, pair }: GraphProps) {
     (ev: MouseEvent) => {
       const el = ev.target as SVGElement;
       const user = el.getAttribute("data-user") ?? "";
-      let action;
-      if (isSelected(user)) action = ev.shiftKey ? ActionType.SelectRemove : ActionType.SelectNone;
-      else action = ev.shiftKey ? ActionType.SelectAdd : ActionType.SelectOne;
+      const action = ev.shiftKey ? ActionType.SelectAdd : ActionType.SelectOne;
       dispatch({ type: action, payload: user });
     },
     [dispatch, isSelected],

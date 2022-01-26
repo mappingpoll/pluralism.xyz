@@ -12,7 +12,8 @@ export function Maps({ reducer }: { reducer: Reducer }) {
   const { state, dispatch } = reducer;
 
   const handleClick = (ev: MouseEvent) => {
-    if ((ev.target as HTMLElement).tagName !== "rect") dispatch({ type: ActionType.SelectNone });
+    if (state.graph === "Rectangles" && (ev.target as HTMLElement).tagName !== "rect")
+      dispatch({ type: ActionType.SelectNone });
   };
 
   const graphs = useMemo(() => {

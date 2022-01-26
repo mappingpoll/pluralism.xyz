@@ -72,9 +72,6 @@ p {
 .maps {
   border-image: var(--wavy-border-image);
   border-bottom: var(--wavy-border);
-}
-
-.maps {
   padding-top: 8rem;
   padding-bottom: 12rem;
 }
@@ -95,8 +92,7 @@ p {
   margin: 12rem 0;
 }
 
-.maptitle,
-.mapdescription {
+.maptitle {
   max-width: var(--content-width);
   margin: 0 auto;
 }
@@ -197,6 +193,12 @@ input[type="checkbox"] {
 
 /* Smartphones (portrait) ----------- */
 @media only screen and (max-device-width: 430px) {
+  :root {
+    --content-width: 95vw;
+    --content-padding: calc((100vw - var(--content-width)) / 2);
+    --content-lr-padding: calc((100% - var(--content-width)) / 2);
+  }
+
   header {
     padding: 0.25rem 0.5rem;
   }
@@ -229,10 +231,6 @@ input[type="checkbox"] {
   .map-section-title {
     font-size: 2.2rem;
     margin: 5rem 0;
-  }
-
-  .mapdescription {
-    text-align: justify;
   }
 
   .graph {

@@ -35,6 +35,6 @@ export const VIEWBOX = [
 
 export const BASE_OPACITY = 0.5;
 export const OPACITY_K = 1;
-export const MIN_OPACITY = 0.1;
-export const MAX_OPACITY = 0.5;
+export const MIN_OPACITY = 0.05;
+export const MAX_OPACITY = 0.4;
 export const OPACITY_RANGE = MAX_OPACITY - MIN_OPACITY;

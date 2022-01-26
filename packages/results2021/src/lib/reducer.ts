@@ -46,7 +46,7 @@ export function reducer(state: State, action: Action): State {
     }
     case ActionType.SelectAdd: {
       const user = action.payload as string;
-      if (state.selectedUsers.includes(user)) return state;
+      if (state.selectedUsers.includes(user)) return reducer(state, { type: ActionType.SelectRemove, payload: user });
       return assign({ ...state, selectedUsers: [...state.selectedUsers, user] });
     }
     case ActionType.SelectRemove: {

@@ -4,11 +4,14 @@ import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { mergeBufferGeometries } from "three/examples/jsm/utils/BufferGeometryUtils";
-import { VIEWBOX } from "../../lib/constants";
-import { XYData } from "../../lib/data";
-import { color, getFill } from "../../lib/style";
-import { Rectangle } from "./dataTransform";
+import { data2Rectangles, intersectRectangles, Rectangle } from "../../lib/data";
+import { ActionType } from "../../lib/reducer";
+import { color } from "../../lib/style";
+import { material } from "../../lib/three_elements";
+import { isClientUser } from "../../lib/user";
+import { makeAxesPlane } from "./Axes";
 import { GraphProps } from "./types";
+import { PickHelper } from "./utils";
 
 const SQRT3 = Math.sqrt(3);
 
@@ -16,146 +19,292 @@ const styles = css`
   background-color: ${color.bg};
   width: 100%;
   height: 100%;
+  max-height: 90vh;
   display: block;
+
+  @media only screen and (max-device-width: 430px) {
+    height: 90vw;
+    max-height: 100vw;
+  }
 `;
 
 export function Boxes({ data, reducer, pair }: GraphProps) {
-  const boxes = useMemo(() => {
+  const canvas = useRef<HTMLCanvasElement>();
+  const [mount, setMount] = useState<HTMLCanvasElement>();
+  const [actors, setActors] = useState<{
+    scene: THREE.Scene;
+    selectionsGroup: THREE.Group;
+    camera: THREE.OrthographicCamera;
+    controls: OrbitControls;
+    lights: (THREE.AmbientLight | THREE.DirectionalLight)[];
+    renderer: THREE.WebGLRenderer;
+    pickHelper: PickHelper;
+    dispose: () => void;
+  } | null>(null);
+  const [readyForRender, setReadyForRender] = useState(false);
+
+  useEffect(() => {
+    setMount(canvas.current as HTMLCanvasElement);
+  }, []);
+
+  // GEOMETRIES
+  const meshes = useMemo(() => {
     const rectangles = intersectRectangles(data2Rectangles(data));
-    const maxLayers = rectangles.reduce((max, r) => (r.layer > max ? r.layer : max), 0);
-    const thickness = 1 / maxLayers;
+    // const maxLayers = rectangles.reduce((max, r) => (r.layer > max ? r.layer : max), 0);
+    const thickness = Rectangle.MIN_LENGTH;
 
-    const geometries = [];
-    const color = new THREE.Color();
+    const boxGeometries = [];
+    const hlGeometries = [];
+    const hover = [];
+    const selection = [];
+    const user = [];
+
     for (const r of rectangles) {
-      const box = new THREE.BoxGeometry(r.width, thickness, r.height);
+      const dimensions = [r.width, r.height, thickness];
+      const box = new THREE.BoxGeometry(...dimensions);
       const posMat = new THREE.Matrix4();
-      posMat.makeTranslation(r.x0 + r.width / 2, r.layer * thickness + thickness / 2, r.y0 + r.height / 2);
+      posMat.makeTranslation(
+        r.x0 + dimensions[0] / 2,
+        r.y0 + dimensions[1] / 2,
+        r.layer * dimensions[2] + dimensions[2] / 2,
+      );
       box.applyMatrix4(posMat);
+      boxGeometries.push(box);
 
-      color.set(getFill(reducer.state, r.user));
-      const rgb = color.toArray().map(v => v * 255);
+      const hlDimensions = dimensions.map(d => d + 0.002);
+      const hlBox = new THREE.BoxGeometry(...hlDimensions);
 
-      const numVerts = box.getAttribute("position").count;
-      const colors = new Uint8Array(3 * numVerts);
+      hlBox.applyMatrix4(posMat);
 
-      colors.forEach((_, i) => (colors[i] = rgb[i % 3]));
+      hlBox.userData = { user: r.user };
 
-      const colorAttr = new THREE.BufferAttribute(colors, 3, true);
-
-      box.setAttribute("color", colorAttr);
-      geometries.push(box);
+      hlGeometries.push(hlBox);
     }
-    const mergedGeometry = mergeBufferGeometries(geometries);
-    const boxMaterial = new THREE.MeshPhongMaterial({ vertexColors: true });
-    const mesh = new THREE.Mesh(mergedGeometry, boxMaterial);
-    return mesh;
+
+    const mergedGeometry = mergeBufferGeometries(boxGeometries, false);
+    const merged = new THREE.Mesh(mergedGeometry, material.base);
+
+    const mergedUsers: string[] = [];
+
+    for (const g of hlGeometries) {
+      const u = g.userData.user;
+
+      if (mergedUsers.includes(u)) continue;
+
+      mergedUsers.push(u);
+
+      const toMerge: THREE.BoxGeometry[] = [];
+
+      hlGeometries.forEach(h => {
+        if (h.userData.user === u) {
+          toMerge.push(h);
+        }
+      });
+
+      const merged = mergeBufferGeometries(toMerge, false);
+
+      const hoverMesh = new THREE.Mesh(merged, material.hover);
+      const selectionMesh = new THREE.Mesh(merged, material.selection);
+
+      const userData = { user: u };
+      hoverMesh.userData = userData;
+      selectionMesh.userData = userData;
+
+      hover.push(hoverMesh);
+      selection.push(selectionMesh);
+
+      if (isClientUser(u)) {
+        const userMesh = new THREE.Mesh(merged, material.user);
+        userMesh.userData = userData;
+        user.push(userMesh);
+      }
+    }
+
+    const axes = makeAxesPlane(pair.x, pair.y, rectangles);
+
+    return {
+      hover,
+      selection,
+      user,
+      merged,
+      axes,
+      dispose() {
+        const dispose = box => box.dispose();
+        this.hover.forEach(dispose);
+        this.selection.forEach(dispose);
+        this.user.forEach(dispose);
+        this.merged.geometry.dispose();
+      },
+    };
   }, [pair.x, pair.y]);
 
-  const canvas = useRef<HTMLCanvasElement>(null);
+  // ACTORS
   useEffect(() => {
-    const w = VIEWBOX[2];
-    const h = VIEWBOX[3];
+    if (mount == null) return;
+    const w = mount.clientWidth;
+    const h = mount.clientHeight;
+    const viewportRatio = w / h;
 
     const scene = new THREE.Scene();
+    scene.background = new THREE.Color(color.bg);
+
+    const selectionsGroup = new THREE.Group();
+    scene.add(selectionsGroup);
+
+    const pickHelper = new PickHelper(scene);
+
+    const clipSpace = {
+      left: -Math.SQRT2 - Rectangle.MIN_LENGTH,
+      right: Math.SQRT2 + Rectangle.MIN_LENGTH,
+      top: Math.SQRT2,
+      bottom: -Math.SQRT2,
+    };
 
     // Camera;
     const camera = new THREE.OrthographicCamera(
-      -Math.SQRT2 - Rectangle.MIN_LENGTH,
-      Math.SQRT2 + Rectangle.MIN_LENGTH,
-      SQRT3,
-      -Math.SQRT2 - Rectangle.MIN_LENGTH,
+      clipSpace.left * viewportRatio,
+      clipSpace.right * viewportRatio,
+      clipSpace.top,
+      clipSpace.bottom,
       0,
       2 * SQRT3,
     );
-    camera.position.set(1, 1, 1);
+    camera.position.set(-1, -1, 1);
+    camera.up.set(0, 0, 1);
+    camera.lookAt(0, 0, 0);
 
-    const controls = new OrbitControls(camera, canvas.current as HTMLCanvasElement);
+    // Controls
+    const controls = new OrbitControls(camera, mount);
     controls.target.set(0, 0, 0);
     controls.enablePan = false;
     controls.enableZoom = false;
-    controls.minAzimuthAngle = 0;
-    controls.maxAzimuthAngle = Math.PI / 2;
     controls.minPolarAngle = 0;
     controls.maxPolarAngle = Math.PI / 2;
     controls.update();
 
     // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 5);
-    scene.add(ambientLight);
-    const light = new THREE.DirectionalLight(0xffffff, 2);
-    light.position.set(-1, 2, 5);
-    scene.add(light);
-
-    // Boxes
-    scene.add(boxes);
-
-    // Axes
-    const axisMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
-    const farCorner = new THREE.Vector3(-1, 0, -1);
-    const yAxisGeo = new THREE.BufferGeometry().setFromPoints([farCorner, new THREE.Vector3(-1, 1, -1)]);
-    const xAxisGeo = new THREE.BufferGeometry().setFromPoints([farCorner, new THREE.Vector3(1, 0, -1)]);
-    const zAxisGeo = new THREE.BufferGeometry().setFromPoints([farCorner, new THREE.Vector3(-1, 0, 1)]);
-    const xAxis = new THREE.Line(xAxisGeo, axisMaterial);
-    const yAxis = new THREE.Line(yAxisGeo, axisMaterial);
-    const zAxis = new THREE.Line(zAxisGeo, axisMaterial);
-    scene.add(xAxis, yAxis, zAxis);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    const light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.set(-2, 1, 1);
+    const lights = [light, ambientLight];
 
     // Render
-    const renderer = new THREE.WebGL1Renderer({ canvas: canvas.current as HTMLCanvasElement, antialias: true });
-    renderer.setClearColor(color.bg);
+    const renderer = new THREE.WebGLRenderer({ canvas: mount, antialias: true });
+    renderer.setClearColor(0xffffff);
     renderer.setSize(w, h);
+
+    const actors = {
+      scene,
+      selectionsGroup,
+      camera,
+      controls,
+      lights,
+      renderer,
+      pickHelper,
+      dispose() {
+        this.scene.clear();
+        this.controls.dispose();
+        this.lights.forEach(l => l.dispose());
+        this.renderer.dispose();
+      },
+    };
+    setActors(actors);
+    setReadyForRender(true);
+  }, [mount, meshes]);
+
+  // UPDATE SELECTION
+  useEffect(() => {
+    if (!readyForRender || actors == null) return;
+
+    actors.selectionsGroup.clear();
+    let c = 0;
+    meshes.selection.forEach(box => {
+      if (reducer.state.selectedUsers.includes(box.userData.user)) {
+        actors.selectionsGroup.add(box);
+        c++;
+      }
+    });
+    console.log("added", c);
+    actors.renderer.render(actors.scene, actors.camera);
+  }, [reducer.state.selectedUsers]);
+
+  // SCENE
+  useEffect(() => {
+    if (!readyForRender || actors == null || mount == null) return;
+    const { scene, camera, controls, lights, renderer, pickHelper } = actors;
+
+    scene.add(...lights);
+    scene.add(meshes.axes);
+    scene.add(meshes.merged);
+    scene.add(...meshes.user);
+    scene.add(actors.selectionsGroup);
+    meshes.selection.forEach(box => {
+      if (reducer.state.selectedUsers.includes(box.userData.user)) {
+        actors.selectionsGroup.add(box);
+      }
+    });
+
+    const pickPosition = { x: 0, y: 0 };
+    clearPickPosition();
 
     function render() {
       renderer.render(scene, camera);
     }
+
     render();
 
+    function setPickPosition(event: MouseEvent) {
+      const rect = mount.getBoundingClientRect();
+      pickPosition.x = ((event.clientX - rect.left) / mount.clientWidth) * 2 - 1;
+      pickPosition.y = ((event.clientY - rect.top) / mount.clientHeight) * -2 + 1; // note we flip Y
+      pickHelper.pick(pickPosition, meshes.hover, camera);
+      render();
+    }
+
+    function clearPickPosition() {
+      pickPosition.x = -100000;
+      pickPosition.y = -100000;
+    }
+
+    let timer = Date.now();
+    const handlePointerDown = () => {
+      timer = Date.now();
+    };
+
+    function handlePointerUp(event: MouseEvent) {
+      const diff = Date.now() - timer;
+      if (diff < 100) {
+        if (pickHelper.user) {
+          if (event.shiftKey) {
+            reducer.dispatch({ type: ActionType.SelectAdd, payload: pickHelper.user });
+          } else {
+            reducer.dispatch({ type: ActionType.SelectOne, payload: pickHelper.user });
+          }
+        } else {
+          reducer.dispatch({ type: ActionType.SelectNone });
+        }
+      }
+      timer = 0;
+    }
+
     controls.addEventListener("change", render);
+    mount.addEventListener("mousemove", setPickPosition);
+    mount.addEventListener("mouseout", clearPickPosition);
+    mount.addEventListener("mouseleave", clearPickPosition);
+    mount.addEventListener("pointerdown", handlePointerDown);
+    mount.addEventListener("pointerup", handlePointerUp);
 
     return () => {
-      scene.remove(light, boxes, xAxis, yAxis, zAxis);
-      controls.dispose();
-      light.dispose();
-      boxes.geometry.dispose();
-      axisMaterial.dispose();
-      xAxisGeo.dispose();
-      yAxisGeo.dispose();
-      zAxisGeo.dispose();
+      meshes.merged.geometry.dispose();
+      renderer.dispose();
+      controls.removeEventListener("change", render);
+      mount.removeEventListener("mousemove", setPickPosition);
+      mount.removeEventListener("mouseout", clearPickPosition);
+      mount.removeEventListener("mouseleave", clearPickPosition);
+      mount.removeEventListener("pointerdown", handlePointerDown);
+      mount.removeEventListener("pointerup", handlePointerUp);
     };
-  }, [boxes]);
+  }, [actors]);
 
   return html`<canvas ref=${canvas} class=${styles}></canvas>`;
-}
-
-class UserRectangle extends Rectangle {
-  user = "";
-  static intersection(a: UserRectangle, b: UserRectangle): UserRectangle {
-    const r = Rectangle.intersection(a, b) as UserRectangle;
-    r.user = b.user;
-    return r;
-  }
-}
-
-function data2Rectangles(data: XYData): UserRectangle[] {
-  const rectangles = [];
-  for (const d of data) {
-    const r = new Rectangle(d) as UserRectangle;
-    r.user = d.user;
-    rectangles.push(r);
-  }
-  return rectangles.sort((a, b) => a.area - b.area);
-}
-
-function intersectRectangles(rects: UserRectangle[]): UserRectangle[] {
-  const stack: UserRectangle[] = [];
-
-  for (const r of rects) {
-    const ontoStack = [];
-    for (const s of stack) {
-      if (UserRectangle.doOverlap(r, s)) ontoStack.push(UserRectangle.intersection(r, s));
-    }
-    stack.push(r, ...ontoStack);
-  }
-  return stack;
 }

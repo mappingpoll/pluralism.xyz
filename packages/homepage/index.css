@@ -44,3 +44,12 @@ li::marker {
   max-width: var(--content-width);
   margin: 0 auto;
 }
+
+@media only screen and (max-device-width: 430px) {
+  header {
+    margin-bottom: 3rem;
+  }
+  body {
+    margin: 0 1rem;
+  }
+}

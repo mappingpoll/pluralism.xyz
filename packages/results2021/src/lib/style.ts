@@ -3,14 +3,15 @@ import { State } from "./state";
 import { isClientUser } from "./user";
 
 export const color = {
-  bg: "white",
-  fg: "black",
-  selectionBg: "red",
-  selectionFg: "white",
+  bg: "#ffffff",
+  fg: "#000000",
+  selectionBg: "#ff0000",
+  selectionFg: "#ffffff",
   userBg: "#18ad2a",
-  userFg: "white",
-  hoverBg: "cornflowerblue",
+  userFg: "#ffffff",
+  hoverBg: "#6495ed",
   baseGrey: "#1a1a1a",
+  lightGrey: "#6a6a6a",
 };
 
 export const baseColor = css`

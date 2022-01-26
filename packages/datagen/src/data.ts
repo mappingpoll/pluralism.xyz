@@ -1,4 +1,5 @@
-import { XYDatum } from "../../lib/data";
+import jsonData from "../../../assets/results2021/data.json";
+import { Pair } from "./questions";
 
 type RectangleDatum = Required<XYDatum>;
 type LineXDatum = XYDatum & { x: number[] };
@@ -18,6 +19,7 @@ export interface Rectangle {
   area: number;
   layer: number;
   isPoint: boolean;
+  user?: string;
 }
 
 interface Corners {
@@ -71,6 +73,7 @@ export class Rectangle implements Rectangle {
       if (!this.isPoint) {
         this.measure();
       }
+      this.user = d.user;
     }
     if (layer) this.layer = layer;
   }
@@ -81,22 +84,75 @@ export class Rectangle implements Rectangle {
     this.area = this.width * this.height;
   }
 
-  static doOverlap(a: Rectangle, b: Rectangle): boolean {
-    if (a.x0 >= b.x1 || a.x1 <= b.x0) return false;
-    if (a.y0 >= b.y1 || a.y1 <= b.y0) return false;
+  overlaps(other: Rectangle): boolean {
+    if (this.x0 >= other.x1 || this.x1 <= other.x0) return false;
+    if (this.y0 >= other.y1 || this.y1 <= other.y0) return false;
     return true;
   }
 
-  static intersection(a: Rectangle, b: Rectangle): Rectangle {
+  intersect(other: Rectangle): Rectangle {
     const xyl = {
-      x0: a.x0 < b.x0 ? b.x0 : a.x0,
-      y0: a.y0 < b.y0 ? b.y0 : a.y0,
-      x1: a.x1 > b.x1 ? b.x1 : a.x1,
-      y1: a.y1 > b.y1 ? b.y1 : a.y1,
+      x0: this.x0 < other.x0 ? other.x0 : this.x0,
+      y0: this.y0 < other.y0 ? other.y0 : this.y0,
+      x1: this.x1 > other.x1 ? other.x1 : this.x1,
+      y1: this.y1 > other.y1 ? other.y1 : this.y1,
     };
     const r = new Rectangle(xyl);
-    r.layer = Math.max(a.layer, b.layer) + 1;
+    r.layer = Math.max(this.layer, other.layer) + 1;
+    r.user = this.user; // assume this stacks onto other
     r.measure();
     return r;
   }
 }
+
+const byArea = (a: Rectangle, b: Rectangle) => a.area - b.area;
+
+export function data2Rectangles(data: XYData): Rectangle[] {
+  const rectangles = [];
+  for (const d of data) {
+    const r = new Rectangle(d);
+    rectangles.push(r);
+  }
+  return rectangles.sort(byArea);
+}
+
+export function intersectRectangles(rectangles: Rectangle[]): Rectangle[] {
+  const stack: Rectangle[] = [];
+
+  rectangles.forEach(rectangle => {
+    const ontoStack = [];
+    for (const s of stack) {
+      if (rectangle.overlaps(s)) ontoStack.push(s.intersect(rectangle));
+    }
+    stack.push(rectangle, ...ontoStack);
+  });
+
+  return stack;
+}
+
+export type Points = number[];
+
+interface Datum {
+  user: string;
+  comment?: string;
+  points: Record<string, Points | undefined>;
+}
+
+const data: Datum[] = jsonData;
+
+export interface XYDatum {
+  user: string;
+  x?: Points;
+  y?: Points;
+}
+
+export type XYData = XYDatum[];
+
+type Comments = Array<{ user: string; comment: string }>;
+export const comments: Comments = data.reduce(
+  (comments: Comments, d) => (d.comment ? [...comments, { user: d.user, comment: d.comment }] : comments),
+  [],
+);
+
+export const mapPairToXYData = ({ x, y }: Pair): XYData =>
+  data.reduce((res: XYData, d: Datum) => [...res, { x: d.points[x], y: d.points[y], user: d.user }], []);
