@@ -185,8 +185,11 @@ fn intersect_rectangles(rectangles: &[Rectangle]) -> Vec<Rectangle> {
     for r in rectangles {
         'stackloop: for s in &stack {
             if let Some(i) = s.intersect(&r) {
-                if stack.iter().any(|s| s.equals(&i) || s.covers(&i)) {
-                    continue 'stackloop;
+                for q in &stack {
+                    if q.equals(&i) && q.layer <= i.layer {
+                        q.layer = i.layer;
+                        continue 'stackloop
+                    }
                 }
                 intersections.push(i);
             }

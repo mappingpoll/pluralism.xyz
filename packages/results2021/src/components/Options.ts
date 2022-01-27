@@ -29,8 +29,8 @@ const getAxisOptions = (chosen?: string) =>
   });
 
 const getGraphOptions = (chosen?: string) =>
-  Object.keys(graphs).map((g, i) => {
-    return html`<option key=${i} value=${g} selected=${chosen && chosen === g}>${g}</option>`;
+  Object.entries(graphs).map(([k, g], i) => {
+    return html`<option key=${i} value=${k} selected=${chosen && chosen === k}>${g.name}</option>`;
   });
 
 interface Props {
@@ -59,7 +59,7 @@ export function Options({ reducer, visible }: Props) {
     <${Collapsible} title="Options" style=${styles(visible)}>
       <div>
         <div class="labeled-input">
-          <label for="graphselect">Style:</label>
+          <label for="graphselect">Graphics:</label>
           <select id="graphselect" onchange=${handleGraphSelectChange}>
             ${getGraphOptions(state.graph)}
           </select>

@@ -10,9 +10,9 @@ import { Graph } from "./graphs/types";
 function PickGraph(name: string): Graph {
   switch (name.toLowerCase()) {
     case "rectangles":
-      return graphs.Rectangles;
+      return graphs.Rectangles.value;
     case "boxes":
-      return graphs.Boxes;
+      return graphs.Boxes.value;
     default:
       throw new Error(`Unknown graph ${name}`);
   }

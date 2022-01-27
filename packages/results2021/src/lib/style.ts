@@ -11,7 +11,7 @@ export const color = {
   userFg: "#ffffff",
   hoverBg: "#6495ed",
   baseGrey: "#1a1a1a",
-  lightGrey: "#6a6a6a",
+  lightGrey: "#5a5a5a",
 };
 
 export const baseColor = css`

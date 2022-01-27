@@ -100,19 +100,20 @@ export function appendAxes<Parent extends BaseType>(svg: Selection<SVGElement, u
 
 // 3D
 const AXIS_TIP = 1.1;
-const LABEL_OFFSET = AXIS_TIP + 0.05;
 const axisMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
 
 const xAxisGeo = new THREE.BufferGeometry().setFromPoints([
+  new THREE.Vector3(-AXIS_TIP, 0, -0.025),
   new THREE.Vector3(-AXIS_TIP, 0, 0),
   new THREE.Vector3(AXIS_TIP, 0, 0),
-  new THREE.Vector3(AXIS_TIP, 0, 0.05),
+  new THREE.Vector3(AXIS_TIP, 0, 0.025),
 ]);
 
 const yAxisGeo = new THREE.BufferGeometry().setFromPoints([
+  new THREE.Vector3(0, -AXIS_TIP, -0.025),
   new THREE.Vector3(0, -AXIS_TIP, 0),
   new THREE.Vector3(0, AXIS_TIP, 0),
-  new THREE.Vector3(0, AXIS_TIP, 0.05),
+  new THREE.Vector3(0, AXIS_TIP, 0.025),
 ]);
 
 const zAxisGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0.5)]);
@@ -147,7 +148,7 @@ const wrap = (text: string, width = 30) => {
   return result.trim();
 };
 
-export function makeAxesPlane(x: string, y: string, rectangles: Rectangle[]) {
+export function makeAxesObject(x: string, y: string) {
   const g = new THREE.Object3D();
   g.add(makeLabels(x, y));
   g.add(axes.clone());
@@ -164,34 +165,35 @@ function makeLabels(x: string, y: string) {
 
   interface Label {
     position: [number, number, number];
-    rotateZ: number;
+    angle: number;
     relative: [number, number];
     text: string;
   }
 
+  const LABEL_OFFSET = AXIS_TIP + 0.1;
   const labels: { [key: string]: Label } = {
     xMin: {
       position: [-LABEL_OFFSET, 0, 0],
-      rotateZ: (3 * PI) / 2,
-      relative: [-1, 1],
+      angle: -PI / 2,
+      relative: [0, 1],
       text: xMin,
     },
     xMax: {
       position: [LABEL_OFFSET, 0, 0],
-      rotateZ: PI / 2,
-      relative: [1, -1],
+      angle: -PI / 2,
+      relative: [1, 1],
       text: xMax,
     },
     yMin: {
       position: [0, -LABEL_OFFSET, 0],
-      rotateZ: 0,
-      relative: [-1, -1],
+      angle: 0,
+      relative: [-1, 0],
       text: yMin,
     },
     yMax: {
       position: [0, LABEL_OFFSET, 0],
-      rotateZ: PI,
-      relative: [1, 1],
+      angle: 0,
+      relative: [-1, 1],
       text: yMax,
     },
   };
@@ -202,8 +204,7 @@ function makeLabels(x: string, y: string) {
 
       const geometry = new THREE.ShapeGeometry(shapes);
 
-      geometry.rotateZ(label.rotateZ);
-      geometry.translate(...label.position);
+      geometry.rotateZ(label.angle);
 
       geometry.computeBoundingBox();
 
@@ -212,7 +213,9 @@ function makeLabels(x: string, y: string) {
         y: (geometry.boundingBox.max.y - geometry.boundingBox.min.y) / 2,
       };
 
-      geometry.translate(mid.x * label.relative[0], mid.y * label.relative[1], 0);
+      const midVec = [mid.x * label.relative[0], mid.y * label.relative[1], 0].map((v, i) => v + label.position[i]);
+
+      geometry.translate(...(midVec as [number, number, number]));
 
       const text = new THREE.Mesh(geometry, textMaterial);
       g.add(text);

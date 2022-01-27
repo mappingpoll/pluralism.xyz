@@ -2,6 +2,7 @@ import { css } from "@emotion/css";
 import { html } from "htm/preact";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import * as THREE from "three";
+
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { mergeBufferGeometries } from "three/examples/jsm/utils/BufferGeometryUtils";
 import { data2Rectangles, intersectRectangles, Rectangle } from "../../lib/data";
@@ -9,7 +10,7 @@ import { ActionType } from "../../lib/reducer";
 import { color } from "../../lib/style";
 import { material } from "../../lib/three_elements";
 import { isClientUser } from "../../lib/user";
-import { makeAxesPlane } from "./Axes";
+import { makeAxesObject } from "./Axes";
 import { GraphProps } from "./types";
 import { PickHelper } from "./utils";
 
@@ -57,7 +58,7 @@ export function Boxes({ data, reducer, pair }: GraphProps) {
     const hlGeometries = [];
     const hover = [];
     const selection = [];
-    const user = [];
+    let user;
 
     for (const r of rectangles) {
       const dimensions = [r.width, r.height, thickness];
@@ -116,11 +117,11 @@ export function Boxes({ data, reducer, pair }: GraphProps) {
       if (isClientUser(u)) {
         const userMesh = new THREE.Mesh(merged, material.user);
         userMesh.userData = userData;
-        user.push(userMesh);
+        user = userMesh;
       }
     }
 
-    const axes = makeAxesPlane(pair.x, pair.y, rectangles);
+    const axes = makeAxesObject(pair.x, pair.y);
 
     return {
       hover,
@@ -132,7 +133,7 @@ export function Boxes({ data, reducer, pair }: GraphProps) {
         const dispose = box => box.dispose();
         this.hover.forEach(dispose);
         this.selection.forEach(dispose);
-        this.user.forEach(dispose);
+        if (this.user != null) this.user.geometry.dispose();
         this.merged.geometry.dispose();
       },
     };
@@ -169,7 +170,7 @@ export function Boxes({ data, reducer, pair }: GraphProps) {
       0,
       2 * SQRT3,
     );
-    camera.position.set(-1, -1, 1);
+    camera.position.set(-1, -1, 1.5);
     camera.up.set(0, 0, 1);
     camera.lookAt(0, 0, 0);
 
@@ -183,10 +184,12 @@ export function Boxes({ data, reducer, pair }: GraphProps) {
     controls.update();
 
     // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     const light = new THREE.DirectionalLight(0xffffff, 1);
-    light.position.set(-2, 1, 1);
-    const lights = [light, ambientLight];
+    const light2 = new THREE.DirectionalLight(0xffffff, 0.8);
+    light.position.set(-1, -0.5, 1);
+    light2.position.set(1, 0.5, 1);
+    const lights = [light, light2, ambientLight];
 
     // Render
     const renderer = new THREE.WebGLRenderer({ canvas: mount, antialias: true });
@@ -217,41 +220,33 @@ export function Boxes({ data, reducer, pair }: GraphProps) {
     if (!readyForRender || actors == null) return;
 
     actors.selectionsGroup.clear();
-    let c = 0;
     meshes.selection.forEach(box => {
       if (reducer.state.selectedUsers.includes(box.userData.user)) {
         actors.selectionsGroup.add(box);
-        c++;
       }
     });
-    console.log("added", c);
     actors.renderer.render(actors.scene, actors.camera);
-  }, [reducer.state.selectedUsers]);
+  }, [meshes.selection, reducer.state.selectedUsers]);
 
   // SCENE
+
   useEffect(() => {
     if (!readyForRender || actors == null || mount == null) return;
     const { scene, camera, controls, lights, renderer, pickHelper } = actors;
 
     scene.add(...lights);
-    scene.add(meshes.axes);
     scene.add(meshes.merged);
-    scene.add(...meshes.user);
+    if (meshes.user != null) scene.add(meshes.user);
     scene.add(actors.selectionsGroup);
-    meshes.selection.forEach(box => {
-      if (reducer.state.selectedUsers.includes(box.userData.user)) {
-        actors.selectionsGroup.add(box);
-      }
-    });
-
-    const pickPosition = { x: 0, y: 0 };
-    clearPickPosition();
+    scene.add(meshes.axes);
 
     function render() {
       renderer.render(scene, camera);
     }
-
     render();
+
+    const pickPosition = { x: 0, y: 0 };
+    clearPickPosition();
 
     function setPickPosition(event: MouseEvent) {
       const rect = mount.getBoundingClientRect();
