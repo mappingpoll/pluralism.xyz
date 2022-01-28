@@ -37,7 +37,7 @@ const buildConfig = {
   format: "esm",
   target: ["es6", "edge95", "firefox93", "chrome92", "safari14"],
   sourcemap: isDev ? 'inline' : false,
-  minify: false,
+  minify: !isDev,
   watch: isDev,
   logLevel: "info",
 };
