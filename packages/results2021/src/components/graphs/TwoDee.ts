@@ -31,7 +31,6 @@ export function TwoDee({ pair, children }: Props) {
 
 const styles = css`
   display: grid;
-  max-height: 80vh;
   grid-template-rows: 1fr auto 1fr;
   grid-template-columns: 1fr auto 1fr;
   grid-template-areas:

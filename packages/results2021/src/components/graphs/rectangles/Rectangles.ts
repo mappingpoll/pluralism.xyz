@@ -3,16 +3,17 @@ import { select } from "d3";
 import { html } from "htm/preact";
 import { useCallback, useEffect, useMemo, useRef } from "preact/hooks";
 
-import { color, getFill } from "../../lib/style";
-import { MIN_OPACITY, OPACITY_RANGE, VIEWBOX } from "../../lib/constants";
+import { color, getFill } from "../../../lib/style";
+import { MIN_OPACITY, OPACITY_RANGE, VIEWBOX } from "./constants";
 
-import { Points, XYDatum, describesLineX, describesLineY, describesRectangle } from "../../lib/data";
-import { ActionType } from "../../lib/reducer";
-import { xScale, yScale } from "../../lib/scales";
-import { isClientUser } from "../../lib/user";
-import { appendAxes } from "./Axes";
-import { Datum, LineX, LineY, Point, GraphProps, Rect } from "./types";
-import { TwoDee } from "./TwoDee";
+import { describesLineX, describesLineY, describesRectangle } from "../shapes";
+import { ActionType } from "../../../lib/reducer";
+import { xScale, yScale } from "./scales";
+import { isClientUser } from "../../../lib/user";
+import { appendAxes } from "./axes";
+import { Datum, LineX, LineY, Point, GraphProps, Rect } from "../types";
+import { TwoDee } from "../TwoDee";
+import { Points, XYDatum } from "../../../lib/data";
 
 const styles = css`
   width: 100%;

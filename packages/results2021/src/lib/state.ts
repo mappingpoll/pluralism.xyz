@@ -10,5 +10,5 @@ export interface State {
 export const initialState: State = {
   selectedUsers: [],
   customPair: { x: "", y: "" },
-  graph: "Rectangles",
+  graph: "Boxes",
 };

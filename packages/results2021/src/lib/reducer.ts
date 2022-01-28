@@ -41,18 +41,28 @@ export function reducer(state: State, action: Action): State {
       return assign({ ...state }, { graph });
     }
     case ActionType.SelectOne: {
-      const user = action.payload as string;
-      return assign({ ...state, selectedUsers: [user] });
+      const users = action.payload as string | string[];
+      if (typeof users === "string") return assign({ ...state, selectedUsers: [users] });
+      return assign({ ...state, selectedUsers: [...users] });
     }
+
     case ActionType.SelectAdd: {
-      const user = action.payload as string;
-      if (state.selectedUsers.includes(user)) return reducer(state, { type: ActionType.SelectRemove, payload: user });
-      return assign({ ...state, selectedUsers: [...state.selectedUsers, user] });
+      const users = action.payload as string | string[];
+      if (typeof users === "string") {
+        if (state.selectedUsers.includes(users))
+          return reducer(state, { type: ActionType.SelectRemove, payload: users });
+        return assign({ ...state, selectedUsers: [...state.selectedUsers, users] });
+      }
+      const selectedUsers = [...state.selectedUsers, ...users].reduce((arr: string[], u) => {
+        return arr.includes(u) ? arr.filter(a => a !== u) : [...arr, u];
+      }, []);
+      return assign({ ...state, selectedUsers });
     }
+
     case ActionType.SelectRemove: {
-      const user = action.payload as string;
-      if (!state.selectedUsers.includes(user)) return state;
-      return assign({ ...state, selectedUsers: state.selectedUsers.filter(u => u !== user) });
+      const users = action.payload as string;
+      if (!state.selectedUsers.includes(users)) return state;
+      return assign({ ...state, selectedUsers: state.selectedUsers.filter(u => u !== users) });
     }
     case ActionType.SelectNone: {
       return assign({ ...state }, { selectedUsers: [] });

@@ -1,4 +1,4 @@
-import { Pair, questions } from "./questions";
+import { Pair, questions } from "../lib/questions";
 
 const getTitle = (q: string): string => questions[q].title;
 const getQuestion = (q: string): string => questions[q].question;

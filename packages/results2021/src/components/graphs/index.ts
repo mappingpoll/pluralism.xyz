@@ -1,5 +1,5 @@
-import { Rectangles } from "./Rectangles";
-import { Boxes } from "./Boxes";
+import { Rectangles } from "./rectangles";
+import { Boxes } from "./boxes";
 
 export const graphs = {
   Rectangles: { name: "2D", value: Rectangles },

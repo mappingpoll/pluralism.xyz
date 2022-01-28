@@ -1,7 +1,7 @@
 import { html } from "htm/preact";
 
 import { Pair, pairs } from "../lib/questions";
-import { describeGraph } from "../lib/viztools";
+import { describeGraph } from "./viztools";
 import { Reducer } from "../lib/reducer";
 import { SurveyPair } from "./SurveyPair";
 import { Graph } from "./Graph";

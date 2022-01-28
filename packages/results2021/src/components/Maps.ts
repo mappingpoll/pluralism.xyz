@@ -2,7 +2,7 @@ import { html } from "htm/preact";
 import { useMemo } from "preact/hooks";
 
 import { questions } from "../lib/questions";
-import { describeGraph } from "../lib/viztools";
+import { describeGraph } from "./viztools";
 import { Graph } from "./Graph";
 import { SurveyResults } from "./SurveyResults";
 import { SurveyPair } from "./SurveyPair";

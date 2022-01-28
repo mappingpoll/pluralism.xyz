@@ -1,5 +1,5 @@
 import { VNode } from "preact";
-import { Points, XYData, XYDatum } from "../../lib/data";
+import { Points, XYDatum } from "../../lib/data";
 import { Pair } from "../../lib/questions";
 import { Reducer } from "../../lib/reducer";
 
@@ -11,7 +11,7 @@ export type Point = Rect;
 
 export interface GraphProps {
   pair: Pair;
-  data: XYData;
+  data: XYDatum[];
   reducer: Reducer;
 }
 

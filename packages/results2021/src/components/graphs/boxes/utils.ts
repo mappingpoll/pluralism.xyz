@@ -3,13 +3,13 @@ import * as THREE from "three";
 export class PickHelper {
   raycaster: THREE.Raycaster;
   scene: THREE.Scene;
-  user: string;
+  users: string[];
   hovered: THREE.Object3D | null;
 
   constructor(scene: THREE.Scene) {
     this.raycaster = new THREE.Raycaster();
     this.scene = scene;
-    this.user = "";
+    this.users = [];
     this.hovered = null;
   }
 
@@ -17,7 +17,7 @@ export class PickHelper {
     if (this.hovered != null) {
       this.scene.remove(this.hovered);
       this.hovered = null;
-      this.user = "";
+      this.users = [];
     }
   }
 
@@ -38,7 +38,7 @@ export class PickHelper {
 
       this.restore();
 
-      this.user = hit.userData.user;
+      this.users = hit.userData.users;
       this.hovered = hit;
       this.scene.add(this.hovered);
       // this.savedColor = this.pickedObject.material.emissive.getHex();
