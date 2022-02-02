@@ -1,4 +1,4 @@
-import en from "../../../assets/results2021/en.json";
+import en from "../assets/i18n/en.json";
 
 interface Questions {
   [num: string]: {

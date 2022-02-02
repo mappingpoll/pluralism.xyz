@@ -1,13 +1,11 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "es6",
-    "lib": ["es6"],
+    "target": "esnext",
+    "lib": ["esnext"],
     "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "outDir": "build"
   }

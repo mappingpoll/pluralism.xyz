@@ -1,10 +1,11 @@
 import { css } from "@emotion/css";
 import { html } from "htm/preact";
-import { VizDescription as GraphDescription } from "../lib/viztools";
+import { VizDescription as GraphDescription } from "./viztools";
 import { Graph } from "./graphs/types";
 
 const styles = css`
-  padding: 5rem 0;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
   figure {
     display: flex;
     justify-content: center;

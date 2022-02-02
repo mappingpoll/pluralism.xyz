@@ -130,6 +130,7 @@ p {
   margin: 0 auto;
   margin-top: 1rem;
 }
+
 .maptext p {
   margin-bottom: 0.1rem;
 }
@@ -192,6 +193,11 @@ input[type="checkbox"] {
   margin-right: 0.4rem;
 }
 
+section {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 /* Smartphones (portrait) ----------- */
 @media only screen and (max-device-width: 430px) {
   :root {
@@ -239,8 +245,4 @@ input[type="checkbox"] {
     margin: 0 auto;
   }
 
-  section {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
 }

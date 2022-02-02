@@ -10,6 +10,7 @@ export interface Rectangle {
   height: number;
   layer: number;
   isPoint: boolean;
+  user: string;
   users: string[];
 }
 
@@ -31,6 +32,7 @@ export class Rectangle implements Rectangle {
   layer = 0;
   isPoint = false;
   users: string[] = [];
+  user = "";
   constructor(d: XYDatum | Corners) {
     if (isCorners(d)) {
       this.x0 = d.x0;
@@ -40,6 +42,7 @@ export class Rectangle implements Rectangle {
       this.users = d.users;
       this.layer = d.layer;
     } else {
+      this.user = d.user; // only original user rects are created in this branch
       this.users = [d.user];
       if (describesRectangle(d)) {
         this.x0 = d.x[0];
@@ -98,16 +101,15 @@ export class Rectangle implements Rectangle {
   intersect(other: Rectangle): Rectangle | null {
     if (!this.intersects(other)) return null;
 
-    const xyl: Corners = {
+    const xy: Corners = {
       x0: this.x0 < other.x0 ? other.x0 : this.x0,
       y0: this.y0 < other.y0 ? other.y0 : this.y0,
       x1: this.x1 > other.x1 ? other.x1 : this.x1,
       y1: this.y1 > other.y1 ? other.y1 : this.y1,
       users: this.users.concat(other.users),
-      layer: Math.max(this.layer, other.layer) + 1,
+      layer: other.layer + 1,
     };
-    const r = new Rectangle(xyl);
-    return r;
+    return new Rectangle(xy);
   }
 }
 
@@ -130,9 +132,11 @@ export function intersectRectangles(rects: Rectangle[]): Rectangle[] {
       if (r.covers(s)) {
         s.users = s.users.concat(r.users);
         s.layer += 1;
+      } else if (s.covers(r)) {
+        r.layer = r.layer > s.layer ? r.layer : s.layer + 1;
+        r.users = r.users.concat(s.users);
       } else {
         const i = r.intersect(s);
-
         if (i != null) ontoStack.push(i);
       }
     }

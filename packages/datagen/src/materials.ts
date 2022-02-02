@@ -3,9 +3,8 @@ import * as THREE from "three";
 export const material = {
   axis: new THREE.LineBasicMaterial({ color: 0x000000 }),
   axisTip: new THREE.MeshBasicMaterial({ color: 0x000000 }),
-  graph: new THREE.MeshBasicMaterial({ vertexColors: true }),
-  hover: new THREE.MeshBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.5 }),
-  selection: new THREE.MeshBasicMaterial({ vertexColors: true }),
+  base: new THREE.MeshLambertMaterial({ vertexColors: true }),
+  highlight: new THREE.MeshLambertMaterial({ vertexColors: true, transparent: true, opacity: 0.5 }),
 };
 
 function getColorAttr(color: number) {

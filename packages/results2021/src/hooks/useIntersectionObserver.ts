@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "preact/hooks";
 
-export function useIntersectionObserver(callback: IntersectionObserverCallback) {
+export function useIntersectionObserver(callback) {
   const ref = useRef();
 
   useEffect(() => {

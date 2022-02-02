@@ -57,7 +57,11 @@ export function Options({ reducer, visible }: Props) {
 
   return html`
     <${Collapsible} title="Options" style=${styles(visible)}>
-      <div>
+      <div
+        class=${css`
+          padding: 0 1rem;
+        `}
+      >
         <div class="labeled-input">
           <label for="graphselect">Graphics:</label>
           <select id="graphselect" onchange=${handleGraphSelectChange}>

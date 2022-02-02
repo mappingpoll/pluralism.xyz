@@ -7,9 +7,6 @@ import { wavyBorder, leftRightPadding, baseColor } from "../lib/style";
 const styles = css`
   ${wavyBorder}
 
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-
   ${leftRightPadding()}
 
   ${baseColor}
@@ -20,6 +17,7 @@ const styles = css`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 1rem;
   }
 `;
 

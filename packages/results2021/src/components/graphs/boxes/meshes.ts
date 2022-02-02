@@ -1,110 +1,225 @@
 import * as THREE from "three";
 import { mergeBufferGeometries } from "three/examples/jsm/utils/BufferGeometryUtils";
 
-import { material } from "./materials";
+import { material, planeColor } from "./materials";
 import { Rectangle } from "./data";
-import { isClientUser } from "../../../lib/user";
 import { makeAxesObject } from "./axes";
 import { Pair } from "../../../lib/questions";
 
+export interface UserData extends Record<string, any> {
+  user: string;
+  users: string[];
+}
+
+export interface SelectionMap {
+  [uuid: string]: THREE.Mesh;
+}
+
+export interface UserMap {
+  [user: string]: THREE.Mesh;
+}
+
 export interface Meshes {
-  hover: THREE.Mesh<THREE.BufferGeometry, THREE.MeshLambertMaterial>[];
-  selection: THREE.Mesh<THREE.BufferGeometry, THREE.MeshLambertMaterial>[];
-  userMesh: THREE.Mesh<THREE.BufferGeometry, THREE.MeshLambertMaterial> | undefined;
-  merged: THREE.Mesh<THREE.BufferGeometry, THREE.MeshLambertMaterial>;
+  graph: THREE.Mesh;
+  hover: THREE.Mesh[];
+  selection: THREE.Mesh[];
   axes: THREE.Object3D<THREE.Event>;
+  userMap: UserMap;
+  // selectionMap: SelectionMap;
   dispose(): void;
 }
 
+interface Vec3 {
+  x: number;
+  y: number;
+  z: number;
+}
+
+const EXTRUSION = 0.001;
+const THICKNESS = Rectangle.MIN_LENGTH;
+
 export function computeMeshes(pair: Pair, rectangles: Rectangle[]): Meshes {
-  const thickness = Rectangle.MIN_LENGTH;
+  const { graphGeometries, hoverGeometries } = makeGeometries(rectangles);
 
-  const boxGeometries = [];
-  const hlGeometries = [];
-  const hover = [];
-  const selection = [];
-  let userMesh;
+  const graphMesh = makeGraphMesh(graphGeometries);
 
-  for (const r of rectangles) {
-    const dimensions = [r.width, r.height, thickness];
-    const box = new THREE.BoxGeometry(...dimensions);
-    const posMat = new THREE.Matrix4();
-    posMat.makeTranslation(
-      r.x0 + dimensions[0] / 2,
-      r.y0 + dimensions[1] / 2,
-      r.layer * dimensions[2] + dimensions[2] / 2,
-    );
-    box.applyMatrix4(posMat);
-    boxGeometries.push(box);
+  const { userMeshes, selectionMeshes } = makeHoverMeshes(hoverGeometries);
 
-    const hlDimensions = dimensions.map(d => d + 0.002);
-    const hlBox = new THREE.BoxGeometry(...hlDimensions);
-
-    hlBox.applyMatrix4(posMat);
-
-    hlBox.userData = { users: [...r.users] };
-
-    hlGeometries.push(hlBox);
-  }
-
-  const mergedGeometry = mergeBufferGeometries(boxGeometries, false);
-  const merged = new THREE.Mesh(mergedGeometry, material.base);
-
-  // merge geometry by user
-
-  // sort geos by most to least users
-  const sortedGeos = [...hlGeometries].sort((a, b) => b.userData.users.length - a.userData.users.length);
-
-  for (const g of sortedGeos) {
-    const { users } = g.userData;
-
-    const toMerge: THREE.BoxGeometry[] = [g];
-
-    // find geometries that include ALL of the current geo's users
-    hlGeometries.forEach(h => {
-      if (h.uuid === g.uuid) return; // skip current geo
-
-      const { users: hlUsers } = h.userData;
-
-      if (hlUsers.length < users.length) return; // skip geos with less intersections
-
-      if (users.every((u: string) => hlUsers.includes(u))) {
-        toMerge.push(h);
-      }
-    });
-
-    const merged = mergeBufferGeometries(toMerge, false);
-
-    const hoverMesh = new THREE.Mesh(merged, material.hover);
-    const selectionMesh = new THREE.Mesh(merged, material.selection);
-
-    const userData = { users };
-
-    hoverMesh.userData = userData;
-    selectionMesh.userData = userData;
-
-    hover.push(hoverMesh);
-    selection.push(selectionMesh);
-
-    if (users.some(isClientUser)) {
-      userMesh = new THREE.Mesh(merged, material.user);
-      userMesh.userData = userData;
-    }
-  }
+  const userMap = makeUserMap(selectionMeshes);
 
   const axes = makeAxesObject(pair.x, pair.y);
 
   return {
-    hover,
-    selection,
-    userMesh,
-    merged,
+    graph: graphMesh,
+    hover: userMeshes,
+    selection: selectionMeshes,
+    userMap,
+    // selectionMap,
     axes,
     dispose() {
+      this.graph.geometry.dispose();
       this.hover.forEach(h => h.geometry.dispose());
-      this.selection.forEach(s => s.geometry.dispose());
-      if (this.userMesh != null) this.userMesh.geometry.dispose();
-      this.merged.geometry.dispose();
+      // Object.values(selectionMap).forEach(s => s?.geometry.dispose());
     },
   };
+}
+
+function makePlanes(rectangle: Rectangle): { base: THREE.PlaneGeometry[]; hover: THREE.PlaneGeometry[] } {
+  const { width, height, x0, x1, y0, y1, layer } = rectangle;
+
+  const dimensions: Vec3 = { x: width, y: height, z: THICKNESS };
+
+  const hlDimensions: Vec3 = { ...dimensions };
+
+  Object.keys(hlDimensions).forEach((k: string) => (hlDimensions[k as keyof Vec3] += EXTRUSION * 2));
+
+  const midPoint: Vec3 = {
+    x: x0 + dimensions.x / 2,
+    y: y0 + dimensions.y / 2,
+    z: layer * dimensions.z + dimensions.z / 2,
+  };
+
+  // WALLS
+  //
+  let top, front, back, left, right;
+  let hlTop, hlFront, hlBack, hlLeft, hlRight;
+  {
+    // top
+    top = new THREE.PlaneGeometry(width, height);
+    top.translate(midPoint.x, midPoint.y, midPoint.z + dimensions.z / 2);
+    top.setAttribute("color", planeColor.base.top);
+
+    hlTop = new THREE.PlaneGeometry(hlDimensions.x, hlDimensions.y);
+    hlTop.translate(midPoint.x, midPoint.y, midPoint.z + dimensions.z / 2 + EXTRUSION);
+    hlTop.setAttribute("color", planeColor.hl.top);
+  }
+
+  {
+    // left & right
+    left = new THREE.PlaneGeometry(dimensions.z, dimensions.y);
+    right = left.clone() as THREE.PlaneGeometry;
+    left.rotateY(-Math.PI / 2);
+    right.rotateY(Math.PI / 2);
+    left.translate(x0, midPoint.y, midPoint.z);
+    right.translate(x1, midPoint.y, midPoint.z);
+    left.setAttribute("color", planeColor.base.left);
+    right.setAttribute("color", planeColor.base.right);
+
+    hlLeft = new THREE.PlaneGeometry(hlDimensions.z, hlDimensions.y);
+    hlRight = hlLeft.clone() as THREE.PlaneGeometry;
+    hlLeft.rotateY(-Math.PI / 2);
+    hlRight.rotateY(Math.PI / 2);
+    hlLeft.translate(x0 - EXTRUSION, midPoint.y, midPoint.z);
+    hlRight.translate(x1 + EXTRUSION, midPoint.y, midPoint.z);
+    hlLeft.setAttribute("color", planeColor.hl.left);
+    hlRight.setAttribute("color", planeColor.hl.right);
+  }
+
+  {
+    // front & back
+    front = new THREE.PlaneGeometry(dimensions.x, dimensions.z);
+    back = front.clone() as THREE.PlaneGeometry;
+    front.rotateX(Math.PI / 2);
+    back.rotateX(-Math.PI / 2);
+    front.translate(midPoint.x, y0, midPoint.z);
+    back.translate(midPoint.x, y1, midPoint.z);
+    front.setAttribute("color", planeColor.base.front);
+    back.setAttribute("color", planeColor.base.back);
+
+    hlFront = new THREE.PlaneGeometry(hlDimensions.x, hlDimensions.z);
+    hlBack = hlFront.clone() as THREE.PlaneGeometry;
+    hlFront.rotateX(Math.PI / 2);
+    hlBack.rotateX(-Math.PI / 2);
+    hlFront.translate(midPoint.x, y0 - EXTRUSION, midPoint.z);
+    hlBack.translate(midPoint.x, y1 + EXTRUSION, midPoint.z);
+    hlFront.setAttribute("color", planeColor.hl.front);
+    hlBack.setAttribute("color", planeColor.hl.back);
+  }
+
+  return {
+    base: [top, front, back, left, right],
+    hover: [hlTop, hlFront, hlBack, hlLeft, hlRight],
+  };
+}
+
+function makeBoxGeometries(rectangle: Rectangle) {
+  const planes = makePlanes(rectangle);
+
+  const hoverGeometry = mergeBufferGeometries(planes.hover);
+
+  hoverGeometry.userData = { user: rectangle.user, users: rectangle.users };
+
+  return {
+    graphPlanes: planes.base,
+    hoverGeometry,
+  };
+}
+
+function makeGeometries(rectangles: Rectangle[]) {
+  const graphGeometries: THREE.PlaneGeometry[] = [];
+  const hoverGeometries: THREE.BufferGeometry[] = [];
+
+  for (const rectangle of rectangles) {
+    const { graphPlanes, hoverGeometry } = makeBoxGeometries(rectangle);
+    graphGeometries.push(...graphPlanes);
+    hoverGeometries.push(hoverGeometry);
+  }
+
+  return { graphGeometries, hoverGeometries };
+}
+
+function makeMeshFromGeometries(
+  geometries: THREE.BufferGeometry | THREE.BufferGeometry[],
+  material: THREE.Material,
+  userData: any = {},
+): THREE.Mesh {
+  let mesh;
+  if (geometries instanceof Array) {
+    const merged = mergeBufferGeometries(geometries, false);
+    mesh = new THREE.Mesh(merged, material);
+  } else {
+    mesh = new THREE.Mesh(geometries, material);
+  }
+  mesh.userData = { ...userData };
+  return mesh;
+}
+
+function makeGraphMesh(geometries: THREE.BufferGeometry[]) {
+  return makeMeshFromGeometries(geometries, material.graph);
+}
+
+function makeHoverMeshes(geometries: THREE.BufferGeometry[]) {
+  const userMeshes = [];
+  const selectionMeshes = [];
+
+  for (const geo of geometries) {
+    if (geo.userData.user) {
+      const mesh = makeMeshFromGeometries(geo, material.hover, { ...geo.userData });
+      userMeshes.push(mesh.clone() as THREE.Mesh);
+    }
+
+    const mesh = makeMeshFromGeometries(geo, material.selection, { ...geo.userData });
+    selectionMeshes.push(mesh);
+  }
+  return { userMeshes, selectionMeshes };
+}
+
+export function isPartOfSelection<T extends Record<string, any>>(selected: string[], { user, users }: T) {
+  if (user && selected.includes(user)) {
+    return true;
+  }
+  if (selected.every(s => users.includes(s))) return true;
+  return false;
+}
+
+function makeUserMap(hoverMeshed: THREE.Mesh[]): UserMap {
+  const userMap: UserMap = {};
+
+  for (const mesh of hoverMeshed) {
+    if (mesh.userData.user) {
+      userMap[mesh.userData.user] = mesh;
+    }
+  }
+
+  return userMap;
 }
