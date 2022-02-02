@@ -50,7 +50,7 @@ export function makeActors(mount: HTMLCanvasElement): Actors {
   // Controls
   const controls = new OrbitControls(camera, mount);
   controls.target.set(0, 0, 0);
-  controls.enablePan = false;
+  controls.enablePan = !clientIsMobile;
   controls.enableZoom = !clientIsMobile;
   controls.minPolarAngle = 0;
   controls.maxPolarAngle = Math.PI / 2;

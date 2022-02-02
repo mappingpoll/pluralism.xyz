@@ -7,9 +7,9 @@ export const color = {
   fg: "#000000",
   selectionBg: "#ff0000",
   selectionFg: "#ffffff",
-  userBg: "#18ad2a",
+  userBg: "#ff0000", //#18ad2a",
   userFg: "#ffffff",
-  hoverBg: "#6495ed",
+  hoverBg: "#ff0000", //#6495ed",
   baseGrey: "#1a1a1a",
   lightGrey: "#5a5a5a",
 };

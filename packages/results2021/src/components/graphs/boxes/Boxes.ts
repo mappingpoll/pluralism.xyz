@@ -8,7 +8,6 @@ import { color } from "../../../lib/style";
 import { computeMeshes, isPartOfSelection, Meshes } from "./meshes";
 import { GraphProps } from "../types";
 import { Actors, makeActors } from "./actors";
-import { clientUser, hasClientUser } from "../../../lib/user";
 import { PickHelper } from "./helpers";
 
 const styles = css`
@@ -110,16 +109,15 @@ export function Boxes({ data, reducer, pair }: GraphProps) {
 
     scene.add(meshes.axes);
     scene.add(meshes.graph);
-    if (hasClientUser) {
-      const userMesh = meshes.hover.find(m => m.userData.user === clientUser);
-      if (userMesh != null) scene.add(userMesh);
-    }
+    if (meshes.userMesh != null) scene.add(meshes.userMesh);
 
     return () => {
       scene.clear();
     };
-  }, [actors, meshes.hover, meshes.axes, meshes.graph, mount, readyForRender]);
+  }, [actors, meshes.hover, meshes.axes, meshes.graph, mount, readyForRender, meshes.userMesh]);
 
+  // RENDER
+  //
   useEffect(() => {
     if (!readyForRender || actors == null || mount == null || pickHelper == null) return;
 
@@ -181,6 +179,7 @@ export function Boxes({ data, reducer, pair }: GraphProps) {
     mount.addEventListener("pointerup", handlePointerUp);
 
     return () => {
+      meshes.dispose();
       controls.removeEventListener("change", render);
       mount.removeEventListener("mousemove", setPickPosition);
       mount.removeEventListener("mouseout", clearPickPosition);
@@ -188,7 +187,7 @@ export function Boxes({ data, reducer, pair }: GraphProps) {
       mount.removeEventListener("pointerdown", handlePointerDown);
       mount.removeEventListener("pointerup", handlePointerUp);
     };
-  }, [actors, meshes.hover, mount, pickHelper, readyForRender, reducer]);
+  }, [actors, meshes, meshes.hover, mount, pickHelper, readyForRender, reducer]);
 
   return html`<canvas ref=${canvas} class=${styles}></canvas>`;
 }

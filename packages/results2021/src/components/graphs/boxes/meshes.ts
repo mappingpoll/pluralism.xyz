@@ -5,6 +5,7 @@ import { material, planeColor } from "./materials";
 import { Rectangle } from "./data";
 import { makeAxesObject } from "./axes";
 import { Pair } from "../../../lib/questions";
+import { clientUser } from "../../../lib/user";
 
 export interface UserData extends Record<string, any> {
   user: string;
@@ -25,6 +26,7 @@ export interface Meshes {
   selection: THREE.Mesh[];
   axes: THREE.Object3D<THREE.Event>;
   userMap: UserMap;
+  userMesh: THREE.Mesh | undefined;
   // selectionMap: SelectionMap;
   dispose(): void;
 }
@@ -47,6 +49,8 @@ export function computeMeshes(pair: Pair, rectangles: Rectangle[]): Meshes {
 
   const userMap = makeUserMap(selectionMeshes);
 
+  const userMesh = userMap[clientUser]?.clone();
+
   const axes = makeAxesObject(pair.x, pair.y);
 
   return {
@@ -54,12 +58,14 @@ export function computeMeshes(pair: Pair, rectangles: Rectangle[]): Meshes {
     hover: userMeshes,
     selection: selectionMeshes,
     userMap,
-    // selectionMap,
+    userMesh,
     axes,
     dispose() {
       this.graph.geometry.dispose();
       this.hover.forEach(h => h.geometry.dispose());
-      // Object.values(selectionMap).forEach(s => s?.geometry.dispose());
+      this.selection.forEach(s => s.geometry.dispose());
+      Object.values(this.userMap).forEach(u => u.geometry.dispose());
+      this.userMesh?.geometry.dispose();
     },
   };
 }
