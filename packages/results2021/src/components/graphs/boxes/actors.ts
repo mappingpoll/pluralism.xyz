@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 import { color } from "../../../lib/style";
+import { clientIsMobile } from "../../../lib/user";
 
 export interface Actors {
   scene: THREE.Scene;
@@ -50,7 +51,7 @@ export function makeActors(mount: HTMLCanvasElement): Actors {
   const controls = new OrbitControls(camera, mount);
   controls.target.set(0, 0, 0);
   controls.enablePan = false;
-  // controls.enableZoom = false;
+  controls.enableZoom = !clientIsMobile;
   controls.minPolarAngle = 0;
   controls.maxPolarAngle = Math.PI / 2;
   controls.update();

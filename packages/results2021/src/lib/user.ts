@@ -10,3 +10,7 @@ function getClientUser() {
 export const clientUser = getClientUser();
 export const isClientUser = (user: string) => user === clientUser;
 export const hasClientUser = clientUser.length > 0;
+
+export const clientIsMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+  navigator.userAgent,
+); // not exhaustive
