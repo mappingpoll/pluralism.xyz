@@ -12,15 +12,13 @@ import { PickHelper } from "./helpers";
 
 const styles = css`
   background-color: ${color.bg};
-  width: 100vh;
-  height: 80vh;
-  max-height: 90vh;
-  max-width: 100%;
+  width: 100%;
+  height: 50vh;
+  max-width: max(70vh, 90vw);
   display: block;
   /* border: 2px solid red; */
 
   @media only screen and (max-device-width: 430px) {
-    height: 90vw;
     max-height: 100vw;
   }
 `;
