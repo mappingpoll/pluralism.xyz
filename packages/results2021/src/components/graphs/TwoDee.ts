@@ -42,7 +42,7 @@ const styles = css`
     grid-area: graph;
     align-self: center;
     justify-self: center;
-    max-width: 70vh;
+    max-width: min(40vh, 50vw);
     display: flex;
     justify-content: center;
     align-items: center;
