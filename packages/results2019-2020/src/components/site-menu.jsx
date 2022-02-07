@@ -4,14 +4,16 @@ import "./site-menu.css";
 
 export default function SiteMenu(props) {
   return (
-    <div class="site-menu" style={props.style}>
-      <h1>Nicolas Grenier</h1>
-      <h3>
-        <a href="https://nicolasgrenier.com/Exhibitions-Projects">Exhibitions &amp; Projects /</a>
-        <a href="https://nicolasgrenier.com/Paintings">/ Paintings /</a>
-        <a href="https://nicolasgrenier.com/Research">/ Research /</a>
-        <a href="https://nicolasgrenier.com/About">/ About&nbsp;</a>
-      </h3>
-    </div>
+    <h1 class="site-menu" style={props.style}>
+      <a href="https://nicolasgrenier.com" style="font-family: 'Times New Roman', Times, serif">
+        Nicolas Grenier
+      </a>
+      <span style="font-weight: normal">
+        {" // "}
+        <a href="https://pluralism.xyz/" style="font-size: 0.95em">
+          pluralism.xyz
+        </a>
+      </span>
+    </h1>
   );
 }
