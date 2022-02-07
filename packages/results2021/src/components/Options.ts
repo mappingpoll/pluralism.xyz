@@ -84,7 +84,7 @@ export function Options({ reducer, visible }: Props) {
             </select>
           </div>
         </div>
-        <div style="text-align: right">
+        <div style="text-align: right; margin-bottom: 0.25rem">
           <button type="button" onclick=${handleResetClick}>Reset</button>
         </div>
       </div>

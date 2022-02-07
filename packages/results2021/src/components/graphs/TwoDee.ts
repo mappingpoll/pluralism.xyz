@@ -37,6 +37,7 @@ const styles = css`
     ". top ."
     "left graph right"
     ". bottom .";
+  width: 100%;
 
   .graph {
     grid-area: graph;
@@ -111,6 +112,11 @@ const styles = css`
       writing-mode: vertical-rl;
       max-height: 25ch;
       line-height: 0.9;
+    }
+
+    .left,
+    .right {
+      align-items: center;
     }
   }
 `;
