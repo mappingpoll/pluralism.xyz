@@ -26,6 +26,13 @@ a {
   color: black;
 }
 
+header a {
+  text-decoration: none;
+}
+header a:hover {
+  text-decoration: underline;
+}
+
 h2 {
   margin-top: 6rem;
   margin-bottom: 1.5rem;
