@@ -1,0 +1,21 @@
+extends layout
+
+block header
+    include includes/header
+block content
+    form
+        div(style="margin-bottom: 3em")
+            label(for='email' style="display: block") #{email}
+            input(id='email' type='email' name='email' placeholder='example@email.org')
+        div(class="check")
+            input(id='isGallerySubmission' type='radio' name='gallerySubmission' value='yes')
+            label(for='isGallerySubmission') #{isGallery}
+        div(class="check")
+            input(id='isNotGallerySubmission' type='radio' name='gallerySubmission' value='no')
+            label(for='isNotGallerySubmission') #{isNotGallery}
+
+block footer
+    include includes/nav
+
+block scripts
+    script(type="module" src="/submit.js")
