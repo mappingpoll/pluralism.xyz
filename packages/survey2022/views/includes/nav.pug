@@ -1,0 +1,8 @@
+div(class="footer")
+    div(class="footerContent")
+        if back
+            a(href=back class="back") #{backLabel}
+        if reset
+            a(href='#' class="reset") #{__('resetLabel')}
+        if forward
+            a(href=forward class="forward") #{forwardLabel}
