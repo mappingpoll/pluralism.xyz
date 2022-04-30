@@ -9427,6 +9427,24 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"results2022@workspace:packages/results2022":
+  version: 0.0.0-use.local
+  resolution: "results2022@workspace:packages/results2022"
+  dependencies:
+    "@emotion/css": ^11.7.1
+    "@types/d3": ^7.1.0
+    "@types/lodash.assign": ^4.2.6
+    "@types/lodash.clonedeep": ^4.5.6
+    "@types/three": ^0.136.1
+    d3: ^7.3.0
+    htm: ^3.1.0
+    lodash.assign: ^4.2.0
+    lodash.clonedeep: ^4.5.0
+    preact: ^10.6.4
+    three: ^0.136.0
+  languageName: unknown
+  linkType: soft
+
 "retry@npm:^0.12.0":
   version: 0.12.0
   resolution: "retry@npm:0.12.0"
@@ -10219,6 +10237,28 @@ __metadata:
 "survey2021@workspace:packages/survey2021":
   version: 0.0.0-use.local
   resolution: "survey2021@workspace:packages/survey2021"
+  dependencies:
+    autoprefixer: ^9.8.7
+    dotenv: ^10.0.0
+    express: ^4.17.1
+    i18n: ^0.13.3
+    npm-run-all: ^4.1.5
+    pg: ^8.7.1
+    postcss: ^8.3.8
+    postcss-cli: ^9.0.1
+    postcss-import: ^14.0.2
+    postcss-media-minmax: ^5.0.0
+    postcss-preset-env: ^6.7.0
+    pug: ^3.0.2
+    sqlite3: ^5.0.2
+    stylelint: ^13.13.1
+    stylelint-config-standard: ^22.0.0
+  languageName: unknown
+  linkType: soft
+
+"survey2022@workspace:packages/survey2022":
+  version: 0.0.0-use.local
+  resolution: "survey2022@workspace:packages/survey2022"
   dependencies:
     autoprefixer: ^9.8.7
     dotenv: ^10.0.0

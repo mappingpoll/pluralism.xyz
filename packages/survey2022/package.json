@@ -1,6 +1,6 @@
 {
-  "name": "survey2021",
-  "homepage": "grenier-2021.herokuapp.com",
+  "name": "survey2022",
+  "homepage": "grenier-2022.herokuapp.com",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -28,8 +28,7 @@
     "i18n": "^0.13.3",
     "pg": "^8.7.1",
     "postcss-media-minmax": "^5.0.0",
-    "pug": "^3.0.2",
-    "sqlite3": "^5.0.2"
+    "pug": "^3.0.2"
   },
   "browserslist": [
     "defaults"
