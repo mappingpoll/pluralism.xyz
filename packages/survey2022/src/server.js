@@ -1,10 +1,12 @@
 import express from "express";
+import compression from "compression";
 import i18n from "i18n";
 
 import { dbClient, initDb } from "./database.js";
 import OPTIONS from "./static/options.js";
 
-const app = express();
+const { insertEntry, listEntries } = dbClient();
+
 const port = process.env.PORT ?? 3000;
 
 initDb()
@@ -19,9 +21,12 @@ i18n.configure({
   missingKeyFn: () => "",
 });
 
+const app = express();
+
 app.set("views", "views");
 app.set("view engine", "pug");
 
+app.use(compression());
 app.use(i18n.init);
 app.use(express.static("static"));
 app.use(express.json());
@@ -67,7 +72,6 @@ app.get("/comment", (req, res) => {
   res.render("comment", opts);
 });
 
-const { insertEntry, listEntries } = dbClient();
 app.post("/submit", (req, res) => {
   try {
     insertEntry(req.body)
@@ -97,6 +101,12 @@ app.get("/submit", (req, res) => {
     forwardLabel: res.__("submit.forwardLabel"),
   };
   res.render("submit", opts);
+});
+
+app.get("/data", (req, res) => {
+  listEntries()
+    .then(d => res.json(d))
+    .catch(console.error);
 });
 
 app.get("/results", (req, res) => {

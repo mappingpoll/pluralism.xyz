@@ -32,9 +32,15 @@ const formQuery = "INSERT INTO form (timestamp, comment, submittedInGallery, ema
 
 let pool;
 
-if (env === "dev") {
-  pool = new pg.Pool();
-} else if (env === "prod") {
+if (env === "development") {
+  pool = new pg.Pool({
+    host: "localhost",
+    user: "postgres",
+    password: "password",
+    database: "postgres",
+    port: 5432
+  });
+} else if (env === "production") {
   pool = new pg.Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
@@ -91,7 +97,20 @@ const dbClient = () => {
     }
   };
 
-  const listEntries = () => {};
+  const listEntries = async () => {
+    const client = await pool.connect()
+
+    let data;
+    try {
+      data = await client.query(`SELECT * FROM form`)
+    } catch (e) {
+      throw e;
+    } finally {
+      client.release()
+    }
+
+    return data
+  };
   return { insertEntry, listEntries };
 };
 
