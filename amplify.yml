@@ -9,6 +9,8 @@ applications:
         build:
           commands:
             - yarn  css:build
+        postBuild:
+            - yarn start
         artifacts:
           baseDirectory: /
           files:
@@ -16,3 +18,14 @@ applications:
         cache:
           paths:
             - node_modules/**/*
+    frontend:
+  - appRoot: frondend
+    backend:
+    frontend:
+      phases:
+        preBuild:
+          - yarn install
+        build:
+          - yarn build:prod
+      artifacts:
+        baseDirectory: build
