@@ -1,14 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "lib": ["es6"],
+    "target": "es2015",
     "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "outDir": "here"
+    "resolveJsonModule": true
   },
-  "include": ["packages/results2021/src/lib/geometries.ts"]
+  "include": ["frontend/packages/**/src"]
 }
