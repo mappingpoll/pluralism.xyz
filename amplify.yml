@@ -1,0 +1,18 @@
+version: 1
+applications:
+  - appRoot: backend/survey2021
+    backend:
+      phases:
+        preBuild:
+          commands:
+            - yarn install
+        build:
+          commands:
+            - yarn  css:build
+        artifacts:
+          baseDirectory: /
+          files:
+            - '**/*'
+        cache:
+          paths:
+            - node_modules/**/*
