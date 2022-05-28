@@ -8,5 +8,5 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true
   },
-  "include": ["frontend/packages/**/src"]
+  "include": ["packages/**/src"]
 }
