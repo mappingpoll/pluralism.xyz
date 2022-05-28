@@ -51,6 +51,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:17.0.36"],\
             ["@typescript-eslint/eslint-plugin", "virtual:7a2544f90764a718ddf5a48205bb1b00d057cb71fc384b66493f4c320a073ba3d8287e109ad9dd1ce31bb3d0abeaa9a1112d164581c28aee665ebfee41c6cff6#npm:5.26.0"],\
             ["@typescript-eslint/parser", "virtual:7a2544f90764a718ddf5a48205bb1b00d057cb71fc384b66493f4c320a073ba3d8287e109ad9dd1ce31bb3d0abeaa9a1112d164581c28aee665ebfee41c6cff6#npm:5.26.0"],\
+            ["@yarnpkg/esbuild-plugin-pnp", "virtual:7a2544f90764a718ddf5a48205bb1b00d057cb71fc384b66493f4c320a073ba3d8287e109ad9dd1ce31bb3d0abeaa9a1112d164581c28aee665ebfee41c6cff6#npm:3.0.0-rc.6"],\
             ["esbuild", "npm:0.14.41"],\
             ["eslint", "npm:8.16.0"],\
             ["eslint-config-preact", "virtual:7a2544f90764a718ddf5a48205bb1b00d057cb71fc384b66493f4c320a073ba3d8287e109ad9dd1ce31bb3d0abeaa9a1112d164581c28aee665ebfee41c6cff6#npm:1.3.0"],\
@@ -2006,10 +2007,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/three", [\
-        ["npm:0.136.1", {\
-          "packageLocation": "./.yarn/cache/@types-three-npm-0.136.1-4a2013458f-2d0792f8bb.zip/node_modules/@types/three/",\
+        ["npm:0.140.0", {\
+          "packageLocation": "./.yarn/cache/@types-three-npm-0.140.0-1cb53ae6aa-0569378700.zip/node_modules/@types/three/",\
           "packageDependencies": [\
-            ["@types/three", "npm:0.136.1"]\
+            ["@types/three", "npm:0.140.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -2258,6 +2259,29 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/visitor-keys", "npm:5.26.0"],\
             ["@typescript-eslint/types", "npm:5.26.0"],\
             ["eslint-visitor-keys", "npm:3.3.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@yarnpkg/esbuild-plugin-pnp", [\
+        ["npm:3.0.0-rc.6", {\
+          "packageLocation": "./.yarn/cache/@yarnpkg-esbuild-plugin-pnp-npm-3.0.0-rc.6-440457bfad-dec5edd1a0.zip/node_modules/@yarnpkg/esbuild-plugin-pnp/",\
+          "packageDependencies": [\
+            ["@yarnpkg/esbuild-plugin-pnp", "npm:3.0.0-rc.6"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:7a2544f90764a718ddf5a48205bb1b00d057cb71fc384b66493f4c320a073ba3d8287e109ad9dd1ce31bb3d0abeaa9a1112d164581c28aee665ebfee41c6cff6#npm:3.0.0-rc.6", {\
+          "packageLocation": "./.yarn/__virtual__/@yarnpkg-esbuild-plugin-pnp-virtual-0acdc05bc7/0/cache/@yarnpkg-esbuild-plugin-pnp-npm-3.0.0-rc.6-440457bfad-dec5edd1a0.zip/node_modules/@yarnpkg/esbuild-plugin-pnp/",\
+          "packageDependencies": [\
+            ["@yarnpkg/esbuild-plugin-pnp", "virtual:7a2544f90764a718ddf5a48205bb1b00d057cb71fc384b66493f4c320a073ba3d8287e109ad9dd1ce31bb3d0abeaa9a1112d164581c28aee665ebfee41c6cff6#npm:3.0.0-rc.6"],\
+            ["@types/esbuild", null],\
+            ["esbuild", "npm:0.14.41"],\
+            ["tslib", "npm:1.14.1"]\
+          ],\
+          "packagePeers": [\
+            "@types/esbuild",\
+            "esbuild"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -5194,7 +5218,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         ["npm:3.1.1", {\
           "packageLocation": "./.yarn/cache/htm-npm-3.1.1-e3b831f850-1827a0caff.zip/node_modules/htm/",\
           "packageDependencies": [\
-            ["htm", "npm:3.1.1"]\
+            ["htm", "npm:3.1.1"],\
+            ["preact", "npm:10.7.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -7143,6 +7168,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:17.0.36"],\
             ["@typescript-eslint/eslint-plugin", "virtual:7a2544f90764a718ddf5a48205bb1b00d057cb71fc384b66493f4c320a073ba3d8287e109ad9dd1ce31bb3d0abeaa9a1112d164581c28aee665ebfee41c6cff6#npm:5.26.0"],\
             ["@typescript-eslint/parser", "virtual:7a2544f90764a718ddf5a48205bb1b00d057cb71fc384b66493f4c320a073ba3d8287e109ad9dd1ce31bb3d0abeaa9a1112d164581c28aee665ebfee41c6cff6#npm:5.26.0"],\
+            ["@yarnpkg/esbuild-plugin-pnp", "virtual:7a2544f90764a718ddf5a48205bb1b00d057cb71fc384b66493f4c320a073ba3d8287e109ad9dd1ce31bb3d0abeaa9a1112d164581c28aee665ebfee41c6cff6#npm:3.0.0-rc.6"],\
             ["esbuild", "npm:0.14.41"],\
             ["eslint", "npm:8.16.0"],\
             ["eslint-config-preact", "virtual:7a2544f90764a718ddf5a48205bb1b00d057cb71fc384b66493f4c320a073ba3d8287e109ad9dd1ce31bb3d0abeaa9a1112d164581c28aee665ebfee41c6cff6#npm:1.3.0"],\
@@ -7495,13 +7521,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/d3", "npm:7.4.0"],\
             ["@types/lodash.assign", "npm:4.2.7"],\
             ["@types/lodash.clonedeep", "npm:4.5.7"],\
-            ["@types/three", "npm:0.136.1"],\
+            ["@types/three", "npm:0.140.0"],\
             ["d3", "npm:7.4.4"],\
             ["htm", "npm:3.1.1"],\
             ["lodash.assign", "npm:4.2.0"],\
             ["lodash.clonedeep", "npm:4.5.0"],\
             ["preact", "npm:10.7.2"],\
-            ["three", "npm:0.136.0"]\
+            ["three", "npm:0.141.0"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -7515,13 +7541,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/d3", "npm:7.4.0"],\
             ["@types/lodash.assign", "npm:4.2.7"],\
             ["@types/lodash.clonedeep", "npm:4.5.7"],\
-            ["@types/three", "npm:0.136.1"],\
+            ["@types/three", "npm:0.140.0"],\
             ["d3", "npm:7.4.4"],\
             ["htm", "npm:3.1.1"],\
             ["lodash.assign", "npm:4.2.0"],\
             ["lodash.clonedeep", "npm:4.5.0"],\
             ["preact", "npm:10.7.2"],\
-            ["three", "npm:0.136.0"]\
+            ["three", "npm:0.141.0"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -8027,10 +8053,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["three", [\
-        ["npm:0.136.0", {\
-          "packageLocation": "./.yarn/cache/three-npm-0.136.0-ed238558ec-9183f83a75.zip/node_modules/three/",\
+        ["npm:0.141.0", {\
+          "packageLocation": "./.yarn/cache/three-npm-0.141.0-0e1b669157-d161350b51.zip/node_modules/three/",\
           "packageDependencies": [\
-            ["three", "npm:0.136.0"]\
+            ["three", "npm:0.141.0"]\
           ],\
           "linkType": "HARD"\
         }]\
