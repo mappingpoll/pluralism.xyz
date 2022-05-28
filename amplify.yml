@@ -15,17 +15,16 @@ applications:
           baseDirectory: /
           files:
             - '**/*'
-        cache:
-          paths:
-            - node_modules/**/*
     frontend:
   - appRoot: frontend
-    backend:
     frontend:
       phases:
-        preBuild:
-          - yarn install
         build:
           - yarn build:prod
       artifacts:
         baseDirectory: build
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - .yarn/**/*
