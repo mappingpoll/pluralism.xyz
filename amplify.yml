@@ -19,7 +19,7 @@ applications:
           paths:
             - node_modules/**/*
     frontend:
-  - appRoot: frondend
+  - appRoot: frontend
     backend:
     frontend:
       phases:
