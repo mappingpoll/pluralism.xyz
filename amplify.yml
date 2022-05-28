@@ -16,7 +16,7 @@ applications:
           files:
             - '**/*'
     frontend:
-  - appRoot:
+  - appRoot: /
     frontend:
       phases:
         build:
