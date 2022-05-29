@@ -12,9 +12,9 @@ const questionKey = window.location.pathname.slice(1); // skip leading slash
 const cachedColor =
   window.localStorage.getItem(questionKey) != null ? JSON.parse(localStorage.getItem(questionKey)) : null;
 let color = cachedColor ?? {
-  c: 1,
-  m: 1,
-  y: 1,
+  c: 0,
+  m: 0,
+  y: 0,
   k: 0,
 };
 
@@ -27,10 +27,10 @@ Object.values(sliders).forEach(slider => {
 });
 
 const handles = {
-  cyan: document.querySelector(".color-cyan .dot"),
-  magenta: document.querySelector(".color-magenta .dot"),
-  yellow: document.querySelector(".color-yellow .dot"),
-  black: document.querySelector(".color-black .dot"),
+  cyan: document.querySelector(".color-cyan .handle"),
+  magenta: document.querySelector(".color-magenta .handle"),
+  yellow: document.querySelector(".color-yellow .handle"),
+  black: document.querySelector(".color-black .handle"),
 };
 
 init();
@@ -59,13 +59,13 @@ function cmykToRgb({ c, m, y, k }) {
 }
 
 function appendHandle(parent) {
-  const dot = document.createElement("div");
-  dot.className = "dot";
-  dot.innerHTML = svgTriangle;
-  dot.style.translate = "translate(-100%)";
-  makeInteractive(dot);
-  parent.appendChild(dot);
-  return dot;
+  const handle = document.createElement("div");
+  handle.className = "handle";
+  handle.innerHTML = svgTriangle;
+  handle.style.translate = "translate(-100%)";
+  makeInteractive(handle);
+  parent.appendChild(handle);
+  return handle;
 }
 
 function makeInteractive(handle) {
@@ -86,7 +86,9 @@ function makeInteractive(handle) {
   function drag(event) {
     handle.isDragging = true;
     handle.style.cursor = "grabbing";
-    moveDotTo(handle, restrictY(event.clientY));
+    moveHandleTo(handle, restrictY(event.clientY));
+    color = getColor();
+    showColor(color);
   }
 
   function stopDrag() {
@@ -123,15 +125,16 @@ function getColor() {
     k: normalize(+handles.black.style.top.slice(0, -2)),
   };
 }
+function showColor(color) {
+  const { r, g, b } = cmykToRgb(color);
+  colorView.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+}
 function persist() {
   color = getColor();
-  const rgb = cmykToRgb(color);
-  colorView.style.backgroundColor = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+  showColor(color);
   localStorage.setItem(questionKey, JSON.stringify(color));
-  console.log(color);
-  console.log(rgb);
 }
 
-function moveDotTo(dot, value) {
-  dot.style.top = `${value}px`;
+function moveHandleTo(handle, value) {
+  handle.style.top = `${value}px`;
 }

@@ -294,10 +294,39 @@ input[type=email] {
   grid-area: control; 
 }
 .color-view { grid-area: color-view; }
-.color-cyan { grid-area: color-cyan; background-color: cyan;}
-.color-magenta { grid-area: color-magenta; background-color: magenta;}
-.color-yellow { grid-area: color-yellow; background-color: yellow;}
-.color-black { grid-area: color-black; background-color: #646464;}
+.color-cyan { grid-area: color-cyan; background: linear-gradient(to top, transparent, cyan); 
+  position: relative;
+  border: 2px solid var(--darkgrey);
+}
+.color-magenta { grid-area: color-magenta; background: linear-gradient(to top, transparent, magenta);
+  position: relative;
+  border: 2px solid var(--darkgrey);
+}
+.color-yellow { grid-area: color-yellow; background: linear-gradient(to top, transparent, yellow);
+  position: relative;
+  border: 2px solid var(--darkgrey);
+}
+.color-black { grid-area: color-black; background: linear-gradient(to top, transparent, #646464);
+  position: relative;
+  border: 2px solid var(--darkgrey);
+}
 
+.handle {
+  position: absolute;
+  width: var(--dot-diameter);
+  height: var(--dot-diameter);
+  transform: translate(-100%, -50%);
+  z-index: 100;
+  cursor: grab;
 
-
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: calc((100% * var(--touch-scaleup) - 100%) / -2);
+    left: calc((100% * var(--touch-scaleup) - 100%) / -2);
+    border-radius: var(--touch-area);
+    height: var(--touch-area);
+    width: calc(var(--touch-area) + var(--rail-width));
+  }
+}

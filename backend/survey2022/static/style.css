@@ -315,10 +315,62 @@ input[type=email] {
 
 .color-view { grid-area: color-view; }
 
-.color-cyan { grid-area: color-cyan; background-color: cyan; }
+.color-cyan {
+  grid-area: color-cyan;
+  background: linear-gradient(to top, transparent, cyan);
+  position: relative;
+  border: 2px solid #333;
+  border: 2px solid var(--darkgrey);
+}
 
-.color-magenta { grid-area: color-magenta; background-color: magenta; }
+.color-magenta {
+  grid-area: color-magenta;
+  background: linear-gradient(to top, transparent, magenta);
+  position: relative;
+  border: 2px solid #333;
+  border: 2px solid var(--darkgrey);
+}
 
-.color-yellow { grid-area: color-yellow; background-color: yellow; }
+.color-yellow {
+  grid-area: color-yellow;
+  background: linear-gradient(to top, transparent, yellow);
+  position: relative;
+  border: 2px solid #333;
+  border: 2px solid var(--darkgrey);
+}
 
-.color-black { grid-area: color-black; background-color: #646464; }
+.color-black {
+  grid-area: color-black;
+  background: linear-gradient(to top, transparent, #646464);
+  position: relative;
+  border: 2px solid #333;
+  border: 2px solid var(--darkgrey);
+}
+
+.handle {
+  position: absolute;
+  width: 30px;
+  width: var(--dot-diameter);
+  height: 30px;
+  height: var(--dot-diameter);
+  transform: translate(-100%, -50%);
+  z-index: 100;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.handle::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: calc((100% * 1.8 - 100%) / -2);
+  top: calc((100% * var(--touch-scaleup) - 100%) / -2);
+  left: calc((100% * 1.8 - 100%) / -2);
+  left: calc((100% * var(--touch-scaleup) - 100%) / -2);
+  border-radius: calc(1.8 * 30px);
+  border-radius: var(--touch-area);
+  height: calc(1.8 * 30px);
+  height: var(--touch-area);
+  width: calc(calc(1.8 * 30px) + 30px);
+  width: calc(var(--touch-area) + var(--rail-width));
+}
