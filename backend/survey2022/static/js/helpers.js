@@ -6,3 +6,18 @@ export function timestamp() {
 
 export const newScaleTranslate = (scale, offset) => value => -value * scale + offset;
 export const newNormalize = (scale, offset) => value => (value - offset) / -scale;
+
+export function referenceGeometryFns(element) {
+  const box = element.getBoundingClientRect();
+  const scale = box.height;
+  const offset = scale;
+  return {
+    referenceGeometry: {
+      top: box.top,
+      bottom: box.bottom,
+      height: box.height,
+    },
+    normalize: newNormalize(scale, offset),
+    scaleTranslate: newScaleTranslate(scale, offset),
+  };
+}

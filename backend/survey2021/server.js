@@ -7,9 +7,7 @@ import OPTIONS from "./static/options.js";
 const app = express();
 const port = process.env.PORT ?? 3000;
 
-initDb()
-  .catch(console.error)
-  .finally(() => console.log("Successfully connected to DB"));
+initDb().catch(console.error);
 
 i18n.configure({
   locales: ["en"],

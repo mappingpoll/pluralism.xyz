@@ -1,0 +1,15 @@
+extends layout
+
+block header
+    include includes/header
+block content
+    div(class="topContent") !{topContent}
+    if controlType == "slider"
+        include includes/slider
+    if controlType == "color-picker"
+        include includes/color-picker
+    if showValue
+        div(class="valueDisplay")
+
+block footer
+    include includes/nav

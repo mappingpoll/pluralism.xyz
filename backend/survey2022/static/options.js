@@ -2,6 +2,11 @@ const OPTIONS = {
   lastQ: 29,
 };
 
+const CONTROL_TYPE = {
+  slider: "slider",
+  color: "color-picker",
+};
+
 OPTIONS.default = {
   backLabel: "<< Back",
   forwardLabel: "Next >>",
@@ -9,10 +14,13 @@ OPTIONS.default = {
   control: true,
   reset: true,
   showValue: null,
+  controlType: CONTROL_TYPE.slider,
 };
 
 OPTIONS.index = {
-  forward: "/2",
+  forward: "/",
+  controlType: CONTROL_TYPE.color,
+  topContent: "Hello, my name is... and my favorite color is...",
   reset: false,
 };
 
