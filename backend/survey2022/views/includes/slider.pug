@@ -1,0 +1,20 @@
+
+div(class="slider")
+    div(class="dots")
+    div(class="rail")
+        div(class="wagon")
+    div(class="ticks")
+      - var i = 1;
+          while i < ticks
+            - i++
+              div
+    div(class="scaleLabel labelMax") !{scaleLabelMax}
+    div(class="scaleLabel labelMidMax") !{scaleLabelMidMax}
+    div(class="scaleLabel labelZero") !{scaleLabelZero}
+    div(class="scaleLabel labelMidMin") !{scaleLabelMidMin}
+    div(class="scaleLabel labelMin") !{scaleLabelMin}
+if showValue
+    div(class="valueDisplay")
+    script.
+        window.valueRange = JSON.parse("!{showValue}");
+script(type="module" src="/slider.js")

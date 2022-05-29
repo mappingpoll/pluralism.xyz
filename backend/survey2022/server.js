@@ -9,9 +9,7 @@ const { insertEntry, listEntries } = dbClient();
 
 const port = process.env.PORT ?? 3000;
 
-initDb()
-  .catch(console.error)
-  .finally(() => console.log("Successfully connected to DB"));
+// initDb().catch(console.error);
 
 i18n.configure({
   locales: ["en"],
@@ -36,7 +34,9 @@ app.get("/", (req, res) => {
   opts.sectionTitle = res.__("index.title");
   opts.sectionSubtitle = res.__("index.subtitle");
   opts.textContent = res.__("index.textContent");
-  res.render("index", opts);
+  opts.forward = "/2";
+  // TODO: change back to "index"
+  res.render("interact", opts);
 });
 
 app.get("/:number(\\d{1,2})", (req, res) => {

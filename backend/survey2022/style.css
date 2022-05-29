@@ -124,7 +124,7 @@ body {
   font-weight: bold;
 }
 
-.control {
+.slider {
   grid-area: control;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
@@ -280,3 +280,24 @@ input[type=email] {
   display: block;
   width: 100%;
 }
+
+.color-picker {
+  display: grid; 
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
+  grid-template-rows: 1.5fr 0.5fr 2fr 0.5fr; 
+  gap: 0px 0px; 
+  grid-template-areas: 
+    "color-view color-view color-view color-view color-view color-view color-view color-view color-view"
+    ". . . . . . . . ."
+    ". color-cyan . color-magenta . color-yellow . color-black ."
+    ". . . . . . . . ."; 
+  grid-area: control; 
+}
+.color-view { grid-area: color-view; }
+.color-cyan { grid-area: color-cyan; background-color: cyan;}
+.color-magenta { grid-area: color-magenta; background-color: magenta;}
+.color-yellow { grid-area: color-yellow; background-color: yellow;}
+.color-black { grid-area: color-black; background-color: #646464;}
+
+
+
