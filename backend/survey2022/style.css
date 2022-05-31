@@ -283,14 +283,14 @@ input[type=email] {
 
 .color-picker {
   display: grid; 
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
   grid-template-rows: 1.5fr 0.5fr 2fr 0.5fr; 
   gap: 0px 0px; 
   grid-template-areas: 
-    "color-view color-view color-view color-view color-view color-view color-view color-view color-view"
-    ". . . . . . . . ."
-    ". color-cyan . color-magenta . color-yellow . color-black ."
-    ". . . . . . . . ."; 
+    "color-view color-view color-view color-view color-view color-view color-view"
+    ". . . . . . . "
+    ". color-cyan . color-magenta . color-yellow . "
+    ". . . . . . . "; 
   grid-area: control; 
 }
 .color-view { grid-area: color-view; }
@@ -303,10 +303,6 @@ input[type=email] {
   border: 2px solid var(--darkgrey);
 }
 .color-yellow { grid-area: color-yellow; background: linear-gradient(to top, transparent, yellow);
-  position: relative;
-  border: 2px solid var(--darkgrey);
-}
-.color-black { grid-area: color-black; background: linear-gradient(to top, transparent, #646464);
   position: relative;
   border: 2px solid var(--darkgrey);
 }

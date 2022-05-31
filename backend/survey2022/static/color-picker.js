@@ -3,7 +3,6 @@ const sliders = {
   cyan: document.querySelector(".color-cyan"),
   magenta: document.querySelector(".color-magenta"),
   yellow: document.querySelector(".color-yellow"),
-  black: document.querySelector(".color-black"),
 };
 const colorView = document.querySelector(".color-view");
 
@@ -15,7 +14,6 @@ let color = cachedColor ?? {
   c: 0,
   m: 0,
   y: 0,
-  k: 0,
 };
 
 const svgTriangle =
@@ -43,19 +41,6 @@ function placeHandles() {
   handles.cyan.style.top = `${scaleTranslate(color.c)}px`;
   handles.magenta.style.top = `${scaleTranslate(color.m)}px`;
   handles.yellow.style.top = `${scaleTranslate(color.y)}px`;
-  handles.black.style.top = `${scaleTranslate(color.k)}px`;
-}
-
-function cmykToRgb({ c, m, y, k }) {
-  let r, g, b;
-  r = 255 - Math.min(1, c * (1 - k) + k) * 255;
-  g = 255 - Math.min(1, m * (1 - k) + k) * 255;
-  b = 255 - Math.min(1, y * (1 - k) + k) * 255;
-  return {
-    r: r,
-    g: g,
-    b: b,
-  };
 }
 
 function appendHandle(parent) {
@@ -122,11 +107,21 @@ function getColor() {
     c: normalize(+handles.cyan.style.top.slice(0, -2)),
     m: normalize(+handles.magenta.style.top.slice(0, -2)),
     y: normalize(+handles.yellow.style.top.slice(0, -2)),
-    k: normalize(+handles.black.style.top.slice(0, -2)),
+  };
+}
+function cmyToRgb({ c, m, y }) {
+  let r, g, b;
+  r = 255 - c * 255;
+  g = 255 - m * 255;
+  b = 255 - y * 255;
+  return {
+    r: r,
+    g: g,
+    b: b,
   };
 }
 function showColor(color) {
-  const { r, g, b } = cmykToRgb(color);
+  const { r, g, b } = cmyToRgb(color);
   colorView.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 }
 function persist() {
