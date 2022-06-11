@@ -38,7 +38,6 @@ app.get("/", (req, res) => {
   opts.sectionTitle = res.__("index.title");
   opts.sectionSubtitle = res.__("index.subtitle");
   opts.textContent = res.__("index.textContent");
-  console.log(opts);
   res.render("no-control", opts);
 });
 
@@ -64,7 +63,6 @@ app.get("/:number(\\d{1,2})", (req, res) => {
     opts.scaleLabelZero = res.__(`${number}.scaleLabelZero`);
     opts.scaleLabelMidMin = res.__(`${number}.scaleLabelMidMin`);
     opts.scaleLabelMin = res.__(`${number}.scaleLabelMin`);
-    console.log(opts);
     res.render("interact", opts);
   }
 });
