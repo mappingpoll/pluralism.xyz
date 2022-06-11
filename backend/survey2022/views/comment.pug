@@ -1,14 +1,9 @@
-extends layout
+extends base
 
-block header
-    include includes/header
 block content
     div(class="topContent") !{topContent}
     div(class="control")
         textarea
-
-block footer
-    include includes/nav
 
 block scripts
     script(type="module" src="/comment.js")

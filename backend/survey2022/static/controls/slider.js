@@ -1,4 +1,4 @@
-import { newNormalize, newScaleTranslate } from "./js/helpers.js";
+import { newNormalize, newScaleTranslate, referenceGeometryFns } from "../helpers.js";
 
 const dots = document.querySelector(".dots");
 const rail = document.querySelector(".rail");
@@ -20,9 +20,7 @@ setControlIsActive(cachedPoints != null);
 
 const isDisplayable = window.valueRange != null;
 let isDragging = false;
-let normalize, scaleTranslate;
-let referenceGeometry = {};
-setReferenceGeometry();
+let { normalize, scaleTranslate, referenceGeometry } = referenceGeometryFns(rail);
 
 let normalizedPoints = cachedPoints ?? defaultPoints;
 

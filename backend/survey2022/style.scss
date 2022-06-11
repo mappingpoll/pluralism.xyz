@@ -59,11 +59,11 @@ body {
   font-size: clamp(0.75em, 1em, 1vw);
   background-color: var(--offblack);
 
-  & > h1 {
+  &>h1 {
     font-weight: bold;
   }
 
-  & > h1:nth-child(2) {
+  &>h1:nth-child(2) {
     text-align: right;
   }
 }
@@ -137,7 +137,7 @@ body {
     "dots rail . labelMidMin labelMidMin labelMidMin labelMidMin labelMidMin"
     "dots rail . labelMin labelMin labelMin labelMin labelMin";
 
-  & > textarea {
+  &>textarea {
     grid-area: 1 / 1 / span 5 / span 8;
     display: block;
     width: 100%;
@@ -239,11 +239,11 @@ form {
   justify-content: center;
   font-weight: bold;
 
-  & > div {
+  &>div {
     margin-bottom: 1em;
   }
 
-  & > div > label {
+  &>div>label {
     margin-bottom: 1em;
   }
 
@@ -257,7 +257,7 @@ form {
   justify-content: flex-start;
   align-items: flex-start;
 
-  & > label {
+  &>label {
     margin-left: 0.5em;
   }
 }
@@ -269,7 +269,7 @@ form {
   display: flex;
   flex-direction: column;
 
-  & > div {
+  &>div {
     z-index: -200;
     flex: 1;
     border-bottom: var(--tick-weight) dashed var(--tick-color);
@@ -282,30 +282,58 @@ input[type=email] {
 }
 
 .color-picker {
-  display: grid; 
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
-  grid-template-rows: 1.5fr 0.5fr 2fr 0.5fr; 
-  gap: 0px 0px; 
-  grid-template-areas: 
-    "color-view color-view color-view color-view color-view color-view color-view"
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1.5fr 0.5fr 2fr 0.5fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    ". . color-view color-view color-view . ."
     ". . . . . . . "
     ". color-cyan . color-magenta . color-yellow . "
-    ". . . . . . . "; 
-  grid-area: control; 
+    ". . . . . . . ";
+  grid-area: control;
 }
-.color-view { grid-area: color-view; }
-.color-cyan { grid-area: color-cyan; background: linear-gradient(to top, transparent, cyan); 
+
+.color-view {
+  grid-area: color-view;
+
+  &::after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+}
+
+
+
+.color-cyan {
+  grid-area: color-cyan;
+  background: linear-gradient(to top, transparent, cyan);
   position: relative;
   border: 2px solid var(--darkgrey);
 }
-.color-magenta { grid-area: color-magenta; background: linear-gradient(to top, transparent, magenta);
+
+.color-magenta {
+  grid-area: color-magenta;
+  background: linear-gradient(to top, transparent, magenta);
   position: relative;
   border: 2px solid var(--darkgrey);
 }
-.color-yellow { grid-area: color-yellow; background: linear-gradient(to top, transparent, yellow);
+
+.color-yellow {
+  grid-area: color-yellow;
+  background: linear-gradient(to top, transparent, yellow);
   position: relative;
   border: 2px solid var(--darkgrey);
 }
+
+.color-black {
+  grid-area: color-magenta;
+  background: linear-gradient(to top, transparent, black);
+  position: relative;
+  border: 2px solid var(--darkgrey);
+}
+
 
 .handle {
   position: absolute;
@@ -324,5 +352,23 @@ input[type=email] {
     border-radius: var(--touch-area);
     height: var(--touch-area);
     width: calc(var(--touch-area) + var(--rail-width));
+  }
+}
+
+.pcode {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & input {
+    font-family: monospace;
+    font-size: 2.5rem;
+    font-weight: bold;
+    width: 6ch;
+
+    &::placeholder {
+      opacity: 0.5;
+    }
   }
 }

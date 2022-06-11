@@ -1,0 +1,8 @@
+form
+    div(class="pcode")
+        label(for='pcode') #{pcode}
+        input(id='pcode' type='text' name='pcode' placeholder="A0A0A0" maxlength=6 pattern='^([A-Z]\d){3}$' title='ex: A0B1C3' style="text-transform: uppercase")
+div(class="map-container")
+    div(class="map")
+
+script(type="module" src="controls/map-view.js")

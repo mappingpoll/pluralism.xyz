@@ -3,16 +3,20 @@ import compression from "compression";
 import i18n from "i18n";
 
 import { dbClient, initDb } from "./database.js";
-import OPTIONS from "./static/options.js";
+import { parseDocument } from "yaml";
+import fs from "fs";
 
 const { insertEntry, listEntries } = dbClient();
 
 const port = process.env.PORT ?? 3000;
 
+const pageConfigFile = fs.readFileSync("./static/page-config.yaml", "utf8");
+const pageConfig = parseDocument(pageConfigFile).toJS();
+
 // initDb().catch(console.error);
 
 i18n.configure({
-  locales: ["en"],
+  locales: ["fr"],
   directory: "./locales",
   objectNotation: true,
   updateFiles: false,
@@ -30,27 +34,29 @@ app.use(express.static("static"));
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  const opts = { ...OPTIONS.default, ...OPTIONS.index };
+  const opts = { ...pageConfig.default, ...pageConfig.pages.index };
   opts.sectionTitle = res.__("index.title");
   opts.sectionSubtitle = res.__("index.subtitle");
   opts.textContent = res.__("index.textContent");
-  opts.forward = "/2";
-  // TODO: change back to "index"
-  res.render("interact", opts);
+  console.log(opts);
+  res.render("no-control", opts);
 });
 
 app.get("/:number(\\d{1,2})", (req, res) => {
   let { number } = req.params;
   number = +number;
-  const opts = { ...OPTIONS.default, ...OPTIONS[`p${number}`] };
+
+  const thisPageConfig = pageConfig.pages[`page${number}`];
+
+  const opts = { ...pageConfig.default, ...thisPageConfig };
   opts.back = `/${number > 2 ? number - 1 : ""}`;
-  opts.forward = `/${number === OPTIONS.lastQ ? "comment" : number + 1}`;
+  opts.forward = thisPageConfig.forward ?? `/${number + 1}`;
   opts.questionNum = number;
   opts.sectionTitle = res.__(`${number}.title`);
   opts.sectionSubtitle = res.__(`${number}.subtitle`);
   opts.textContent = res.__(`${number}.textContent`);
-  if (opts.textContent) {
-    res.render("index", opts);
+  if (!opts.control) {
+    res.render("no-control", opts);
   } else {
     opts.topContent = res.__(`${number}.topContent`);
     opts.scaleLabelMax = res.__(`${number}.scaleLabelMax`);
@@ -58,13 +64,14 @@ app.get("/:number(\\d{1,2})", (req, res) => {
     opts.scaleLabelZero = res.__(`${number}.scaleLabelZero`);
     opts.scaleLabelMidMin = res.__(`${number}.scaleLabelMidMin`);
     opts.scaleLabelMin = res.__(`${number}.scaleLabelMin`);
+    console.log(opts);
     res.render("interact", opts);
   }
 });
 
 app.get("/comment", (req, res) => {
-  const opts = { ...OPTIONS.default, ...OPTIONS.comment };
-  opts.back = `/${OPTIONS.lastQ}`;
+  const opts = { ...pageConfig.default, ...pageConfig.comment };
+  opts.back = `/${pageConfig.lastQ}`;
   opts.forward = "/submit";
   opts.sectionTitle = res.__("comment.title");
   opts.sectionSubtitle = res.__("comment.subtitle");
@@ -86,8 +93,8 @@ app.post("/submit", (req, res) => {
 
 app.get("/submit", (req, res) => {
   const opts = {
-    ...OPTIONS.default,
-    ...OPTIONS.submit,
+    ...pageConfig.default,
+    ...pageConfig.submit,
     back: "/comment",
     forward: "#",
     sectionTitle: res.__("submit.title"),
@@ -111,7 +118,7 @@ app.get("/data", (req, res) => {
 
 app.get("/results", (req, res) => {
   const opts = {
-    ...OPTIONS.default,
+    ...pageConfig.default,
     reset: false,
     textContent: res.__("results.textContent"),
   };

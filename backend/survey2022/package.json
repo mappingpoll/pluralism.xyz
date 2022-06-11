@@ -5,8 +5,8 @@
   "version": "0.0.1",
   "scripts": {
     "start": "NODE_ENV=production node server.js",
-    "css:build": "postcss style.css -o static/style.css",
-    "css:watch": "postcss style.css -o static/style.css --watch --verbose",
+    "css:build": "postcss style.scss -o static/style.css",
+    "css:watch": "postcss style.scss -o static/style.css --watch --verbose",
     "serve:dev": "NODE_ENV=development nodemon server.js",
     "serve:debug": "NODE_ENV=development node --trace-sync-io server.js",
     "dev": "npm-run-all --parallel css:watch serve:dev"
@@ -30,7 +30,8 @@
     "i18n": "^0.13.3",
     "pg": "^8.7.1",
     "postcss-media-minmax": "^5.0.0",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "yaml": "^2.1.1"
   },
   "browserslist": [
     "defaults"
