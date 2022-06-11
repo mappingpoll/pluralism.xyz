@@ -1,7 +1,5 @@
-extends layout
+extends base
 
-block header
-    include includes/header
 block content
     form
         div(style="margin-bottom: 3em")
@@ -13,9 +11,6 @@ block content
         div(class="check")
             input(id='isNotGallerySubmission' type='radio' name='gallerySubmission' value='no')
             label(for='isNotGallerySubmission') #{isNotGallery}
-
-block footer
-    include includes/nav
 
 block scripts
     script(type="module" src="/submit.js")

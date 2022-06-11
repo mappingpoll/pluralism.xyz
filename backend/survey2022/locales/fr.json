@@ -1,27 +1,91 @@
 {
   "index": {
-    "title": "Questionnaire 2021",
+    "title": "0.",
     "subtitle": "Page d'accueil",
-    "topContent": "<h1>Bienvenu.e.s au questionnaire!</h1><p>bla bla bla</p>",
-    "bottomContent": ""
+    "textContent": "<h1>Brève explication du projet</h1><p>bla bla bla</p>"
   },
   "2": {
-    "title": "Instructions",
-    "subtitle": "Déplacer les points",
-    "topContent": "<p>Les points peuvent être déplacer en glissant</p>",
-    "bottomContent": ""
+    "title": "1.",
+    "subtitle": "1.1",
+    "topContent": "<p>À l'aide des curseurs, tentez de créer une couleur qui vous semble agréable.</p>"
   },
   "3": {
-    "title": "Instructions",
-    "subtitle": "Réinitialiser",
-    "topContent": "<p>Cliquez sur \"Réinitialiser\" en bas pour remettre les points dans leur position initiale.</p>",
-    "bottomContent": ""
+    "title": "1.",
+    "subtitle": "1.2",
+    "topContent": "<p>Comment vous sentez-vous aujourd'hui?</p><p>À l'aide des curseurs, tentez de créer une couleur qui représente votre humeur du moment.</p>"
   },
   "4": {
-    "title": "Partie I",
-    "subtitle": "Vous et le monde",
-    "topContent": "<p>J'aime le monde</p>",
-    "bottomContent": "<p>Je déteste le monde</p>"
+    "title": "1.",
+    "subtitle": "1.3",
+    "topContent": "<p>Jusqu'ici, comment a été votre journée?</p><p>À l'aide des curseurs, tentez de créer une couleur qui représente votre journée.</p>"
+  },
+  "5": {
+    "title": "1.",
+    "subtitle": "1.4",
+    "topContent": "<p>Jusqu'ici, comment a été votre vie?</p><p>Tentez de créer une couleur qui exprime ce que vous ressentez en pensant à l'ensemble de votre vie.</p>"
+  },
+  "6": {
+    "title": "1.",
+    "subtitle": "1.5",
+    "topContent": "<p>Comment imaginez-vous votre futur?</p><p>Tentez de créer une couleur qui corresponde à ce que vous voyez.</p>"
+  },
+  "7": {
+    "title": "2.",
+    "subtitle": "2.1",
+    "topContent": "<p>Quel âge avez-vous?</p>",
+    "scaleLabelMax": "100+",
+    "scaleLabelMin": "0"
+  },
+  "8": {
+    "title": "2.",
+    "subtitle": "2.2",
+    "topContent": "<p>Quelle proportion de votre vie avez-vous passé en banlieue?</p>",
+    "scaleLabelMax": "100%",
+    "scaleLabelMin": "0%"
+  },
+  "9": {
+    "title": "2.",
+    "subtitle": "2.3",
+    "topContent": "<p>Quel est votre code postal?</p>"
+  },
+  "10": {
+    "title": "2.",
+    "subtitle": "2.4",
+    "topContent": "<p>Quel est votre genre?</p>",
+    "scaleLabelMax": "Je m'identifie à 100% à l'idée traditionnelle «d'être une homme»",
+    "scaleLabelZero": "Je m'identifie à 0% aux notions traditionnelles d'homme ou de femme",
+    "scaleLabelMin": "Je m'identifie à 100% à l'idée traditionnelle «d'être une femme»"
+  },
+  "11": {
+    "title": "2.",
+    "subtitle": "2.5",
+    "topContent": "<p>À l'aide des curseurs, tentez de reproduire la couleur de votre teinte de peau naturelle (sans bronzage).</p>"
+  },
+  "12": {
+    "title": "2.",
+    "subtitle": "2.6",
+    "topContent": "<p>Quel est votre statut-socio-économique ?</p>"
+  },
+  "13": {
+    "title": "3.",
+    "subtitle": "3.1",
+    "topContent": "<p>Pensez à l'environnement physique de l'ensemble de la ville où vous habitez présentement.</p><p>Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
+  },
+  "14": {
+    "title": "3.",
+    "subtitle": "3.2",
+    "topContent": "<p>Imaginez maintenant votre ville en 2050. Quel futur voyez-vous?</p><p>Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
+  },
+  "15": {
+    "title": "3.",
+    "subtitle": "3.3",
+    "topContent": "<p>Pensez à la totalité des activités humaines se déroulant présentement sur la planète, et imaginez le futur vers lequel nous nous dirigeons. Quel futur voyez-vous pour l'humanité en 2050?</p><p>Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
+  },
+  "16": {
+    "title": "4.",
+    "subtitle": "Évaluation",
+    "scaleLabelMax": "J'ai répondu de mon mieux et je crois que mes réponses représentent quelque chose de significatif",
+    "scaleLabelMin": "J'ai répondu n'importe quoi, ça ne veut rien dire"
   },
   "submit": {
     "title": "Soumettre le questionnaire",

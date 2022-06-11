@@ -1,0 +1,51 @@
+default:
+  backLabel: "<< Back"
+  forwardLabel: "Next >>"
+  reset: true
+  control: true
+pages:
+  index:
+    control: false
+    reset: false
+    forward: "/2"
+
+  # Section 1
+  page2:
+    controlType: "color"
+  page3:
+    controlType: "color"
+  page4:
+    controlType: "color"
+  page5:
+    controlType: "color"
+  page6:
+    controlType: "color"
+
+  # Section 2
+  page7:
+    controlType: "slider"
+    showValue: "[0, 100]"
+  page8:
+    controlType: "slider"
+  page9:
+    controlType: "pcode"
+  page10:
+    controlType: "slider-range"
+  page11:
+    controlType: "color"
+  page12:
+    controlType: "color-mono"
+    
+  # Section 3
+  page13:
+    controlType: "color"
+  page14:
+    controlType: "color"
+  page15:
+    controlType: "color"
+
+  # Section 4
+  page16:
+    controlType: "slider"
+    forward: "/comment"
+    

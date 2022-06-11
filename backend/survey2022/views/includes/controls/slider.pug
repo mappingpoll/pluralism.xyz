@@ -13,8 +13,8 @@ div(class="slider")
     div(class="scaleLabel labelZero") !{scaleLabelZero}
     div(class="scaleLabel labelMidMin") !{scaleLabelMidMin}
     div(class="scaleLabel labelMin") !{scaleLabelMin}
-if showValue
-    div(class="valueDisplay")
-    script.
-        window.valueRange = JSON.parse("!{showValue}");
-script(type="module" src="/slider.js")
+    if showValue
+        div(class="valueDisplay")
+            script.
+                window.valueRange = JSON.parse("!{showValue}");
+script(type="module" src="/controls/slider.js")

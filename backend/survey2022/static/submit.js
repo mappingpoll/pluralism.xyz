@@ -1,5 +1,3 @@
-import OPTIONS from "./options.js";
-
 const submitBtn = document.querySelector(".forward");
 
 submitBtn.addEventListener("click", submit);

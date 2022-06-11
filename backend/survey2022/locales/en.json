@@ -16,7 +16,8 @@
     "subtitle": "Two cursors",
     "topContent": "<p>If giving a precise answer seems inadequate, you can also select a range of values.</p><p>Double-click on the cursor, and it will split into two cursors. Drag the cursors apart, and select the range that best corresponds to your desired answer. Double-click on a cursor again to return to a single cursor.</p><p>When you're done, click \"next\".",
     "scaleLabelMax": "Art has no impact on political change",
-    "scaleLabelMin": "Culture is the core of all revolutions"
+    "scaleLabelMin": "Culture is the core of all revolutions",
+    "pcode": "Postal Code:"
   },
   "4": {
     "textContent": "<h2 style=\"text-align: center\">PART I: YOU</h2>"
