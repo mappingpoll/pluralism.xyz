@@ -1,14 +1,20 @@
 extends base
 
 block content
-    div(class="topContent") !{topContent}
-    if controlType == "slider"
-        include includes/controls/slider
-    if controlType == "slider-range"
-        include includes/controls/slider
-    if controlType == "color"
-        include includes/controls/color
-    if controlType == "color-mono"
-        include includes/controls/color-mono
-    if controlType == "pcode"
-        include includes/controls/pcode
+    h1(class="interact-title") !{title}
+    div(class="interact")
+        div(class="topContent") !{topContent}
+        if controlType == "slider"
+            include includes/controls/slider
+        if controlType == "slider-range"
+            include includes/controls/slider
+        if controlType == "slider-xy"
+            include includes/controls/slider-xy
+        if controlType == "color"
+            include includes/controls/color
+        if controlType == "color-mono"
+            include includes/controls/color-mono
+        if controlType == "pcode"
+            include includes/controls/pcode
+        if bottomContent 
+            div(class="bottomContent") !{bottomContent}
