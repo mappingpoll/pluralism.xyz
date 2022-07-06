@@ -17,9 +17,9 @@ let color = getCachedValue() ?? {
 };
 
 const sliders = {
-  cyan: document.querySelector(".color-cyan"),
-  magenta: document.querySelector(".color-magenta"),
-  yellow: document.querySelector(".color-yellow"),
+  cyan: document.querySelector("#cyan"),
+  magenta: document.querySelector("#magenta"),
+  yellow: document.querySelector("#yellow"),
 };
 
 let { normalize, scaleTranslate, referenceGeometry } = referenceGeometryFns(sliders.cyan, [0, 1]);
@@ -50,15 +50,14 @@ const ondrop = () => {
 };
 
 Object.values(sliders).forEach(slider => {
-  const handle = appendHandle(slider, referenceGeometry);
+  const handle = slider.firstChild;
   makeDraggable(handle, ondrag, ondrop);
 });
 
 const handles = {
-  cyan: document.querySelector(".color-cyan .handle"),
-  magenta: document.querySelector(".color-magenta .handle"),
-  yellow: document.querySelector(".color-yellow .handle"),
-  black: document.querySelector(".color-black .handle"),
+  cyan: document.querySelector("#cyan .handle"),
+  magenta: document.querySelector("#magenta .handle"),
+  yellow: document.querySelector("#yellow .handle"),
 };
 
 handles.cyan.style.top = `${scaleTranslate(color.c)}px`;

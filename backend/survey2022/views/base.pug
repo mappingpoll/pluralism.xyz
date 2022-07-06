@@ -3,9 +3,9 @@ head
     include includes/head
     block head-scripts
 body(style=style)
-    block header
-        include includes/header
-    block content
-    block footer
-        include includes/nav
+    div(class="page-container")
+        div(class="page-content")
+            block content
+        block footer
+            include includes/nav
     block scripts
