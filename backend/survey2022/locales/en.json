@@ -34,39 +34,35 @@
   },
   "7": {
     "title": "7.",
-    "topContent": "<p>Quel est votre code postal?</p>"
-  },
-  "8": {
-    "title": "8.",
     "topContent": "<p>Considérez votre sexe anatomique à la naissance et actuel, la manière dont vous concevez votre genre, la manière dont vous l’exprimez, et toute autre considération pertinente pour vous. Dans l’ensemble, à quel degré vous identifiez-vous aux concepts traditionnels «d’être un homme» ou «d’être une femme» ?</p><p>(Vous pouvez sauter la question si vous voulez.)",
     "scaleLabelMax": "Je m'identifie à 100% à l'idée traditionnelle «d'être une homme»",
     "scaleLabelZero": "Je m'identifie à 0% aux notions traditionnelles d'homme ou de femme",
     "scaleLabelMin": "Je m'identifie à 100% à l'idée traditionnelle «d'être une femme»"
   },
-  "9": {
-    "title": "9.",
+  "8": {
+    "title": "8.",
     "topContent": "<p>À l'aide des curseurs, tentez de reproduire la couleur de votre teinte de peau naturelle (sans bronzage).</p>"
   },
-  "10": {
-    "title": "10.",
+  "9": {
+    "title": "9.",
     "topContent": "<p>Quel est votre statut-socio-économique ?</p>",
     "scaleLabelMax": "Moi et/ou ma famille sommes totalement démunis",
     "scaleLabelMin": "Moi et/ou ma famille sommes riches et puissants"
   },
+  "10": {
+    "title": "10.",
+    "topContent": "<p>Pensez à l'environnement physique de l'ensemble de la ville où vous habitez présentement.</p><p>Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
+  },
   "11": {
     "title": "11.",
-    "topContent": "<p>Pensez à l'environnement physique de l'ensemble de la ville où vous habitez présentement.</p><p>Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
+    "topContent": "<p>Imaginez maintenant votre ville en 2050. Quel futur voyez-vous?</p><p>Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
   },
   "12": {
     "title": "12.",
-    "topContent": "<p>Imaginez maintenant votre ville en 2050. Quel futur voyez-vous?</p><p>Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
+    "topContent": "<p>Pensez à la totalité des activités humaines se déroulant présentement sur la planète, et imaginez le futur vers lequel nous nous dirigeons. Quel futur voyez-vous pour l'humanité en 2050?</p><p>Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
   },
   "13": {
     "title": "13.",
-    "topContent": "<p>Pensez à la totalité des activités humaines se déroulant présentement sur la planète, et imaginez le futur vers lequel nous nous dirigeons. Quel futur voyez-vous pour l'humanité en 2050?</p><p>Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
-  },
-  "15": {
-    "title": "14.",
     "topContent": "<p>Comment évaluez-vous vos réponses à ce questionnaire ?</p>",
     "scaleLabelMax": "J'ai répondu de mon mieux et je crois que mes réponses représentent quelque chose de significatif",
     "scaleLabelMin": "J'ai répondu n'importe quoi, ça ne veut rien dire"

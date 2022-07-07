@@ -26,7 +26,7 @@ pages:
   8:
     controlType: "color"
   9:
-    controlType: "color-mono"
+    controlType: "color"
   10:
     controlType: "color"
   11:
@@ -34,5 +34,5 @@ pages:
   12:
     controlType: "color"
   13:
-    controlType: "color-mono"
+    controlType: "color"
     
