@@ -1,7 +1,6 @@
 import {
-  appendHandle,
   cmyToRgb,
-  referenceGeometryFns,
+  makeReferenceGeometryFns,
   getCachedValue,
   makeDraggable,
   restrictY,
@@ -22,7 +21,13 @@ const sliders = {
   yellow: document.querySelector("#yellow"),
 };
 
-let { normalize, scaleTranslate, referenceGeometry } = referenceGeometryFns(sliders.cyan, [0, 1]);
+const handles = {
+  cyan: sliders.cyan.parentElement.querySelector(".handle"),
+  magenta: sliders.magenta.parentElement.querySelector(".handle"),
+  yellow: sliders.yellow.parentElement.querySelector(".handle"),
+};
+
+let { normalize, scaleTranslate, referenceGeometry } = makeReferenceGeometryFns({ element: sliders.cyan });
 
 const getColor = () => {
   return {
@@ -39,8 +44,7 @@ const showColor = color => {
 
 const persist = makePersistFn(getColor, showColor);
 
-const ondrag = event => {
-  const handle = event.target;
+const ondrag = (event, handle) => {
   handle.style.top = `${restrictY(event.clientY, referenceGeometry)}px`;
   showColor(getColor());
 };
@@ -49,16 +53,11 @@ const ondrop = () => {
   persist();
 };
 
-Object.values(sliders).forEach(slider => {
-  const handle = slider.firstChild;
+console.log(handles);
+
+Object.values(handles).forEach(handle => {
   makeDraggable(handle, ondrag, ondrop);
 });
-
-const handles = {
-  cyan: document.querySelector("#cyan .handle"),
-  magenta: document.querySelector("#magenta .handle"),
-  yellow: document.querySelector("#yellow .handle"),
-};
 
 handles.cyan.style.top = `${scaleTranslate(color.c)}px`;
 handles.magenta.style.top = `${scaleTranslate(color.m)}px`;

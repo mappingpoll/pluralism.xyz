@@ -19,10 +19,14 @@ pages:
     controlType: "slider-xy"
     xRange: "[0, 100]"
     yRange: "[0, 100]"
+    xLabelMin: "0%"
+    xLabelMax: "100%"
+    yLabelMin: "0"
+    yLabelMax: "100+"
   6:
     controlType: "pcode"
   7:
-    controlType: "slider"
+    controlType: "color-mono"
   8:
     controlType: "color"
   9:

@@ -1,24 +1,15 @@
-import {
-  appendHandle,
-  getCachedValue,
-  makeDraggable,
-  makePersistFn,
-  restrictY,
-  referenceGeometryFns,
-} from "../helpers.js";
+import { getCachedValue, makeDraggable, makePersistFn, restrictY, makeReferenceGeometryFns } from "../helpers.js";
 
 const colorView = document.querySelector(".color-view");
-const slider = document.querySelector(".color-black");
+const slider = document.querySelector("#black");
+const handle = document.querySelector(".handle");
 
-let { normalize, scaleTranslate, referenceGeometry } = referenceGeometryFns(slider, [0, 1]);
+let { normalize, scaleTranslate, referenceGeometry } = makeReferenceGeometryFns({ element: slider });
 
-const handle = appendHandle(slider, referenceGeometry);
-
-let color = getCachedValue() ?? { k: 0 };
+let color = getCachedValue() ?? { k: 0.5 };
 
 const getColor = () => {
-  color = { k: normalize(+handle.style.top.slice(0, -2)) };
-  return color;
+  return { k: normalize(+handle.style.top.slice(0, -2)) };
 };
 
 const showColor = color => {
@@ -27,8 +18,7 @@ const showColor = color => {
 
 const persist = makePersistFn(getColor, showColor);
 
-const ondrag = event => {
-  const handle = event.target;
+const ondrag = (event, handle) => {
   handle.style.top = `${restrictY(event.clientY, referenceGeometry)}px`;
   showColor(getColor());
 };
@@ -39,4 +29,4 @@ const ondrop = () => {
 
 makeDraggable(handle, ondrag, ondrop);
 handle.style.top = `${scaleTranslate(color.k)}px`;
-showColor(getColor());
+persist();

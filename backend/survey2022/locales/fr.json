@@ -22,21 +22,18 @@
   "5": {
     "title": "5.",
     "topContent": "<p>Quel âge avez-vous?</p><p>[ <span id='age'></span> ] ans</p>",
-    "yScaleLabelMax": "100+",
-    "yScaleLabelMin": "0",
-    "bottomContent": "<p>Quelle proportion de votre vie avez-vous passé en banlieue?</p><p>[ <span id='proportion'></span> ] %</p>",
-    "xScaleLabelMax": "100%",
-    "xScaleLabelMin": "0%"
+    "bottomContent": "<p>Quelle proportion de votre vie avez-vous passé en banlieue?</p><p>[ <span id='proportion'></span> ] %</p>"
   },
   "6": {
     "title": "6.",
-    "topContent": "<p>Quelle est votre code postal?</p>"
+    "topContent": "<p>Quelle est votre code postal?</p>",
+    "bottomContent": "<p>Ou: Je n'habite pas au Canada.</p><div class='centered-content><input type='checkbox' id='outside'>"
   },
   "7": {
     "title": "7.",
     "topContent": "<p>Considérez votre sexe anatomique à la naissance et actuel, la manière dont vous concevez votre genre, la manière dont vous l’exprimez, et toute autre considération pertinente pour vous. Dans l’ensemble, à quel degré vous identifiez-vous aux concepts traditionnels «d’être un homme» ou «d’être une femme» ?</p><p>(Vous pouvez sauter la question si vous voulez.)",
     "scaleLabelMax": "Je m'identifie à 100% à l'idée traditionnelle «d'être une homme»",
-    "scaleLabelZero": "Je m'identifie à 0% aux notions traditionnelles d'homme ou de femme",
+    "scaleLabelZero": "Je m'identifie pas à un concept de genre binaire traditionnel",
     "scaleLabelMin": "Je m'identifie à 100% à l'idée traditionnelle «d'être une femme»"
   },
   "8": {

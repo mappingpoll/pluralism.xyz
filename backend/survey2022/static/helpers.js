@@ -4,21 +4,24 @@ export function timestamp() {
   return new Date(`${year}-${month}-${day}T${`0${rawHour}`.slice(-2)}:${min}:00`);
 }
 
-export const newScaleTranslate = (scale, offset) => value => -value * scale + offset;
-export const newNormalize = (scale, offset) => value => (value - offset) / -scale;
+export const newScaleTranslate = (scale, offset) => value => value * scale + offset;
+export const newNormalize = (scale, offset) => value => (value - offset) / scale;
 
-export function referenceGeometryFns(element) {
+export function makeReferenceGeometryFns({ element, horizontal = false }) {
   const box = element.getBoundingClientRect();
-  const scale = box.height;
-  const offset = scale;
+  const scale = horizontal ? box.width : box.height;
+  const offset = horizontal ? 0 : scale;
   return {
     referenceGeometry: {
       top: box.top,
       bottom: box.bottom,
+      left: box.left,
+      right: box.right,
+      width: box.width,
       height: box.height,
     },
-    normalize: newNormalize(scale, offset),
-    scaleTranslate: newScaleTranslate(scale, offset),
+    normalize: horizontal ? newNormalize(scale, offset) : newNormalize(-scale, offset),
+    scaleTranslate: horizontal ? newScaleTranslate(scale, offset) : newScaleTranslate(-scale, offset),
   };
 }
 
@@ -71,7 +74,7 @@ export function makeDraggable(element, ondrag, ondrop) {
   function startDrag(event) {
     element.isDragging = true;
     element.style.cursor = "grabbing";
-    ondrag(event);
+    ondrag(event, element);
   }
 
   function stopDrag(event) {
@@ -100,6 +103,14 @@ export function restrictY(value, referenceGeometry) {
     : value >= referenceGeometry.bottom
     ? referenceGeometry.height
     : value - referenceGeometry.top;
+}
+
+export function restrictX(value, referenceGeometry) {
+  return value <= referenceGeometry.left
+    ? 0
+    : value >= referenceGeometry.right
+    ? referenceGeometry.width
+    : value - referenceGeometry.left;
 }
 
 export function appendHandle(parent) {

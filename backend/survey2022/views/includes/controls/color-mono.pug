@@ -1,4 +1,10 @@
-div(class="color-picker")
-    div(class="color-view")
-    div(class="color-black")
+div(class="color-view")
+div(class="color-picker" style="width: 100%")
+    div
+        div(class="vslider" id="black")
+        div(class="handle")
+    div(class="vlabels")
+        div !{scaleLabelMax}
+        div !{scaleLabelZero}
+        div !{scaleLabelMin}
 script(type="module" src="/controls/color-picker-mono.js")

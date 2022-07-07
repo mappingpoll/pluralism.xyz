@@ -16,5 +16,5 @@ block content
             include includes/controls/color-mono
         if controlType == "pcode"
             include includes/controls/pcode
-        if bottomContent 
+        if bottomContent != "missing translation"
             div(class="bottomContent") !{bottomContent}

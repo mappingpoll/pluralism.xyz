@@ -1,12 +1,15 @@
 div(class="color-view")
 div(class="color-picker")
-    div(class="vslider" id="cyan")
+    div
+        div(class="vslider" id="cyan")
+            label(for="cyan") Cyan
         div(class="handle")
-        label(for="cyan") Cyan
-    div(class="vslider" id="magenta")
+    div
+        div(class="vslider" id="magenta")
+            label(for="magenta") Magenta
         div(class="handle")
-        label(for="magenta") Magenta
-    div(class="vslider" id="yellow")
+    div
+        div(class="vslider" id="yellow")
+            label(for="yellow") #{__('yellow')}
         div(class="handle")
-        label(for="yellow") #{__('yellow')}
 script(type="module" src="/controls/color-picker.js")
