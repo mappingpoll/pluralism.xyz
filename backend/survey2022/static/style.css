@@ -7,7 +7,7 @@
 
 :root {
   --rail-height: 70%;
-  --dot-diameter: 25px;
+  --dot-diameter: 1rem;
   --touch-scaleup: 1.8;
   --touch-area: calc(var(--touch-scaleup) * var(--dot-diameter));
   --rail-width: var(--dot-diameter);
@@ -31,6 +31,7 @@ html {
   overflow: hidden;
   font-family: 'Source Code Pro', monospace;
   font-weight: bold;
+  font-size: 0.9em;
   -webkit-hyphens: auto;
   -ms-hyphens: auto;
   hyphens: auto;
@@ -125,6 +126,7 @@ p {
 .comment {
   grid-area: 1 / 3 / 2 / 4;
   text-align: center;
+  white-space: nowrap;
 }
 
 .next {
@@ -180,9 +182,9 @@ p {
 .dot {
   position: absolute;
   right: 0;
-  width: 25px;
+  width: 1rem;
   width: var(--dot-diameter);
-  height: 25px;
+  height: 1rem;
   height: var(--dot-diameter);
   transform: translateY(-50%);
   z-index: 100;
@@ -198,11 +200,11 @@ p {
   top: calc((100% * var(--touch-scaleup) - 100%) / -2);
   left: calc((100% * 1.8 - 100%) / -2);
   left: calc((100% * var(--touch-scaleup) - 100%) / -2);
-  border-radius: calc(1.8 * 25px);
+  border-radius: calc(1.8 * 1rem);
   border-radius: var(--touch-area);
-  height: calc(1.8 * 25px);
+  height: calc(1.8 * 1rem);
   height: var(--touch-area);
-  width: calc(calc(1.8 * 25px) + 25px);
+  width: calc(calc(1.8 * 1rem) + 1rem);
   width: calc(var(--touch-area) + var(--rail-width));
 }
 
@@ -323,21 +325,21 @@ input[type=email] {
 
 .color-view,
 .xy-view {
-  width: max(50%, calc(40em / 2));
-  width: max(50%, calc(var(--max-content-width) / 2));
+  width: min(50vw, calc(40em / 2));
+  width: min(50vw, calc(var(--max-content-width) / 2));
   border: 1px solid #333;
   border: 1px solid var(--offblack);
 }
 
-.color-view::after,
-.xy-view::after {
+.color-view::after {
   content: "";
   display: block;
-  padding-bottom: 100%;
+  margin-top: 100%;
 }
 
 .xy-view {
   border: none;
+  position: relative;
 }
 
 .xy-view table {
@@ -355,7 +357,32 @@ input[type=email] {
 .xy-view td::after {
   content: "";
   display: block;
-  padding-bottom: 100%;
+  margin-top: 100%;
+}
+
+.xlabels {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  transform: translateY(1em);
+}
+
+.ylabels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  transform: translateX(-6ch);
+}
+
+.ylabels > div {
+  text-align: end;
 }
 
 .color-picker {
@@ -365,25 +392,58 @@ input[type=email] {
   height: calc(0.1875 * 100vh);
 }
 
-.vslider {
-  background-color: #333;
-  background-color: var(--offblack);
-  height: 100%;
-  width: 3px;
+.color-picker > div {
   position: relative;
 }
 
-.vslider label {
+.vslider,
+.hslider {
+  background-color: #333;
+  background-color: var(--offblack);
   position: absolute;
+}
+
+.vslider label,
+.hslider label {
+  position: absolute;
+}
+
+.vslider {
+  height: 100%;
+  width: 3px;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+.vslider label {
   top: calc(100% + 1em);
   transform: translateX(-50%);
 }
 
+.hslider {
+  width: 100%;
+  height: 3px;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.hslider label {
+  left: calc(100% + 1em);
+  transform: translateY(-50%);
+}
+
+.vlabels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 3em;
+}
+
 .handle {
   position: absolute;
-  width: 25px;
+  width: 1rem;
   width: var(--dot-diameter);
-  height: 25px;
+  height: 1rem;
   height: var(--dot-diameter);
   transform: translate(-50%, -50%);
   background-color: #333;
@@ -402,11 +462,11 @@ input[type=email] {
   top: calc((100% * var(--touch-scaleup) - 100%) / -2);
   left: calc((100% * 1.8 - 100%) / -2);
   left: calc((100% * var(--touch-scaleup) - 100%) / -2);
-  border-radius: calc(1.8 * 25px);
+  border-radius: calc(1.8 * 1rem);
   border-radius: var(--touch-area);
-  height: calc(1.8 * 25px);
+  height: calc(1.8 * 1rem);
   height: var(--touch-area);
-  width: calc(calc(1.8 * 25px) + 25px);
+  width: calc(calc(1.8 * 1rem) + 1rem);
   width: calc(var(--touch-area) + var(--rail-width));
 }
 
@@ -434,4 +494,34 @@ input[type=email] {
 
 .pcode input::placeholder {
   opacity: 0.5;
+}
+
+.centered-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+  background-color: #fff;
+  font: inherit;
+  color: #333;
+  color: var(--offblack);
+  width: 3em;
+  height: 1em;
+}
+
+input[type="checkbox"]::after {
+  content: "[ ]";
+  width: auto;
+  height: auto;
+}
+
+input[type="checkbox"]:checked::after {
+  content: "[x]";
+  display: block;
 }

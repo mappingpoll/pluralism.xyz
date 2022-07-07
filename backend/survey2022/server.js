@@ -55,6 +55,7 @@ app.get("/:number(\\d{1,2})", (req, res) => {
     title: res.__(`${number}.title`),
     textContent: res.__(`${number}.textContent`),
     topContent: res.__(`${number}.topContent`),
+    bottomContent: res.__(`${number}.bottomContent`),
     scaleLabelMax: res.__(`${number}.scaleLabelMax`),
     scaleLabelMidMax: res.__(`${number}.scaleLabelMidMax`),
     scaleLabelZero: res.__(`${number}.scaleLabelZero`),

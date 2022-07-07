@@ -7,7 +7,7 @@
 
 :root {
   --rail-height: 70%;
-  --dot-diameter: 25px;
+  --dot-diameter: 1rem;
   --touch-scaleup: 1.8;
   --touch-area: calc(var(--touch-scaleup) * var(--dot-diameter));
   --rail-width: var(--dot-diameter);
@@ -32,6 +32,7 @@ html {
 
   font-family: 'Source Code Pro', monospace;
   font-weight: bold;
+  font-size: 0.9em;
   hyphens: auto;
   color: var(--offblack);
   background-color: #fff;
@@ -123,6 +124,7 @@ p {
 .comment {
   grid-area: 1 / 3 / 2 / 4;
   text-align: center;
+  white-space: nowrap;
 }
 
 .next {
@@ -308,19 +310,20 @@ input[type=email] {
 
 .color-view,
 .xy-view {
-  width: max(50%, calc(var(--max-content-width) / 2));
+  width: min(50vw, calc(var(--max-content-width) / 2));
   border: 1px solid var(--offblack);
 
-  &::after {
-    content: "";
-    display: block;
-    padding-bottom: 100%;
-  }
+}
 
+.color-view::after {
+  content: "";
+  display: block;
+  margin-top: 100%;
 }
 
 .xy-view {
   border: none;
+  position: relative;
 
   & table {
     table-layout: auto;
@@ -337,9 +340,34 @@ input[type=email] {
   & td::after {
     content: "";
     display: block;
-    padding-bottom: 100%;
+    margin-top: 100%;
   }
 
+}
+
+.xlabels {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  transform: translateY(1em);
+}
+
+.ylabels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  transform: translateX(-6ch);
+
+  &>div {
+    text-align: end;
+  }
 }
 
 .color-picker {
@@ -347,19 +375,51 @@ input[type=email] {
   justify-content: space-between;
   width: 50%;
   height: calc(0.1875 * 100vh);
+
+  &>div {
+    position: relative;
+  }
 }
 
-.vslider {
+.vslider,
+.hslider {
   background-color: var(--offblack);
-  height: 100%;
-  width: 3px;
-  position: relative;
+  position: absolute;
 
   & label {
     position: absolute;
+  }
+}
+
+.vslider {
+  height: 100%;
+  width: 3px;
+  top: 0;
+  transform: translateX(-50%);
+
+  & label {
     top: calc(100% + 1em);
     transform: translateX(-50%);
   }
+}
+
+.hslider {
+  width: 100%;
+  height: 3px;
+  left: 0;
+  transform: translateY(-50%);
+
+  & label {
+    left: calc(100% + 1em);
+    transform: translateY(-50%);
+  }
+}
+
+.vlabels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 3em;
 }
 
 .handle {
@@ -400,4 +460,33 @@ input[type=email] {
       opacity: 0.5;
     }
   }
+}
+
+.centered-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  margin: 0;
+  background-color: #fff;
+  font: inherit;
+  color: var(--offblack);
+  width: 3em;
+  height: 1em;
+
+
+  &::after {
+    content: "[ ]";
+    width: auto;
+    height: auto;
+  }
+
+  &:checked::after {
+    content: "[x]";
+    display: block;
+  }
+
 }

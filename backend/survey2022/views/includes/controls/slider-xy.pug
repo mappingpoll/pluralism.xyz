@@ -10,4 +10,13 @@ div(class="xy-view")
     div(class="handle")
     div(class="vslider")
     div(class="hslider")
-script(type="module" src="/controls/slider.js")
+    div(class="xlabels")
+        div !{xLabelMin}
+        div !{xLabelMax}
+    div(class="ylabels")
+        div !{yLabelMax}
+        div !{yLabelMin}
+script. 
+    window.xRange = JSON.parse("!{xRange}");
+    window.yRange = JSON.parse("!{yRange}");
+script(type="module" src="/controls/slider-xy.js")
