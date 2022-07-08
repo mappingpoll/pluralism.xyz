@@ -40,7 +40,7 @@ const INSERT_INTO_ANSWERS = `
   ) VALUES ($1, $2, $3, $4, $5, $6)`;
 
 const pool = new pg.Pool({
-  ssl: env === "production",
+  ssl: env === "production" ? undefined : false,
 });
 
 pool.on("error", err => {
