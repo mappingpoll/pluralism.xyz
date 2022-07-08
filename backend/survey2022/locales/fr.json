@@ -27,7 +27,7 @@
   "6": {
     "title": "6.",
     "topContent": "<p>Quelle est votre code postal?</p>",
-    "bottomContent": "<p>Ou: Je n'habite pas au Canada.</p><div class='centered-content><input type='checkbox' id='outside'>"
+    "bottomContent": "<p>Ou: Je n'habite pas au Canada.</p><div class='centered-content'><input type='checkbox' id='outside'></div>"
   },
   "7": {
     "title": "7.",
@@ -80,5 +80,7 @@
   "commentLabel": "[+ commentaire]",
   "previousLabel": "<< revenir",
   "nextLabel": "continuer >>",
-  "yellow": "Jaune"
+  "yellow": "Jaune",
+  "otherLang": "English",
+  "otherLangCode": "en"
 }

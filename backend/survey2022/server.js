@@ -1,23 +1,25 @@
 import express from "express";
 import compression from "compression";
 import i18n from "i18n";
+import cookieParser from "cookie-parser";
 
-import { dbClient, initDb } from "./database.js";
+import { Client, initDb } from "./database.js";
 import { parseDocument } from "yaml";
 import fs from "fs";
 
-const { insertEntry, listEntries } = dbClient();
+initDb();
+
+const dbClient = Client();
 
 const port = process.env.PORT ?? 3000;
 
-const pageConfigFile = fs.readFileSync("./static/page-config.yaml", "utf8");
+const pageConfigFile = fs.readFileSync("./pages.yaml", "utf8");
 const pageConfig = parseDocument(pageConfigFile).toJS();
 
-// initDb().catch(console.error);
-
 i18n.configure({
-  locales: ["fr", "en"],
+  cookie: "lang",
   directory: "./locales",
+  defaultLocale: "en",
   objectNotation: true,
   updateFiles: false,
   missingKeyFn: () => "missing translation",
@@ -29,14 +31,22 @@ app.set("views", "views");
 app.set("view engine", "pug");
 
 app.use(compression());
+app.use(cookieParser());
 app.use(i18n.init);
 app.use(express.static("static"));
 app.use(express.json());
 
 app.get("/", (req, res) => {
+  if (req.query?.lang == "en" || req.query?.lang == "fr") {
+    res.cookie("lang", req.query.lang);
+    res.redirect("/");
+    return;
+  }
   const opts = { ...pageConfig.default, ...pageConfig.pages.landing };
   opts.title = res.__("landing.title");
   opts.textContent = res.__("landing.textContent");
+  opts.otherLang = res.__("otherLang");
+
   res.render("landing", opts);
 });
 
@@ -78,7 +88,8 @@ app.get("/comment", (req, res) => {
 
 app.post("/submit", (req, res) => {
   try {
-    insertEntry(req.body)
+    dbClient
+      .insertEntry(req.body)
       .catch(console.error)
       .finally(() => console.log("Successfully inserted entry"));
     res.status(200);
@@ -108,7 +119,8 @@ app.get("/submit", (req, res) => {
 });
 
 app.get("/data", (req, res) => {
-  listEntries()
+  dbClient
+    .listEntries()
     .then(d => res.json(d))
     .catch(console.error);
 });
