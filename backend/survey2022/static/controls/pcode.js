@@ -34,7 +34,6 @@ outsideCheckbox.addEventListener("change", event => {
 function persist() {
   const pCode = pCodeInput.value;
   const isOutside = outsideCheckbox.checked;
-  console.log(pCode, isOutside);
   setCachedValue([pCode, isOutside]);
 }
 

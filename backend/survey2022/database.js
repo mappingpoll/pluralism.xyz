@@ -3,90 +3,91 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const env = process.env.NODE_ENV;
+const env = process.env.NODE_ENV ?? "development";
 
-const respondentsTableQuery = "CREATE TABLE IF NOT EXISTS respondents (timestamp TEXT PRIMARY KEY UNIQUE NOT NULL)";
-const pointsTableQuery =
-  "CREATE TABLE IF NOT EXISTS points (" +
-  "timestamp TEXT NOT NULL," +
-  "question_num INTEGER NOT NULL," +
-  "point0 REAL NOT NULL," +
-  "point1 REAL," +
-  "FOREIGN KEY (timestamp)" +
-  "REFERENCES respondents (timestamp)" +
-  ")";
-const formTableQuery =
-  "CREATE TABLE IF NOT EXISTS form (" +
-  "timestamp TEXT NOT NULL," +
-  "comment TEXT," +
-  "submittedInGallery INTEGER," +
-  "email TEXT," +
-  "FOREIGN KEY (timestamp)" +
-  "REFERENCES respondents (timestamp)" +
-  ")";
-const initQueries = [respondentsTableQuery, pointsTableQuery, formTableQuery];
+const QUESTION_TYPE = {
+  0: "color",
+  1: "color-mono",
+  2: "slider-xy",
+  3: "pcode",
+};
 
-const respondentQuery = "INSERT INTO respondents (timestamp) VALUES ($1)";
-const pointsQuery = "INSERT INTO points (timestamp, question_num, point0, point1) VALUES ($1, $2, $3, $4)";
-const formQuery = "INSERT INTO form (timestamp, comment, submittedInGallery, email) VALUES ($1, $2, $3, $4)";
+const CREATE_TABLE_USERS =
+  "CREATE TABLE IF NOT EXISTS users (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), data jsonb, created_at timestamp)";
 
-let pool;
+const CREATE_TABLE_ANSWERS = `
+  CREATE TABLE IF NOT EXISTS answers ( \
+  id uuid NOT NULL, \
+  question_num integer NOT NULL, \
+  question_type integer NOT NULL, \
+  answer jsonb NOT NULL, \
+  comment text, \
+  timestamp timestamp NOT NULL, \
+  FOREIGN KEY (id) \
+  REFERENCES users (id) \
+  )`;
 
-if (env === "development") {
-  pool = new pg.Pool({
-    host: "localhost",
-    user: "postgres",
-    password: "password",
-    database: "postgres",
-    port: 5432
-  });
-} else if (env === "production") {
-  pool = new pg.Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false,
-    },
-  });
-}
+const initQueries = [CREATE_TABLE_USERS, CREATE_TABLE_ANSWERS];
+
+const INSERT_INTO_ANSWERS = `
+  INSERT INTO answers (\
+  uuid,\
+  question_num, \
+  question_type, \
+  answer, \
+  comment, \
+  timestamp \
+  ) VALUES ($1, $2, $3, $4, $5, $6)`;
+
+const pool = new pg.Pool({
+  ssl: env === "production",
+});
 
 pool.on("error", err => {
   console.error("Unexpected error on idle client", err);
   process.exit(-1);
 });
 
-const initDb = async () => {
+async function initDb() {
   const client = await pool.connect();
   try {
     await client.query("BEGIN");
     await Promise.all(initQueries.map(async q => await client.query(q)));
     await client.query("COMMIT");
   } catch (e) {
+    console.error(`Error initializing database: ${e}`);
     await client.query("ROLLBACK");
     throw e;
   } finally {
+    console.debug("DB initialized!");
     client.release();
   }
-};
+}
 
-const dbClient = () => {
+export function Client() {
   const insertEntry = async data => {
     const client = await pool.connect();
 
     try {
       const ts = new Date().toISOString();
-      const questions = Object.values(data.questions);
-      const { comment, submittedInGallery, email } = data.form;
+      const { userData } = data;
+      const answers = Object.values(data.answers);
 
       await client.query("BEGIN");
 
-      await client.query(respondentQuery, [ts]);
+      const res = await client.query("INSERT INTO users(data) VALUES($1)", [userData]);
+      const id = res.rows[0].id;
 
-      for (const answer of questions) {
-        const { num, points } = answer;
-        await client.query(pointsQuery, [ts, num, points[0], points[1]]);
+      for (const answer of answers) {
+        await client.query(INSERT_INTO_ANSWERS, [
+          id,
+          answer.questionNum,
+          QUESTION_TYPE[answer.questionType],
+          answer.value,
+          answer.comment,
+          ts,
+        ]);
       }
-
-      await client.query(formQuery, [ts, comment, submittedInGallery ? 1 : 0, email]);
 
       await client.query("COMMIT");
     } catch (e) {
@@ -98,23 +99,24 @@ const dbClient = () => {
   };
 
   const listEntries = async () => {
-    const client = await pool.connect()
+    const client = await pool.connect();
 
     let data;
     try {
-      data = await client.query(`SELECT * FROM form`)
+      data = await client.query(`SELECT * FROM form`);
     } catch (e) {
+      console.error(`Error listing entries: ${e}`);
       throw e;
     } finally {
-      client.release()
+      client.release();
     }
 
-    return data
+    return data;
   };
   return { insertEntry, listEntries };
-};
+}
 
-export { initDb, dbClient };
+export { initDb, Client as dbClient };
 // if (env === 'dev') {
 // 	const dbPath = `./${env}.db`;
 //
@@ -133,7 +135,7 @@ export { initDb, dbClient };
 // 		const insertEntry = (data) => {
 // 			const db = new sqlite3.Database(dbPath);
 //
-// 			const respondentQuery = 'INSERT INTO respondents (timestamp) VALUES (?)';
+// 			const respondentQuery = 'INSERT INTO users (timestamp) VALUES (?)';
 // 			const pointsQuery = 'INSERT INTO points (timestamp, question_num, point0, point1) VALUES (?, ?, ?, ?)';
 // 			const formQuery = 'INSERT INTO form (timestamp, comment, submittedInGallery, email) VALUES (?, ?, ?, ?)';
 //
@@ -157,9 +159,9 @@ export { initDb, dbClient };
 // 			const db = new sqlite3.Database(dbPath);
 // 			const query = `
 // SELECT timestamp
-// FROM respondents
-// INNER JOIN answers on answers.timestamp = respondents.timestamp
-// INNER JOIN points on points.timestamp = respondents.timestamp
+// FROM users
+// INNER JOIN answers on answers.timestamp = users.timestamp
+// INNER JOIN points on points.timestamp = users.timestamp
 // `;
 // 			const entries = db.prepare(query).all();
 // 			db.close();

@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@types/compression": "^1",
+    "@types/cookie-parser": "^1",
     "autoprefixer": "^9.8.7",
     "dotenv": "^10.0.0",
     "nodemon": "^2.0.16",
@@ -26,8 +27,9 @@
   },
   "dependencies": {
     "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
     "express": "^4.17.1",
-    "i18n": "^0.13.3",
+    "i18n": "^0.15.0",
     "pg": "^8.7.1",
     "postcss-media-minmax": "^5.0.0",
     "pug": "^3.0.2",

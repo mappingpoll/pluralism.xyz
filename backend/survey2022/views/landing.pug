@@ -1,5 +1,7 @@
 extends base
 
+block lang
+    a(href=`/?lang=${__('otherLangCode')}` class="lang-link") !{otherLang}
 block content
     div(class="landing")
         h1 !{title}

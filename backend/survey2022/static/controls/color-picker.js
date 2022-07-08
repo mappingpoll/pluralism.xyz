@@ -53,8 +53,6 @@ const ondrop = () => {
   persist();
 };
 
-console.log(handles);
-
 Object.values(handles).forEach(handle => {
   makeDraggable(handle, ondrag, ondrop);
 });

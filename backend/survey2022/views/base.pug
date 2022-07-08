@@ -4,8 +4,13 @@ head
     block head-scripts
 body(style=style)
     div(class="page-container")
+        block lang
         div(class="page-content")
             block content
         block footer
             include includes/nav
+    div(class="comment-modal hidden")
+        textarea
+        button(type="button") OK
+    script(type="module" src="/comment.js")
     block scripts

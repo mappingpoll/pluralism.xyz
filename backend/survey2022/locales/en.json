@@ -80,5 +80,7 @@
   "commentLabel": "[+ commentaire]",
   "previousLabel": "<< revenir",
   "nextLabel": "continuer >>",
-  "yellow": "Jaune"
+  "yellow": "Jaune",
+  "otherLang": "Français",
+  "otherLangCode": "fr"
 }
