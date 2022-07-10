@@ -1,7 +1,7 @@
 div(class="footer")
     if previous
-        a(href=previous class="previous") #{previousLabel}
-    if comment
+        a(href=previous class="previous") #{__('previousLabel')}
+    if canComment
         a(href='#' class="comment" id="comment-btn") #{__('commentLabel')}
     if next
-        a(href=next class="next") #{nextLabel}
+        a(href=next class="next") #{__('nextLabel')}

@@ -18,8 +18,8 @@ const CREATE_TABLE_USERS =
 const CREATE_TABLE_ANSWERS = `
   CREATE TABLE IF NOT EXISTS answers ( \
   id uuid NOT NULL, \
-  question_num integer NOT NULL, \
-  question_type integer NOT NULL, \
+  question_num text NOT NULL, \
+  question_type text NOT NULL, \
   answer jsonb NOT NULL, \
   comment text, \
   timestamp timestamp NOT NULL, \

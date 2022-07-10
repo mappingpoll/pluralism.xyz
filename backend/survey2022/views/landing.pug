@@ -1,7 +1,9 @@
 extends base
 
 block lang
-    a(href=`/?lang=${__('otherLangCode')}` class="lang-link") !{otherLang}
+    div(class="lang-links")
+        a(href=`/?lang=fr`) #{__("french")}
+        a(href=`/?lang=en`) #{__("english")}
 block content
     div(class="landing")
         h1 !{title}

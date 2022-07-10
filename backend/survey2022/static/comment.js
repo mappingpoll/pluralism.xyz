@@ -3,7 +3,8 @@ import { getQuestionKey } from "./helpers.js";
 const commentBtn = document.getElementById("comment-btn");
 const commentModal = document.querySelector(".comment-modal");
 const textarea = commentModal.firstChild;
-const okBtn = commentModal.lastChild;
+const cancelBtn = document.getElementById("cancel-btn");
+const submitBtn = document.getElementById("submit-btn");
 
 const question_num = getQuestionKey();
 const commentKey = `comment-${question_num}`;
@@ -29,13 +30,12 @@ function toggleModalVisible() {
 }
 
 commentBtn.addEventListener("click", toggleModalVisible);
+cancelBtn.addEventListener("click", toggleModalVisible);
 
-okBtn.addEventListener("click", () => {
+submitBtn.addEventListener("click", () => {
   storeComment();
   toggleModalVisible();
 });
-
-textarea.addEventListener("blur", storeComment);
 
 window.addEventListener("keydown", e => {
   if (modalVisible && e.key === "Escape") {

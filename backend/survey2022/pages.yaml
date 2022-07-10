@@ -1,11 +1,9 @@
 default:
-  previousLabel: "<< previous"
-  commentLabel: "[+ comment]"
-  nextLabel: "next >>"
-  comment: true
+  canComment: true
 pages:
   landing:
     next: "/1"
+    canComment: false
 
   1:
     controlType: "color"
@@ -25,8 +23,14 @@ pages:
     yLabelMax: "100+"
   6:
     controlType: "pcode"
+    next: "/7a"
+  7a:
+    previous: "/6"
+    next: "/7"
+    canComment: false
   7:
     controlType: "color-mono"
+    previous: "/7a"
   8:
     controlType: "color"
   9:
@@ -35,8 +39,19 @@ pages:
     controlType: "color"
   11:
     controlType: "color"
+    next: "/12a"
+  12a:
+    previous: "/11"
+    next: "/12"
+    canComment: false
   12:
     controlType: "color"
+    previous: "/12a"
   13:
     controlType: "color-mono"
-    
+    next: "/submit"
+  submit:
+    canComment: false
+    previous: "/13"
+  results:
+    canComment: false
