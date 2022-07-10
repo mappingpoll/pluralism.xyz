@@ -9,8 +9,11 @@ body(style=style)
             block content
         block footer
             include includes/nav
-    div(class="comment-modal hidden")
-        textarea
-        button(type="button") OK
-    script(type="module" src="/comment.js")
+    if canComment
+        div(class="comment-modal hidden")
+            textarea
+            div
+                button(type="button" id="cancel-btn") #{__('cancelLabel')}
+                button(type="button" id="submit-btn") #{__('submitLabel')}
+        script(type="module" src="/comment.js")
     block scripts

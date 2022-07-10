@@ -1,19 +1,17 @@
 extends base
 
 block content
-    h1(class="interact-title") !{title}
+    div(class="top-third")
+        h1(class="interact-title") !{title}
+        if topContent != "missing translation"
+            div(class="topContent") !{topContent}
     div(class="interact")
-        div(class="topContent") !{topContent}
-        if controlType == "slider"
-            include includes/controls/slider
-        if controlType == "slider-range"
-            include includes/controls/slider
-        if controlType == "slider-xy"
-            include includes/controls/slider-xy
         if controlType == "color"
             include includes/controls/color
         if controlType == "color-mono"
             include includes/controls/color-mono
+        if controlType == "slider-xy"
+            include includes/controls/slider-xy
         if controlType == "pcode"
             include includes/controls/pcode
         if bottomContent != "missing translation"

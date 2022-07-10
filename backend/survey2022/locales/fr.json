@@ -9,15 +9,15 @@
   },
   "2": {
     "title": "2.",
-    "topContent": "<p>Comment vous sentez-vous aujourd'hui?</p><p>À l'aide des curseurs, tentez de créer une couleur qui représente votre humeur du moment.</p>"
+    "topContent": "<p>Comment vous sentez-vous aujourd'hui? À l'aide des curseurs, tentez de créer une couleur qui représente votre humeur du moment.</p>"
   },
   "3": {
     "title": "3.",
-    "topContent": "<p>Jusqu'ici, comment a été votre vie?</p><p>Tentez de créer une couleur qui exprime ce que vous ressentez en pensant à l'ensemble de votre vie.</p>"
+    "topContent": "<p>Jusqu'ici, comment a été votre vie? Tentez de créer une couleur qui exprime ce que vous ressentez en pensant à l'ensemble de votre vie.</p>"
   },
   "4": {
     "title": "4.",
-    "topContent": "<p>Comment imaginez-vous votre futur?</p><p>Tentez de créer une couleur qui corresponde à ce que vous voyez.</p>"
+    "topContent": "<p>Comment imaginez-vous votre futur? Tentez de créer une couleur qui corresponde à ce que vous voyez.</p>"
   },
   "5": {
     "title": "5.",
@@ -27,14 +27,18 @@
   "6": {
     "title": "6.",
     "topContent": "<p>Quelle est votre code postal?</p>",
-    "bottomContent": "<p>Ou: Je n'habite pas au Canada.</p><div class='centered-content'><input type='checkbox' id='outside'></div>"
+    "bottomContent": "<p style=\"text-align: center\">Ou: Je n'habite pas au Canada.<br><input type='checkbox' id='outside'></p>"
+  },
+  "7a": {
+    "title": "7.",
+    "textContent": "<p>Considérez votre sexe anatomique à la naissance et actuel, la manière dont vous concevez votre genre, la manière dont vous l’exprimez, et toute autre considération pertinente par rapport à votre genre.</p>"
   },
   "7": {
     "title": "7.",
-    "topContent": "<p>Considérez votre sexe anatomique à la naissance et actuel, la manière dont vous concevez votre genre, la manière dont vous l’exprimez, et toute autre considération pertinente pour vous. Dans l’ensemble, à quel degré vous identifiez-vous aux concepts traditionnels «d’être un homme» ou «d’être une femme» ?</p><p>(Vous pouvez sauter la question si vous voulez.)",
-    "scaleLabelMax": "Je m'identifie à 100% à l'idée traditionnelle «d'être une homme»",
-    "scaleLabelZero": "Je m'identifie pas à un concept de genre binaire traditionnel",
-    "scaleLabelMin": "Je m'identifie à 100% à l'idée traditionnelle «d'être une femme»"
+    "topContent": "<p>Dans l’ensemble, à quel degré vous identifiez-vous aux concepts traditionnels «d’être un homme» ou «d’être une femme» ? (Vous pouvez sauter la question si vous voulez.)</p>",
+    "scaleLabelMax": "Je m'identifie à 100% à l'idée traditionnelle «d'être une femme»",
+    "scaleLabelZero": "Je ne m'identifie pas à un concept de genre binaire traditionnel",
+    "scaleLabelMin": "Je m'identifie à 100% à l'idée traditionnelle «d'être une homme»"
   },
   "8": {
     "title": "8.",
@@ -48,39 +52,40 @@
   },
   "10": {
     "title": "10.",
-    "topContent": "<p>Pensez à l'environnement physique de l'ensemble de la ville où vous habitez présentement.</p><p>Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
+    "topContent": "<p>Pensez à l'environnement physique de l'ensemble de la ville où vous habitez présentement. Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
   },
   "11": {
     "title": "11.",
-    "topContent": "<p>Imaginez maintenant votre ville en 2050. Quel futur voyez-vous?</p><p>Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
+    "topContent": "<p>Imaginez maintenant votre ville en 2050. Quel futur voyez-vous? Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
+  },
+  "12a": {
+    "title": "12.",
+    "textContent": "<p>Pensez à la totalité des activités humaines se déroulant présentement sur la planète, et imaginez le futur vers lequel nous nous dirigeons.</p>"
   },
   "12": {
     "title": "12.",
-    "topContent": "<p>Pensez à la totalité des activités humaines se déroulant présentement sur la planète, et imaginez le futur vers lequel nous nous dirigeons. Quel futur voyez-vous pour l'humanité en 2050?</p><p>Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
+    "topContent": "<p>Quel futur voyez-vous pour l'humanité en 2050? Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
   },
   "13": {
     "title": "13.",
     "topContent": "<p>Comment évaluez-vous vos réponses à ce questionnaire ?</p>",
-    "scaleLabelMax": "J'ai répondu de mon mieux et je crois que mes réponses représentent quelque chose de significatif",
+    "scaleLabelMax": "J'ai répondu de mon mieux et je crois que mes réponses sont significatives",
     "scaleLabelMin": "J'ai répondu n'importe quoi, ça ne veut rien dire"
   },
   "submit": {
     "title": "Soumettre le questionnaire",
-    "form": {
-      "isFirstSubmission": "C'est la première fois que je remplis ce formulaire.",
-      "isNotFirstSubmission": "J'ai déjà rempli ce formulaire.",
-      "iWantResults": "Je veux recevoir les résultats de ce sondage.",
-      "email": "Adresse email: ",
-      "submit": "Soumettre"
-    }
+    "textContent": "<p>Si vous voulez voir le résultat à la fin de ce projet, veuillez laisser votre courriel. Vous recevrez un lien de visualisation à la fin de l'exposition. (Votre courriel ne sera pas partagé.)</p>"
   },
   "results": {
-    "title": "Résultats"
+    "title": "Résultats",
+    "textContent": "<p>Merci de votre participation.</p><p>Vous trouverez ci-dessous les résultats partiels collectés jusqu'à présent.</p>"
   },
-  "commentLabel": "[+ commentaire]",
+  "commentLabel": "commentaire",
   "previousLabel": "<< revenir",
   "nextLabel": "continuer >>",
+  "cancelLabel": "annuler",
+  "submitLabel": "envoyer",
   "yellow": "Jaune",
-  "otherLang": "English",
-  "otherLangCode": "en"
+  "french": "français",
+  "english": "english"
 }

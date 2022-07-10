@@ -1,11 +1,17 @@
-const submitBtn = document.querySelector(".forward");
+const submitBtn = document.querySelector("button");
 
 submitBtn.addEventListener("click", submit);
-submitBtn.addEventListener("touchend", submit);
 
 let isSubmitted = false;
 
 function submit() {
+  const a = document.createElement("a")
+  a.href = "/results";
+
+  a.click();
+  return
+
+  // TODO
   if (!isSubmitted) {
     submitBtn.style.opacity = "0.5";
     isSubmitted = true;
@@ -38,12 +44,8 @@ function collect() {
     data.questions[num].points = JSON.parse(value);
     data.questions[num].num = num;
   }
-  const comment = window.localStorage.getItem("comment");
-  const form = document.querySelector("form");
-  const { gallerySubmission, email } = Object.fromEntries(new FormData(form).entries());
+  const email = document.querySelector("input[type=email]").value;
 
-  if (comment) data.form.comment = comment;
-  if (gallerySubmission === "yes") data.form.submittedInGallery = true;
   if (email) data.form.email = email;
 
   return data;

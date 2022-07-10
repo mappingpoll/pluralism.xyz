@@ -50,40 +50,45 @@ app.get("/", (req, res) => {
   res.render("landing", opts);
 });
 
-app.get("/:number(\\d{1,2})", (req, res) => {
-  let { number } = req.params;
+app.get("/:number(\\d{1,2}):letter([a-z]?)", (req, res) => {
+  let { number, letter } = req.params;
+
+  const key = `${number}${letter ?? ""}`;
+  const thisPageConfig = pageConfig.pages[key];
+
   number = +number;
-
-  const thisPageConfig = pageConfig.pages[number];
-
   const opts = {
     ...pageConfig.default,
     ...thisPageConfig,
-    previous: `/${number > 1 ? number - 1 : ""}`,
+    previous: thisPageConfig.previous ?? `/${number > 1 ? number - 1 : ""}`,
     next: thisPageConfig.next ?? `/${number + 1}`,
     questionNum: number,
-    title: res.__(`${number}.title`),
-    textContent: res.__(`${number}.textContent`),
-    topContent: res.__(`${number}.topContent`),
-    bottomContent: res.__(`${number}.bottomContent`),
-    scaleLabelMax: res.__(`${number}.scaleLabelMax`),
-    scaleLabelMidMax: res.__(`${number}.scaleLabelMidMax`),
-    scaleLabelZero: res.__(`${number}.scaleLabelZero`),
-    scaleLabelMidMin: res.__(`${number}.scaleLabelMidMin`),
-    scaleLabelMin: res.__(`${number}.scaleLabelMin`),
+    title: res.__(`${key}.title`),
+    textContent: res.__(`${key}.textContent`),
+    topContent: res.__(`${key}.topContent`),
+    bottomContent: res.__(`${key}.bottomContent`),
+    scaleLabelMax: res.__(`${key}.scaleLabelMax`),
+    scaleLabelMidMax: res.__(`${key}.scaleLabelMidMax`),
+    scaleLabelZero: res.__(`${key}.scaleLabelZero`),
+    scaleLabelMidMin: res.__(`${key}.scaleLabelMidMin`),
+    scaleLabelMin: res.__(`${key}.scaleLabelMin`),
   };
 
-  res.render("interact", opts);
+  if (letter) {
+    res.render("textonly", opts);
+  } else {
+    res.render("interact", opts);
+  }
 });
 
-app.get("/comment", (req, res) => {
-  const opts = { ...pageConfig.default, ...pageConfig.comment };
-  opts.previous = `/${pageConfig.lastQ}`;
-  opts.next = "/submit";
-  opts.sectionTitle = res.__("comment.title");
-  opts.sectionSubtitle = res.__("comment.subtitle");
-  opts.topContent = res.__("comment.topContent");
-  res.render("comment", opts);
+app.get("/submit", (req, res) => {
+  const opts = {
+    ...pageConfig.default,
+    ...pageConfig.pages.submit,
+    title: res.__("submit.title"),
+    textContent: res.__("submit.textContent"),
+  };
+  res.render("submit", opts);
 });
 
 app.post("/submit", (req, res) => {
@@ -99,25 +104,6 @@ app.post("/submit", (req, res) => {
   }
 });
 
-app.get("/submit", (req, res) => {
-  const opts = {
-    ...pageConfig.default,
-    ...pageConfig.submit,
-    previous: "/comment",
-    next: "#",
-    sectionTitle: res.__("submit.title"),
-    sectionSubtitle: res.__("submit.subtitle"),
-    wantsComment: res.__("submit.form.wantsComment"),
-    isGallery: res.__("submit.form.isGallery"),
-    isNotGallery: res.__("submit.form.isNotGallery"),
-    iWantResults: res.__("submit.form.iWantResults"),
-    email: res.__("submit.form.email"),
-    submit: res.__("submit.form.submit"),
-    nextLabel: res.__("submit.nextLabel"),
-  };
-  res.render("submit", opts);
-});
-
 app.get("/data", (req, res) => {
   dbClient
     .listEntries()
@@ -128,7 +114,8 @@ app.get("/data", (req, res) => {
 app.get("/results", (req, res) => {
   const opts = {
     ...pageConfig.default,
-    reset: false,
+    ...pageConfig.pages.results,
+    title: res.__("results.title"),
     textContent: res.__("results.textContent"),
   };
 
