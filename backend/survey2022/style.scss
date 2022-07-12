@@ -8,11 +8,11 @@
 :root {
   --rail-height: 70%;
   --dot-diameter: 1rem;
-  --touch-scaleup: 1.8;
+  --touch-scaleup: 2;
   --touch-area: calc(var(--touch-scaleup) * var(--dot-diameter));
   --offblack: #333;
   --lightgrey: #999;
-  --max-content-width: 40em;
+  --max-content-width: min(40em, calc(100vh / 2));
   --content-margin-x: max(calc((100vw - var(--max-content-width)) / 2), 0px);
   --page-padding-x: 5vw;
   --page-padding-y: 1.75rem;
@@ -25,7 +25,7 @@ html {
 
   font-family: 'Source Code Pro', monospace;
   font-weight: bold;
-  font-size: 100%;
+  font-size: min(100%, 3vw);
   hyphens: auto;
   color: var(--offblack);
   background-color: #fff;
@@ -121,8 +121,7 @@ input[type="checkbox"] {
     height: 100%;
 
     & .interact-title {
-      margin-top: 0;
-      margin-bottom: 1.5em;
+      margin: 0;
       text-align: center;
     }
 
