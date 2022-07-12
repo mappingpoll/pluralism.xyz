@@ -8,11 +8,11 @@
 :root {
   --rail-height: 70%;
   --dot-diameter: 1rem;
-  --touch-scaleup: 1.8;
+  --touch-scaleup: 2;
   --touch-area: calc(var(--touch-scaleup) * var(--dot-diameter));
   --offblack: #333;
   --lightgrey: #999;
-  --max-content-width: 40em;
+  --max-content-width: min(40em, calc(100vh / 2));
   --content-margin-x: max(calc((100vw - var(--max-content-width)) / 2), 0px);
   --page-padding-x: 5vw;
   --page-padding-y: 1.75rem;
@@ -24,7 +24,7 @@ html {
   overflow: hidden;
   font-family: 'Source Code Pro', monospace;
   font-weight: bold;
-  font-size: 100%;
+  font-size: min(100%, 3vw);
   -webkit-hyphens: auto;
   -ms-hyphens: auto;
   hyphens: auto;
@@ -108,7 +108,7 @@ input[type="checkbox"] {
 
 .page-content {
   grid-area: 1 / 1 / 11 / 5;
-  max-width: 40em;
+  max-width: min(40em, calc(100vh / 2));
   max-width: var(--max-content-width);
   margin: 0 auto;
   display: grid;
@@ -127,8 +127,7 @@ input[type="checkbox"] {
 }
 
 .page-content .top-third .interact-title {
-  margin-top: 0;
-  margin-bottom: 1.5em;
+  margin: 0;
   text-align: center;
 }
 
@@ -201,7 +200,7 @@ input[type="checkbox"] {
 
 .comment-modal textarea {
   display: block;
-  width: min(90%, calc(0.9 * 40em));
+  width: min(90%, calc(0.9 * min(40em, calc(100vh / 2))));
   width: min(90%, calc(0.9 * var(--max-content-width)));
   height: 50%;
   resize: none;
@@ -221,7 +220,7 @@ input[type="checkbox"] {
 .comment-modal > div {
   display: flex;
   justify-content: space-between;
-  width: min(90%, calc(0.9 * 40em));
+  width: min(90%, calc(0.9 * min(40em, calc(100vh / 2))));
   width: min(90%, calc(0.9 * var(--max-content-width)));
 }
 
@@ -311,7 +310,7 @@ input[type="checkbox"] {
 
 .color-view,
 .xy-view {
-  width: min(50vw, calc(40em / 2));
+  width: min(50vw, calc(min(40em, calc(100vh / 2)) / 2));
   width: min(50vw, calc(var(--max-content-width) / 2));
   border: 1px solid #333;
   border: 1px solid var(--offblack);
@@ -441,9 +440,9 @@ input[type="checkbox"] {
   display: block;
   position: absolute;
   transform: translate(-25%, -25%);
-  height: calc(1.8 * 1rem);
+  height: calc(2 * 1rem);
   height: var(--touch-area);
-  width: calc(1.8 * 1rem);
+  width: calc(2 * 1rem);
   width: var(--touch-area);
   border-radius: 50%;
 }
