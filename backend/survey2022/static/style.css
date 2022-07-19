@@ -7,7 +7,7 @@
 
 :root {
   --rail-height: 70%;
-  --dot-diameter: 1rem;
+  --dot-diameter: 1.5rem;
   --touch-scaleup: 2;
   --touch-area: calc(var(--touch-scaleup) * var(--dot-diameter));
   --offblack: #333;
@@ -423,9 +423,9 @@ input[type="checkbox"] {
 
 .handle {
   position: absolute;
-  width: 1rem;
+  width: 1.5rem;
   width: var(--dot-diameter);
-  height: 1rem;
+  height: 1.5rem;
   height: var(--dot-diameter);
   transform: translate(-50%, -50%);
   background-color: #333;
@@ -440,9 +440,9 @@ input[type="checkbox"] {
   display: block;
   position: absolute;
   transform: translate(-25%, -25%);
-  height: calc(2 * 1rem);
+  height: calc(2 * 1.5rem);
   height: var(--touch-area);
-  width: calc(2 * 1rem);
+  width: calc(2 * 1.5rem);
   width: var(--touch-area);
   border-radius: 50%;
 }

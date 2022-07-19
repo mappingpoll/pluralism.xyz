@@ -2,9 +2,10 @@ default:
   canComment: true
 pages:
   landing:
-    next: "/1"
+    next: "/0"
     canComment: false
-
+  0:
+    controlType: "color"
   1:
     controlType: "color"
   2:
@@ -14,44 +15,34 @@ pages:
   4:
     controlType: "color"
   5:
-    controlType: "slider-xy"
-    xRange: "[0, 100]"
-    yRange: "[0, 100]"
-    xLabelMin: "0%"
-    xLabelMax: "100%"
-    yLabelMin: "0"
-    yLabelMax: "100+"
+    controlType: "color"
   6:
-    controlType: "pcode"
-    next: "/7a"
-  7a:
-    previous: "/6"
-    next: "/7"
-    canComment: false
+    controlType: "color"
   7:
-    controlType: "color-mono"
-    previous: "/7a"
+    controlType: "color"
   8:
     controlType: "color"
   9:
-    controlType: "color-mono"
+    controlType: "vslider-number"
+    yRange: "[0, 100]"
+    yLabelMin: "0"
+    yLabelMax: "100+"
   10:
-    controlType: "color"
+    controlType: "vslider-number"
+    yRange: "[0, 100]"
+    yLabelMin: "0%"
+    yLabelMax: "100%"
   11:
-    controlType: "color"
-    next: "/12a"
-  12a:
-    previous: "/11"
-    next: "/12"
-    canComment: false
+    controlType: "vslider-labels"
   12:
-    controlType: "color"
-    previous: "/12a"
+    controlType: "vslider-labels"
   13:
-    controlType: "color-mono"
+    controlType: "pcode"
+  14:
+    controlType: "vslider-labels"
     next: "/submit"
   submit:
     canComment: false
-    previous: "/13"
+    previous: "/14"
   results:
     canComment: false
