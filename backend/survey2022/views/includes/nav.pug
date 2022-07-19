@@ -1,4 +1,6 @@
 div(class="footer")
+    if reset
+        a(href="#" class="previous" onclick="window.localStorage.clear(); window.location.href = '/reset'; return false")   #{__("reset")}
     if previous
         a(href=previous class="previous") #{__('previousLabel')}
     if canComment

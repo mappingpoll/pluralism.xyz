@@ -1,13 +1,14 @@
 import express from "express";
+import cookieParser from "cookie-parser";
+import cookieSession from "cookie-session";
 import compression from "compression";
 import i18n from "i18n";
-import cookieParser from "cookie-parser";
 
 import { Client, initDb } from "./database.js";
 import { parseDocument } from "yaml";
 import fs from "fs";
 
-initDb();
+const pgPool = initDb();
 
 const dbClient = Client();
 
@@ -19,7 +20,8 @@ const pageConfig = parseDocument(pageConfigFile).toJS();
 i18n.configure({
   cookie: "lang",
   directory: "./locales",
-  defaultLocale: "en",
+  locales: ["en", "fr"],
+  defaultLocale: "fr",
   objectNotation: true,
   updateFiles: false,
   missingKeyFn: () => "missing translation",
@@ -31,6 +33,12 @@ app.set("views", "views");
 app.set("view engine", "pug");
 
 app.use(compression());
+app.use(
+  cookieSession({
+    name: "session",
+    secret: process.env.SESSION_SECRET ?? "secret",
+  })
+);
 app.use(cookieParser());
 app.use(i18n.init);
 app.use(express.static("static"));
@@ -38,14 +46,15 @@ app.use(express.json());
 
 app.get("/", (req, res) => {
   if (req.query?.lang == "en" || req.query?.lang == "fr") {
-    res.cookie("lang", req.query.lang);
+    res.cookie("lang", req.query.lang, { maxAge: 900000, httpOnly: true });
     res.redirect("/");
-    return;
   }
+  req.session.visits = (req.session.visits ?? 0) + 1;
   const opts = { ...pageConfig.default, ...pageConfig.pages.landing };
   opts.title = res.__("landing.title");
   opts.textContent = res.__("landing.textContent");
   opts.otherLang = res.__("otherLang");
+  opts.reset = !req.session.isNew;
 
   res.render("landing", opts);
 });
@@ -93,15 +102,18 @@ app.get("/submit", (req, res) => {
 
 app.post("/submit", (req, res) => {
   try {
-    dbClient
-      .insertEntry(req.body)
-      .catch(console.error)
-      .finally(() => console.log("Successfully inserted entry"));
-    res.status(200);
-    res.send();
+    dbClient.insertEntry(req.body);
   } catch (e) {
     console.error(e);
+    res.status(500).redirect("/error");
+    return;
   }
+
+  // destroy the session
+  req.session = null;
+  res.status(200);
+
+  res.redirect("/results");
 });
 
 app.get("/data", (req, res) => {
@@ -120,6 +132,15 @@ app.get("/results", (req, res) => {
   };
 
   res.render("results", opts);
+});
+
+app.get("/error", (req, res) => {
+  res.render("error");
+});
+
+app.get("/reset", (req, res) => {
+  req.session = null;
+  res.redirect("/");
 });
 
 app.listen(port, () => {

@@ -13,31 +13,10 @@ const QUESTION_TYPE = {
 };
 
 const CREATE_TABLE_USERS =
-  "CREATE TABLE IF NOT EXISTS users (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), data jsonb, created_at timestamp)";
+  "CREATE TABLE IF NOT EXISTS users (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), data jsonb, created_at timestamp DEFAULT now())";
 
-const CREATE_TABLE_ANSWERS = `
-  CREATE TABLE IF NOT EXISTS answers ( \
-  id uuid NOT NULL, \
-  question_num text NOT NULL, \
-  question_type text NOT NULL, \
-  answer jsonb NOT NULL, \
-  comment text, \
-  timestamp timestamp NOT NULL, \
-  FOREIGN KEY (id) \
-  REFERENCES users (id) \
-  )`;
+const initQueries = [CREATE_TABLE_USERS];
 
-const initQueries = [CREATE_TABLE_USERS, CREATE_TABLE_ANSWERS];
-
-const INSERT_INTO_ANSWERS = `
-  INSERT INTO answers (\
-  uuid,\
-  question_num, \
-  question_type, \
-  answer, \
-  comment, \
-  timestamp \
-  ) VALUES ($1, $2, $3, $4, $5, $6)`;
 
 const pool = new pg.Pool({
   ssl: env === "production" ? undefined : false,
@@ -62,6 +41,7 @@ async function initDb() {
     console.debug("DB initialized!");
     client.release();
   }
+  return pool
 }
 
 export function Client() {
@@ -69,25 +49,11 @@ export function Client() {
     const client = await pool.connect();
 
     try {
-      const ts = new Date().toISOString();
-      const { userData } = data;
-      const answers = Object.values(data.answers);
-
       await client.query("BEGIN");
 
-      const res = await client.query("INSERT INTO users(data) VALUES($1)", [userData]);
-      const id = res.rows[0].id;
+      const res = await client.query("INSERT INTO users(data) VALUES($1)", [data]);
 
-      for (const answer of answers) {
-        await client.query(INSERT_INTO_ANSWERS, [
-          id,
-          answer.questionNum,
-          QUESTION_TYPE[answer.questionType],
-          answer.value,
-          answer.comment,
-          ts,
-        ]);
-      }
+      console.log(`Inserted entry with id ${res.rows[0].id}`);
 
       await client.query("COMMIT");
     } catch (e) {
@@ -103,7 +69,7 @@ export function Client() {
 
     let data;
     try {
-      data = await client.query(`SELECT * FROM form`);
+      data = await client.query(`SELECT * FROM users`);
     } catch (e) {
       console.error(`Error listing entries: ${e}`);
       throw e;

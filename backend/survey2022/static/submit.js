@@ -34,19 +34,12 @@ function submit() {
   }
 }
 
-function collect() {
-  const data = { questions: {}, form: {} };
-  let num = 0;
-  while (++num <= OPTIONS.lastQ) {
-    const value = window.localStorage.getItem(num.toString());
-    if (value == null) continue;
-    data.questions[num] = {};
-    data.questions[num].points = JSON.parse(value);
-    data.questions[num].num = num;
+function collectLocalStorage() {
+  const data = [];
+  for (const i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    const value = JSON.parse(localStorage.getItem(key));
+    data.push({ key, value });
   }
-  const email = document.querySelector("input[type=email]").value;
-
-  if (email) data.form.email = email;
-
   return data;
 }

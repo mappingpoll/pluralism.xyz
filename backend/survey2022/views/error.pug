@@ -1,0 +1,8 @@
+extends base
+
+block content
+    div(class="landing")
+        h1 OOPS!
+        div 
+            p #{__("error")}
+            button(style="display: block; margin: 0 auto" onclick="history.back()") #{__("previousLabel")}
