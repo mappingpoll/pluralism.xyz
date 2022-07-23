@@ -47,3 +47,5 @@ function tryPersist() {
 function getMap(pCode) {
   if (!postalRE.test(pCode)) return null;
 }
+
+pCodeInput.value = pcode;

@@ -4,7 +4,6 @@
 }
 
 :root {
-  --rail-height: 70%;
   --dot-diameter: 1.5rem;
   --touch-scaleup: 2;
   --touch-area: calc(var(--touch-scaleup) * var(--dot-diameter));
@@ -76,19 +75,6 @@ input[type="checkbox"] {
   color: var(--offblack);
   height: 2em;
   filter: saturate(0);
-
-  /*
-  &::after {
-    content: "[ ]";
-    width: auto;
-    height: auto;
-  }
-
-  &:checked::after {
-    content: "[x]";
-    display: block;
-  }
-  */
 }
 
 .page-container {
@@ -332,6 +318,7 @@ input[type="checkbox"] {
   margin-top: 100%;
 }
 
+/* 
 .xy-view {
   border: none;
   position: relative;
@@ -380,6 +367,7 @@ input[type="checkbox"] {
     text-align: end;
   }
 }
+ */
 
 .vslider,
 .hslider {
@@ -393,12 +381,14 @@ input[type="checkbox"] {
   transform: translateX(-50%);
 }
 
+/* 
 .hslider {
   width: 100%;
   height: 3px;
   left: 0;
   transform: translateY(-50%);
 }
+ */
 
 .centered-content {
   display: flex;
