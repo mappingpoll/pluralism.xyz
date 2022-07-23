@@ -17,7 +17,6 @@ const CREATE_TABLE_USERS =
 
 const initQueries = [CREATE_TABLE_USERS];
 
-
 const pool = new pg.Pool({
   ssl: env === "production" ? undefined : false,
 });
@@ -41,7 +40,7 @@ async function initDb() {
     console.debug("DB initialized!");
     client.release();
   }
-  return pool
+  return pool;
 }
 
 export function Client() {
@@ -51,13 +50,12 @@ export function Client() {
     try {
       await client.query("BEGIN");
 
-      const res = await client.query("INSERT INTO users(data) VALUES($1)", [data]);
-
-      console.log(`Inserted entry with id ${res.rows[0].id}`);
+      await client.query("INSERT INTO users(data) VALUES($1)", [data]);
 
       await client.query("COMMIT");
     } catch (e) {
       await client.query("ROLLBACK");
+      console.error(`Error inserting entry: ${e}`);
       throw e;
     } finally {
       client.release();

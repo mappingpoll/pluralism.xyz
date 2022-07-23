@@ -56,3 +56,4 @@ pages:
     previous: "/15"
   results:
     canComment: false
+    restart: true

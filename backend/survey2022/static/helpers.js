@@ -33,9 +33,9 @@ export function scalingFns({ element, horizontal = false }) {
 
     const domain = horizontal ? box.width : box.height;
 
-    const n = Math.round((value / domain) * 100) / 100;
+    const n = value / domain;
 
-    return horizontal ? n : 1 - n; // flip the y axis
+    return Math.round((horizontal ? n : 1 - n) * 1000) / 1000; // flip the y axis
   }
 
   function denormalize(value) {
