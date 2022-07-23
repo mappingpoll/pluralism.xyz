@@ -1,7 +1,11 @@
 {
   "landing": {
+    "title": "Introduction",
+    "textContent": "<p>Cette œuvre prend la forme d’un questionnaire qui utilise la couleur comme moyen de communication.<br>Vos réponses individuelles, une fois rassemblées à la fin de l’exposition, créeront collectivement une sorte de  portrait de société.</p>"
+  },
+  "instructions": {
     "title": "Instructions",
-    "textContent": "<p>Cette œuvre prend la forme d’un questionnaire qui utilise la couleur comme moyen de communication.<br>Vos réponses individuelles, une fois rassemblées à la fin de l’exposition, créeront collectivement une sorte de  portrait de société.</p><p>À chaque question, en plus de votre réponse, vous aurez l’option de laisser un commentaire en cliquant sur le bouton «commentaire», en bas de page. Toutes les  réponses et les commentaires reçus seront publiés de manière anonyme.</p><p>À la fin de chaque question, cliquer sur “continuer” pour passer à la question suivante.  Vous pouvez en tout temps sauter une question et passer à la suivante.</p>"
+    "textContent": "<p>À chaque question, en plus de votre réponse, vous aurez l’option de laisser un commentaire en cliquant sur le bouton «commentaire», en bas de page. Toutes les  réponses et les commentaires reçus seront publiés de manière anonyme.</p><p>À la fin de chaque question, cliquer sur “continuer” pour passer à la question suivante.  Vous pouvez en tout temps sauter une question et passer à la suivante.</p>"
   },
   "0": {
     "title": "0. Couleur vive",
@@ -13,31 +17,30 @@
   },
   "2": {
     "title": "2. Couleur agréable",
-    "topContent": "<p>Maintenant, tentez de créer une couleur qui vous semble agréable.</p>"
+    "topContent": "<p>Maintenant, créez une couleur de votre choix, qui vous semble agréable.</p>"
   },
   "3": {
     "title": "3. Humeur du jour",
-    "topContent": "<p>Comment vous sentez-vous aujourd’hui ? À l'aide des curseurs, tentez de créer une couleur qui exprime votre humeur de la journée jusqu’à maintenant.</p>"
+    "topContent": "<p>Comment vous sentez-vous aujourd’hui ? Tentez de créer une couleur qui exprime votre humeur de la journée jusqu’à maintenant.</p>"
   },
   "4": {
     "title": "4. Votre vie",
     "topContent": "<p>Jusqu'ici, comment a été votre vie ? Tentez de créer une couleur qui exprime ce que vous ressentez en pensant à l'ensemble de votre vie.</p>"
   },
   "5": {
-    "title": "5. Votre future",
-    "topContent": "<p>Comment imaginez-vous votre futur ? Tentez de créer une couleur qui corresponde à ce que vous voyez.</p>",
-    "bottomContent": "<p>Quelle proportion de votre vie avez-vous passé en banlieue?</p><p>[ <span id='proportion'></span> ] %</p>"
+    "title": "5. Votre futur",
+    "topContent": "<p>Comment imaginez-vous votre futur ? Tentez de créer une couleur qui corresponde à ce que vous voyez.</p>"
   },
   "6": {
     "title": "6. Votre ville",
     "topContent": "<p>Pensez à l'environnement physique de l'ensemble de la ville, municipalité ou territoire où vous habitez présentement. Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
   },
   "7": {
-    "title": "7. Votre ville en 2050",
+    "title": "7. Votre ville, 2050",
     "topContent": "<p>Imaginez maintenant votre ville, municipalité ou territoire en 2050. Quel futur voyez-vous ? Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
   },
   "8": {
-    "title": "8. Humanité en 2050",
+    "title": "8. Humanité, 2050",
     "topContent": "<p>Pensez à la totalité des activités humaines se déroulant présentement sur la planète. Quel futur voyez-vous pour l'humanité en 2050 ? Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
   },
   "9": {
@@ -45,36 +48,40 @@
     "topContent": "<p>Pour répondre à cette question et aux suivantes, veuillez glissez le curseur (petit rond noir) sur l’axe vertical, jusqu’à la position qui correspond à votre réponse.</p><p>Quel âge avez-vous ?</p>"
   },
   "10": {
-    "title": "10. Vie en banlieue",
+    "title": "10. % banlieue",
     "topContent": "<p>Quelle proportion de votre vie (environ) avez-vous passé en banlieue ?</p>"
   },
   "11": {
-    "title": "11. Genre",
-    "topContent": "<p>À quel degré vous identifiez-vous à l’idée traditionnelle «d’être un homme» ou «d’être une femme» ?</p>",
-    "scaleLabelMax": "Je m'identifie à 100% à l'idée traditionnelle «d'être une femme»",
-    "scaleLabelZero": "Je ne m'identifie pas à une position traditionnelle de genre binaire",
-    "scaleLabelMin": "Je m'identifie à 100% à l'idée traditionnelle «d'être une homme»"
+    "title": "11. Nature",
+    "topContent": "<p>Pensez aux différents aspects de votre vie: habitation, transport, travail, nourriture, possessions matérielles, mode de vie, etc. Dans l’ensemble, quelle proportion de votre vie vous semble en harmonie avec le milieu naturel?</p>"
   },
   "12": {
-    "title": "12. Statut",
+    "title": "12. Genre",
+    "topContent": "<p>À quel degré vous identifiez-vous à l’idée traditionnelle «d’être un homme» ou «d’être une femme» ?</p>",
+    "scaleLabelMax": "Je m'identifie à 100% à l'idée traditionnelle «d'être une femme»",
+    "scaleLabelZero": "Je ne m'identifie pas à un genre binaire traditionnel",
+    "scaleLabelMin": "Je m'identifie à 100% à l'idée traditionnelle «d'être une homme»"
+  },
+  "13": {
+    "title": "13. Statut",
     "topContent": "<p>Quel est votre statut socio-économique ?</p>",
     "scaleLabelMax": "Moi et/ou ma famille sommes totalement démunis",
     "scaleLabelMin": "Moi et/ou ma famille sommes riches et puissants"
   },
-  "13": {
-    "title": "13. Code postal",
+  "14": {
+    "title": "14. Code postal",
     "topContent": "<p>Quel est votre code postal ?</p>",
     "bottomContent": "<p style=\"text-align: center\">Je ne vis pas au Canada.<br><input type='checkbox' id='outside'></p>"
   },
-  "14": {
-    "title": "14. Évaluation",
+  "15": {
+    "title": "15. Évaluation",
     "topContent": "<p>Dans l’ensemble, comment évaluez-vous vos réponses à ce questionnaire ?</p>",
-    "scaleLabelMax": "J'ai répondu de mon mieux",
+    "scaleLabelMax": "J'ai répondu honnêtement et de mon mieux",
     "scaleLabelMin": "J'ai répondu n'importe quoi, ça ne veut rien dire"
   },
   "submit": {
     "title": "Fin",
-    "textContent": "<p>Si vous voulez voir les résultats à la fin de ce projet, veuillez laisser votre courriel. Vous recevrez un lien de visualisation à la fin de l'exposition. (Votre courriel ne sera pas partagé.)</p>"
+    "textContent": "<p>Si vous voulez voir les résultats du projet, veuillez laisser votre courriel pour recevoir un lien de visualisation à la fin de l'exposition. (Votre courriel ne sera pas partagé.)</p>"
   },
   "results": {
     "title": "Résultats",

@@ -1,11 +1,4 @@
-import {
-  cmyToRgb,
-  makeReferenceGeometryFns,
-  getCachedValue,
-  makeDraggable,
-  restrictY,
-  makePersistFn,
-} from "../helpers.js";
+import { cmyToRgb, getCachedValue, makeDraggable, makePersistFn, scalingFns } from "../helpers.js";
 
 const colorView = document.querySelector(".color-view");
 
@@ -27,7 +20,7 @@ const handles = {
   yellow: sliders.yellow.parentElement.querySelector(".handle"),
 };
 
-let { normalize, scaleTranslate, referenceGeometry } = makeReferenceGeometryFns({ element: sliders.cyan });
+let { normalize, denormalize, restrictXY } = scalingFns({ element: sliders.cyan });
 
 const getColor = () => {
   return {
@@ -45,7 +38,7 @@ const showColor = color => {
 const persist = makePersistFn(getColor, showColor);
 
 const ondrag = (event, handle) => {
-  handle.style.top = `${restrictY(event.clientY, referenceGeometry)}px`;
+  handle.style.top = `${restrictXY(event.clientY)}px`;
   showColor(getColor());
 };
 
@@ -57,7 +50,15 @@ Object.values(handles).forEach(handle => {
   makeDraggable(handle, ondrag, ondrop);
 });
 
-handles.cyan.style.top = `${scaleTranslate(color.c)}px`;
-handles.magenta.style.top = `${scaleTranslate(color.m)}px`;
-handles.yellow.style.top = `${scaleTranslate(color.y)}px`;
-persist();
+handles.cyan.style.top = `${denormalize(color.c)}px`;
+handles.magenta.style.top = `${denormalize(color.m)}px`;
+handles.yellow.style.top = `${denormalize(color.y)}px`;
+window.addEventListener("resize", () => {
+  const { c, m, y } = getCachedValue() ?? { c: 0, m: 0, y: 0 };
+  const v = [c, m, y];
+  Object.values(handles).forEach((handle, i) => {
+    handle.style.top = `${denormalize(v[i])}px`;
+  });
+});
+
+showColor(color);

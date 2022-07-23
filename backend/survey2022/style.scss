@@ -53,6 +53,10 @@ a {
   }
 }
 
+p {
+  text-align: justify;
+}
+
 button {
   border: 2px solid var(--offblack);
   border-radius: 3px;
@@ -98,8 +102,16 @@ input[type="checkbox"] {
 
   background-image: url("/images/footer-bg-pixel.png");
   background-position: bottom;
-  background-size: cover;
+  background-size: contain;
+  background-repeat: repeat-x;
 }
+
+@media screen and (max-width: 1000px) {
+  .page-container {
+    background-size: cover;
+  }
+}
+
 
 .page-content {
   grid-area: 1 / 1 / 11 / 5;
@@ -137,6 +149,7 @@ input[type="checkbox"] {
   & .interact {
     grid-area: 5 / 1 / span 6 / span 4;
 
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -392,8 +405,12 @@ input[type="checkbox"] {
     display: flex;
     flex-direction: column;
 
-    & .vslider {
+    & .centered-content {
       height: calc(100% - 1.5em);
+
+      & .handle {
+        left: 50%;
+      }
     }
 
     & label {
@@ -409,7 +426,44 @@ input[type="checkbox"] {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-left: 3em;
+  height: 100%;
+}
+
+.label {
+  margin: 0.75em;
+}
+
+.value-box {
+  position: absolute;
+  top: 50%;
+  left: 2rem;
+  transform: translateY(-50%);
+  border: 1px solid var(--offblack);
+  min-width: 6ch;
+  padding: 0.25em 0.75em;
+  font-size: 1.25em;
+  text-align: center;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & input {
+    width: 4ch;
+    text-align: center;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: bold;
+    color: var(--offblack);
+    -moz-appearance: textfield;
+  }
+
+  & input::-webkit-outer-spin-button,
+  & input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
 
 .handle {
@@ -454,4 +508,5 @@ input[type="checkbox"] {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }

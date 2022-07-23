@@ -1,91 +1,101 @@
 {
   "landing": {
+    "title": "Introduction",
+    "textContent": "<p>This work takes the form of a questionnaire that uses color as a means of communication.<br>Your individual responses, when compiled at the end of the exhibition, will collectively create a kind of picture of society.</p>"
+  },
+  "instructions": {
     "title": "Instructions",
-    "textContent": "<p>Cette œuvre prend la forme d’un questionnaire. Vos réponses seront anonymes.</p><p>À chaque question, vous avez l’option de laisser un commentaire. Ceux-ci seront publiés de manière anonyme avec les résultats du sondage.</p><p>Vous pouvez en tout temps sauter une question et passer à la suivante.</p>"
+    "textContent": "<p>For each question, in addition to your answer, you will have the option to leave a comment by clicking on the \"comment\" button at the bottom of the page. All answers and comments received will be published anonymously.</p><p>At the end of each question, click \"continue\" to move on to the next question.  You can skip a question at any time and move on to the next one.</p>"
+  },
+  "0": {
+    "title": "0. Vivid Color",
+    "topContent": "<p>To answer the questions, you will need to create a colour by moving the sliders (the small black circles) on the vertical axes representing the primary colours cyan, magenta, and yellow.  To practice, drag the sliders below up to create a vivid color (red, orange, blue, purple, green, etc.) that combines two primary colors. Then click continue.</p>"
   },
   "1": {
-    "title": "1.",
-    "topContent": "<p>À l'aide des curseurs, tentez de créer une couleur qui vous semble agréable.</p>"
+    "title": "1. Skin Color",
+    "topContent": "<p>Pour créer des couleurs plus naturelles (corail, sable, pêche, olive, etc.),  il est généralement nécessaire de combiner les trois couleurs primaires. En utilisant au moins une touche de chaque couleur primaire, tentez de reproduire la couleur de votre teinte de peau naturelle, sans bronzage.</p>"
   },
   "2": {
-    "title": "2.",
-    "topContent": "<p>Comment vous sentez-vous aujourd'hui? À l'aide des curseurs, tentez de créer une couleur qui représente votre humeur du moment.</p>"
+    "title": "2. Pleasant Color",
+    "topContent": "<p>Now, create a color of your choice, which you think is pleasant.</p>"
   },
   "3": {
-    "title": "3.",
-    "topContent": "<p>Jusqu'ici, comment a été votre vie? Tentez de créer une couleur qui exprime ce que vous ressentez en pensant à l'ensemble de votre vie.</p>"
+    "title": "3. Mood of the Day",
+    "topContent": "<p>How are you feeling today? Try to create a colour that expresses your mood for the day so far.</p>"
   },
   "4": {
-    "title": "4.",
-    "topContent": "<p>Comment imaginez-vous votre futur? Tentez de créer une couleur qui corresponde à ce que vous voyez.</p>"
+    "title": "4. Your Life",
+    "topContent": "<p>How has your life been so far? Try to create a colour that expresses how you feel about your life as a whole.</p>"
   },
   "5": {
-    "title": "5.",
-    "topContent": "<p>Quel âge avez-vous?</p><p>[ <span id='age'></span> ] ans</p>",
-    "bottomContent": "<p>Quelle proportion de votre vie avez-vous passé en banlieue?</p><p>[ <span id='proportion'></span> ] %</p>"
+    "title": "5. Your Future",
+    "topContent": "<p>How do you imagine your future? Try to create a colour that matches what you see.</p>"
   },
   "6": {
-    "title": "6.",
-    "topContent": "<p>Quelle est votre code postal?</p>",
-    "bottomContent": "<p style=\"text-align: center\">Ou: Je n'habite pas au Canada.<br><input type='checkbox' id='outside'></p>"
-  },
-  "7a": {
-    "title": "7.",
-    "textContent": "<p>Considérez votre sexe anatomique à la naissance et actuel, la manière dont vous concevez votre genre, la manière dont vous l’exprimez, et toute autre considération pertinente par rapport à votre genre.</p>"
+    "title": "6. Your City",
+    "topContent": "<p>Think about the physical environment of the entire city, town or territory where you currently live. Try to create a colour that best represents what comes to mind.</p>"
   },
   "7": {
-    "title": "7.",
-    "topContent": "<p>Dans l’ensemble, à quel degré vous identifiez-vous aux concepts traditionnels «d’être un homme» ou «d’être une femme» ? (Vous pouvez sauter la question si vous voulez.)</p>",
-    "scaleLabelMax": "Je m'identifie à 100% à l'idée traditionnelle «d'être une femme»",
-    "scaleLabelZero": "Je ne m'identifie pas à un concept de genre binaire traditionnel",
-    "scaleLabelMin": "Je m'identifie à 100% à l'idée traditionnelle «d'être une homme»"
+    "title": "7. Your City, 2050",
+    "topContent": "<p>Now imagine your city, municipality or territory in 2050. What future do you see? Try to create a colour that best represents what comes to mind.</p>"
   },
   "8": {
-    "title": "8.",
-    "topContent": "<p>À l'aide des curseurs, tentez de reproduire la couleur de votre teinte de peau naturelle (sans bronzage).</p>"
+    "title": "8. Humanity, 2050",
+    "topContent": "<p>Think about the totality of human activities currently taking place on the planet. What future do you see for humanity in 2050? Try to create a colour that best represents what comes to mind.</p>"
   },
   "9": {
-    "title": "9.",
-    "topContent": "<p>Quel est votre statut-socio-économique ?</p>",
-    "scaleLabelMax": "Moi et/ou ma famille sommes totalement démunis",
-    "scaleLabelMin": "Moi et/ou ma famille sommes riches et puissants"
+    "title": "9. Age",
+    "topContent": "<p>To answer this and the following questions, please drag the slider (small black circle) on the vertical axis to the position that corresponds to your answer.</p><p>How old are you?</p>"
   },
   "10": {
-    "title": "10.",
-    "topContent": "<p>Pensez à l'environnement physique de l'ensemble de la ville où vous habitez présentement. Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
+    "title": "10. % Suburbs",
+    "topContent": "<p>How much of your life (approximately) have you spent in the suburbs?</p>"
   },
   "11": {
-    "title": "11.",
-    "topContent": "<p>Imaginez maintenant votre ville en 2050. Quel futur voyez-vous? Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
-  },
-  "12a": {
-    "title": "12.",
-    "textContent": "<p>Pensez à la totalité des activités humaines se déroulant présentement sur la planète, et imaginez le futur vers lequel nous nous dirigeons.</p>"
+    "title": "11. Nature",
+    "topContent": "<p>Think about the different aspects of your life: housing, transportation, work, food, material possessions, lifestyle, etc. Overall, how much of your life do you feel is in harmony with the natural environment?</p>"
   },
   "12": {
-    "title": "12.",
-    "topContent": "<p>Quel futur voyez-vous pour l'humanité en 2050? Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
+    "title": "12. Genre",
+    "topContent": "<p>To what degree do you identify with the traditional idea of \"being a man\" or \"being a woman\"?</p>",
+    "scaleLabelMax": "I identify 100% with the traditional idea of \"being a woman.\"",
+    "scaleLabelZero": "I do not identify with a traditional gender binary",
+    "scaleLabelMin": "I identify 100% with the traditional idea of \"being a man\""
   },
   "13": {
-    "title": "13.",
-    "topContent": "<p>Comment évaluez-vous vos réponses à ce questionnaire ?</p>",
-    "scaleLabelMax": "J'ai répondu de mon mieux et je crois que mes réponses sont significatives",
-    "scaleLabelMin": "J'ai répondu n'importe quoi, ça ne veut rien dire"
+    "title": "13. Status",
+    "topContent": "<p>What is your socioeconomic status?</p>",
+    "scaleLabelMax": "I and/or my family are rich and powerful",
+    "scaleLabelMin": "I and/or my family are totally destitute"
+  },
+  "14": {
+    "title": "14. Postal Code",
+    "topContent": "<p>What is your postal code?</p>",
+    "bottomContent": "<p style=\"text-align: center\">I do not live in Canada<br><input type='checkbox' id='outside'></p>"
+  },
+  "15": {
+    "title": "15. Evaluation",
+    "topContent": "<p>Overall, how would you rate your responses to this questionnaire?</p>",
+    "scaleLabelMax": "I answered honestly and to the best of my ability",
+    "scaleLabelMin": "I answered anything, it doesn't mean anything"
   },
   "submit": {
-    "title": "Soumettre le questionnaire",
-    "textContent": "<p>Si vous voulez voir le résultat à la fin de ce projet, veuillez laisser votre courriel. Vous recevrez un lien de visualisation à la fin de l'exposition. (Votre courriel ne sera pas partagé.)</p>"
+    "title": "End",
+    "textContent": "<p>If you would like to see the results of the project, please leave your email to receive a viewing link at the end of the exhibition. (Your email will not be shared.)</p>"
   },
   "results": {
-    "title": "Résultats",
-    "textContent": "<p>Merci de votre participation.</p><p>Vous trouverez ci-dessous les résultats partiels collectés jusqu'à présent.</p>"
+    "title": "Results",
+    "textContent": "<p>Thank you for your participation.</p><p>You will find bellow the partial results collected so far.</p>"
   },
-  "commentLabel": "commentaire",
-  "previousLabel": "<< revenir",
-  "nextLabel": "continuer >>",
-  "cancelLabel": "annuler",
-  "submitLabel": "envoyer",
-  "yellow": "Jaune",
+  "commentLabel": "comment",
+  "commentPlaceholder": "You can leave a comment here...",
+  "previousLabel": "<< back",
+  "nextLabel": "continue >>",
+  "cancelLabel": "cancel",
+  "submitLabel": "send",
+  "yellow": "Yellow",
   "french": "français",
-  "english": "english"
+  "english": "english",
+  "error": "The server encountered an error...",
+  "reset": "reset"
 }

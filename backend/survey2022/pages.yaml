@@ -2,10 +2,15 @@ default:
   canComment: true
 pages:
   landing:
+    next: "/instructions"
+    canComment: false
+  instructions:
+    previous: "/"
     next: "/0"
     canComment: false
   0:
     controlType: "color"
+    previous: "/instructions"
   1:
     controlType: "color"
   2:
@@ -33,16 +38,21 @@ pages:
     yLabelMin: "0%"
     yLabelMax: "100%"
   11:
-    controlType: "vslider-labels"
+    controlType: "vslider-number"
+    yRange: "[0, 100]"
+    yLabelMin: "0%"
+    yLabelMax: "100%"
   12:
     controlType: "vslider-labels"
   13:
-    controlType: "pcode"
+    controlType: "vslider-labels"
   14:
+    controlType: "pcode"
+  15:
     controlType: "vslider-labels"
     next: "/submit"
   submit:
     canComment: false
-    previous: "/14"
+    previous: "/15"
   results:
     canComment: false

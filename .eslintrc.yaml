@@ -13,3 +13,4 @@ parserOptions:
 rules:
   no-undef: warn
   no-irregular-whitespace: warn
+  no-empty-function: off

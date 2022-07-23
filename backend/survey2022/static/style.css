@@ -55,6 +55,10 @@ a:hover {
   text-decoration: underline;
 }
 
+p {
+  text-align: justify;
+}
+
 button {
   border: 2px solid #333;
   border: 2px solid var(--offblack);
@@ -103,7 +107,14 @@ input[type="checkbox"] {
   grid-template-columns: repeat(4, 1fr);
   background-image: url("/images/footer-bg-pixel.png");
   background-position: bottom;
-  background-size: cover;
+  background-size: contain;
+  background-repeat: repeat-x;
+}
+
+@media screen and (max-width: 1000px) {
+  .page-container {
+    background-size: cover;
+  }
 }
 
 .page-content {
@@ -141,6 +152,7 @@ input[type="checkbox"] {
 
 .page-content .interact {
   grid-area: 5 / 1 / span 6 / span 4;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -404,8 +416,12 @@ input[type="checkbox"] {
   flex-direction: column;
 }
 
-.color-picker > div .vslider {
+.color-picker > div .centered-content {
   height: calc(100% - 1.5em);
+}
+
+.color-picker > div .centered-content .handle {
+  left: 50%;
 }
 
 .color-picker > div label {
@@ -418,7 +434,45 @@ input[type="checkbox"] {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-left: 3em;
+  height: 100%;
+}
+
+.label {
+  margin: 0.75em;
+}
+
+.value-box {
+  position: absolute;
+  top: 50%;
+  left: 2rem;
+  transform: translateY(-50%);
+  border: 1px solid #333;
+  border: 1px solid var(--offblack);
+  min-width: 6ch;
+  padding: 0.25em 0.75em;
+  font-size: 1.25em;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.value-box input {
+  width: 4ch;
+  text-align: center;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: bold;
+  color: #333;
+  color: var(--offblack);
+  -moz-appearance: textfield;
+}
+
+.value-box input::-webkit-outer-spin-button,
+.value-box input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .handle {
@@ -477,4 +531,5 @@ input[type="checkbox"] {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }

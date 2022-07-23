@@ -4,24 +4,53 @@ export function timestamp() {
   return new Date(`${year}-${month}-${day}T${`0${rawHour}`.slice(-2)}:${min}:00`);
 }
 
-export const newScaleTranslate = (scale, offset) => value => value * scale + offset;
-export const newNormalize = (scale, offset) => value => (value - offset) / scale;
+function memoize(fn) {
+  const cache = {};
+  return function (...args) {
+    const key = JSON.stringify(args);
+    if (cache[key]) return cache[key];
+    return (cache[key] = fn(...args));
+  };
+}
 
-export function makeReferenceGeometryFns({ element, horizontal = false }) {
-  const box = element.getBoundingClientRect();
-  const scale = horizontal ? box.width : box.height;
-  const offset = horizontal ? 0 : scale;
+export function scalingFns({ element, horizontal = false }) {
+  const memoizedGetBox = memoize(() => element.getBoundingClientRect());
+
+  function getBox() {
+    return memoizedGetBox(window.innerHeight, window.innerWidth);
+  }
+
+  function restrictXY(value) {
+    const box = getBox();
+
+    return horizontal ? clamp(value, box.left, box.right) - box.left : clamp(value, box.top, box.bottom) - box.top;
+  }
+
+  function normalize(value) {
+    // transform an x or y value to a value between 0 and 1
+    // this is the value that will be saved to localStorage
+    const box = getBox();
+
+    const domain = horizontal ? box.width : box.height;
+
+    const n = Math.round((value / domain) * 100) / 100;
+
+    return horizontal ? n : 1 - n; // flip the y axis
+  }
+
+  function denormalize(value) {
+    // transform a value between 0 and 1 to x or y value
+
+    const box = getBox();
+
+    return (horizontal ? value : 1 - value) * (horizontal ? box.width : box.height);
+  }
+
   return {
-    referenceGeometry: {
-      top: box.top,
-      bottom: box.bottom,
-      left: box.left,
-      right: box.right,
-      width: box.width,
-      height: box.height,
-    },
-    normalize: horizontal ? newNormalize(scale, offset) : newNormalize(-scale, offset),
-    scaleTranslate: horizontal ? newScaleTranslate(scale, offset) : newScaleTranslate(-scale, offset),
+    getBox,
+    restrictXY,
+    normalize,
+    denormalize,
   };
 }
 
@@ -40,11 +69,11 @@ export function setCachedValue(value, key) {
   window.localStorage.setItem(key, JSON.stringify(value));
 }
 
-export function makePersistFn(getColor, showColor) {
+export function makePersistFn(get, show) {
   return () => {
-    const color = getColor();
-    showColor(color);
-    setCachedValue(color);
+    const v = get();
+    show(v);
+    setCachedValue(v);
   };
 }
 
@@ -98,18 +127,6 @@ export function makeDraggable(element, ondrag, ondrop) {
   }
 }
 
-export function restrictY(value, referenceGeometry) {
-  return value <= referenceGeometry.top
-    ? 0
-    : value >= referenceGeometry.bottom
-    ? referenceGeometry.height
-    : value - referenceGeometry.top;
-}
-
-export function restrictX(value, referenceGeometry) {
-  return value <= referenceGeometry.left
-    ? 0
-    : value >= referenceGeometry.right
-    ? referenceGeometry.width
-    : value - referenceGeometry.left;
+export function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
 }

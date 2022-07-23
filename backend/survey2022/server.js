@@ -59,6 +59,14 @@ app.get("/", (req, res) => {
   res.render("landing", opts);
 });
 
+app.get("/instructions", (req, res) => {
+  const opts = { ...pageConfig.default, ...pageConfig.pages.instructions };
+  opts.title = res.__("instructions.title");
+  opts.textContent = res.__("instructions.textContent");
+
+  res.render("landing", opts);
+});
+
 app.get("/:number(\\d{1,2}):letter([a-z]?)", (req, res) => {
   let { number, letter } = req.params;
 
@@ -69,7 +77,7 @@ app.get("/:number(\\d{1,2}):letter([a-z]?)", (req, res) => {
   const opts = {
     ...pageConfig.default,
     ...thisPageConfig,
-    previous: thisPageConfig.previous ?? `/${number > 1 ? number - 1 : ""}`,
+    previous: thisPageConfig.previous ?? `/${number > 0 ? number - 1 : ""}`,
     next: thisPageConfig.next ?? `/${number + 1}`,
     questionNum: number,
     title: res.__(`${key}.title`),
