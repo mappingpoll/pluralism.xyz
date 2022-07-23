@@ -100,10 +100,17 @@ input[type="checkbox"] {
   grid-template-rows: repeat(12, 1fr);
   grid-template-columns: repeat(4, 1fr);
 
-  background-image: url("/images/footer-bg-pixel.png");
   background-position: bottom;
   background-size: contain;
   background-repeat: repeat-x;
+}
+
+.webp .page-container {
+  background-image: url("/images/footer-bg-pixel.webp");
+}
+
+.no-webp .page-container {
+  background-image: url("/images/footer-bg-pixel.png");
 }
 
 @media screen and (max-width: 1000px) {
@@ -394,6 +401,13 @@ input[type="checkbox"] {
   transform: translateY(-50%);
 }
 
+.centered-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 .color-picker {
   display: flex;
   justify-content: space-between;
@@ -407,10 +421,6 @@ input[type="checkbox"] {
 
     & .centered-content {
       height: calc(100% - 1.5em);
-
-      & .handle {
-        left: 50%;
-      }
     }
 
     & label {
@@ -448,7 +458,7 @@ input[type="checkbox"] {
   justify-content: space-between;
   align-items: center;
 
-  & input {
+  & .value-input {
     width: 4ch;
     text-align: center;
     border: none;
@@ -459,8 +469,8 @@ input[type="checkbox"] {
     -moz-appearance: textfield;
   }
 
-  & input::-webkit-outer-spin-button,
-  & input::-webkit-inner-spin-button {
+  & .value-input::-webkit-outer-spin-button,
+  & .value-input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
@@ -468,6 +478,7 @@ input[type="checkbox"] {
 
 .handle {
   position: absolute;
+  left: 50%;
   width: var(--dot-diameter);
   height: var(--dot-diameter);
   transform: translate(-50%, -50%);
@@ -502,11 +513,4 @@ input[type="checkbox"] {
       opacity: 0.25;
     }
   }
-}
-
-.centered-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
 }

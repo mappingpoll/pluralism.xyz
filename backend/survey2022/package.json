@@ -4,7 +4,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "start": "NODE_ENV=production node server.js",
+    "start": "node server.js",
     "css:build": "postcss style.scss -o static/style.css",
     "css:watch": "postcss style.scss -o static/style.css --watch --verbose",
     "serve:dev": "NODE_ENV=development nodemon server.js",
@@ -30,6 +30,7 @@
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cookie-session": "^2.0.0",
+    "cssnano": "^5.1.12",
     "express": "^4.17.1",
     "i18n": "^0.15.0",
     "pg": "^8.7.1",
