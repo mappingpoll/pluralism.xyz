@@ -8,7 +8,12 @@ import { Client, initDb } from "./database.js";
 import { parseDocument } from "yaml";
 import fs from "fs";
 
-const pgPool = initDb();
+try {
+  initDb();
+} catch (e) {
+  console.error(e);
+  process.exit(1);
+}
 
 const dbClient = Client();
 
@@ -114,13 +119,9 @@ app.post("/submit", (req, res) => {
   try {
     dbClient.insertEntry(req.body);
   } catch (e) {
-    res.status(500).redirect("/error");
+    res.redirect(500, "/error");
     return;
   }
-
-  // destroy the session
-  req.session = null;
-  res.status(200);
 
   res.redirect("/results");
 });

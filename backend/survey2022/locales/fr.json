@@ -65,8 +65,8 @@
   "13": {
     "title": "13. Statut",
     "topContent": "<p>Quel est votre statut socio-économique ?</p>",
-    "scaleLabelMax": "Moi et/ou ma famille sommes totalement démunis",
-    "scaleLabelMin": "Moi et/ou ma famille sommes riches et puissants"
+    "scaleLabelMax": "Moi et/ou ma famille sommes riches et puissants",
+    "scaleLabelMin": "Moi et/ou ma famille sommes totalement démunis"
   },
   "14": {
     "title": "14. Code postal",

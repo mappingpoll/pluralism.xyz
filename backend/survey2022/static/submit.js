@@ -2,44 +2,38 @@ const submitBtn = document.querySelector("button");
 
 submitBtn.addEventListener("click", submit);
 
-let isSubmitted = false;
-
 function submit() {
-  const a = document.createElement("a")
-  a.href = "/results";
-
-  a.click();
-  return
-
-  // TODO
-  if (!isSubmitted) {
-    submitBtn.style.opacity = "0.5";
-    isSubmitted = true;
-    const data = collect();
-    const init = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    };
-    const url = `${window.origin}/submit`;
-    console.log(data);
-    fetch(url, init).then(res => {
-      if (res.status === 200) window.location.assign(`${window.location.origin}/results`);
-      else {
-        console.log("uh oh");
-        submitBtn.style.opacity = "1";
-        isSubmitted = false;
-      }
-    });
-  }
+  const data = collectLocalStorage();
+  const req = new Request("/submit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  fetch(req).then(res => {
+    // if the server returns a redirect, follow it
+    if (res.redirected) window.location.assign(res.url);
+    else window.location.assign("/results");
+  });
 }
 
 function collectLocalStorage() {
   const data = [];
-  for (const i = 0; i < localStorage.length; i++) {
+  for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
     const value = JSON.parse(localStorage.getItem(key));
     data.push({ key, value });
   }
-  return data;
+
+  // also get the user's language from the cookies or from the browser if not set
+  const lang =
+    document.cookie
+      .split(";")
+      .find(c => c.startsWith("lang="))
+      ?.split("=")[1]
+      .slice(0, 2) ?? navigator.language.slice(0, 2);
+
+  // finally, get the email, if any
+  const email = document.querySelector("#email").value;
+
+  return { data, lang, email };
 }

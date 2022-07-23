@@ -5,15 +5,8 @@ dotenv.config();
 
 const env = process.env.NODE_ENV ?? "development";
 
-const QUESTION_TYPE = {
-  0: "color",
-  1: "color-mono",
-  2: "slider-xy",
-  3: "pcode",
-};
-
 const CREATE_TABLE_USERS =
-  "CREATE TABLE IF NOT EXISTS users (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), data jsonb, created_at timestamp DEFAULT now())";
+  "CREATE TABLE IF NOT EXISTS users (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), data jsonb, created_at timestamp DEFAULT CURRENT_TIMESTAMP)";
 
 const initQueries = [CREATE_TABLE_USERS];
 
@@ -81,56 +74,3 @@ export function Client() {
 }
 
 export { initDb, Client as dbClient };
-// if (env === 'dev') {
-// 	const dbPath = `./${env}.db`;
-//
-// 	initDb = () => {
-// 		const db = new sqlite3.Database(dbPath);
-//
-// 		db.serialize(function() {
-// 			initQueries.forEach(db.run)
-// 		});
-// 		db.close();
-//
-// 	};
-//
-// 	dbPool = () => {
-//
-// 		const insertEntry = (data) => {
-// 			const db = new sqlite3.Database(dbPath);
-//
-// 			const respondentQuery = 'INSERT INTO users (timestamp) VALUES (?)';
-// 			const pointsQuery = 'INSERT INTO points (timestamp, question_num, point0, point1) VALUES (?, ?, ?, ?)';
-// 			const formQuery = 'INSERT INTO form (timestamp, comment, submittedInGallery, email) VALUES (?, ?, ?, ?)';
-//
-// 			const ts = new Date().toISOString();
-// 			db.run(respondentQuery, ts);
-//
-// 			const questions = Object.values(data.questions);
-// 			db.serialize(() => {
-// 				for (const answer of questions) {
-// 					const { num, points } = answer;
-// 					db.run(pointsQuery, ts, num, points[0], points[1]);
-// 				}
-// 			});
-//
-// 			const { comment, submittedInGallery, email } = data.form;
-// 			db.run(formQuery, ts, comment, submittedInGallery ? 1 : 0, email)
-// 			db.close();
-// 		};
-//
-// 		const listEntries = () => {
-// 			const db = new sqlite3.Database(dbPath);
-// 			const query = `
-// SELECT timestamp
-// FROM users
-// INNER JOIN answers on answers.timestamp = users.timestamp
-// INNER JOIN points on points.timestamp = users.timestamp
-// `;
-// 			const entries = db.prepare(query).all();
-// 			db.close();
-// 			return entries;
-// 		};
-//
-// 		return { insertEntry, listEntries };
-// 	};
