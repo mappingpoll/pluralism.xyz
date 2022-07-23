@@ -1,0 +1,11 @@
+
+div(class="value-box")
+    div = 
+    input(type="number", class="value-input", min=0, max=100, step=1)
+div(class="label") !{yLabelMax}
+div(class="vslider" style="height: 100%")
+    div(class="handle")
+div(class="label") !{yLabelMin}
+script. 
+    window.yRange = JSON.parse("!{yRange}");
+script(type="module" src="/controls/vslider.js")
