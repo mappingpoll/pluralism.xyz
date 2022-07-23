@@ -48,6 +48,7 @@ app.get("/", (req, res) => {
   if (req.query?.lang == "en" || req.query?.lang == "fr") {
     res.cookie("lang", req.query.lang, { maxAge: 900000, httpOnly: true });
     res.redirect("/");
+    return;
   }
   req.session.visits = (req.session.visits ?? 0) + 1;
   const opts = { ...pageConfig.default, ...pageConfig.pages.landing };
@@ -148,6 +149,7 @@ app.get("/error", (req, res) => {
 
 app.get("/reset", (req, res) => {
   req.session = null;
+  res.clearCookie("lang");
   res.redirect("/");
 });
 
