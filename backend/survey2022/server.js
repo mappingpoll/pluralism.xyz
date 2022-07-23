@@ -55,6 +55,7 @@ app.get("/", (req, res) => {
   opts.title = res.__("landing.title");
   opts.textContent = res.__("landing.textContent");
   opts.otherLang = res.__("otherLang");
+
   opts.reset = !req.session.isNew;
 
   res.render("landing", opts);
@@ -65,7 +66,7 @@ app.get("/instructions", (req, res) => {
   opts.title = res.__("instructions.title");
   opts.textContent = res.__("instructions.textContent");
 
-  res.render("landing", opts);
+  res.render("textonly", opts);
 });
 
 app.get("/:number(\\d{1,2}):letter([a-z]?)", (req, res) => {
@@ -113,7 +114,6 @@ app.post("/submit", (req, res) => {
   try {
     dbClient.insertEntry(req.body);
   } catch (e) {
-    console.error(e);
     res.status(500).redirect("/error");
     return;
   }

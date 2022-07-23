@@ -97,5 +97,6 @@
   "french": "français",
   "english": "english",
   "error": "The server encountered an error...",
-  "reset": "reset"
+  "reset": "reset",
+  "restart": "restart"
 }
