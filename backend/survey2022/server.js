@@ -51,8 +51,16 @@ app.set("view engine", "pug");
 
 app.use(
   helmet({
-    contentSecurityPolicy:
-      " default-src 'none'; connect-src 'self'; font-src 'self' https://fonts.gstatic.com/s/sourcecodepro/v21/; img-src data: https://banlieue.pluralism.xyz/ https://banlieue.pluralism.xyz/images/; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/css2 ",
+    contentSecurityPolicy: {
+      useDefaults: false,
+      directives: {
+        "default-src": ["'none'"],
+        "connect-src": ["'self'", "https://fonts.gstatic.com/s/sourcecodepro/v21/"],
+        "img-src": ["'self'", "data:", "https://banlieue.pluralism.xyz/", "https://banlieue.pluralism.xyz/images/"],
+        "script-src": ["'self'", "'unsafe-inline'"],
+        "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com/css2"],
+      },
+    },
   })
 );
 app.use(compression());
