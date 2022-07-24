@@ -24,7 +24,7 @@ block scripts
             script(defer type="module" src="/controls/color-picker.js")
         when "vslider-number"
             script. 
-                window.yRange = JSON.parse("!{yRange}");
+                window.__yRange = JSON.parse('!{yRange}');
             script(defer type="module" src="/controls/vslider.js")
         when "vslider-labels"
             script(defer type="module" src="/controls/vslider.js")

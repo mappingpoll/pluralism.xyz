@@ -4,8 +4,8 @@ block content
     div(class="results")
         h1 !{title}
         div !{textContent}
-        hr
 
 
 block scripts
-    script(defer type="module" src="/results.js")
+    //- script window.__keys = JSON.parse('!{keys}')
+    //- script(defer type="module" src="/results.js")

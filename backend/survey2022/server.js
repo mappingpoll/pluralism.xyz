@@ -14,13 +14,16 @@ import winston from "winston";
 import { parseDocument } from "yaml";
 
 import { Database } from "./database.js";
+import { keys } from "./const.js";
 
 const db = new Database();
 
 const log = debug("app");
 const error = debug("app:error");
 
-winston.exceptions.handle(new winston.transports.File({ filename: "errors.log", handleExceptions: true }));
+winston.exceptions.handle(
+  new winston.transports.File({ filename: "errors.log", handleExceptions: true })
+);
 
 try {
   db.init();
@@ -55,6 +58,7 @@ app.use(
       useDefaults: false,
       directives: {
         "default-src": ["'none'"],
+        "connect-src": ["'self'"],
         "font-src": ["'self'", "https://fonts.gstatic.com/s/sourcecodepro/v21/"],
         "img-src": ["'self'", "data:"],
         "script-src": ["'self'", "'unsafe-inline'"],
@@ -167,6 +171,7 @@ app.get("/results", (req, res) => {
     ...pageConfig.pages.results,
     title: res.__("results.title"),
     textContent: res.__("results.textContent"),
+    keys: JSON.stringify(keys),
   };
 
   res.render("results", opts);

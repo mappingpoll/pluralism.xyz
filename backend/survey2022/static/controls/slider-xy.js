@@ -9,7 +9,7 @@ import {
 
 let [age, proportion] = getCachedValue() ?? [0, 0];
 
-const { xRange, yRange } = window;
+const { __xRange, __yRange } = window;
 
 const ageDisplay = document.querySelector("#age");
 const proportionDisplay = document.querySelector("#proportion");

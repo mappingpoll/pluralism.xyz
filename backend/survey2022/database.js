@@ -1,6 +1,8 @@
 import pg from "pg";
 import debug from "debug";
 
+import { keys } from "./const.js";
+
 const log = debug("db");
 const error = debug("db:error");
 
@@ -127,14 +129,6 @@ function pCode() {
 }
 
 function fakeUserData() {
-  const keys = {
-    colors: Array(9)
-      .fill("")
-      .map((_, i) => `${i}`), // "0" to "8"
-    points: ["9", "10", "11", "12", "13", "15"],
-    pcode: "14",
-  };
-
   const data = [];
 
   // random colors

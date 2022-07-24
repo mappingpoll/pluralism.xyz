@@ -1,7 +1,7 @@
 import { getCachedValue, scalingFns, makeDraggable, makePersistFn } from "../helpers.js";
 
-const { yRange } = window;
-const domain = yRange ? yRange[1] - yRange[0] : null;
+const { __yRange } = window;
+const domain = __yRange ? __yRange[1] - __yRange[0] : null;
 
 const valueInput = document.querySelector(".value-input");
 const vSlider = document.querySelector(".vslider");

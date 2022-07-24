@@ -1,3 +1,11 @@
+export const keys = {
+  colors: Array(9)
+    .fill("")
+    .map((_, i) => `${i}`), // "0" to "8"
+  points: ["9", "10", "11", "12", "13", "15"],
+  pcode: "14",
+};
+
 export function timestamp() {
   const datePattern = /^(\d{4})-(\d{2})-(\d{2})\s(\d{1,2}):(\d{2})$/;
   const [, year, month, day, rawHour, min] = datePattern.exec("2010-10-20 4:30");
@@ -23,7 +31,9 @@ export function scalingFns({ element, horizontal = false }) {
   function restrictXY(value) {
     const box = getBox();
 
-    return horizontal ? clamp(value, box.left, box.right) - box.left : clamp(value, box.top, box.bottom) - box.top;
+    return horizontal
+      ? clamp(value, box.left, box.right) - box.left
+      : clamp(value, box.top, box.bottom) - box.top;
   }
 
   function normalize(value) {
@@ -78,15 +88,43 @@ export function makePersistFn(get, show) {
 }
 
 export function cmyToRgb({ c, m, y }) {
-  let r, g, b;
-  r = 255 - c * 255;
-  g = 255 - m * 255;
-  b = 255 - y * 255;
+  const r = 255 - c * 255;
+  const g = 255 - m * 255;
+  const b = 255 - y * 255;
   return {
     r: r,
     g: g,
     b: b,
   };
+}
+
+export function rgbToHsl({ r, g, b }) {
+  const r_ = r / 255;
+  const g_ = g / 255;
+  const b_ = b / 255;
+
+  const max = Math.max(r_, g_, b_);
+  const min = Math.min(r_, g_, b_);
+
+  const d = max - min;
+
+  const h =
+    d === 0
+      ? 0
+      : max === r_
+      ? (60 * ((g_ - b_) / d)) % 6
+      : max === g_
+      ? (60 * (b_ - r_)) / d + 2
+      : (60 * (r_ - g_)) / d + 4;
+
+  const l = (max + min) / 2;
+
+  const s = d === 0 ? 0 : d / (1 - Math.abs(2 * l - 1));
+
+  // hue: degrees
+  // saturation: %
+  // lightness: %
+  return { h, s, l };
 }
 
 export function makeDraggable(element, ondrag, ondrop) {
