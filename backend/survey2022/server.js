@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import cookieParser from "cookie-parser";
-import cookieSession from "cookie-session";
+import session from "cookie-session";
 import compression from "compression";
 import debug from "debug";
 import express from "express";
@@ -65,10 +65,12 @@ app.use(
 );
 app.use(compression());
 app.use(
-  cookieSession({
+  session({
     name: "session",
     secret: process.env.SESSION_SECRET ?? "secret",
     sameSite: "strict",
+    secure: true,
+    httpOnly: true,
   })
 );
 app.use(cookieParser());

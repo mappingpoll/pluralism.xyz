@@ -7,7 +7,7 @@
     "start": "node server.js",
     "css:build": "postcss style.scss -o static/style.css",
     "css:watch": "postcss style.scss -o static/style.css --watch --verbose",
-    "serve:dev": "DEBUG='db*,app*,express:*' NODE_ENV=development nodemon server.js",
+    "serve:dev": "DEBUG='db*,app*,express:error' NODE_ENV=development nodemon server.js",
     "serve:debug": "NODE_ENV=development node --trace-sync-io server.js",
     "dev": "npm-run-all --parallel css:watch serve:dev"
   },

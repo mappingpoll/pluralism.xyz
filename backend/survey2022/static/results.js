@@ -16,21 +16,23 @@ function parse(data) {
 
 const container = document.querySelector(".results");
 
-fetchResults().then(data => {
-  const answers = parse(data);
+fetchResults()
+  .then(data => {
+    const answers = parse(data);
 
-  for (const { key, value } of Object.entries(answers)) {
-    const div = document.createElement("div");
-    const title = document.createElement("h3");
-    title.textContent = key;
-    div.appendChild(title);
+    for (const { key, value } of Object.entries(answers)) {
+      const div = document.createElement("div");
+      const title = document.createElement("h3");
+      title.textContent = key;
+      div.appendChild(title);
 
-    const display = document.createElement("div");
-    display.classList.add("display");
-    div.appendChild(display);
+      const display = document.createElement("div");
+      display.classList.add("results-display");
+      div.appendChild(display);
 
-    display.textContent = value.length;
+      display.textContent = value.length;
 
-    container.appendChild(div);
-  }
-});
+      container.appendChild(div);
+    }
+  })
+  .catch(e => console.error(e));
