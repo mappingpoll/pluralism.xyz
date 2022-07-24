@@ -5867,6 +5867,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"helmet@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "helmet@npm:5.1.1"
+  checksum: b72ba26cc431804ad3b8ecdc18db95409a492cbb7a7e825efc27fc502b9433fec39fc083f2aad4fe7ed1a89a4287560b59f4435f9689eebbae6a2b61a1ec1b7d
+  languageName: node
+  linkType: hard
+
 "hosted-git-info@npm:^2.1.4":
   version: 2.8.9
   resolution: "hosted-git-info@npm:2.8.9"
@@ -11449,6 +11456,7 @@ __metadata:
     debug: ^4.3.4
     dotenv: ^10.0.0
     express: ^4.17.1
+    helmet: ^5.1.1
     i18n: ^0.15.0
     nodemon: ^2.0.16
     npm-run-all: ^4.1.5

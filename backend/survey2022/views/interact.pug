@@ -6,13 +6,27 @@ block content
         if topContent != "missing translation"
             div(class="topContent") !{topContent}
     div(class="interact")
-        if controlType == "color"
-            include includes/controls/color
-        if controlType == "vslider-number"
-            include includes/controls/vslider-number
-        if controlType == "vslider-labels"
-            include includes/controls/vslider-labels
-        if controlType == "pcode"
-            include includes/controls/pcode
+        case controlType
+            when "color"
+                include includes/controls/color
+            when "vslider-number"
+                include includes/controls/vslider-number
+            when "vslider-labels"
+                include includes/controls/vslider-labels
+            when "pcode"
+                include includes/controls/pcode
         if bottomContent != "missing translation"
             div(class="bottomContent") !{bottomContent}
+
+block scripts
+    case controlType
+        when "color"
+            script(defer type="module" src="/controls/color-picker.js")
+        when "vslider-number"
+            script. 
+                window.yRange = JSON.parse("!{yRange}");
+            script(defer type="module" src="/controls/vslider.js")
+        when "vslider-labels"
+            script(defer type="module" src="/controls/vslider.js")
+        when "pcode"
+            script(defer type="module" src="controls/pcode.js")

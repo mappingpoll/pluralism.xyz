@@ -21,26 +21,26 @@ pool.on("error", err => {
   process.exit(-1);
 });
 
-async function initDb() {
-  const client = await pool.connect();
-  try {
-    await client.query("BEGIN");
-    await Promise.all(initQueries.map(async q => await client.query(q)));
-    await client.query("COMMIT");
-  } catch (e) {
-    error("Error initializing database: %O", e);
-    await client.query("ROLLBACK");
-    throw e;
-  } finally {
-    log("DB initialized!");
+export function Database() {
+  this.init = async () => {
+    const client = await pool.connect();
+    try {
+      await client.query("BEGIN");
+      await Promise.all(initQueries.map(async q => await client.query(q)));
+      await client.query("COMMIT");
+    } catch (e) {
+      error("Error initializing database: %O", e);
+      await client.query("ROLLBACK");
+      throw e;
+    } finally {
+      log("DB initialized!");
 
-    client.release();
-  }
-  return pool;
-}
+      client.release();
+    }
+    return pool;
+  };
 
-export function Client() {
-  const insertEntry = async data => {
+  this.insert = async data => {
     const client = await pool.connect();
 
     try {
@@ -62,7 +62,7 @@ export function Client() {
     }
   };
 
-  const listEntries = async () => {
+  this.list = async () => {
     const client = await pool.connect();
 
     let data;
@@ -77,7 +77,79 @@ export function Client() {
 
     return data;
   };
-  return { insertEntry, listEntries };
+
+  this.populate = async (n = 500) => {
+    const client = await pool.connect();
+    const users = Array(n)
+      .fill("")
+      .map(_ => fakeUserData());
+
+    try {
+      await client.query("BEGIN");
+
+      users.forEach(async data => await client.query("INSERT INTO users(data) VALUES($1)", [data]));
+
+      await client.query("COMMIT");
+    } catch (e) {
+      error("Error populating database: %O", e);
+      await client.query("ROLLBACK");
+      throw e;
+    }
+  };
+
+  this.clear = async () => {
+    const client = await pool.connect();
+    try {
+      await client.query("BEGIN");
+      await client.query("DELETE FROM users");
+      await client.query("COMMIT");
+    } catch (e) {
+      error("Error clearing database: %O", e);
+      await client.query("ROLLBACK");
+      throw e;
+    }
+  };
 }
 
-export { initDb, Client as dbClient };
+function roundRand() {
+  return Math.round(Math.random() * 1000) / 1000;
+}
+
+function pCode() {
+  let code = "";
+  for (let i = 0; i < 6; i++) {
+    code +=
+      i % 2 === 0
+        ? String.fromCharCode(65 + Math.floor(Math.random() * 26)) // random letter
+        : Math.floor(Math.random() * 10); // random digit
+  }
+  return code;
+}
+
+function fakeUserData() {
+  const keys = {
+    colors: Array(9)
+      .fill("")
+      .map((_, i) => `${i}`), // "0" to "8"
+    points: ["9", "10", "11", "12", "13", "15"],
+    pcode: "14",
+  };
+
+  const data = [];
+
+  // random colors
+  for (const key of keys.colors) {
+    const c = { c: roundRand(), m: roundRand(), y: roundRand() };
+    data.push({ key, value: c });
+  }
+
+  // random points
+  for (const key of keys.points) {
+    data.push({ key, value: roundRand() });
+  }
+
+  // random pcode
+  const p = Math.round(Math.random()) === 0 ? [pCode(), false] : ["", true];
+  data.push({ key: keys.pcode, value: p });
+  return { data };
+}

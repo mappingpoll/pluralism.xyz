@@ -8,11 +8,14 @@ import compression from "compression";
 import debug from "debug";
 import express from "express";
 import fs from "fs";
+import helmet from "helmet";
 import i18n from "i18n";
 import winston from "winston";
 import { parseDocument } from "yaml";
 
-import { Client, initDb } from "./database.js";
+import { Database } from "./database.js";
+
+const db = new Database();
 
 const log = debug("app");
 const error = debug("app:error");
@@ -20,13 +23,11 @@ const error = debug("app:error");
 winston.exceptions.handle(new winston.transports.File({ filename: "errors.log", handleExceptions: true }));
 
 try {
-  initDb();
+  db.init();
 } catch (e) {
   error("DB init failed, exiting...");
   process.exit(1);
 }
-
-const dbClient = Client();
 
 const port = process.env.PORT ?? 3000;
 
@@ -48,11 +49,18 @@ const app = express();
 app.set("views", "views");
 app.set("view engine", "pug");
 
+app.use(
+  helmet({
+    contentSecurityPolicy:
+      " default-src 'none'; connect-src 'self'; font-src 'self' https://fonts.gstatic.com/s/sourcecodepro/v21/; img-src data: https://banlieue.pluralism.xyz/ https://banlieue.pluralism.xyz/images/; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/css2 ",
+  })
+);
 app.use(compression());
 app.use(
   cookieSession({
     name: "session",
     secret: process.env.SESSION_SECRET ?? "secret",
+    sameSite: "strict",
   })
 );
 app.use(cookieParser());
@@ -128,7 +136,7 @@ app.get("/submit", (req, res) => {
 
 app.post("/submit", (req, res) => {
   try {
-    dbClient.insertEntry(req.body);
+    db.insert(req.body);
   } catch (e) {
     res.redirect(500, "/error");
     return;
@@ -138,8 +146,7 @@ app.post("/submit", (req, res) => {
 });
 
 app.get("/data", (req, res) => {
-  dbClient
-    .listEntries()
+  db.list()
     .then(d => res.json(d))
     .catch(() => res.redirect(500, "/error"));
 });
@@ -164,6 +171,20 @@ app.get("/reset", (req, res) => {
   res.clearCookie("lang");
   res.redirect("/");
 });
+
+if (process.env.NODE_ENV === "development") {
+  app.get("/populate", (req, res) => {
+    db.populate(+req.query.n)
+      .then(() => res.redirect("/data"))
+      .catch(() => res.redirect(500, "/error"));
+  });
+
+  app.get("/clear", (req, res) => {
+    db.clear()
+      .then(() => res.redirect("/data"))
+      .catch(() => res.redirect(500, "/error"));
+  });
+}
 
 app.listen(port, () => {
   log(`Listening at http://localhost:${port}`);

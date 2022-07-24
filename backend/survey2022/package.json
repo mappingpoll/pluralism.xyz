@@ -34,6 +34,7 @@
     "cssnano": "^5.1.12",
     "debug": "^4.3.4",
     "express": "^4.17.1",
+    "helmet": "^5.1.1",
     "i18n": "^0.15.0",
     "pg": "^8.7.1",
     "postcss-media-minmax": "^5.0.0",
