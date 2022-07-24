@@ -54,8 +54,8 @@ app.use(
     contentSecurityPolicy: {
       useDefaults: false,
       directives: {
-        "default-src": ["'self'"],
-        "connect-src": ["'self'", "https://fonts.gstatic.com/s/sourcecodepro/v21/"],
+        "default-src": ["'none'"],
+        "font-src": ["'self'", "https://fonts.gstatic.com/s/sourcecodepro/v21/"],
         "img-src": ["'self'", "data:"],
         "script-src": ["'self'", "'unsafe-inline'"],
         "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com/css2"],
