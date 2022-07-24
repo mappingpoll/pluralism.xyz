@@ -1,13 +1,13 @@
 {
   "name": "survey2022",
-  "homepage": "jdlc2022.pluralism.xyz",
+  "homepage": "banlieue.pluralism.xyz",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
     "start": "node server.js",
     "css:build": "postcss style.scss -o static/style.css",
     "css:watch": "postcss style.scss -o static/style.css --watch --verbose",
-    "serve:dev": "NODE_ENV=development nodemon server.js",
+    "serve:dev": "DEBUG='db*,app*,express:*' NODE_ENV=development nodemon server.js",
     "serve:debug": "NODE_ENV=development node --trace-sync-io server.js",
     "dev": "npm-run-all --parallel css:watch serve:dev"
   },
@@ -15,6 +15,7 @@
     "@types/compression": "^1",
     "@types/cookie-parser": "^1",
     "@types/cookie-session": "^2",
+    "@types/debug": "^4",
     "autoprefixer": "^9.8.7",
     "dotenv": "^10.0.0",
     "nodemon": "^2.0.16",
@@ -22,7 +23,7 @@
     "postcss": "^8.3.8",
     "postcss-cli": "^9.0.1",
     "postcss-import": "^14.0.2",
-    "postcss-preset-env": "^6.7.0",
+    "postcss-preset-env": "^7.0.0",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0"
   },
@@ -31,11 +32,13 @@
     "cookie-parser": "^1.4.6",
     "cookie-session": "^2.0.0",
     "cssnano": "^5.1.12",
+    "debug": "^4.3.4",
     "express": "^4.17.1",
     "i18n": "^0.15.0",
     "pg": "^8.7.1",
     "postcss-media-minmax": "^5.0.0",
     "pug": "^3.0.2",
+    "winston": "^3.8.1",
     "yaml": "^2.1.1"
   },
   "browserslist": [

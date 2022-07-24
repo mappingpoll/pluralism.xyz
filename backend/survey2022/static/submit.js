@@ -1,14 +1,22 @@
 const submitBtn = document.querySelector("button");
+const spinner = document.querySelector(".spinner");
 
 submitBtn.addEventListener("click", submit);
 
 function submit() {
+  if (submitBtn.disabled) {
+    return;
+  }
+  submitBtn.disabled = true;
+  spinner.classList.remove("hidden");
+
   const data = collectLocalStorage();
   const req = new Request("/submit", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
+
   fetch(req).then(res => {
     // if the server returns a redirect, follow it
     if (res.redirected) window.location.assign(res.url);

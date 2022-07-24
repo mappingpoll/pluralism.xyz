@@ -61,6 +61,10 @@ button {
   background-color: white;
   text-transform: uppercase;
   font-size: 1.2em;
+
+  &:disabled {
+    opacity: 0.5;
+  }
 }
 
 input[type="text"] {
@@ -244,8 +248,6 @@ input[type="checkbox"] {
   }
 }
 
-.textonly,
-.submit,
 .results {
   justify-content: flex-start;
 
@@ -253,23 +255,21 @@ input[type="checkbox"] {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-grow: 2;
   }
 }
 
-.results>div {
-  justify-content: flex-start;
-}
 
 .submit {
-  & .email-input {
+  & .email-div {
     font-size: 1.25em;
   }
 
   & input[type="email"] {
     border: none;
     border-bottom: 2px solid var(--offblack);
+    margin-bottom: 1em;
     display: inline-block;
     width: 25ch;
     font-family: inherit;
@@ -501,5 +501,33 @@ input[type="checkbox"] {
     &::placeholder {
       opacity: 0.25;
     }
+  }
+}
+
+.spinner {
+  position: absolute;
+  top: 200%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  &::after {
+    content: ".";
+    animation: spin 3s linear infinite;
+    height: 1em;
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes spin {
+  0% {
+    content: ".";
+  }
+
+  33% {
+    content: "..";
+  }
+
+  66% {
+    content: "...";
   }
 }

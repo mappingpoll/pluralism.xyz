@@ -1,17 +1,28 @@
-import express from "express";
+import dotenv from "dotenv";
+
+dotenv.config();
+
 import cookieParser from "cookie-parser";
 import cookieSession from "cookie-session";
 import compression from "compression";
+import debug from "debug";
+import express from "express";
+import fs from "fs";
 import i18n from "i18n";
+import winston from "winston";
+import { parseDocument } from "yaml";
 
 import { Client, initDb } from "./database.js";
-import { parseDocument } from "yaml";
-import fs from "fs";
+
+const log = debug("app");
+const error = debug("app:error");
+
+winston.exceptions.handle(new winston.transports.File({ filename: "errors.log", handleExceptions: true }));
 
 try {
   initDb();
 } catch (e) {
-  console.error(e);
+  error("DB init failed, exiting...");
   process.exit(1);
 }
 
@@ -130,7 +141,7 @@ app.get("/data", (req, res) => {
   dbClient
     .listEntries()
     .then(d => res.json(d))
-    .catch(console.error);
+    .catch(() => res.redirect(500, "/error"));
 });
 
 app.get("/results", (req, res) => {
@@ -155,5 +166,5 @@ app.get("/reset", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}`);
+  log(`Listening at http://localhost:${port}`);
 });
