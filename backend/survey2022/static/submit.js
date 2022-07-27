@@ -1,7 +1,20 @@
+const emailInput = document.querySelector("#email");
+const commentInput = document.querySelector("#comment");
+
+const email = window.localStorage.getItem("email") ?? "";
+emailInput.value = email;
+const comment = window.localStorage.getItem("comment") ?? "";
+commentInput.value = comment;
+
+function onblur(event) {
+  window.localStorage.setItem(event.target.name, event.target.value);
+}
+
+email.onblur = onblur;
+comment.onblur = onblur;
+
 const submitBtn = document.querySelector("button");
 const spinner = document.querySelector(".spinner");
-
-submitBtn.addEventListener("click", submit);
 
 function submit() {
   if (submitBtn.disabled) {
@@ -40,8 +53,11 @@ function collectLocalStorage() {
       ?.split("=")[1]
       .slice(0, 2) ?? navigator.language.slice(0, 2);
 
-  // finally, get the email, if any
-  const email = document.querySelector("#email").value;
+  // finally, get the email and comment, if any
+  const email = emailInput.value;
+  const comment = commentInput.value;
 
-  return { data, lang, email };
+  return { data, lang, email, comment };
 }
+
+submit.onclick = submit;

@@ -9,11 +9,11 @@ body(style=style)
             block content
         block footer
             include includes/nav
-    if canComment
-        div(class="comment-modal hidden")
-            textarea(placeholder=`${__('commentPlaceholder')}`)
-            div
-                button(type="button" id="cancel-btn") #{__('cancelLabel')}
-                button(type="button" id="submit-btn") #{__('submitLabel')}
-        script(defer type="module" src="/comment.js")
+    //- if canComment
+    //-     div(class="comment-modal hidden")
+    //-         textarea(placeholder=`${__('commentPlaceholder')}`)
+    //-         div
+    //-             button(type="button" id="cancel-btn") #{__('cancelLabel')}
+    //-             button(type="button" id="submit-btn") #{__('submitLabel')}
+    //-     script(defer type="module" src="/comment.js")
     block scripts

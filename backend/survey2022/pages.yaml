@@ -30,18 +30,19 @@ pages:
   9:
     controlType: "vslider-number"
     yRange: "[0, 100]"
-    yLabelMin: "0"
-    yLabelMax: "100+"
+    yLabelMin: "0%"
+    yLabelMax: "100%"
+    unit: "%"
   10:
     controlType: "vslider-number"
     yRange: "[0, 100]"
-    yLabelMin: "0%"
-    yLabelMax: "100%"
+    yLabelMin: "0"
+    yLabelMax: "100+"
   11:
     controlType: "vslider-number"
     yRange: "[0, 100]"
-    yLabelMin: "0%"
-    yLabelMax: "100%"
+    yLabelMin: "0"
+    yLabelMax: "100+"
   12:
     controlType: "vslider-labels"
   13:
@@ -57,3 +58,4 @@ pages:
   results:
     canComment: false
     restart: true
+    pluralism: true

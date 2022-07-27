@@ -1,23 +1,23 @@
 {
   "landing": {
     "title": "Introduction",
-    "textContent": "<p>This work takes the form of a questionnaire that uses color as a means of communication.<br>Your individual responses, when compiled at the end of the exhibition, will collectively create a kind of picture of society.</p>"
+    "textContent": "<p>Hello, this is Nicolas Grenier. This work takes the form of a questionnaire that uses color as a means of communication</p><p>Your individual answers will remain anonymous. Once aggregated at the end of the exhibition, all the answers will create a kind of picture of society.</p><p>The results will be published in graphic form on the website pluralism.xyz, and I will make a public presentation at the end of the triennial.</p>"
   },
   "instructions": {
     "title": "Instructions",
-    "textContent": "<p>For each question, in addition to your answer, you will have the option to leave a comment by clicking on the \"comment\" button at the bottom of the page. All answers and comments received will be published anonymously.</p><p>At the end of each question, click \"continue\" to move on to the next question.  You can skip a question at any time and move on to the next one.</p>"
+    "textContent": "<p>On each page, click \"continue\" to move to the next question.</p><p>You can leave comments, criticisms, suggestions, etc. at the end of the questionnaire.</p><p>You can skip a question at any time and move on to the next one.</p>"
   },
   "0": {
-    "title": "0. Vivid Color",
-    "topContent": "<p>To answer the questions, you will need to create a colour by moving the sliders (the small black circles) on the vertical axes representing the primary colours cyan, magenta, and yellow.  To practice, drag the sliders below up to create a vivid color (red, orange, blue, purple, green, etc.) that combines two primary colors. Then click continue.</p>"
+    "title": "0. Practice",
+    "topContent": "<p>To answer the questions, you will need to create a colour by moving the sliders representing the primary colours (small triangles) on the vertical axes. To practice, move the sliders below up to create a bright colour that combines two primary colours. Then click on continue.</p>"
   },
   "1": {
     "title": "1. Skin Color",
-    "topContent": "<p>Pour créer des couleurs plus naturelles (corail, sable, pêche, olive, etc.),  il est généralement nécessaire de combiner les trois couleurs primaires. En utilisant au moins une touche de chaque couleur primaire, tentez de reproduire la couleur de votre teinte de peau naturelle, sans bronzage.</p>"
+    "topContent": "<p>To create more natural colours (coral, maroon, olive, etc.), it is usually necessary to combine the three primary colours. Using at least a touch of each primary colour, try to replicate the colour of your natural skin tone, without tanning.</p>"
   },
   "2": {
-    "title": "2. Pleasant Color",
-    "topContent": "<p>Now, create a color of your choice, which you think is pleasant.</p>"
+    "title": "2. Pleasant Colour",
+    "topContent": "<p>Now create a colour that feels as pleasant as possible.</p>"
   },
   "3": {
     "title": "3. Mood of the Day",
@@ -44,20 +44,21 @@
     "topContent": "<p>Think about the totality of human activities currently taking place on the planet. What future do you see for humanity in 2050? Try to create a colour that best represents what comes to mind.</p>"
   },
   "9": {
-    "title": "9. Age",
-    "topContent": "<p>To answer this and the following questions, please drag the slider (small black circle) on the vertical axis to the position that corresponds to your answer.</p><p>How old are you?</p>"
+    "title": "9. Nature",
+    "topContent": "<p>To answer this and the following questions, please move the cursor along the vertical axis to the position that corresponds to your answer.</p><p>Think about the different aspects of your life: housing, transportation, work, food, material possessions, lifestyle, etc. In approximately what proportion would you say your life is in harmony with the natural environment?</p>",
+    "yLabelMax": "100% in harmony"
   },
   "10": {
-    "title": "10. % Suburbs",
-    "topContent": "<p>How much of your life (approximately) have you spent in the suburbs?</p>"
+    "title": "10. Age",
+    "topContent": "<p>How old are you?</p>"
   },
   "11": {
-    "title": "11. Nature",
-    "topContent": "<p>Think about the different aspects of your life: housing, transportation, work, food, material possessions, lifestyle, etc. Overall, how much of your life do you feel is in harmony with the natural environment?</p>"
+    "title": "11. Suburbs",
+    "topContent": "<p>How many years of your life have you spent in the suburbs?</p>"
   },
   "12": {
-    "title": "12. Genre",
-    "topContent": "<p>To what degree do you identify with the traditional idea of \"being a man\" or \"being a woman\"?</p>",
+    "title": "12. Gender",
+    "topContent": "<p>To what degree do you identify with the traditional idea of \"being a man\" or \"being a woman\"? (Reminder: you can skip a question at any time and move on to the next).</p>",
     "scaleLabelMax": "I identify 100% with the traditional idea of \"being a woman.\"",
     "scaleLabelZero": "I do not identify with a traditional gender binary",
     "scaleLabelMin": "I identify 100% with the traditional idea of \"being a man\""
@@ -81,7 +82,8 @@
   },
   "submit": {
     "title": "End",
-    "textContent": "<p>If you would like to see the results of the project, please leave your email to receive a viewing link at the end of the exhibition. (Your email will not be shared.)</p>"
+    "topText": "If you would like to see the results of the project, please leave your email to receive a viewing link at the end of the exhibition. (Your email will not be shared.)",
+    "bottomText": "If you have any comments, suggestions, criticisms, etc., don't hesitate to contact us! They will be published anonymously with the results."
   },
   "results": {
     "title": "Results",

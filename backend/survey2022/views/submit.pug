@@ -3,12 +3,17 @@ extends base
 block content
     div(class="submit")
         h1 !{title}
-        div !{textContent}
         div(class="centered-content" style="flex-direction: column;")
+            div 
+                p !{topText}
             div(class="email-div")
                 span [
-                input(id='email' type='email' name='email' placeholder='abc123@email.com')
+                input(id="email" type="email" name="email" placeholder="abc123@email.com")
                 span ]
+            div 
+                p !{bottomText}
+            div
+                textarea(id="comment" name="comment", cols="30", rows="10" placeholder=`${__("commentPlaceholder")}`)
             div(style="position: relative;")
                 button(type="button") #{__("submitLabel")}
                 div(class="spinner hidden")

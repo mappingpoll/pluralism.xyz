@@ -129,6 +129,7 @@ app.get("/:number(\\d{1,2}):letter([a-z]?)", (req, res) => {
     scaleLabelZero: res.__(`${key}.scaleLabelZero`),
     scaleLabelMidMin: res.__(`${key}.scaleLabelMidMin`),
     scaleLabelMin: res.__(`${key}.scaleLabelMin`),
+    yLabelMax: res.__(`${key}.yLabelMax`),
   };
 
   if (letter) {
@@ -143,7 +144,8 @@ app.get("/submit", (req, res) => {
     ...pageConfig.default,
     ...pageConfig.pages.submit,
     title: res.__("submit.title"),
-    textContent: res.__("submit.textContent"),
+    topText: res.__("submit.topText"),
+    bottomText: res.__("submit.bottomText"),
   };
   res.render("submit", opts);
 });

@@ -1,23 +1,23 @@
 {
   "landing": {
     "title": "Introduction",
-    "textContent": "<p>Cette œuvre prend la forme d’un questionnaire qui utilise la couleur comme moyen de communication.<br>Vos réponses individuelles, une fois rassemblées à la fin de l’exposition, créeront collectivement une sorte de  portrait de société.</p>"
+    "textContent": "<p>Bonjour, ici Nicolas Grenier. Cette œuvre prend la forme d’un questionnaire qui utilise la couleur comme moyen de communication.</p><p>Vos réponses individuelles resteront anonymes. Une fois rassemblées à la fin de l’exposition, l'ensemble des réponses créera une sorte de portrait de société.</p><p>Vous pouvez participer à l’exposition en cliquant sur le bouton « Participer ».</p><p>Les résultats seront publiés sous forme de graphiques sur le site web pluralism.xyz, et je ferai une présentation publique à la fin de la triennale.</p>"
   },
   "instructions": {
     "title": "Instructions",
-    "textContent": "<p>À chaque question, en plus de votre réponse, vous aurez l’option de laisser un commentaire en cliquant sur le bouton «commentaire», en bas de page. Toutes les  réponses et les commentaires reçus seront publiés de manière anonyme.</p><p>À la fin de chaque question, cliquer sur “continuer” pour passer à la question suivante.  Vous pouvez en tout temps sauter une question et passer à la suivante.</p>"
+    "textContent": "<p>À chaque page, cliquez sur “continuer” pour passer à la question suivante.</p><p>Vous pourrez laisser des commentaires, critiques, suggestions, etc. à la fin du questionnaire.</p><p><u>Vous pouvez en tout temps sauter une question et passer à la suivante.</u></p>"
   },
   "0": {
-    "title": "0. Couleur vive",
-    "topContent": "<p>Pour répondre aux questions, vous devrez créer une couleur en déplaçant  les  curseurs (les petits ronds noirs) sur les axes verticaux représentant les couleurs primaires  cyan, magenta, et jaune.  Pour vous pratiquer, déplacez les curseurs ci-dessous vers le haut afin de créer une couleur vive (rouge, orange, bleu, violet, vert, etc.) qui combine deux  couleurs primaires. Ensuite, cliquez sur continuer.</p>"
+    "title": "0. Pratique",
+    "topContent": "<p>Pour répondre aux questions, vous devrez créer une couleur en déplaçant les curseurs représentant les couleurs primaires (petits triangles) sur les axes verticaux. Pour vous pratiquer, déplacez les curseurs ci-dessous vers le haut afin de créer une couleur vive qui combine deux couleurs primaires. Ensuite, cliquez sur continuer.</p>"
   },
   "1": {
     "title": "1. Couleur de peau",
-    "topContent": "<p>Pour créer des couleurs plus naturelles (corail, sable, pêche, olive, etc.),  il est généralement nécessaire de combiner les trois couleurs primaires. En utilisant au moins une touche de chaque couleur primaire, tentez de reproduire la couleur de votre teinte de peau naturelle, sans bronzage.</p>"
+    "topContent": "<p>Pour créer des couleurs plus naturelles (corail,  marron, olive, etc.),  il est généralement nécessaire de combiner les trois couleurs primaires. En utilisant au moins une touche de chaque couleur primaire, tentez de reproduire la couleur de votre teinte de peau naturelle, sans bronzage.</p>"
   },
   "2": {
     "title": "2. Couleur agréable",
-    "topContent": "<p>Maintenant, créez une couleur de votre choix, qui vous semble agréable.</p>"
+    "topContent": "<p>Maintenant, créez une couleur qui vous semble aussi agréable que possible.</p>"
   },
   "3": {
     "title": "3. Humeur du jour",
@@ -44,20 +44,21 @@
     "topContent": "<p>Pensez à la totalité des activités humaines se déroulant présentement sur la planète. Quel futur voyez-vous pour l'humanité en 2050 ? Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p>"
   },
   "9": {
-    "title": "9. Âge",
-    "topContent": "<p>Pour répondre à cette question et aux suivantes, veuillez glissez le curseur (petit rond noir) sur l’axe vertical, jusqu’à la position qui correspond à votre réponse.</p><p>Quel âge avez-vous ?</p>"
+    "title": "9. Nature",
+    "topContent": "<p>Pour répondre à cette question et aux suivantes, veuillez glissez le curseur sur l’axe vertical, jusqu’à la position qui correspond à votre réponse.</p><p>Pensez aux différents aspects de votre vie: habitation, transport, travail, nourriture, possessions matérielles, mode de vie, etc. Dans quelle proportion environ diriez-vous que votre vie est en harmonie avec le milieu naturel?</p>",
+    "yLabelMax": "100% en harmonie"
   },
   "10": {
-    "title": "10. % banlieue",
-    "topContent": "<p>Quelle proportion de votre vie (environ) avez-vous passé en banlieue ?</p>"
+    "title": "10. Âge",
+    "topContent": "<p>Pour répondre à cette question et aux suivantes, veuillez glissez le curseur (petit rond noir) sur l’axe vertical, jusqu’à la position qui correspond à votre réponse.</p><p>Quel âge avez-vous ?</p>"
   },
   "11": {
-    "title": "11. Nature",
-    "topContent": "<p>Pensez aux différents aspects de votre vie: habitation, transport, travail, nourriture, possessions matérielles, mode de vie, etc. Dans l’ensemble, quelle proportion de votre vie vous semble en harmonie avec le milieu naturel?</p>"
+    "title": "11. Banlieue",
+    "topContent": "<p>Combien d’années de votre vie (environ) avez-vous passé en banlieue ?</p>"
   },
   "12": {
     "title": "12. Genre",
-    "topContent": "<p>À quel degré vous identifiez-vous à l’idée traditionnelle «d’être un homme» ou «d’être une femme» ?</p>",
+    "topContent": "<p>À quel degré vous identifiez-vous à l’idée traditionnelle «d’être un homme» ou «d’être une femme» ? (Rappel: vous pouvez en tout temps sauter une question et passer à la suivante.)</p>",
     "scaleLabelMax": "Je m'identifie à 100% à l'idée traditionnelle «d'être une femme»",
     "scaleLabelZero": "Je ne m'identifie pas à un genre binaire traditionnel",
     "scaleLabelMin": "Je m'identifie à 100% à l'idée traditionnelle «d'être une homme»"
@@ -81,7 +82,8 @@
   },
   "submit": {
     "title": "Fin",
-    "textContent": "<p>Si vous voulez voir les résultats du projet, veuillez laisser votre courriel pour recevoir un lien de visualisation à la fin de l'exposition. (Votre courriel ne sera pas partagé.)</p>"
+    "topText": "Si vous voulez voir les résultats du projet, veuillez laisser votre courriel pour recevoir un lien de visualisation à la fin de l'exposition. (Votre courriel ne sera pas partagé.)",
+    "bottomText": "Si vous avez des commentaires, suggestions, critiques, etc., ne vous gênez pas! Ils seront publiés anonymement avec les résultats."
   },
   "results": {
     "title": "Résultats",
