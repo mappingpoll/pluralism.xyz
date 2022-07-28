@@ -1,17 +1,17 @@
 div(class="color-view")
 div(class="color-picker")
     div
-        div(class="centered-content")
-            div(class="vslider" id="cyan")
-                div(class="handle")
-        label(for="cyan") Cyan
+        div(class="vslider" id="cyan")
+            div(class="handle" id="cyan-handle")
+                img(src="/images/tri-cyan.svg")
+            div(class="fill" style="background-color: cyan;")
     div
-        div(class="centered-content")
-            div(class="vslider" id="magenta")
-                div(class="handle")
-        label(for="magenta") Magenta
+        div(class="vslider" id="magenta")
+            div(class="handle" id="magenta-handle")
+                img(src="/images/tri-magenta.svg")
+            div(class="fill" style="background-color: magenta;")
     div
-        div(class="centered-content")
-            div(class="vslider" id="yellow")
-                div(class="handle")
-        label(for="yellow") #{__('yellow')}
+        div(class="vslider" id="yellow")
+            div(class="handle" id="yellow-handle")
+                img(src="/images/tri-yellow.svg")
+            div(class="fill" style="background-color: yellow;")

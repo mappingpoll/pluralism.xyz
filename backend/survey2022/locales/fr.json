@@ -1,7 +1,7 @@
 {
   "landing": {
     "title": "Introduction",
-    "textContent": "<p>Bonjour, ici Nicolas Grenier. Cette œuvre prend la forme d’un questionnaire qui utilise la couleur comme moyen de communication.</p><p>Vos réponses individuelles resteront anonymes. Une fois rassemblées à la fin de l’exposition, l'ensemble des réponses créera une sorte de portrait de société.</p><p>Vous pouvez participer à l’exposition en cliquant sur le bouton « Participer ».</p><p>Les résultats seront publiés sous forme de graphiques sur le site web pluralism.xyz, et je ferai une présentation publique à la fin de la triennale.</p>"
+    "textContent": "<p>Cette œuvre prend la forme d’un questionnaire qui utilise la couleur comme moyen de communication. Pour participer, cliquer sur “continuer”, ci-dessous.</p><p>Vos réponses resteront anonymes. Une fois rassemblées à la fin de l’exposition, vos réponses individuelles créeront collectivement une sorte de portrait de société.</p><p>Les résultats seront présentés à la fin de la triennale sous forme de graphiques.</p>"
   },
   "instructions": {
     "title": "Instructions",
@@ -50,11 +50,13 @@
   },
   "10": {
     "title": "10. Âge",
-    "topContent": "<p>Pour répondre à cette question et aux suivantes, veuillez glissez le curseur (petit rond noir) sur l’axe vertical, jusqu’à la position qui correspond à votre réponse.</p><p>Quel âge avez-vous ?</p>"
+    "topContent": "<p>Pour répondre à cette question et aux suivantes, veuillez glissez le curseur (petit rond noir) sur l’axe vertical, jusqu’à la position qui correspond à votre réponse.</p><p>Quel âge avez-vous ?</p>",
+    "yLabelMax": "100+"
   },
   "11": {
     "title": "11. Banlieue",
-    "topContent": "<p>Combien d’années de votre vie (environ) avez-vous passé en banlieue ?</p>"
+    "topContent": "<p>Combien d’années de votre vie (environ) avez-vous passé en banlieue ?</p>",
+    "yLabelMax": "100+"
   },
   "12": {
     "title": "12. Genre",
@@ -87,7 +89,7 @@
   },
   "results": {
     "title": "Résultats",
-    "textContent": "<p>Merci de votre participation.</p><p>Vous trouverez ci-dessous les résultats partiels collectés jusqu'à présent.</p>"
+    "textContent": "<p>Merci de votre participation!</p>"
   },
   "commentLabel": "commentaire",
   "commentPlaceholder": "Vous pouvez laisser un commentaire ici.",

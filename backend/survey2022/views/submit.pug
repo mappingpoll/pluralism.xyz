@@ -12,8 +12,7 @@ block content
                 span ]
             div 
                 p !{bottomText}
-            div
-                textarea(id="comment" name="comment", cols="30", rows="10" placeholder=`${__("commentPlaceholder")}`)
+            textarea(id="comment" name="comment" rows="10" placeholder=`${__("commentPlaceholder")}`)
             div(style="position: relative;")
                 button(type="button") #{__("submitLabel")}
                 div(class="spinner hidden")

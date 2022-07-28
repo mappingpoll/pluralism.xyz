@@ -1,0 +1,11 @@
+extends base
+
+block content
+    div(class="textonly")
+        h1 !{title}
+        div(class="pcode")
+            div
+                div !{topContent}
+                input(id='pcode' type='text' name='pcode' placeholder="A0A0A0" maxlength=6 pattern='^([A-Z]\d){3}$' title='ex: A0B1C3')
+            div !{bottomContent}
+        

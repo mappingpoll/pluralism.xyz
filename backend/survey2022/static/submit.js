@@ -10,8 +10,8 @@ function onblur(event) {
   window.localStorage.setItem(event.target.name, event.target.value);
 }
 
-email.onblur = onblur;
-comment.onblur = onblur;
+emailInput.addEventListener("blur", onblur);
+commentInput.addEventListener("blur", onblur);
 
 const submitBtn = document.querySelector("button");
 const spinner = document.querySelector(".spinner");
@@ -60,4 +60,4 @@ function collectLocalStorage() {
   return { data, lang, email, comment };
 }
 
-submit.onclick = submit;
+submitBtn.addEventListener("click", submit);

@@ -74,7 +74,6 @@ app.use(
     secret: process.env.SESSION_SECRET ?? "secret",
     sameSite: "strict",
     secure: true,
-    httpOnly: true,
   })
 );
 app.use(cookieParser());
@@ -88,14 +87,13 @@ app.get("/", (req, res) => {
     res.redirect("/");
     return;
   }
-  req.session.visits = (req.session.visits ?? 0) + 1;
   const opts = { ...pageConfig.default, ...pageConfig.pages.landing };
+  opts.reset = !req.session.isNew;
   opts.title = res.__("landing.title");
   opts.textContent = res.__("landing.textContent");
   opts.otherLang = res.__("otherLang");
 
-  opts.reset = !req.session.isNew;
-
+  req.session.visits = (req.session.visits ?? 0) + 1;
   res.render("landing", opts);
 });
 
@@ -134,6 +132,8 @@ app.get("/:number(\\d{1,2}):letter([a-z]?)", (req, res) => {
 
   if (letter) {
     res.render("textonly", opts);
+  } else if (number == 14) {
+    res.render("pcode", opts);
   } else {
     res.render("interact", opts);
   }

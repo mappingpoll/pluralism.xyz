@@ -1,7 +1,7 @@
 {
   "landing": {
     "title": "Introduction",
-    "textContent": "<p>Hello, this is Nicolas Grenier. This work takes the form of a questionnaire that uses color as a means of communication</p><p>Your individual answers will remain anonymous. Once aggregated at the end of the exhibition, all the answers will create a kind of picture of society.</p><p>The results will be published in graphic form on the website pluralism.xyz, and I will make a public presentation at the end of the triennial.</p>"
+    "textContent": "<p>This work takes the form of a questionnaire that uses colour as a means of communication. To participate, click on \"continue\" below.</p><p>Your answers will remain anonymous. Once compiled at the end of the exhibition, your individual responses will collectively create a kind of picture of society</p><p>The results will be presented at the end of the triennial in the form of graphics.</p>"
   },
   "instructions": {
     "title": "Instructions",
@@ -50,11 +50,13 @@
   },
   "10": {
     "title": "10. Age",
-    "topContent": "<p>How old are you?</p>"
+    "topContent": "<p>How old are you?</p>",
+    "yLabelMax": "100+"
   },
   "11": {
     "title": "11. Suburbs",
-    "topContent": "<p>How many years of your life have you spent in the suburbs?</p>"
+    "topContent": "<p>How many years of your life have you spent in the suburbs?</p>",
+    "yLabelMax": "100+"
   },
   "12": {
     "title": "12. Gender",
@@ -87,7 +89,7 @@
   },
   "results": {
     "title": "Results",
-    "textContent": "<p>Thank you for your participation.</p><p>You will find bellow the partial results collected so far.</p>"
+    "textContent": "<p>Thank you for your participation!</p>"
   },
   "commentLabel": "comment",
   "commentPlaceholder": "You can leave a comment here...",

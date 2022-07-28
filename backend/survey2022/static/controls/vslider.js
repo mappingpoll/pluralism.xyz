@@ -23,7 +23,7 @@ const persist = makePersistFn(getValue, showValue);
 const ondrag = event => {
   const r = restrictXY(event.clientY);
 
-  handle.style.top = `${r}px`;
+  handle.style.top = handle.nextSibling.style.top = `${r}px`;
 
   const n = normalize(r);
 
@@ -36,20 +36,21 @@ makeDraggable(handle, ondrag, ondrop);
 
 let value = getCachedValue() ?? 0.5;
 
-handle.style.top = `${denormalize(value)}px`;
+handle.style.top = handle.nextSibling.style.top = `${denormalize(value)}px`;
+
 window.addEventListener("resize", () => {
   const value = getCachedValue() ?? 0.5;
-  handle.style.top = `${denormalize(value)}px`;
+  const top = denormalize(value) + "px";
+  handle.style.top = handle.nextSibling.style.top = top;
 });
-
-handle.style.left = "50%";
 
 showValue(value);
 
 if (valueInput) {
   valueInput.addEventListener("change", event => {
     const v = event.target.value;
-    handle.style.top = `${denormalize(v / domain)}px`;
+    const top = denormalize(v / domain) + "px";
+    handle.style.top = handle.nextSibling.style.top = top;
     persist();
   });
 }
