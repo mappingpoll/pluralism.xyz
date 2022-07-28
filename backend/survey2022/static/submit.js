@@ -41,7 +41,12 @@ function collectLocalStorage() {
   const data = [];
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
-    const value = JSON.parse(localStorage.getItem(key));
+    let value = localStorage.getItem(key);
+    try {
+      value = JSON.parse(value);
+    } catch (e) {
+      // do nothing
+    }
     data.push({ key, value });
   }
 

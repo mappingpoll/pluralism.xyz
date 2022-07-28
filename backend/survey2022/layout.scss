@@ -161,19 +161,6 @@
   }
 }
 
-.results {
-  justify-content: flex-start;
-
-  &>div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    flex-grow: 2;
-  }
-}
-
-
 .submit {
   & .email-div {
     font-size: 1.25em;
@@ -228,7 +215,7 @@
 .color-view,
 .xy-view {
   width: min(50vw, calc(var(--max-content-width) / 2));
-  border: 1px solid var(--offblack);
+  border: 2px solid var(--offblack);
 
 }
 

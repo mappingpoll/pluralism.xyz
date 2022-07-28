@@ -73,7 +73,6 @@ app.use(
     name: "session",
     secret: process.env.SESSION_SECRET ?? "secret",
     sameSite: "strict",
-    secure: true,
   })
 );
 app.use(cookieParser());

@@ -50,7 +50,7 @@
   },
   "10": {
     "title": "10. Âge",
-    "topContent": "<p>Pour répondre à cette question et aux suivantes, veuillez glissez le curseur (petit rond noir) sur l’axe vertical, jusqu’à la position qui correspond à votre réponse.</p><p>Quel âge avez-vous ?</p>",
+    "topContent": "<p>Quel âge avez-vous ?</p>",
     "yLabelMax": "100+"
   },
   "11": {
