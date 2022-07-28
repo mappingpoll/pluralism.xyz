@@ -84,7 +84,7 @@ export function Database() {
     const client = await pool.connect();
     const users = Array(n)
       .fill("")
-      .map(_ => fakeUserData());
+      .map(() => fakeUserData());
 
     try {
       await client.query("BEGIN");

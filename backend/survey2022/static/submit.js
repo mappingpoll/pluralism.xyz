@@ -59,6 +59,7 @@ function collectLocalStorage() {
       .slice(0, 2) ?? navigator.language.slice(0, 2);
 
   // finally, get the email and comment, if any
+
   const email = emailInput.value;
   const comment = commentInput.value;
 

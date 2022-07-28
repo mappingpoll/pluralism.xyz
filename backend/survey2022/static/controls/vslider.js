@@ -23,6 +23,7 @@ const persist = makePersistFn(getValue, showValue);
 const ondrag = event => {
   const r = restrictXY(event.clientY);
 
+  vSlider.style.opacity = 1;
   handle.style.top = handle.nextSibling.style.top = `${r}px`;
 
   const n = normalize(r);
@@ -35,6 +36,11 @@ const ondrop = () => persist();
 makeDraggable(handle, ondrag, ondrop);
 
 let value = getCachedValue() ?? 0.5;
+const touched = !!getCachedValue();
+
+if (!touched) {
+  vSlider.style.opacity = 0.5;
+}
 
 handle.style.top = handle.nextSibling.style.top = `${denormalize(value)}px`;
 
@@ -48,8 +54,18 @@ showValue(value);
 
 if (valueInput) {
   valueInput.addEventListener("change", event => {
-    const v = event.target.value;
+    let v = event.target.value;
+
+    if (isNaN(parseInt(v))) {
+      v = domain / 2;
+    } else if (v > __yRange[1]) {
+      v = __yRange[1];
+    } else if (v < __yRange[0]) {
+      v = __yRange[0];
+    }
+
     const top = denormalize(v / domain) + "px";
+    vSlider.style.opacity = 1;
     handle.style.top = handle.nextSibling.style.top = top;
     persist();
   });
