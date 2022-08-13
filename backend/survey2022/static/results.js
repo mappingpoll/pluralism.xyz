@@ -13,8 +13,8 @@ async function fetchQinfo(key) {
 function parse(rows) {
   const parsed = {};
   for (const user of rows) {
-    for (const [key, value] of Object.entries(user.data.data)) {
-      const datum = { value: value.value, id: user.id, email: user.data?.email };
+    for (const { key, value } of user.data.data) {
+      const datum = { value, id: user.id, email: user.data?.email };
       parsed[key] = [...(parsed[key] || []), datum];
     }
   }
@@ -60,7 +60,7 @@ function lightSatGraph(canvasEl, answers) {
     canvas.fillRect(x, y, cellWidth, cellHeight);
 
     // add email
-    if (answers[i].email) {
+    if (answers[i]?.email === "ouennassa@gmail.com") {
       canvas.font = "10px monospace";
       canvas.fillStyle = "black";
       canvas.fillText(answers[i].email, x + cellWidth, y + cellHeight);
