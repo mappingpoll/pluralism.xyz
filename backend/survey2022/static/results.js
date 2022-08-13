@@ -1,4 +1,4 @@
-import { cmyToHsl } from "./helpers.js";
+import { cmyToHsl, cmyToRgb } from "./helpers.js";
 
 async function fetchResults() {
   const res = await fetch("/data");
@@ -21,45 +21,12 @@ function parse(rows) {
   return parsed;
 }
 
-function makeLumSatGraph(canvasEl, cmyColors) {
-  const lumSat = [];
-
-  const domain = {
-    l: { min: Infinity, max: -Infinity },
-    s: { min: Infinity, max: -Infinity },
-  };
-  const range = cmyColors.length;
-
-  for (const cmy of cmyColors) {
-    const hsl = cmyToHsl(cmy);
-    const { l, s } = hsl;
-    domain.l.min = Math.min(domain.l.min, l);
-    domain.l.max = Math.max(domain.l.max, l);
-    domain.s.min = Math.min(domain.s.min, s);
-    domain.s.max = Math.max(domain.s.max, s);
-
-    lumSat.push(hsl);
-  }
-
+function lightSatGraph(canvasEl, cmyColors) {
   const canvas = canvasEl.getContext("2d");
   const { width, height } = canvasEl;
 
   const cellWidth = 12;
   const cellHeight = 12;
-
-  // draw grid
-  /*   canvas.strokeStyle = "lightgray";
-  canvas.lineWidth = 1;
-  canvas.beginPath();
-  for (let i = 0; i <= range; i++) {
-    canvas.moveTo(0, i * cellHeight);
-    canvas.lineTo(width, i * cellHeight);
-    canvas.moveTo(i * cellWidth, 0);
-    canvas.lineTo(i * cellWidth, height);
-  }
-  canvas.stroke();
-  canvas.closePath();
- */
 
   {
     // draw saturation rainbow
@@ -83,11 +50,12 @@ function makeLumSatGraph(canvasEl, cmyColors) {
     canvas.fillRect(0, 0, colors * h, height - gap);
   }
   // draw colored squares
-  for (let i = 0; i < range; i++) {
-    const { h, s, l } = lumSat[i];
+  for (let i = 0; i < cmyColors.length; i++) {
+    const { s, l } = cmyToHsl(cmyColors[i]);
     const x = (1 - s) * width;
     const y = (1 - l) * height;
-    canvas.fillStyle = `hsl(${h}deg, ${s * 100}%, ${l * 100}%)`;
+    const { r, g, b } = cmyToRgb(cmyColors[i]);
+    canvas.fillStyle = `rgb(${r}, ${g}, ${b})`;
     canvas.fillRect(x, y, cellWidth, cellHeight);
   }
 }
@@ -111,7 +79,7 @@ fetchResults()
 
       const canvas = document.createElement("canvas");
       canvas.width = canvas.height = container.clientWidth * 0.8;
-      makeLumSatGraph(canvas, answerColors);
+      lightSatGraph(canvas, answerColors);
 
       div.appendChild(title);
       div.appendChild(canvas);
