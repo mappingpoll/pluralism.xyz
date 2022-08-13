@@ -14,7 +14,7 @@ function parse(rows) {
   const parsed = {};
   for (const user of rows) {
     for (const [key, value] of Object.entries(user.data.data)) {
-      const datum = { value: value.value, id: user.id, email: user?.email };
+      const datum = { value: value.value, id: user.id, email: user.data?.email };
       parsed[key] = [...(parsed[key] || []), datum];
     }
   }
