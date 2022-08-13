@@ -60,11 +60,11 @@ function lightSatGraph(canvasEl, answers) {
     canvas.fillRect(x, y, cellWidth, cellHeight);
 
     // add email
-    if (answers[i]?.email === "ouennassa@gmail.com") {
+    /*     if (answers[i]?.email === "ouennassa@gmail.com") {
       canvas.font = "10px monospace";
       canvas.fillStyle = "black";
       canvas.fillText(answers[i].email, x + cellWidth, y + cellHeight);
-    }
+    } */
   }
 }
 
