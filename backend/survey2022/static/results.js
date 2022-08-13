@@ -14,14 +14,15 @@ function parse(rows) {
   const parsed = {};
   for (const user of rows) {
     for (const [key, value] of Object.entries(user.data.data)) {
-      const datum = { value: value.value, id: user.id };
+      const datum = { value: value.value, id: user.id, email: user?.email };
       parsed[key] = [...(parsed[key] || []), datum];
     }
   }
   return parsed;
 }
 
-function lightSatGraph(canvasEl, cmyColors) {
+function lightSatGraph(canvasEl, answers) {
+  const cmyColors = answers.map(({ value }) => value);
   const canvas = canvasEl.getContext("2d");
   const { width, height } = canvasEl;
 
@@ -57,6 +58,13 @@ function lightSatGraph(canvasEl, cmyColors) {
     const { r, g, b } = cmyToRgb(cmyColors[i]);
     canvas.fillStyle = `rgb(${r}, ${g}, ${b})`;
     canvas.fillRect(x, y, cellWidth, cellHeight);
+
+    // add email
+    if (answers[i].email) {
+      canvas.font = "10px monospace";
+      canvas.fillStyle = "black";
+      canvas.fillText(answers[i].email, x + cellWidth, y + cellHeight);
+    }
   }
 }
 
@@ -68,7 +76,6 @@ fetchResults()
     const answers = parse(data.rows);
     // colors
     for (const key of keyMap.colors) {
-      const answerColors = answers[key].map(({ value }) => value);
       const div = document.createElement("div");
       div.classList.add("results-display");
       const title = document.createElement("h3");
@@ -79,6 +86,7 @@ fetchResults()
 
       const canvas = document.createElement("canvas");
       canvas.width = canvas.height = container.clientWidth * 0.8;
+      const answerColors = answers[key];
       lightSatGraph(canvas, answerColors);
 
       div.appendChild(title);
