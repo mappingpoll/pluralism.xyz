@@ -1,4 +1,4 @@
-export const keys = {
+export const keyMap = {
   colors: Array(9)
     .fill("")
     .map((_, i) => `${i}`), // "0" to "8"

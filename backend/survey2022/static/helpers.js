@@ -106,26 +106,28 @@ export function rgbToHsl({ r, g, b }) {
   const max = Math.max(r_, g_, b_);
   const min = Math.min(r_, g_, b_);
 
-  const d = max - min;
+  const c = max - min;
 
   const h =
-    d === 0
+    c === 0
       ? 0
       : max === r_
-      ? (60 * ((g_ - b_) / d)) % 6
+      ? ((g_ - b_) / c) % 6
       : max === g_
-      ? (60 * (b_ - r_)) / d + 2
-      : (60 * (r_ - g_)) / d + 4;
+      ? (b_ - r_) / c + 2
+      : (r_ - g_) / c + 4;
 
   const l = (max + min) / 2;
 
-  const s = d === 0 ? 0 : d / (1 - Math.abs(2 * l - 1));
+  const s = c === 0 ? 0 : c === 1 ? 0 : c / (1 - Math.abs(2 * l - 1));
 
   // hue: degrees
   // saturation: %
   // lightness: %
-  return { h, s, l };
+  return { h: 60 * h, s, l };
 }
+
+export const cmyToHsl = ({ c, m, y }) => rgbToHsl(cmyToRgb({ c, m, y }));
 
 export function makeDraggable(element, ondrag, ondrop) {
   element.addEventListener("mousedown", () => {

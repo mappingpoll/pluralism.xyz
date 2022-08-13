@@ -1,7 +1,7 @@
 import pg from "pg";
 import debug from "debug";
 
-import { keys } from "./const.js";
+import { keyMap } from "./static/const.js";
 
 const log = debug("db");
 const error = debug("db:error");
@@ -132,18 +132,18 @@ function fakeUserData() {
   const data = [];
 
   // random colors
-  for (const key of keys.colors) {
+  for (const key of keyMap.colors) {
     const c = { c: roundRand(), m: roundRand(), y: roundRand() };
     data.push({ key, value: c });
   }
 
   // random points
-  for (const key of keys.points) {
+  for (const key of keyMap.points) {
     data.push({ key, value: roundRand() });
   }
 
   // random pcode
   const p = Math.round(Math.random()) === 0 ? [pCode(), false] : ["", true];
-  data.push({ key: keys.pcode, value: p });
+  data.push({ key: keyMap.pcode, value: p });
   return { data };
 }

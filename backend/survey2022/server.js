@@ -14,7 +14,7 @@ import winston from "winston";
 import { parseDocument } from "yaml";
 
 import { Database } from "./database.js";
-import { keys } from "./const.js";
+import { keyMap } from "./static/const.js";
 
 const db = new Database();
 
@@ -172,10 +172,21 @@ app.get("/results", (req, res) => {
     ...pageConfig.pages.results,
     title: res.__("results.title"),
     textContent: res.__("results.textContent"),
-    keys: JSON.stringify(keys),
+    keyMap: JSON.stringify(keyMap),
   };
 
   res.render("results", opts);
+});
+
+app.get("/results-wip", (req, res) => {
+  const opts = {
+    ...pageConfig.default,
+    ...pageConfig.pages.results,
+    title: res.__("results.title"),
+    textContent: res.__("results.textContent"),
+    keyMap: JSON.stringify(keyMap),
+  };
+  res.render("results-wip", opts);
 });
 
 app.get("/error", (req, res) => {
@@ -186,6 +197,14 @@ app.get("/reset", (req, res) => {
   req.session = null;
   res.clearCookie("lang");
   res.redirect("/");
+});
+
+app.get("/question/:key", (req, res) => {
+  const key = req.params.key;
+
+  res.json({
+    title: res.__(`${key}.title`),
+  });
 });
 
 if (process.env.NODE_ENV === "development") {

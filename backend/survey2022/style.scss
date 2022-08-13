@@ -3,9 +3,17 @@
 @import url("results.scss");
 @import url("slider.scss");
 
-@font-face {
+/* @font-face {
     font-family: Didot;
     src: url("didot-regular.ttf") format("truetype");
+} */
+@font-face {
+    font-family: Theano Didot;
+    font-style: normal;
+    font-weight: 400;
+    src: local("Theano Didot Regular"), local("TheanoDidot-Regular"), url(theano-didot-regular-latin.woff2) format("woff2"), url(theano-didot-regular-latin.woff) format("woff");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2212, U+2215;
+    font-display: auto;
 }
 
 :root {
@@ -54,7 +62,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Didot', 'Georgia', 'Times', 'Times New Roman', serif;
+    font-family: 'Theano Didot', 'Georgia', 'Times', 'Times New Roman', serif;
     font-style: italic;
     text-transform: uppercase;
 }
