@@ -15,7 +15,8 @@ async function fetchQinfo(key) {
 function parse(rows) {
   const parsed = {};
   for (const user of rows) {
-    for (const { key, value } of user.data.data) {
+    for (let { key, value } of user.data.data) {
+      if (key in keyMap.colors) value = new Color(value);
       const datum = { value, id: user.id, email: user.data?.email };
       parsed[key] = [...(parsed[key] || []), datum];
     }
@@ -46,14 +47,13 @@ fetchResults()
         title.innerText = info.title;
       });
 
-      const cmyColors = parsed[key].map(({ value }) => value);
-      const hslColors = cmyColors.map(Color.cmyToHsl);
+      const colors = parsed[key].map(({ value }) => value);
 
       const { canvas, graph } = makeGraphCanvas(container.clientWidth);
-      graph.lightSat(cmyColors, 12);
+      graph.lightSat(colors, 12);
 
       const { canvas: canvas2, graph: graph2 } = makeGraphCanvas(container.clientWidth);
-      graph2.mosaic(hslColors);
+      graph2.mosaic(colors);
 
       div.appendChild(title);
       div.appendChild(canvas);
