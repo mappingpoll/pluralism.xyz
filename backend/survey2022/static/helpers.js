@@ -12,7 +12,7 @@ export function timestamp() {
   return new Date(`${year}-${month}-${day}T${`0${rawHour}`.slice(-2)}:${min}:00`);
 }
 
-function memoize(fn) {
+export function memoize(fn) {
   const cache = {};
   return function (...args) {
     const key = JSON.stringify(args);
