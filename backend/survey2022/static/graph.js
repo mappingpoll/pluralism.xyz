@@ -1,5 +1,3 @@
-import { Color } from "./color.js";
-
 export class GraphGeometry {
   constructor(canvasW, canvasH, legendThickness) {
     this.left = legendThickness;
