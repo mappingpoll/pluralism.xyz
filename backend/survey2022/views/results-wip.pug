@@ -1,9 +1,14 @@
-extends base
+doctype html
+head
+    include includes/head
+    block head-scripts
+body(style=style)
+    div(class="page-container")
+        block lang
+        div(class="page-content")
+            div(class="results")
+                div !{textContent}
+        include includes/nav
 
-block content
-    div(class="results")
-        div !{textContent}
-
-block scripts
     script window.__keyMap = JSON.parse('!{keyMap}')
     script(defer type="module" src="/results.js")
