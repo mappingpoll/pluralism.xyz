@@ -60,7 +60,7 @@ export class Graph {
       const { x, y } = this.translateNorm(_x, _y);
       // const { r, g, b } = Color.cmyToRgb(cmyColors[i]);
       this.ctx.fillStyle = color.rgbString;
-      this.ctx.fillRect(x, y, cellSize, cellSize);
+      this.ctx.fillRect(x, y - cellSize, cellSize, cellSize);
     }
   }
 
@@ -85,11 +85,12 @@ export class Graph {
     for (let _y = 0; _y < gridH; _y++) {
       const row = sorted.splice(0, gridW); // get the next row
       row.sort((a, b) => a.s - b.s); // sort by saturation
-      for (let _x = 0; _x < gridW; _x++) {
-        const color = row[_x];
+      let _x = 0;
+      for (const color of row) {
         this.ctx.fillStyle = color.rgbString;
         const { x, y } = this.translateNorm(1 - (_x + 1) / gridW, 1 - (_y + 1) / gridH);
         this.ctx.fillRect(x, y, cellW, cellH);
+        _x++;
       }
     }
   }
