@@ -20,11 +20,15 @@ export class Color {
   }
 
   get rgb() {
-    return Color.cmyToRgb(this);
+    return { r: this.r, g: this.g, b: this.b };
   }
 
   get hsl() {
-    return Color.cmyToHsl(this);
+    return { h: this.h, s: this.s, l: this.l };
+  }
+
+  get hsv() {
+    return Color.hslToHsv(this.hsl);
   }
 
   get hslString() {
@@ -44,14 +48,12 @@ export class Color {
     };
   }
 
-  static rgbToHsl({ r, g, b }) {
+  static hue({ r, g, b }) {
     const max = Math.max(r, g, b);
     const min = Math.min(r, g, b);
 
     // range; ie "chroma"
     const c = max - min;
-    // mid-range; ie lightness
-    let l = (max + min) / 2;
 
     // hue: degrees
     let h;
@@ -67,6 +69,22 @@ export class Color {
     if (h < 0) {
       h += 360;
     }
+    return { max, min, h };
+  }
+
+  static rgbToHwb({ r, g, b }) {
+    const { max, min, h } = Color.hue({ r, g, b });
+    const w = min;
+    const _b = 1 - max;
+
+    return { h, w, b: _b };
+  }
+
+  static rgbToHsl({ r, g, b }) {
+    let { max, min, h } = Color.hue({ r, g, b });
+
+    // mid-range; ie lightness
+    let l = (max + min) / 2;
 
     // saturation: [0, 1]
     let s;
@@ -77,12 +95,18 @@ export class Color {
     }
 
     // round to 3 decimal places
-    // (ie one byte per channel: 1/256 ~= 0.004 )
     h = Math.round(h * 1000) / 1000;
     s = Math.round(s * 1000) / 1000;
     l = Math.round(l * 1000) / 1000;
 
     return { h, s, l };
+  }
+
+  static hslToHsv({ h, s, l }) {
+    const v = l + s * Math.min(l, 1 - l);
+    const sv = v === 0 ? 0 : 2 * (1 - l / v);
+
+    return { h, s: sv, v };
   }
 
   static cmyToHsl({ c, m, y }) {

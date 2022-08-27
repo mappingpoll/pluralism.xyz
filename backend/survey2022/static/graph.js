@@ -82,7 +82,7 @@ export class Graph {
 
     for (let _y = 0; _y < gridH; _y++) {
       const row = sorted.splice(0, gridW); // get the next row
-      row.sort((a, b) => a.s - b.s); // sort by saturation
+      row.sort((a, b) => a.s - b.s); // sort by saturation (l)
       let _x = 0;
       for (const color of row) {
         this.ctx.fillStyle = color.rgbString;
