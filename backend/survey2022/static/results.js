@@ -24,7 +24,7 @@ function parse(rows) {
   return parsed;
 }
 
-function makeGraphCanvas(containerW) {
+function makeGraphCtx(containerW) {
   const canvas = document.createElement("canvas");
   canvas.width = canvas.height = containerW * 0.8;
   const graph = new Graph(canvas, 18);
@@ -49,15 +49,21 @@ fetchResults()
 
       const colors = parsed[key].map(({ value }) => value);
 
-      const { canvas, graph } = makeGraphCanvas(container.clientWidth);
-      graph.lightSat(colors, 12);
+      const ctx0 = makeGraphCtx(container.clientWidth);
+      const ctx1 = makeGraphCtx(container.clientWidth);
+      const ctx2 = makeGraphCtx(container.clientWidth);
 
-      const { canvas: canvas2, graph: graph2 } = makeGraphCanvas(container.clientWidth);
-      graph2.mosaic(colors);
+      ctx0.graph.lightSat(
+        colors.map(c => c.clone()),
+        12
+      );
+      ctx1.graph.mosaic(colors.map(c => c.clone()));
+      ctx2.graph.mosaic_by_hue(colors.map(c => c.clone()));
 
       div.appendChild(title);
-      div.appendChild(canvas);
-      div.appendChild(canvas2);
+      div.appendChild(ctx0.canvas);
+      div.appendChild(ctx1.canvas);
+      div.appendChild(ctx2.canvas);
       container.appendChild(div);
     }
   })

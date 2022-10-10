@@ -92,4 +92,35 @@ export class Graph {
       }
     }
   }
+
+  mosaic_by_hue(colors) {
+    this.drawLegends();
+
+    // determine grid size in datum units
+    // H is the longer side, as the case may be
+    const gridH = Math.ceil(Math.sqrt(colors.length));
+    const gridW = Math.floor(colors.length / gridH);
+
+    const cellH = this.graphBox.height / gridH;
+    const cellW = this.graphBox.width / gridW;
+
+    // sort by lightness, hue
+    // step 0: sort by hue
+    // step 1: find the `gridW` darkest colors and remove them from the list
+    // step 2: sort them from most to least saturated
+    // step 3: repeat with the next `gridW` darkest colors among the remaining colors
+    const sorted = colors.sort((a, b) => a.l - b.l);
+
+    for (let _y = 0; _y < gridH; _y++) {
+      const row = sorted.splice(0, gridW); // get the next row
+      row.sort((a, b) => a.h - b.h); // sort by hue
+      let _x = 0;
+      for (const color of row) {
+        this.ctx.fillStyle = color.rgbString;
+        const { x, y } = this.translateNorm(1 - (_x + 1) / gridW, 1 - (_y + 1) / gridH);
+        this.ctx.fillRect(x, y, cellW, cellH);
+        _x++;
+      }
+    }
+  }
 }

@@ -39,6 +39,11 @@ export class Color {
     return `rgb(${this.r * 255}, ${this.g * 255}, ${this.b * 255})`;
   }
 
+  clone() {
+    const clone = Object.create(Object.getPrototypeOf(this));
+    return Object.assign(clone, this);
+  }
+
   static cmyToRgb({ c, m, y }) {
     // assumes k is 0
     return {

@@ -9,3 +9,4 @@ build/
 .vscode/
 *.log
 .env
+node_modules
