@@ -45,13 +45,16 @@ pages:
     yLabelMax: "100+"
   12:
     controlType: "vslider-labels"
+    unit: "%"
   13:
     controlType: "vslider-labels"
+    unit: "%"
   14:
     controlType: "pcode"
   15:
     controlType: "vslider-labels"
     next: "/submit"
+    unit: "%"
   submit:
     canComment: false
     previous: "/15"

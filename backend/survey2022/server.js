@@ -104,6 +104,22 @@ app.get("/instructions", (req, res) => {
   res.render("textonly", opts);
 });
 
+function getQuestionText(res, key) {
+  return {
+    ...pageConfig.pages[key],
+    title: res.__(`${key}.title`),
+    textContent: res.__(`${key}.textContent`),
+    topContent: res.__(`${key}.topContent`),
+    bottomContent: res.__(`${key}.bottomContent`),
+    scaleLabelMax: res.__(`${key}.scaleLabelMax`),
+    scaleLabelMidMax: res.__(`${key}.scaleLabelMidMax`),
+    scaleLabelZero: res.__(`${key}.scaleLabelZero`),
+    scaleLabelMidMin: res.__(`${key}.scaleLabelMidMin`),
+    scaleLabelMin: res.__(`${key}.scaleLabelMin`),
+    yLabelMax: res.__(`${key}.yLabelMax`),
+  }
+}
+
 app.get("/:number(\\d{1,2}):letter([a-z]?)", (req, res) => {
   let { number, letter } = req.params;
 
@@ -117,16 +133,7 @@ app.get("/:number(\\d{1,2}):letter([a-z]?)", (req, res) => {
     previous: thisPageConfig.previous ?? `/${number > 0 ? number - 1 : ""}`,
     next: thisPageConfig.next ?? `/${number + 1}`,
     questionNum: number,
-    title: res.__(`${key}.title`),
-    textContent: res.__(`${key}.textContent`),
-    topContent: res.__(`${key}.topContent`),
-    bottomContent: res.__(`${key}.bottomContent`),
-    scaleLabelMax: res.__(`${key}.scaleLabelMax`),
-    scaleLabelMidMax: res.__(`${key}.scaleLabelMidMax`),
-    scaleLabelZero: res.__(`${key}.scaleLabelZero`),
-    scaleLabelMidMin: res.__(`${key}.scaleLabelMidMin`),
-    scaleLabelMin: res.__(`${key}.scaleLabelMin`),
-    yLabelMax: res.__(`${key}.yLabelMax`),
+    ...getQuestionText(res, key),
   };
 
   if (letter) {
@@ -204,6 +211,8 @@ app.get("/question/:key", (req, res) => {
 
   res.json({
     title: res.__(`${key}.title`),
+    ...pageConfig.pages[key],
+    ...getQuestionText(res, key)
   });
 });
 

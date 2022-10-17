@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: flex-start;
     overflow-y: scroll;
+    padding-bottom: 6em;
 
     &>div {
         margin-bottom: 4em;
@@ -14,9 +15,29 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-    }
-
-    & canvas {
         margin-bottom: 2em;
     }
+}
+
+.graph-area {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.range-nums {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.stack-labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    & p {
+            margin-top: 0;
+        }
 }

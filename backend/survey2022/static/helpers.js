@@ -14,7 +14,7 @@ export function timestamp() {
 
 export function memoize(fn) {
   const cache = {};
-  return function (...args) {
+  return function(...args) {
     const key = JSON.stringify(args);
     if (cache[key]) return cache[key];
     return (cache[key] = fn(...args));
@@ -112,10 +112,10 @@ export function rgbToHsl({ r, g, b }) {
     c === 0
       ? 0
       : max === r_
-      ? ((g_ - b_) / c) % 6
-      : max === g_
-      ? (b_ - r_) / c + 2
-      : (r_ - g_) / c + 4;
+        ? ((g_ - b_) / c) % 6
+        : max === g_
+          ? (b_ - r_) / c + 2
+          : (r_ - g_) / c + 4;
 
   const l = (max + min) / 2;
 
@@ -169,4 +169,24 @@ export function makeDraggable(element, ondrag, ondrop) {
 
 export function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
+}
+
+export function wrapText(context, text, x, y, maxWidth, lineHeight) {
+  var words = text.split(' ');
+  var line = '';
+
+  for (var n = 0; n < words.length; n++) {
+    var testLine = line + words[n] + ' ';
+    var metrics = context.measureText(testLine);
+    var testWidth = metrics.width;
+    if (testWidth > maxWidth && n > 0) {
+      context.fillText(line, x, y);
+      line = words[n] + ' ';
+      y += lineHeight;
+    }
+    else {
+      line = testLine;
+    }
+  }
+  context.fillText(line, x, y);
 }
