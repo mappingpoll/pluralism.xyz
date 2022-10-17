@@ -65,13 +65,14 @@
 }
 
 .footer {
-  grid-area: 11 / 1 / 13 / span 4;
+  grid-area: 13 / 1 / 13 / span 4;
   color: #fff;
 
   display: grid;
   grid-template-columns: 1fr auto 1fr auto 1fr;
   align-items: flex-end;
   z-index: 1;
+
 
   & .previous {
     grid-area: 1 / 1 / 2 / 2;

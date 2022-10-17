@@ -26,12 +26,25 @@ function parse(rows) {
 
 const general_graph_margin_factor = 0.8;
 
-function makeGraphCtx({ containerW, containerH, marginBottom="0", legendThickness = 18, labels, range }) {
+function getScaledCanvasCtx(canvas, css_w, css_h) {
+  canvas.style.width = css_w + "px";
+  canvas.style.height = css_h + "px";
+  const px_ratio = window.devicePixelRatio;
+  canvas.width = Math.floor(css_w * px_ratio);
+  canvas.height = Math.floor(css_h * px_ratio);
+  const ctx = canvas.getContext("2d");
+  ctx.scale(px_ratio, px_ratio);
+  return ctx;
+}
+
+function makeGraphCtx({ containerW, containerH, marginBottom = "0", legendThickness = 18, labels, range }) {
   const canvas = document.createElement("canvas");
   canvas.style.marginBottom = marginBottom;
-  canvas.width = containerW * general_graph_margin_factor;
-  canvas.height = containerH ?? canvas.width;
-  const graph = new Graph({ canvas, legendThickness, labels, range });
+  const width = containerW * general_graph_margin_factor;
+  const height = containerH ?? width;
+  const ctx = getScaledCanvasCtx(canvas, width, height)
+
+  const graph = new Graph({ ctx, width, height, legendThickness, labels, range });
   return { canvas, graph };
 }
 
@@ -58,20 +71,16 @@ fetchResults()
 
         const ctx0 = makeGraphCtx({ containerW: container.clientWidth, marginBottom: "2em" });
         const ctx1 = makeGraphCtx({ containerW: container.clientWidth, marginBottom: "2em" });
-        const ctx2 = makeGraphCtx({ containerW: container.clientWidth, marginBottom: "2em" });
 
         ctx0.graph.lightSat(
           colors.map(c => c.clone()),
           12
         );
         ctx1.graph.mosaic(colors.map(c => c.clone()));
-        ctx2.graph.mosaic_by_hue(colors.map(c => c.clone()));
 
         div.appendChild(title);
         div.appendChild(ctx0.canvas);
         div.appendChild(ctx1.canvas);
-        div.appendChild(ctx2.canvas);
-        div.app;
         container.appendChild(div);
       }
 

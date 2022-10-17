@@ -1,22 +1,21 @@
 export class GraphGeometry {
-  constructor(canvasW, canvasH, legendThickness) {
+  constructor(w, h, legendThickness) {
     this.left = legendThickness;
-    this.right = canvasW;
+    this.right = w;
     this.top = 0;
-    this.bottom = canvasH - legendThickness;
+    this.bottom = h - legendThickness;
     this.width = this.right - this.left;
     this.height = this.bottom - this.top;
-  } n
+  } 
 }
 
 export class Graph {
-  constructor({ canvas, legendThickness }) {
-    this.canvas = canvas;
+  constructor({ ctx, width, height, legendThickness }) {
     this.legendThickness = legendThickness;
-    this.width = canvas.width;
-    this.height = canvas.height;
+    this.width = width;
+    this.height = height;
     this.graphBox = new GraphGeometry(this.width, this.height, legendThickness);
-    this.ctx = canvas.getContext("2d");
+    this.ctx = ctx;
   }
 
   translateNorm(x, y) {
