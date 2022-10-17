@@ -16,6 +16,10 @@
         flex-direction: column;
         align-items: center;
         margin-bottom: 6em;
+        
+        &>canvas {
+            margin: 3em 0;
+        }
     }
 }
 
@@ -23,21 +27,23 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    margin: 3em 0;
 }
 
-.range-nums {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
-}
 
 .stack-labels {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: flex-end;
+    flex-grow: 1;
+    margin-right: 2ch;
     
     & p {
-            margin-top: 0;
-        }
+        margin-top: 0;
+    }
+    
+    & div {
+        text-align: end;
+    }
 }

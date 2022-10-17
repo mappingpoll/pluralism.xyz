@@ -40,7 +40,7 @@ function getScaledCanvasCtx(canvas, css_w, css_h) {
 function makeGraphCtx({ containerW, containerH, marginBottom = "0", legendThickness = 18, labels, range }) {
   const canvas = document.createElement("canvas");
   canvas.style.marginBottom = marginBottom;
-  const width = containerW * general_graph_margin_factor;
+  const width = containerW;
   const height = containerH ?? width;
   const ctx = getScaledCanvasCtx(canvas, width, height)
 
@@ -56,100 +56,83 @@ fetchResults()
     const parsed = parse(data.rows);
 
     for (const key of keyMap.all) {
+      const result_div = document.createElement("div");
+      result_div.classList.add("results-display");
+      container.appendChild(result_div);
 
-      // colors
-      if (keyMap.colors.includes(key)) {
-        const div = document.createElement("div");
-        div.classList.add("results-display");
-        const title = document.createElement("h3");
+      const title = document.createElement("h3");
+      result_div.appendChild(title);
 
-        fetchQinfo(key).then(info => {
-          title.innerText = info.title;
-        });
+      const question_text = document.createElement("div");
+      result_div.appendChild(question_text)
 
-        const colors = parsed[key].map(({ value }) => value);
+      fetchQinfo(key).then(info => {
+        title.innerText = info.title;
+        question_text.innerHTML = info.topContent;
 
-        const ctx0 = makeGraphCtx({ containerW: container.clientWidth, marginBottom: "2em" });
-        const ctx1 = makeGraphCtx({ containerW: container.clientWidth, marginBottom: "2em" });
+        // colors
+        if (keyMap.colors.includes(key)) {
+          const colors = parsed[key].map(({ value }) => value);
 
-        ctx0.graph.lightSat(
-          colors.map(c => c.clone()),
-          12
-        );
-        ctx1.graph.mosaic(colors.map(c => c.clone()));
+          const ctx0 = makeGraphCtx({ containerW: container.clientWidth, marginBottom: "2em" });
+          result_div.appendChild(ctx0.canvas);
 
-        div.appendChild(title);
-        div.appendChild(ctx0.canvas);
-        div.appendChild(ctx1.canvas);
-        container.appendChild(div);
-      }
+          const ctx1 = makeGraphCtx({ containerW: container.clientWidth, marginBottom: "2em" });
+          result_div.appendChild(ctx1.canvas);
 
-      if (keyMap.points.includes(key)) {
-        const div = document.createElement("div");
-        div.classList.add("results-display");
-        const title = document.createElement("h3");
-        const graphArea = document.createElement("div");
-        graphArea.classList.add("graph-area");
+          ctx0.graph.lightSat(
+            colors.map(c => c.clone()),
+            12
+          );
+          ctx1.graph.mosaic(colors.map(c => c.clone()));
+        }
 
-        div.appendChild(title);
-        div.appendChild(graphArea);
-
-        fetchQinfo(key).then(info => {
-
-          title.innerText = info.title;
-
-          const points = parsed[key].map(({ value }) => value);
-
-
-
-          const ctx0 = makeGraphCtx({
-            containerW: container.clientWidth * 0.8,
-            containerH: container.clientWidth,
-          });
-
-          const values_sorted = points.sort((a, b) => a - b);
-          const n_bins = (() => {
-            let n = Math.ceil(values_sorted.length / 2)
-
-            return n % 2 === 0 ? n : n + 1;
-
-          })();
-
-          ctx0.graph.stack_1d({ values_sorted, n_bins });
+        if (keyMap.points.includes(key)) {
+          const graphArea = document.createElement("div");
+          graphArea.classList.add("graph-area");
+          result_div.appendChild(graphArea);
 
           // text
-          let range;
-          try { range = JSON.parse(info.yRange) } catch { }
-          const unit = info.unit ?? ""
-          const range_nums = document.createElement("div");
           const labels = document.createElement("div");
-
-          range_nums.classList.add("range-nums");
-          const range_min = range != null ? range[0] + unit : `0${unit}`;
-          const range_mid = range != null ? (range[1] - range[0]) / 2 + unit : `50${unit}`;
-          const range_max = range != null ? range[1] + unit : `100${unit}`;
-          for (const r of [range_min, range_mid, range_max]) {
-            const d = document.createElement('div')
-            d.innerText = r;
-            range_nums.appendChild(d)
-          }
           labels.classList.add("stack-labels")
-          const label_min = info.scaleLabelMin !== "missing translation" ? info.scaleLabelMin : info.topContent;
-          const label_mid = info.scaleLabelZero !== "missing translation" ? info.scaleLabelZero : "";
-          const label_max = info.scaleLabelMax !== "missing translation" ? info.scaleLabelMax : "";
-          for (const l of [label_min, label_mid, label_max]) {
-            const d = document.createElement('div');
-            d.innerHTML = l;
-            labels.appendChild(d);
+          graphArea.appendChild(labels);
+          if (info.yRange != null) {
+            const range = JSON.parse(info.yRange)
+            const unit = info.unit ?? ""
+            const range_min = range[0] + unit;
+            const range_mid = (range[1] - range[0]) / 2 + unit;
+            const range_max = range[1] + unit;
+            for (const r of [range_min, range_mid, range_max]) {
+              const d = document.createElement('div')
+              d.innerText = r;
+              labels.appendChild(d)
+            }
+          } else {
+            const label_min = info.scaleLabelMin;
+            const label_mid = info.scaleLabelZero !== "missing translation" ? info.scaleLabelZero : "";
+            const label_max = info.scaleLabelMax;
+            for (const l of [label_min, label_mid, label_max]) {
+              const d = document.createElement('div');
+              d.innerHTML = l;
+              labels.appendChild(d);
+            }
           }
 
-          graphArea.appendChild(labels);
-          graphArea.appendChild(range_nums);
+          const ctx0 = makeGraphCtx({
+            containerW: container.clientWidth / 2,
+            containerH: container.clientWidth,
+          });
           graphArea.appendChild(ctx0.canvas);
 
-          container.appendChild(div);
-        });
-      }
+
+          const values = parsed[key].map(({ value }) => value);
+          const values_sorted = values.sort((a, b) => a - b);
+
+          ctx0.graph.stack_1d({ values_sorted });
+
+
+        }
+      });
     }
   })
   .catch(e => console.error(e));

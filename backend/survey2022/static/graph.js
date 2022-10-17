@@ -6,7 +6,7 @@ export class GraphGeometry {
     this.bottom = h - legendThickness;
     this.width = this.right - this.left;
     this.height = this.bottom - this.top;
-  } 
+  }
 }
 
 export class Graph {
@@ -27,7 +27,7 @@ export class Graph {
     };
   }
 
-  drawValueGradient(n_bands=6) {
+  drawValueGradient(n_bands = 6) {
     const h = this.legendThickness / n_bands;
     const gradient = this.ctx.createLinearGradient(0, this.graphBox.top, 0, this.graphBox.bottom);
     gradient.addColorStop(0, "transparent");
@@ -36,7 +36,7 @@ export class Graph {
     this.ctx.fillRect(0, 0, n_bands * h, this.graphBox.bottom);
   }
 
-  drawSatRainbow(n_bands=6) {
+  drawSatRainbow(n_bands = 6) {
     const h = this.legendThickness / n_bands;
     for (let i = 0; i < n_bands; i++) {
       // make gradients
@@ -137,41 +137,127 @@ export class Graph {
     }
   }
 
-  stack_1d({ values_sorted, n_bins }) {
+  stack_1d({ values_sorted }) {
     // assume values E [0, 1]
 
     // draw boxes, bin by bin
     const gap_size = 2;
-    const cell_size = this.height / n_bins - gap_size;
-    const tick_width = 5;
+    const tick_width = 10;
+    const n_bins = 20;
+    const stack_max = 10;
+    const margin = gap_size + tick_width;
+    const graph_W = this.width - margin;
+    const graph_H = this.height - margin * 2;
+    const cell_W = graph_W / 12 - gap_size;
+    const cell_H = graph_H / n_bins - gap_size;
+
+    const getX = n => margin + n * (cell_W + gap_size);
+    const getY = n => n * (cell_H + gap_size);
 
     let start_idx = 0;
     for (let i = 0; i < n_bins; i++) {
-      const lim = i / n_bins;
-      const end_idx = values_sorted.findIndex(v => v >= lim);
+      const lim = (i + 1) / n_bins;
+      let end_idx = values_sorted.findIndex(v => v >= lim);
+      if (end_idx === -1) end_idx = undefined;
       const stack_size = values_sorted.slice(start_idx, end_idx).length;
-      start_idx = end_idx;
+      const y = getY(i);
 
-      const y = i * (cell_size + gap_size)
-
-      for (let j = 0; j < stack_size; j++) {
-        const x = tick_width + gap_size + j * (cell_size + gap_size);
-        this.ctx.fillRect(x, y, cell_size, cell_size);
+      // draw cells
+      const n_cells = stack_size <= stack_max ? stack_size : stack_max;
+      for (let j = 0; j < n_cells; j++) {
+        const x = getX(j);
+        this.ctx.fillRect(x, y, cell_W, cell_H);
       }
+      // draw extra
+      if (stack_size > n_cells) {
+        // draw arrow, clockwise from top left
+        this.ctx.beginPath()
+        // top left
+        let xA = getX(stack_max);
+        let yA = y + cell_H / 3;
+        this.ctx.moveTo(xA, yA);
+        xA += cell_W / 3;
+        this.ctx.lineTo(xA, yA);
+        // top triangle corner
+        yA = y;
+        this.ctx.lineTo(xA, yA);
+        // arrow tip
+        xA += cell_W / 3 * 2;
+        yA = y + cell_H / 2;
+        this.ctx.lineTo(xA, yA);
+        // bottom triangle corner
+        xA = getX(stack_max) + cell_W / 3;
+        yA = y + cell_H;
+        this.ctx.lineTo(xA, yA);
+        yA -= cell_H / 3;
+        this.ctx.lineTo(xA, yA);
+        // bottom left
+        xA = getX(stack_max);
+        this.ctx.lineTo(xA, yA);
+        this.ctx.closePath();
+        this.ctx.fill();
+
+        // draw number
+        this.ctx.font = "bold 12px monospace";
+        this.ctx.textBaseline = "middle";
+        const n_extra = stack_size - stack_max;
+        this.ctx.fillText(n_extra, getX(stack_max + 1), y + 12)
+
+      }
+      if (end_idx === undefined) {
+        break
+      } else {
+        start_idx = end_idx;
+      }
+
     }
 
-    // draw axis
-    const axis_x = tick_width;
+    // draw vertical axis
+    const axis_x = tick_width - .5;// crisp
     this.ctx.beginPath();
     this.ctx.moveTo(axis_x, 0);
-    this.ctx.lineTo(axis_x, this.height);
-    //ticks
-    this.ctx.moveTo(axis_x, 0);
-    this.ctx.lineTo(axis_x - tick_width, 0)
-    this.ctx.moveTo(axis_x, this.height / 2);
-    this.ctx.lineTo(axis_x - tick_width, this.height / 2);
-    this.ctx.moveTo(axis_x, this.height);
-    this.ctx.lineTo(axis_x - tick_width, this.height)
+    this.ctx.lineTo(axis_x, graph_H);
     this.ctx.stroke();
+    //ticks
+    for (let i = 0; i <= n_bins; i++) {
+      const is_big = i % 10 === 0;
+      this.ctx.beginPath();
+      this.ctx.lineWidth = is_big ? 3 : 1;
+      const y = getY(i) + 0.5; // crisp
+      this.ctx.moveTo(axis_x, y);
+      this.ctx.lineTo(is_big ? 0 : tick_width / 2, y);
+      this.ctx.stroke();
+    }
+
+    this.ctx.lineWidth = 1;
+
+    // draw horizontal axis;
+    this.ctx.beginPath();
+    this.ctx.moveTo(axis_x, graph_H + .5);
+    this.ctx.lineTo(getX(stack_max) - gap_size, graph_H + .5);
+    this.ctx.stroke();
+    // dotted continuation
+    this.ctx.beginPath();
+    this.ctx.setLineDash([cell_W / 4, cell_W / 4]);
+    this.ctx.moveTo(getX(stack_max) - gap_size, graph_H + .5);
+    this.ctx.lineTo(graph_W, graph_H + .5)
+    this.ctx.stroke();
+
+    this.ctx.setLineDash([]);
+
+    // ticks
+    for (let i = 0; i <= 10; i++) {
+      const is_big = i % 5 === 0;
+      this.ctx.lineWidth = is_big ? 3 : 1;
+      this.ctx.beginPath();
+      const x = getX(i) - gap_size + 0.5;
+      this.ctx.moveTo(x, graph_H);
+      this.ctx.lineTo(x, is_big ? graph_H + margin : graph_H + margin / 2);
+      this.ctx.stroke();
+      if (is_big) { // numbers
+        this.ctx.textAlign = "center";
+        this.ctx.fillText(i, x, graph_H + margin * 1.6);
+      }
+    }
   }
 }
