@@ -8,6 +8,14 @@ body(style=style)
         div(class="page-content results-content")
             div(class="results")
                 div !{textContent}
+                div(class="results-menu")
+                    label(for="select-x") X-axis:
+                    select(id="select-x")
+                        option(value="" selected) -
+                    label(for="select-y") Y-axis:
+                    select(id="select-y")
+                        option(value="" selected) -
+                div(class="pairing-graph")
         include includes/nav
 
     script window.__keyMap = JSON.parse('!{keyMap}')

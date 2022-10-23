@@ -1,9 +1,9 @@
 export class GraphGeometry {
-  constructor(w, h, legendThickness) {
-    this.left = legendThickness;
-    this.right = w;
-    this.top = 0;
-    this.bottom = h - legendThickness;
+  constructor(w, h, padding_x, padding_y = 0) {
+    this.left = padding_x;
+    this.right = w - padding_y;
+    this.top = padding_y;
+    this.bottom = padding_y > 0 ? h - padding_y : h - padding_x; // left&bottom padding if no y padding #fixthis
     this.width = this.right - this.left;
     this.height = this.bottom - this.top;
   }
@@ -18,12 +18,12 @@ export class Graph {
     this.ctx = ctx;
   }
 
-  translateNorm(x, y) {
+  translateNorm(x, y, graph_box = this.graphBox) {
     // Translate normalized coordinates to graph coordinates
     // domain: [0, 1] range: [left, right, top, bottom]
     return {
-      x: x * this.graphBox.width + this.graphBox.left,
-      y: y * this.graphBox.height + this.graphBox.top,
+      x: x * graph_box.width + graph_box.left,
+      y: y * graph_box.height + graph_box.top,
     };
   }
 
@@ -54,8 +54,8 @@ export class Graph {
     for (let i = 0; i < n_stops; i++) {
       gradient.addColorStop(i / n_stops, `hsl(${i / n_stops * 360}deg, 100%, 50%)`);
     }
-    this.ctx.fillStyle = gradient
-    this.ctx.fillRect(this.graphBox.left, this.height - this.legendThickness, this.graphBox.right, this.height)
+    this.ctx.fillStyle = gradient;
+    this.ctx.fillRect(this.graphBox.left, this.height - this.legendThickness, this.graphBox.right, this.height);
   }
 
   lightSat(colors, cellSize) {
@@ -171,7 +171,7 @@ export class Graph {
       // draw extra
       if (stack_size > n_cells) {
         // draw arrow, clockwise from top left
-        this.ctx.beginPath()
+        this.ctx.beginPath();
         // top left
         let xA = getX(stack_max);
         let yA = y + cell_H / 3;
@@ -201,11 +201,11 @@ export class Graph {
         this.ctx.font = "bold 12px monospace";
         this.ctx.textBaseline = "middle";
         const n_extra = stack_size - stack_max;
-        this.ctx.fillText(n_extra, getX(stack_max + 1), y + 12)
+        this.ctx.fillText(n_extra, getX(stack_max + 1), y + 12);
 
       }
       if (end_idx === undefined) {
-        break
+        break;
       } else {
         start_idx = end_idx;
       }
@@ -240,7 +240,7 @@ export class Graph {
     this.ctx.beginPath();
     this.ctx.setLineDash([cell_W / 4, cell_W / 4]);
     this.ctx.moveTo(getX(stack_max) - gap_size, graph_H + .5);
-    this.ctx.lineTo(graph_W, graph_H + .5)
+    this.ctx.lineTo(graph_W, graph_H + .5);
     this.ctx.stroke();
 
     this.ctx.setLineDash([]);
@@ -259,5 +259,49 @@ export class Graph {
         this.ctx.fillText(i, x, graph_H + margin * 1.6);
       }
     }
+  }
+
+  scatter_2d({ xy_pairs }) {
+    // !!! x and y
+    //draw graph box
+    this.ctx.beginPath();
+    this.ctx.moveTo(0, 0);
+    this.ctx.lineTo(this.width, 0);
+    this.ctx.lineTo(this.width, this.height);
+    this.ctx.lineTo(0, this.height);
+    this.ctx.closePath();
+    this.ctx.stroke();
+
+    //draw axes
+    this.ctx.beginPath();
+    this.ctx.moveTo(0, this.height / 2);
+    this.ctx.lineTo(this.width, this.height / 2);
+    this.ctx.moveTo(this.width / 2, 0);
+    this.ctx.lineTo(this.width / 2, this.height);
+    this.ctx.stroke();
+
+    // draw points
+    const cell_H = 12;
+    const cell_W = 12;
+    const graph_box = new GraphGeometry(this.width, this.height, cell_W / 2, cell_H / 2);
+
+    for (const pair of xy_pairs) {
+      const { x, y } = this.translateNorm(pair.x.value, pair.y.value, graph_box);
+      this.ctx.fillRect(x - cell_W / 2, y - cell_H / 2, cell_W, cell_H);
+    }
+  }
+
+  not_implemented() {
+    this.ctx.beginPath();
+    this.ctx.moveTo(0, 0);
+    this.ctx.lineTo(this.width, 0);
+    this.ctx.lineTo(this.width, this.height);
+    this.ctx.lineTo(0, this.height);
+    this.ctx.closePath();
+    this.ctx.stroke();
+    this.ctx.font = "bold 24px monospace";
+    this.ctx.textAlign = "center";
+    this.ctx.textBaseline = "middle";
+    this.ctx.fillText("not implemented", this.width / 2, this.height / 2);
   }
 }
