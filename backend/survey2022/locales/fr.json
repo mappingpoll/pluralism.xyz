@@ -88,8 +88,32 @@
     "bottomText": "Si vous avez des commentaires, suggestions, critiques, etc., ne vous gênez pas! Ils seront publiés anonymement avec les résultats."
   },
   "results": {
-    "title": "Résultats",
-    "textContent": "<p>Merci de votre participation!</p>"
+    "title": "Exercice de cartographie :<br>Banlieue",
+    "credits": "<p>Nicolas Grenier 2022<br>Œuvre conçue et réalisée pour la Triennale&nbsp;Banlieue&nbsp;!&nbsp;/&nbsp;Interrègne<br>Questionnaire interactif, site web, installation<br>Programmation : Nicolas Epstein</p>",
+    "textContent": "<p>Utilisant le sondage d’opinion comme médium d’expérimentation, l’œuvre web Exercice de cartographie : Banlieue était accessible par un code QR posté à différents lieux de la Triennale. Mes objectifs étaient d’aborder l’enjeu de la collecte de données comme territoire d’exploration, de remettre en question les méthodes qui y sont associées, et de rendre visible la relation ambiguë entre les paradigmes quantitatif et qualitatif.</p><p>Pourquoi? Parce qu’aujourd’hui, le monde est largement mesuré, représenté, géré et gouverné par des chiffres provenant de collectes de données. Qu’il s’agisse du marché immobilier, de la gestion des ressources naturelles ou d’une réforme du système de santé, les chiffres sont généralement considérés comme étant fiables et objectifs, avec une marge d’erreur mesurable, offrant une infrastructure solide sur laquelle on érige l’édifice de la société. Or, la majorité des enjeux les plus importants — tel que l’environnement, le futur de l’humanité, le sens de la vie, les relations humaines, la souffrance, etc. — sont de nature fondamentalement qualitative, dont le sens réel, toujours contextuel, multidimensionnel et subjectif, n’est pas transposable en chiffres. Entre les chiffres et la réalité, il y a souvent un grand un vide. J’ai donc voulu reconceptualiser ce que représente la collecte de données afin de rendre visible cet écart entre ce qu’on tente de mesurer et ce qu’il est possible d’exprimer par les données. Surtout, j’ai voulu rendre visible la subjectivité des répondant.e.s.</p><p>Dans le sondage, les personnes participantes étaient appelées, entre autres, à répondre à aux questions en créant des couleurs personnalisées à partir des couleurs primaires. Ainsi, chaque réponse étant une couleur, toute possibilité d’interprétation purement objective est d’emblée impossible. Mais lorsque l’on considère l’ensemble des réponses, il en émerge une sorte de portrait collectif : l’accumulation des couleurs individuelles en une mosaïque transmet une réalité visuellement explicite, complètement différente de celle des chiffres ou des mots.</p><p>Les couleurs sont-elles plus ou moins fiables que des chiffres pour mesurer des enjeux socio-politiques? Quelles conclusions peut-on, ou non, en tirer ? Quelles conclusions peut-on, ou non, en tirer ? Je vous invite à voir par vous-même avec les résultats ci-dessous.</p>",
+    "legend": "1 carré = 1 réponse",
+    "answers": "réponses",
+    "results": "Résultats",
+    "questions-A": "<p style='text-align: center'>Questions 0 à 8:</p><p>L’interface du questionnaire incluait trois curseurs représentant les couleurs primaires cyan, magenta et jaune, et un carré affichant la couleur obtenue en déplaçant les curseurs.</p>",
+    "questions-B": "<p style='text-align: center'>Questions 9 à 13:</p><p>L’interface du questionnaire comprenait un curseur qui pouvait être déplacé sur un axe vertical afin d’indiquer une position entre des valeurs données.</p>",
+    "0": "<p>Q : Pour répondre aux questions, vous devrez créer une couleur en déplaçant les curseurs représentant les couleurs primaires (petits triangles) sur les axes verticaux. Pour vous pratiquer, déplacez les curseurs ci-dessous vers le haut afin de créer une couleur vive qui combine deux couleurs primaires. Ensuite, cliquez sur continuer.</p><p>R :</p>",
+    "1": "<p>Q : Pour créer des couleurs plus naturelles (corail, marron, olive, etc.), il est généralement nécessaire de combiner les trois couleurs primaires. En utilisant au moins une touche de chaque couleur primaire, tentez de reproduire la couleur de votre teinte de peau naturelle, sans bronzage.</p><p>R :</p>",
+    "2": "<p>Q : Maintenant, créez une couleur qui vous semble aussi agréable que possible.</p><p>R :</p>",
+    "3": "<p>Q : Comment vous sentez-vous aujourd’hui ? Tentez de créer une couleur qui exprime votre humeur de la journée jusqu’à maintenant.</p><p>R :</p>",
+    "4": "<p>Q : Jusqu'ici, comment a été votre vie ? Tentez de créer une couleur qui exprime ce que vous ressentez en pensant à l'ensemble de votre vie.</p><p>R :</p>",
+    "5": "<p>Comment imaginez-vous votre futur ? Tentez de créer une couleur qui corresponde à ce que vous voyez.</p><p>R :</p>",
+    "6": "<p>Pensez à l'environnement physique de l'ensemble de la ville, municipalité ou territoire où vous habitez présentement. Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p><p>R :</p>",
+    "7": "<p>Imaginez maintenant votre ville, municipalité ou territoire en 2050. Quel futur voyez-vous ? Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p><p>R :</p>",
+    "8": "<p>Pensez à la totalité des activités humaines se déroulant présentement sur la planète. Quel futur voyez-vous pour l'humanité en 2050 ? Tentez de créer une couleur qui représente le mieux ce qui vous vient en tête.</p><p>R :</p>",
+    "9": "<p>Q : Pensez aux différents aspects de votre vie: habitation, transport, travail, nourriture, possessions matérielles, mode de vie, etc. Dans quelle proportion environ diriez-vous que votre vie est en harmonie avec le milieu naturel?</p><p>R :</p>",
+    "10": "<p>Q: Quel âge avez-vous ?</p><p>R:</p>",
+    "11": "<p>Q : Combien d’années de votre vie (environ) avez-vous passé en banlieue ?</p><p>R :</p>",
+    "12": "<p>Q : À quel degré vous identifiez-vous à l’idée traditionnelle «d’être un homme» ou «d’être une femme» ? (Rappel: vous pouvez en tout temps sauter une question et passer à la suivante.)</p><p>R :</p>",
+    "13": "<p>Q : Quel est votre statut socio-économique ?</p><p>R :</p>",
+    "14": "<p>Q : Quel est votre code postal ?</p><p>R :</p>",
+    "15": "<p>Q : Dans l’ensemble, comment évaluez-vous vos réponses à ce questionnaire ?</p><p>R :</p>",
+    "comments": "Commentaires",
+    "commentsQ": "<p>Q : Si vous avez des commentaires, suggestions, critiques, etc., ne vous gênez pas! Ils seront publiés anonymement avec les résultats.</p><p>R :</p>"
   },
   "commentLabel": "commentaire",
   "commentPlaceholder": "Vous pouvez laisser un commentaire ici.",
@@ -102,5 +126,6 @@
   "english": "english",
   "error": "Le serveur a rencontré une erreur.",
   "reset": "réinitialiser",
-  "restart": "recommencer"
+  "restart": "recommencer",
+  "years": "années"
 }

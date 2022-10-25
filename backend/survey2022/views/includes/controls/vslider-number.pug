@@ -2,7 +2,7 @@
 div(class="value-box")
     span = 
     input(type="number", class="value-input", min=0, max=100, step=1)
-    if unit
+    if unit && unit != "years"
         span !{unit}
 div(class="label") !{yLabelMax}
 div(style="position: relative; height: 100%;")

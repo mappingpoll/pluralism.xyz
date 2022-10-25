@@ -5,10 +5,12 @@ head
 body(style=style)
     div(class="page-container")
         block lang
-        div(class="page-content results-content")
+        div(class="results-content")
+            h1 !{title}
+            div(class="credits") !{credits}
+            div !{textContent}
             div(class="results")
-                div !{textContent}
-                div(class="results-menu")
+                div(class="results-menu hidden")
                     label(for="select-x") X-axis:
                     select(id="select-x")
                         option(value="" selected) -
@@ -16,7 +18,13 @@ body(style=style)
                     select(id="select-y")
                         option(value="" selected) -
                 div(class="pairing-graph")
+                h2 !{resultsTitle}
+                div(id="questionsA") !{questionsA}
+                div(id="questionsB") !{questionsB}
+            div(id="comments" class="comments")
+                h2 !{commentsTitle}
+                div !{commentsQ}
         include includes/nav
 
-    script window.__keyMap = JSON.parse('!{keyMap}')
+    script window.__legendText = JSON.parse('!{legendText}')
     script(defer type="module" src="/results.js")

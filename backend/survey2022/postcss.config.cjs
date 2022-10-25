@@ -1,23 +1,29 @@
+const pcss_import = require('postcss-import');
+const pcss_extend = require('postcss-extend-rule');
+const pcss_preset_env = require('postcss-preset-env');
+const autoprefixer = require('autoprefixer');
+const stylelint = require('stylelint');
+const cssnano = require('cssnano');
+
 module.exports = {
+  syntax: 'postcss-scss',
   plugins: [
-    require("postcss-import")({
-      plugins: [
-        require("stylelint")({
-          fix: true,
-        }),
-      ],
-    }),
-    require("postcss-media-minmax")(),
-    require("postcss-preset-env")({
-      stage: 3,
+    pcss_import(),
+    pcss_extend(),
+    pcss_preset_env({
+      stage: 4,
       features: {
-        "nesting-rules": true,
+        'nesting-rules': true,
+      }
+    }),
+    autoprefixer,
+    stylelint({
+      fix: true,
+      rules: {
+        "at-rule-no-unknown": null,
       },
     }),
-    require("stylelint")({
-      fix: true,
-    }),
-    require("cssnano")({
+    cssnano({
       preset: "default",
     }),
   ],

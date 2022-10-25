@@ -88,8 +88,15 @@
     "bottomText": "If you have any comments, suggestions, criticisms, etc., don't hesitate to contact us! They will be published anonymously with the results."
   },
   "results": {
-    "title": "Results",
-    "textContent": "<p>Thank you for your participation!</p>"
+    "title": "Mapping Exercise:<br>Banlieue",
+    "credits": "<p>Nicolas Grenier 2022<br>Work conceived and realized for the Triennale&nbsp;Banlieue&nbsp;!&nbsp;/&nbsp;Interrègne<br>Interactive questionnaire, website, installation<br>Programming : Nicolas Epstein</p>",
+    "textContent": "<p>Using the opinion poll as a medium of experimentation, the web work Mapping Exercise: Suburbia was accessible through a QR code posted at various locations in the Triennial. My objectives were to address the issue of data collection as a space of exploration, to question the methods associated with it, and to make visible the ambiguous relationship between quantitative and qualitative paradigms.</p><p>Why do this? Because today, the world is largely measured, represented, managed and governed by numbers derived from data collection. From the real estate market to natural resource management and health care reform, numbers are generally considered to be reliable and objective, with a measurable margin of error, providing a solid infrastructure on which to build society. However, the majority of the most important issues - such as the environment, the future of humanity, the meaning of life, human relations, suffering, etc. - are fundamentally qualitative in nature, whose real meaning, always contextual, multidimensional and subjective, cannot be transposed into numbers. Between numbers and reality, there is often a big gap. Thus, I wanted to reconceptualize what data collection represents in order to make visible this gap between what we try to measure and what it is possible to express through data. Above all, I wanted to make visible the subjectivity of the respondents.</p><p>In the survey, the participants were asked, among other things, to answer questions by creating personalized colours from the primary colours. As a result, each answer being a unique colour, objective interpretation is impossible. But when we consider all the answers, a sort of collective portrait emerges: the accumulation of individual colours in a mosaic transmits a visually explicit reality, completely different from that of numbers or words.</p><p>Are colours more or less reliable than numbers in measuring socio-political issues? What conclusions can or cannot be drawn? I invite you to see for yourself with the results below.</p>",
+    "legend": "1 square = 1 answer",
+    "answers": "answers",
+    "results": "Results",
+    "questions-A": "<p style='text-align: center'>Questions 0 to 8:</p><p>The questionnaire interface included three sliders representing the primary colors cyan, magenta, and yellow, and a square displaying the color obtained by moving the sliders.</p>",
+    "questions-B": "<p style='text-align: center'>Questions 9 to 13:</p><p>The questionnaire interface included a slider that could be moved along a vertical axis to indicate a position between given values.</p>",
+    "comments": "Comments"
   },
   "commentLabel": "comment",
   "commentPlaceholder": "You can leave a comment here...",
@@ -102,5 +109,6 @@
   "english": "english",
   "error": "The server encountered an error...",
   "reset": "reset",
-  "restart": "restart"
+  "restart": "restart",
+  "years": "years"
 }

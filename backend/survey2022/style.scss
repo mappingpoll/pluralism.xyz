@@ -24,9 +24,9 @@
     --offblack: #333;
     --lightgrey: #999;
     --max-content-width: min(40em, calc(100vh / 2));
-    --content-margin-x: max(calc((100vw - var(--max-content-width)) / 2), 0px);
     --page-padding-x: 5vw;
     --page-padding-y: 1.75rem;
+    --content-padding-x: max(calc((100vw - var(--max-content-width)) / 2 - var(--page-padding-x)), 0px);
 }
 
 * {

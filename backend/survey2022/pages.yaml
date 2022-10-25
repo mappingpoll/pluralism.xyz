@@ -38,11 +38,13 @@ pages:
     yRange: "[0, 100]"
     yLabelMin: "0"
     yLabelMax: "100+"
+    unit: "years"
   11:
     controlType: "vslider-number"
     yRange: "[0, 100]"
     yLabelMin: "0"
     yLabelMax: "100+"
+    unit: "years"
   12:
     controlType: "vslider-labels"
     unit: "%"

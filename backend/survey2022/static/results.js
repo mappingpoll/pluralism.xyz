@@ -2,6 +2,7 @@ import { Color } from "./color.js";
 import { keyMap } from "./const.js";
 import { Graph } from "./graph.js";
 
+const legend_text = window.__legendText;
 const results = document.querySelector(".results");
 
 const menu = document.querySelector(".results-menu");
@@ -15,6 +16,8 @@ keyMap.all.forEach(k => {
   select_y.appendChild(option.cloneNode(true));
 });
 [select_x, select_y].forEach(s => s.addEventListener("change", handleSelectChange));
+const questionsB = document.getElementById("questionsB");
+const comments = document.getElementById("comments");
 
 // fetch data; populate selects; draw graphs
 fetchResults()
@@ -22,15 +25,24 @@ fetchResults()
     const parsed = parse(data.rows);
 
     for (const key of keyMap.all) {
-      console.log(key);
+      if (key === keyMap.pcode) continue; /// TODO: handle pcode
+
+
       const result_div = document.createElement("div");
       result_div.classList.add("results-display");
-      results.appendChild(result_div);
+      if (keyMap.colors.includes(key))
+        /// add to group A
+        questionsB.insertAdjacentElement("beforebegin", result_div); /// this way cause ordering
+      else if (keyMap.points.includes(key))
+        /// add to group B
+        results.appendChild(result_div); /// this way cause ordering
+
 
       const title = document.createElement("h3");
       result_div.appendChild(title);
 
       const question_text = document.createElement("div");
+      question_text.classList.add("question-text");
       result_div.appendChild(question_text);
 
       fetchQinfo(key).then(info => {
@@ -38,29 +50,43 @@ fetchResults()
         question_text.innerHTML = info.topContent;
 
         // add to select options
-        [select_x, select_y].forEach(s => s.querySelector(`option[value="${key}"]`).innerHTML = info.title);
+        [select_x, select_y].forEach(
+          s => (s.querySelector(`option[value="${key}"]`).innerHTML = info.title)
+        );
 
         // colors
         if (keyMap.colors.includes(key)) {
           const colors = parsed[key].map(({ value }) => value);
+          const legend = make_legend(colors.length);
 
           const ctx0 = makeGraphCtx({ containerW: results.clientWidth, marginBottom: "2em" });
           result_div.appendChild(ctx0.canvas);
-
-          const ctx1 = makeGraphCtx({ containerW: results.clientWidth, marginBottom: "2em" });
-          result_div.appendChild(ctx1.canvas);
-
           ctx0.graph.lightSat(
             colors.map(c => c.clone()),
             12
           );
+          result_div.appendChild(legend);
+
+          const ctx1 = makeGraphCtx({ containerW: results.clientWidth, marginBottom: "2em" });
+          result_div.appendChild(ctx1.canvas);
           ctx1.graph.mosaic(colors.map(c => c.clone()));
+          result_div.appendChild(legend.cloneNode(true));
+
+          const ctx2 = makeGraphCtx({ containerW: results.clientWidth, marginBottom: "2em" });
+          result_div.appendChild(ctx2.canvas);
+          ctx2.graph.averageColor(colors.map(c => c.clone()));
         }
 
         if (keyMap.points.includes(key)) {
+          const values = parsed[key].map(({ value }) => value);
+          const values_sorted = values.sort((a, b) => a - b);
+
+          const legend = make_legend(values.length);
+
           const graphArea = document.createElement("div");
           graphArea.classList.add("graph-area");
           result_div.appendChild(graphArea);
+          result_div.appendChild(legend);
 
           // text
           const labels = document.createElement("div");
@@ -68,7 +94,7 @@ fetchResults()
           graphArea.appendChild(labels);
           const { min, mid, max } = extractLabels(info);
           for (const r of [min, mid, max]) {
-            const d = document.createElement('div');
+            const d = document.createElement("div");
             d.innerText = r;
             labels.appendChild(d);
           }
@@ -79,23 +105,30 @@ fetchResults()
           });
           graphArea.appendChild(ctx0.canvas);
 
-
-          const values = parsed[key].map(({ value }) => value);
-          const values_sorted = values.sort((a, b) => a - b);
-
           ctx0.graph.stack_1d({ values_sorted });
-
         }
       });
+    }
+
+    // comments
+    for (const comment of parsed.comment) {
+      if (comment.value) {
+        const div = document.createElement("div");
+        div.classList.add("comment");
+        div.innerText = comment.value;
+        comments.appendChild(div);
+      }
     }
   })
   .catch(e => console.error(e));
 
 function extractLabels(info) {
-  let min, mid, max = "";
+  let min,
+    mid,
+    max = "";
   if (info.yRange != null) {
     const range = JSON.parse(info.yRange);
-    const unit = info.unit ?? "";
+    let unit = info.unit ?? "";
     min = range[0] + unit;
     mid = (range[1] - range[0]) / 2 + unit;
     max = range[1] + unit;
@@ -114,7 +147,7 @@ async function fetchResults() {
 }
 
 async function fetchQinfo(key) {
-  const res = await fetch(`/question/${key}`);
+  const res = await fetch(`/question/${key}?results=true`);
   return await res.json();
 }
 
@@ -127,6 +160,7 @@ function parse(rows) {
       parsed[key] = [...(parsed[key] || []), datum];
     }
   }
+
   window.parsed = parsed;
   return parsed;
 }
@@ -142,7 +176,14 @@ function getScaledCanvasCtx(canvas, css_w, css_h) {
   return ctx;
 }
 
-function makeGraphCtx({ containerW, containerH, marginBottom = "0", legendThickness = 18, labels, range }) {
+function makeGraphCtx({
+  containerW,
+  containerH,
+  marginBottom = "0",
+  legendThickness = 18,
+  labels,
+  range,
+}) {
   const canvas = document.createElement("canvas");
   canvas.style.marginBottom = marginBottom;
   const width = containerW;
@@ -165,7 +206,6 @@ function handleSelectChange(e) {
   const data = window.parsed;
 
   make_pairing_graph({ x_key, y_key, data, container: pairing_graph });
-
 }
 
 function updateOptions(selected_key, other_select) {
@@ -196,10 +236,10 @@ function make_pairing_graph({ x_key, y_key, data, container }) {
   // get labels
   if (keyMap.points.includes(x_key)) {
     fetchQinfo(x_key).then(x_info => {
-      const x_min = document.createElement('div');
-      const x_max = document.createElement('div');
-      x_min.classList.add('label-x-min');
-      x_max.classList.add('label-x-max');
+      const x_min = document.createElement("div");
+      const x_max = document.createElement("div");
+      x_min.classList.add("label-x-min");
+      x_max.classList.add("label-x-max");
       const { max, min } = extractLabels(x_info);
       x_min.innerHTML = min;
       x_max.innerHTML = max;
@@ -207,10 +247,10 @@ function make_pairing_graph({ x_key, y_key, data, container }) {
       container.appendChild(x_max);
     });
     fetchQinfo(y_key).then(y_info => {
-      const y_min = document.createElement('div');
-      const y_max = document.createElement('div');
-      y_min.classList.add('label-y-min');
-      y_max.classList.add('label-y-max');
+      const y_min = document.createElement("div");
+      const y_max = document.createElement("div");
+      y_min.classList.add("label-y-min");
+      y_max.classList.add("label-y-max");
       const { max, min } = extractLabels(y_info);
       y_min.innerHTML = min;
       y_max.innerHTML = max;
@@ -229,15 +269,27 @@ function make_pairing_graph({ x_key, y_key, data, container }) {
   // clear container
   container.innerHTML = "";
 
-  const { canvas, graph } = makeGraphCtx({ containerW: container.clientWidth * .8 });
+  const { canvas, graph } = makeGraphCtx({ containerW: container.clientWidth * 0.8 });
 
-  if (keyMap.points.includes(x_key) && keyMap.points.includes(y_key)) graph.scatter_2d({ xy_pairs });
+  if (keyMap.points.includes(x_key) && keyMap.points.includes(y_key))
+    graph.scatter_2d({ xy_pairs });
   else graph.not_implemented();
 
-  const graph_div = document.createElement('div');
-  graph_div.classList.add('graph-div');
+  const graph_div = document.createElement("div");
+  graph_div.classList.add("graph-div");
   graph_div.appendChild(canvas);
   container.appendChild(graph_div);
-
 }
 
+function make_legend(n) {
+  const div = document.createElement("div");
+  div.classList.add("legend");
+  const p = document.createElement("p");
+  p.innerText = legend_text.legend;
+  const p2 = document.createElement("p");
+  p2.innerText = `Total = ${n} ${legend_text.answers}`;
+  div.appendChild(p);
+  div.appendChild(p2);
+
+  return div;
+}

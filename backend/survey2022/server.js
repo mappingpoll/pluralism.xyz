@@ -104,9 +104,13 @@ app.get("/instructions", (req, res) => {
   res.render("textonly", opts);
 });
 
-function getQuestionText(res, key) {
-  return {
-    ...pageConfig.pages[key],
+function getQuestionText(res, key, results = false) {
+  const page = pageConfig.pages[key];
+  const unit = page.unit ? (page.unit === "years" ? ` ${res.__("years")}` : page.unit) : "";
+
+  const obj = {
+    ...page,
+    unit,
     title: res.__(`${key}.title`),
     textContent: res.__(`${key}.textContent`),
     topContent: res.__(`${key}.topContent`),
@@ -117,7 +121,11 @@ function getQuestionText(res, key) {
     scaleLabelMidMin: res.__(`${key}.scaleLabelMidMin`),
     scaleLabelMin: res.__(`${key}.scaleLabelMin`),
     yLabelMax: res.__(`${key}.yLabelMax`),
-  }
+  };
+
+  if (results) obj.topContent = res.__(`results.${key}`)
+
+  return obj;
 }
 
 app.get("/:number(\\d{1,2}):letter([a-z]?)", (req, res) => {
@@ -186,12 +194,22 @@ app.get("/results", (req, res) => {
 });
 
 app.get("/results-wip", (req, res) => {
+  const legendText = {
+    legend: res.__("results.legend"),
+    answers: res.__("results.answers"),
+  };
   const opts = {
     ...pageConfig.default,
     ...pageConfig.pages.results,
     title: res.__("results.title"),
+    credits: res.__("results.credits"),
     textContent: res.__("results.textContent"),
-    keyMap: JSON.stringify(keyMap),
+    resultsTitle: res.__("results.results"),
+    questionsA: res.__("results.questions-A"),
+    questionsB: res.__("results.questions-B"),
+    commentsTitle: res.__("results.comments"),
+    commentsQ: res.__("results.commentsQ"),
+    legendText: JSON.stringify(legendText),
   };
   res.render("results-wip", opts);
 });
@@ -208,11 +226,12 @@ app.get("/reset", (req, res) => {
 
 app.get("/question/:key", (req, res) => {
   const key = req.params.key;
+  const results = req.query.results == "true";
 
   res.json({
     title: res.__(`${key}.title`),
     ...pageConfig.pages[key],
-    ...getQuestionText(res, key)
+    ...getQuestionText(res, key, results),
   });
 });
 
