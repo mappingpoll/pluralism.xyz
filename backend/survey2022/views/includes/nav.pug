@@ -5,5 +5,7 @@ div(class="footer")
         a(href=next class="next" rel="next") #{__('nextLabel')}
     if restart
         a(href="/" onclick="window.localStorage.clear(); document.cookie.split(';').forEach(c => { const p = c.indexOf('='); document.cookie = (p > -1 ? c.subStr(0, p) : c) + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT' }); window.location.href = '/reset'; return false" class="previous") #{__("restart")}
+    if grenier 
+        a(href="https://nicolasgrenier.com/" class="previous") nicolasgrenier.com
     if pluralism
         a(href="https://pluralism.xyz" class="next") pluralism.xyz
