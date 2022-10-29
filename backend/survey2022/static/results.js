@@ -8,6 +8,7 @@ const results = document.querySelector(".results");
 const menu = document.querySelector(".results-menu");
 const select_x = menu.querySelector("#select-x");
 const select_y = menu.querySelector("#select-y");
+select_y.disabled = true;
 const pairing_graph = document.querySelector("#pairing-graph");
 const pairing_graph_b = document.querySelector("#pairing-graph-b");
 keyMap.all
@@ -117,7 +118,7 @@ function make_stack(values_sorted, container_div, info) {
     labels.appendChild(d);
   }
 
-  const {canvas, graph} = makeGraphCtx({
+  const { canvas, graph } = makeGraphCtx({
     containerW: container_div.clientWidth * 0.66,
     containerH: container_div.clientWidth,
   });
@@ -202,7 +203,7 @@ function handleSelectChange(e) {
   const target = e.target;
   const other = target === select_x ? select_y : select_x;
 
-  updateOptions(target.value, other);
+  if (target === select_x) updateOptions(target.value, other);
 
   const x_key = select_x.value;
   const y_key = select_y.value;
@@ -224,6 +225,13 @@ function updateOptions(selected_key, other_select) {
   const selected_a_point = keyMap.points.includes(selected_key);
   const selected_a_color = keyMap.colors.includes(selected_key);
 
+  if (selected_key === "") {
+    other_select.disabled === true;
+    return;
+  }
+
+  other_select.disabled = false;
+
   // Possible combinations:
   // 1. point vs point
   // 2. point vs color
@@ -231,30 +239,24 @@ function updateOptions(selected_key, other_select) {
   if (selected_a_point) active_keys = [...keyMap.points, ...keyMap.colors];
   if (selected_a_color) active_keys = keyMap.points;
 
+  // disable/deselect incompatible options
   for (const option of other_select.options) {
-    option.disabled = !active_keys.includes(option.value);
-  }
-
-  // disable unrelated options
-  [select_x, select_y].forEach(s => {
-    for (const option of s.childNodes) {
-      option.disabled = option.value !== "" && !active_keys.includes(option.value);
-    }
-  });
-
-  // deselect in other if same
-  if (other_select.value === selected_key) {
-    other_select.value = "";
+    option.disabled = !active_keys.includes(option.value) || option.value === selected_key;
+    if (option.disabled) option.selected = false;
   }
 }
 
 function make_pairing_graph({ x_key, y_key, data }) {
   if (!x_key || !y_key || !data) return;
 
-  const wants_scatter_2d = keyMap.points.includes(x_key) && keyMap.points.includes(y_key);
+  const get_type = k => (keyMap.points.includes(k) ? "point" : "color");
+
+  const x_type = get_type(x_key);
+  const y_type = get_type(y_key);
+
+  const wants_scatter_2d = x_type === "point" && y_type === "point";
   const wants_color_stack =
-    keyMap.colors.some(k => k === x_key || k === y_key) &&
-    keyMap.points.some(k => k === x_key || k === y_key);
+    (x_type === "point" && y_type === "color") || (x_type === "color" && y_type === "point");
 
   if (!wants_scatter_2d && !wants_color_stack) return;
 
