@@ -4,20 +4,23 @@ head
     block head-scripts
 body(style=style)
     div(class="page-container")
-        block lang
+        div(class="lang-links")
+            a(href=`/results-wip?lang=fr`) #{__("french")}
+            a(href=`/results-wip?lang=en`) #{__("english")}
         div(class="results-content")
             h1 !{title}
             div(class="credits") !{credits}
             div !{textContent}
             div(class="results")
-                div(class="results-menu hidden")
-                    label(for="select-x") X-axis:
+                div(class="results-menu")
+                    //- label(for="select-x") Option A:
                     select(id="select-x")
                         option(value="" selected) -
-                    label(for="select-y") Y-axis:
+                    //- label(for="select-y") Option B:
                     select(id="select-y")
                         option(value="" selected) -
                 div(class="pairing-graph")
+                div(id="pairing-graph-b" class="results-display")
                 h2 !{resultsTitle}
                 div(id="questionsA") !{questionsA}
                 div(id="questionsB") !{questionsB}

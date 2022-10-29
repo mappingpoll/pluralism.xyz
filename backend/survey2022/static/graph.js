@@ -148,6 +148,11 @@ export class Graph {
   }
 
   stack_1d({ values_sorted }) {
+
+    // has colors?
+    let has_colors = false;
+    if (values_sorted[0]?.color ?? false) has_colors = true;
+
     // assume values E [0, 1]
     const n_bins = 20;
 
@@ -155,6 +160,12 @@ export class Graph {
     function Stack(bin, values) {
       this.bin = bin;
       this.values = values;
+      if (has_colors) {
+        // sort by lightness
+        this.values.sort((a, b) => a.color.l - b.color.l);
+        // sort by saturation
+        // this.values.sort((a, b) => a.color.s - b.color.s);
+      }
       this.size = values.length;
       return this;
     }
@@ -164,7 +175,8 @@ export class Graph {
     let start_idx = 0;
     for (let i = 0; i < n_bins; i++) {
       const lim = 1 - (i + 1) / n_bins;
-      let end_idx = values_sorted.findIndex(v => v < lim);
+      const is_smaller_than_lim = has_colors ? (c) => c.point < lim : (c) => c.value < lim;
+      let end_idx = values_sorted.findIndex(is_smaller_than_lim);
       if (end_idx === -1) end_idx = undefined;
       const stack = values_sorted.slice(start_idx, end_idx);
       stacks.push(new Stack(i, stack));
@@ -197,9 +209,14 @@ export class Graph {
       const n_cells = stack.size;
       for (let j = 0; j < n_cells; j++) {
         const x = getX(j);
+        if(has_colors) {
+          this.ctx.fillStyle = stack.values[j].color.rgbString;
+        }
         this.ctx.fillRect(x, y, cell_w, cell_h);
       }
     }
+    // reset fill style
+    this.ctx.fillStyle = 'black';
 
     // draw vertical axis
     const axis_x = tick_width - 0.5; // crisp

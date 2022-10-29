@@ -9,12 +9,15 @@ const menu = document.querySelector(".results-menu");
 const select_x = menu.querySelector("#select-x");
 const select_y = menu.querySelector("#select-y");
 const pairing_graph = document.querySelector(".pairing-graph");
-keyMap.all.forEach(k => {
-  const option = document.createElement("option");
-  option.value = k;
-  select_x.appendChild(option);
-  select_y.appendChild(option.cloneNode(true));
-});
+const pairing_graph_b = document.querySelector("#pairing-graph-b");
+keyMap.all
+  .filter(k => k !== keyMap.pcode)
+  .forEach(k => {
+    const option = document.createElement("option");
+    option.value = k;
+    select_x.appendChild(option);
+    select_y.appendChild(option.cloneNode(true));
+  });
 [select_x, select_y].forEach(s => s.addEventListener("change", handleSelectChange));
 const questionsB = document.getElementById("questionsB");
 const comments = document.getElementById("comments");
@@ -27,7 +30,6 @@ fetchResults()
     for (const key of keyMap.all) {
       if (key === keyMap.pcode) continue; /// TODO: handle pcode
 
-
       const result_div = document.createElement("div");
       result_div.classList.add("results-display");
       if (keyMap.colors.includes(key))
@@ -36,7 +38,6 @@ fetchResults()
       else if (keyMap.points.includes(key))
         /// add to group B
         results.appendChild(result_div); /// this way cause ordering
-
 
       const title = document.createElement("h3");
       result_div.appendChild(title);
@@ -78,34 +79,9 @@ fetchResults()
         }
 
         if (keyMap.points.includes(key)) {
-          const values = parsed[key].map(({ value }) => value);
-          const values_sorted = values.sort((a, b) => b - a); // descending
+          const values_sorted = parsed[key].sort((a, b) => b.value - a.value); // descending
 
-          const legend = make_legend(values.length);
-
-          const graphArea = document.createElement("div");
-          graphArea.classList.add("graph-area");
-          result_div.appendChild(graphArea);
-          result_div.appendChild(legend);
-
-          // text
-          const labels = document.createElement("div");
-          labels.classList.add("stack-labels");
-          graphArea.appendChild(labels);
-          const { min, mid, max } = extractLabels(info);
-          for (const r of [max, mid, min]) {
-            const d = document.createElement("div");
-            d.innerText = r;
-            labels.appendChild(d);
-          }
-
-          const ctx0 = makeGraphCtx({
-            containerW: results.clientWidth * 0.66,
-            containerH: results.clientWidth,
-          });
-          graphArea.appendChild(ctx0.canvas);
-
-          ctx0.graph.stack_1d({ values_sorted });
+          make_stack(values_sorted, result_div, info);
         }
       });
     }
@@ -121,6 +97,34 @@ fetchResults()
     }
   })
   .catch(e => console.error(e));
+
+function make_stack(values_sorted, container_div, info) {
+  const legend = make_legend(values_sorted.length);
+
+  const graphArea = document.createElement("div");
+  graphArea.classList.add("graph-area");
+  container_div.appendChild(graphArea);
+  container_div.appendChild(legend);
+
+  // text
+  const labels = document.createElement("div");
+  labels.classList.add("stack-labels");
+  graphArea.appendChild(labels);
+  const { min, mid, max } = extractLabels(info);
+  for (const r of [max, mid, min]) {
+    const d = document.createElement("div");
+    d.innerText = r;
+    labels.appendChild(d);
+  }
+
+  const {canvas, graph} = makeGraphCtx({
+    containerW: container_div.clientWidth * 0.66,
+    containerH: container_div.clientWidth,
+  });
+  graphArea.appendChild(canvas);
+
+  graph.stack_1d({ values_sorted });
+}
 
 function extractLabels(info) {
   let min,
@@ -205,14 +209,31 @@ function handleSelectChange(e) {
 
   const data = window.parsed;
 
-  make_pairing_graph({ x_key, y_key, data, container: pairing_graph });
+  pairing_graph.innerHTML = "";
+  pairing_graph_b.innerHTML = "";
+
+  make_pairing_graph({ x_key, y_key, data });
+}
+
+function resetOptions() {
+  // todo
 }
 
 function updateOptions(selected_key, other_select) {
   let active_keys = keyMap.all;
-  if (keyMap.colors.includes(selected_key)) active_keys = keyMap.colors;
-  if (keyMap.points.includes(selected_key)) active_keys = keyMap.points;
-  if (selected_key === keyMap.pcode) active_keys = [keyMap.pcode];
+  const selected_a_point = keyMap.points.includes(selected_key);
+  const selected_a_color = keyMap.colors.includes(selected_key);
+
+  // Possible combinations:
+  // 1. point vs point
+  // 2. point vs color
+
+  if (selected_a_point) active_keys = [...keyMap.points, ...keyMap.colors];
+  if (selected_a_color) active_keys = keyMap.points;
+
+  for (const option of other_select.options) {
+    option.disabled = !active_keys.includes(option.value);
+  }
 
   // disable unrelated options
   [select_x, select_y].forEach(s => {
@@ -227,58 +248,95 @@ function updateOptions(selected_key, other_select) {
   }
 }
 
-function make_pairing_graph({ x_key, y_key, data, container }) {
+function make_pairing_graph({ x_key, y_key, data }) {
   if (!x_key || !y_key || !data) return;
-  // combine x and y data into a single array of objects
+
+  const wants_scatter_2d = keyMap.points.includes(x_key) && keyMap.points.includes(y_key);
+  const wants_color_stack =
+    keyMap.colors.some(k => k === x_key || k === y_key) &&
+    keyMap.points.some(k => k === x_key || k === y_key);
+
+  if (!wants_scatter_2d && !wants_color_stack) return;
+
   const x_data = data[x_key];
   const y_data = data[y_key];
 
-  // get labels
-  if (keyMap.points.includes(x_key)) {
-    fetchQinfo(x_key).then(x_info => {
-      const x_min = document.createElement("div");
-      const x_max = document.createElement("div");
-      x_min.classList.add("label-x-min");
-      x_max.classList.add("label-x-max");
-      const { max, min } = extractLabels(x_info);
-      x_min.innerHTML = min;
-      x_max.innerHTML = max;
-      container.appendChild(x_min);
-      container.appendChild(x_max);
-    });
-    fetchQinfo(y_key).then(y_info => {
-      const y_min = document.createElement("div");
-      const y_max = document.createElement("div");
-      y_min.classList.add("label-y-min");
-      y_max.classList.add("label-y-max");
-      const { max, min } = extractLabels(y_info);
-      y_min.innerHTML = min;
-      y_max.innerHTML = max;
-      container.appendChild(y_min);
-      container.appendChild(y_max);
-    });
-  }
-
   // find the intersection of x and y data
+  // and combine x and y data into a single array of objects
   const xy_pairs = x_data.reduce((acc, x) => {
     const y = y_data.find(y => y.id === x.id);
-    if (y) acc.push({ x, y });
+    if (y == null) return acc;
+
+    if (wants_scatter_2d) {
+      acc.push({ x, y });
+    } else if (wants_color_stack) {
+      let point, color;
+      if (typeof x.value === "number") {
+        point = x;
+        color = y;
+      } else {
+        point = y;
+        color = x;
+      }
+      acc.push({ point: point.value, color: new Color(color.value) });
+    }
     return acc;
   }, []);
 
-  // clear container
-  container.innerHTML = "";
+  const container = wants_scatter_2d ? pairing_graph : pairing_graph_b;
 
-  const { canvas, graph } = makeGraphCtx({ containerW: container.clientWidth * 0.8 });
+  // make graph
 
-  if (keyMap.points.includes(x_key) && keyMap.points.includes(y_key))
+  if (wants_scatter_2d) {
+    make_scatter_2d();
+  } else if (wants_color_stack) {
+    make_color_stack();
+  }
+
+  function make_scatter_2d() {
+    const { canvas, graph } = makeGraphCtx({ containerW: container.clientWidth * 0.8 });
+    const graph_div = document.createElement("div");
+    graph_div.classList.add("graph-div");
+    container.appendChild(graph_div);
+    graph_div.appendChild(canvas);
+
+    // get labels
+    if (keyMap.points.includes(x_key)) {
+      fetchQinfo(x_key).then(x_info => {
+        const x_min = document.createElement("div");
+        const x_max = document.createElement("div");
+        x_min.classList.add("label-x-min");
+        x_max.classList.add("label-x-max");
+        const { max, min } = extractLabels(x_info);
+        x_min.innerHTML = min;
+        x_max.innerHTML = max;
+        container.appendChild(x_min);
+        container.appendChild(x_max);
+      });
+      fetchQinfo(y_key).then(y_info => {
+        const y_min = document.createElement("div");
+        const y_max = document.createElement("div");
+        y_min.classList.add("label-y-min");
+        y_max.classList.add("label-y-max");
+        const { max, min } = extractLabels(y_info);
+        y_min.innerHTML = min;
+        y_max.innerHTML = max;
+        container.appendChild(y_min);
+        container.appendChild(y_max);
+      });
+    }
+
     graph.scatter_2d({ xy_pairs });
-  else graph.not_implemented();
+  }
 
-  const graph_div = document.createElement("div");
-  graph_div.classList.add("graph-div");
-  graph_div.appendChild(canvas);
-  container.appendChild(graph_div);
+  function make_color_stack() {
+    // sort by value descending
+    const values_sorted = xy_pairs.sort((a, b) => b.point - a.point);
+    const info_k = keyMap.points.includes(x_key) ? x_key : y_key;
+    fetchQinfo(info_k).then(info => {
+      make_stack(values_sorted, container, info);
+    });
+  }
 }
 
 function make_legend(n) {
