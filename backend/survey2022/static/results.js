@@ -8,7 +8,7 @@ const results = document.querySelector(".results");
 const menu = document.querySelector(".results-menu");
 const select_x = menu.querySelector("#select-x");
 const select_y = menu.querySelector("#select-y");
-const pairing_graph = document.querySelector(".pairing-graph");
+const pairing_graph = document.querySelector("#pairing-graph");
 const pairing_graph_b = document.querySelector("#pairing-graph-b");
 keyMap.all
   .filter(k => k !== keyMap.pcode)

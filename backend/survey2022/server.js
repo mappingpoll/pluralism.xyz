@@ -194,6 +194,12 @@ app.get("/results", (req, res) => {
 });
 
 app.get("/results-wip", (req, res) => {
+  if (req.query?.lang == "en" || req.query?.lang == "fr") {
+    res.cookie("lang", req.query.lang, { maxAge: 900000, httpOnly: true });
+    res.redirect("/results-wip");
+    return;
+  }
+
   const legendText = {
     legend: res.__("results.legend"),
     answers: res.__("results.answers"),

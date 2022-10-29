@@ -3,12 +3,12 @@ head
     include includes/head
     block head-scripts
 body(style=style)
+    block lang
     div(class="page-container")
-        block lang
         div(class="page-content")
             block content
-        block footer
-            include includes/nav
+    block footer
+        include includes/nav
     //- if canComment
     //-     div(class="comment-modal hidden")
     //-         textarea(placeholder=`${__('commentPlaceholder')}`)

@@ -3,10 +3,10 @@ head
     include includes/head
     block head-scripts
 body(style=style)
+    div(class="lang-links")
+        a(href=`/results-wip?lang=fr`) #{__("french")}
+        a(href=`/results-wip?lang=en`) #{__("english")}
     div(class="page-container")
-        div(class="lang-links")
-            a(href=`/results-wip?lang=fr`) #{__("french")}
-            a(href=`/results-wip?lang=en`) #{__("english")}
         div(class="results-content")
             h1 !{title}
             div(class="credits") !{credits}
@@ -19,7 +19,7 @@ body(style=style)
                     //- label(for="select-y") Option B:
                     select(id="select-y")
                         option(value="" selected) -
-                div(class="pairing-graph")
+                div(id="pairing-graph" class="xy-graph")
                 div(id="pairing-graph-b" class="results-display")
                 h2 !{resultsTitle}
                 div(id="questionsA") !{questionsA}
@@ -27,7 +27,7 @@ body(style=style)
             div(id="comments" class="comments")
                 h2 !{commentsTitle}
                 div !{commentsQ}
-        include includes/nav
+    include includes/nav
 
     script window.__legendText = JSON.parse('!{legendText}')
     script(defer type="module" src="/results.js")
