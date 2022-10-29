@@ -63,7 +63,7 @@ fetchResults()
 
           const ctx0 = makeGraphCtx({ containerW: results.clientWidth, marginBottom: "2em" });
           result_div.appendChild(ctx0.canvas);
-          ctx0.graph.lightSat(
+          ctx0.graph.scatterLS(
             colors.map(c => c.clone()),
             12
           );

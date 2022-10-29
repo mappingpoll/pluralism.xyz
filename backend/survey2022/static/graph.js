@@ -69,7 +69,8 @@ export class Graph {
     );
   }
 
-  lightSat(colors, cellSize) {
+  scatterLS(colors, cellSize) {
+    /// draw a scatter plot of lightness and saturation
     this.drawValueGradient();
     this.drawSatRainbow();
 
