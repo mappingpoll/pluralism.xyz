@@ -105,16 +105,28 @@ export class Graph {
 
     for (let _y = 0; _y < gridH; _y++) {
       const row = sorted.splice(0, gridW); // get the next row
-      row.sort((a, b) => a.s - b.s); // sort by saturation (l)
-      let _x = 0;
-      for (const color of row) {
+      row.sort((a, b) => b.s - a.s); // sort by saturation (l)
+      for (let _x = 0; _x < gridW; _x++) {
+        const { x, y } = this.translateNorm(_x  / gridW, 1 - (_y + 1) / gridH);
+
+        const color = row[_x]
+        if (color != null) {
         this.ctx.fillStyle = color.rgbString;
-        let { x, y } = this.translateNorm(1 - (_x + 1) / gridW, 1 - (_y + 1) / gridH);
 
         this.ctx.fillRect(x, y, cellW, cellH);
-        _x++;
+        } else {
+          // draw X
+          this.ctx.beginPath()
+          this.ctx.strokeStyle = "#DDD";
+          this.ctx.moveTo(x, y);
+          this.ctx.lineTo(x + cellW, y + cellH);
+          this.ctx.moveTo(x + cellW, y);
+          this.ctx.lineTo(x, y + cellH);
+          this.ctx.stroke();
+        }
       }
     }
+    this.ctx.strokeStyle = "black";
   }
 
   mosaic_by_hue(colors) {
