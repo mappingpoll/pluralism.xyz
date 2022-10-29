@@ -74,11 +74,13 @@ export class Graph {
     this.drawValueGradient();
     this.drawSatRainbow();
 
+    const graphBox = new GraphGeometry(this.width - cellSize, this.height, this.legendThickness);
+
     for (const color of colors) {
       const { s, l } = color.hsl;
       const _x = 1 - s;
       const _y = 1 - l;
-      const { x, y } = this.translateNorm(_x, _y);
+      const { x, y } = this.translateNorm(_x, _y, graphBox);
       // const { r, g, b } = Color.cmyToRgb(cmyColors[i]);
       this.ctx.fillStyle = color.rgbString;
       this.ctx.fillRect(x, y - cellSize, cellSize, cellSize);
