@@ -93,6 +93,7 @@ fetchResults()
         const div = document.createElement("div");
         div.classList.add("comment");
         div.innerText = comment.value;
+        div.dataset.id = comment.id;
         comments.appendChild(div);
       }
     }
@@ -242,7 +243,7 @@ function updateOptions(selected_key, other_select) {
   // disable/deselect incompatible options
   for (const option of other_select.options) {
     option.disabled = !active_keys.includes(option.value) || option.value === selected_key;
-    if (option.disabled) option.selected = false;
+    if (other_select.value === option.value && option.disabled) other_select.value = "";
   }
 }
 

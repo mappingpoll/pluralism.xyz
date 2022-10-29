@@ -13,12 +13,14 @@ body(style=style)
             div !{textContent}
             div(class="results")
                 div(class="results-menu")
-                    //- label(for="select-x") Option A:
-                    select(id="select-x")
-                        option(value="" selected) -
-                    //- label(for="select-y") Option B:
-                    select(id="select-y")
-                        option(value="" selected) -
+                    div
+                        label(for="select-x") A:
+                        select(id="select-x")
+                            option(value="" selected) -
+                    div
+                        label(for="select-y") B:
+                        select(id="select-y")
+                            option(value="" selected) -
                 div(id="pairing-graph" class="xy-graph")
                 div(id="pairing-graph-b" class="results-display")
                 h2 !{resultsTitle}

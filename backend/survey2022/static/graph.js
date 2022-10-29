@@ -40,13 +40,15 @@ export class Graph {
     this.ctx.fillRect(0, 0, n_bands * h, this.graphBox.bottom);
   }
 
-  drawSatRainbow(n_bands = 6) {
+  drawSatRainbow(n_bands = 3) {
     const h = this.legendThickness / n_bands;
+    const cmy_deg = [60, 300, 180];
+
     for (let i = 0; i < n_bands; i++) {
       // make gradients
       const gradient = this.ctx.createLinearGradient(this.graphBox.left, 0, this.graphBox.right, 0);
-      gradient.addColorStop(0, `hsl(${i * 60}deg, 100%, 50%)`);
-      gradient.addColorStop(1, `hsl(${i * 60}deg, 0%, 50%)`);
+      gradient.addColorStop(0, `hsl(${cmy_deg[i]}deg, 100%, 50%)`);
+      gradient.addColorStop(1, `hsl(${cmy_deg[i]}deg, 0%, 50%)`);
       this.ctx.fillStyle = gradient;
       this.ctx.fillRect(this.graphBox.left, this.height - i * h - h, this.graphBox.right, h);
     }
@@ -89,7 +91,7 @@ export class Graph {
     // determine grid size in datum units
     // H is the longer side, as the case may be
     const gridH = Math.ceil(Math.sqrt(colors.length));
-    const gridW = Math.floor(colors.length / gridH);
+    const gridW = Math.ceil(colors.length / gridH);
 
     const cellH = this.graphBox.height / gridH;
     const cellW = this.graphBox.width / gridW;
