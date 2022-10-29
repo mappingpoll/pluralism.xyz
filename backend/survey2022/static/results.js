@@ -79,7 +79,7 @@ fetchResults()
 
         if (keyMap.points.includes(key)) {
           const values = parsed[key].map(({ value }) => value);
-          const values_sorted = values.sort((a, b) => a - b);
+          const values_sorted = values.sort((a, b) => b - a); // descending
 
           const legend = make_legend(values.length);
 
@@ -93,14 +93,14 @@ fetchResults()
           labels.classList.add("stack-labels");
           graphArea.appendChild(labels);
           const { min, mid, max } = extractLabels(info);
-          for (const r of [min, mid, max]) {
+          for (const r of [max, mid, min]) {
             const d = document.createElement("div");
             d.innerText = r;
             labels.appendChild(d);
           }
 
           const ctx0 = makeGraphCtx({
-            containerW: results.clientWidth / 2,
+            containerW: results.clientWidth * 0.66,
             containerH: results.clientWidth,
           });
           graphArea.appendChild(ctx0.canvas);

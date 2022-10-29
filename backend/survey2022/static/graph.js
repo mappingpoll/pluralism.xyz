@@ -163,8 +163,8 @@ export class Graph {
 
     let start_idx = 0;
     for (let i = 0; i < n_bins; i++) {
-      const lim = (i + 1) / n_bins;
-      let end_idx = values_sorted.findIndex(v => v >= lim);
+      const lim = 1 - (i + 1) / n_bins;
+      let end_idx = values_sorted.findIndex(v => v < lim);
       if (end_idx === -1) end_idx = undefined;
       const stack = values_sorted.slice(start_idx, end_idx);
       stacks.push(new Stack(i, stack));
@@ -178,7 +178,7 @@ export class Graph {
     const max_stack_size = Math.max(...stacks.map(s => s.size));
 
     /// dimensions
-    const gap_size = 2;
+    const gap_size = 1;
     const tick_width = 10;
     const margin = gap_size + tick_width;
     const graph_W = this.width - margin * 2;
@@ -209,7 +209,7 @@ export class Graph {
     this.ctx.stroke();
     //ticks
     for (let i = 0; i <= n_bins; i++) {
-      const is_big = i % 2 === 0;
+      const is_big = i % Math.floor(n_bins / 2) === 0;
       this.ctx.beginPath();
       this.ctx.lineWidth = is_big ? 2 : 1;
       const y = getY(i) + 0.5; // crisp
@@ -226,8 +226,10 @@ export class Graph {
     this.ctx.lineTo(getX(max_stack_size) - gap_size, graph_H + 0.5);
     this.ctx.stroke();
     // ticks
-    for (let i = 0; i <= max_stack_size; i++) {
-      const is_big = i % 5 === 0;
+    const big_n = max_stack_size < 60 ? 5 : 10;
+    const step = big_n === 5 ? 1 : 2;
+    for (let i = 0; i <= max_stack_size; i+=step) {
+      const is_big = i % big_n === 0;
       this.ctx.lineWidth = is_big ? 2 : 1;
       this.ctx.beginPath();
       const x = getX(i) - gap_size + 0.5;
