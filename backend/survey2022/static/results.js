@@ -4,6 +4,7 @@ import { Graph } from "./graph.js";
 
 const legend_text = window.__legendText;
 const results = document.querySelector(".results");
+const default_set = document.querySelector("#default-set");
 const reset_btn = document.querySelector("#reset-btn");
 reset_btn.addEventListener("click", resetOptions)
 const select_x = document.querySelector("#select-x");
@@ -41,7 +42,7 @@ fetchResults()
         questionsB.insertAdjacentElement("beforebegin", result_div); /// this way cause ordering
       else if (keyMap.points.includes(key))
         /// add to group B
-        results.appendChild(result_div); /// this way cause ordering
+        default_set.appendChild(result_div); /// this way cause ordering
 
       const title = document.createElement("h3");
       result_div.appendChild(title);
@@ -232,8 +233,16 @@ function handleSelectChange(e) {
   const data = window.parsed;
 
   clearCustomGraphs();
+  hideDefaultSet();
 
   make_pairing_graph({ x_key, y_key, data });
+}
+
+function hideDefaultSet() {
+  default_set.classList.add("hidden");
+}
+function showDefaultSet() {
+  default_set.classList.remove("hidden");
 }
 
 function clearCustomGraphs() {
@@ -254,6 +263,7 @@ function resetOptions() {
 
   clearCustomGraphs();
   clearCustomGraphText();
+  showDefaultSet();
 
 }
 
