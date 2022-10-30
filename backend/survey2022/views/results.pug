@@ -8,7 +8,7 @@ body(style=style)
             div(class="lang-links" style="position: static; padding: 0 0 1em 0;")
                 a(href=`/results?lang=fr`) #{__("french")}
                 a(href=`/results?lang=en`) #{__("english")}
-            h1 !{title}
+            h1(style="margin-top: 3em") !{title}
             div(class="credits") !{credits}
             figure 
                 img(src="/images/installation.png" alt="Three screenshots of the installation; one with an overview of the table, one with a man sitting at the table filling out the survey on his phone, one with a close-up of the man's phone showing the survey." width="100%" margin="0 auto")
@@ -17,24 +17,24 @@ body(style=style)
             div(class="separator")
             div(class="results")
                 h2 !{resultsTitle}
-                p !{defaultDisplay}
-                button(id="reset-btn") !{reset}
                 p !{customDisplay}
                 div(class="results-menu")
                     select(id="select-x")
                         option(value="" selected) !{choose}
                     select(id="select-y")
                         option(value="" selected) !{choose}
-                div
+                button(id="reset-btn") !{reset}
+                div(class="separator")
+                div(id="custom-set" style="width: 100%")
                     div(id="custom-graph-text")
                         div(id="custom-graph-text-left") 
                         div(id="custom-graph-text-right") 
                     div(id="pairing-graph" class="xy-graph")
                     div(id="pairing-graph-b" class="results-display")
-                div(class="separator")
                 div(id="default-set")
-                    div(id="questionsA") !{questionsA}
-                    div(id="questionsB") !{questionsB}
+                    div(id="questionsA") 
+                    div(id="questionsB") 
+            div(class="separator")
             div(id="comments" class="comments")
                 h2 !{commentsTitle}
                 div !{commentsQ}

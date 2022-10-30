@@ -6,7 +6,7 @@ const legend_text = window.__legendText;
 const results = document.querySelector(".results");
 const default_set = document.querySelector("#default-set");
 const reset_btn = document.querySelector("#reset-btn");
-reset_btn.addEventListener("click", resetOptions)
+reset_btn.addEventListener("click", resetOptions);
 const select_x = document.querySelector("#select-x");
 const select_y = document.querySelector("#select-y");
 const custom_graph_text_left = document.querySelector("#custom-graph-text-left");
@@ -33,7 +33,7 @@ fetchResults()
 
     for (const key of keyMap.all) {
       /// TODO: handle pcode
-      if (key === keyMap.pcode) continue; 
+      if (key === keyMap.pcode) continue;
 
       const result_div = document.createElement("div");
       result_div.classList.add("results-display");
@@ -44,21 +44,14 @@ fetchResults()
         /// add to group B
         default_set.appendChild(result_div); /// this way cause ordering
 
-      const title = document.createElement("h3");
-      result_div.appendChild(title);
-
-      const question_text = document.createElement("div");
-      question_text.classList.add("question-text");
-      result_div.appendChild(question_text);
-
       fetchQinfo(key).then(info => {
-        title.innerText = info.title;
-        question_text.innerHTML = info.topContent;
+        result_div.appendChild(getQuestionDescriptionElem(info));
 
         // add to select options
-        [select_x, select_y].forEach(
-          s => (s.querySelector(`option[value="${key}"]`).innerHTML = info.title)
-        );
+        [select_x, select_y].forEach(s => {
+          const el = s.querySelector(`option[value="${key}"]`);
+          el.innerHTML = info.title;
+        });
 
         // colors
         if (keyMap.colors.includes(key)) {
@@ -105,7 +98,7 @@ fetchResults()
   .catch(e => console.error(e));
 
 function make_stack(values_sorted, container_div, info) {
-  const legend = make_legend(values_sorted.length);
+  const legend = make_legend(values_sorted.length, true);
 
   const graphArea = document.createElement("div");
   graphArea.classList.add("graph-area");
@@ -215,16 +208,14 @@ function handleSelectChange(e) {
 
   if (x_key) {
     fetchQinfo(x_key).then(info => {
-      const html = info.topContent;
-      custom_graph_text_left.innerHTML = html;
+      custom_graph_text_left.innerHTML = getQuestionDescriptionElem(info).innerHTML;
     });
   } else {
     custom_graph_text_left.innerHTML = "";
   }
   if (y_key) {
     fetchQinfo(y_key).then(info => {
-      const html = info.topContent;
-      custom_graph_text_right.innerHTML = html;
+      custom_graph_text_right.innerHTML = getQuestionDescriptionElem(info).innerHTML;
     });
   } else {
     custom_graph_text_right.innerHTML = "";
@@ -236,6 +227,23 @@ function handleSelectChange(e) {
   hideDefaultSet();
 
   make_pairing_graph({ x_key, y_key, data });
+}
+
+function getQuestionDescriptionElem(info) {
+  const title = info.title;
+  const question = info.topContent;
+
+  const wrapper = document.createElement("div");
+  const h3 = document.createElement("h3");
+  const div = document.createElement("div");
+  div.classList.add("question-text");
+  wrapper.appendChild(h3);
+  wrapper.appendChild(div);
+
+  h3.innerText = title;
+  div.innerHTML = question;
+
+  return wrapper;
 }
 
 function hideDefaultSet() {
@@ -264,7 +272,6 @@ function resetOptions() {
   clearCustomGraphs();
   clearCustomGraphText();
   showDefaultSet();
-
 }
 
 function updateOptions(selected_key, other_select) {
@@ -388,11 +395,11 @@ function make_pairing_graph({ x_key, y_key, data }) {
   }
 }
 
-function make_legend(n) {
+function make_legend(n, alt = false) {
   const div = document.createElement("div");
   div.classList.add("legend");
   const p = document.createElement("p");
-  p.innerText = legend_text.legend;
+  p.innerText = alt ? legend_text.legend2 : legend_text.legend;
   const p2 = document.createElement("p");
   p2.innerText = `Total = ${n} ${legend_text.answers}`;
   div.appendChild(p);

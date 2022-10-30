@@ -191,6 +191,7 @@ app.get("/results", (req, res) => {
 
   const legendText = {
     legend: res.__("results.legend"),
+    legend2: res.__("results.legend2"),
     answers: res.__("results.answers"),
   };
   const opts = {
