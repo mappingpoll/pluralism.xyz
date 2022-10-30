@@ -1,8 +1,10 @@
 .results-content {
     grid-area: 1 / 1 / 13 / 5;
     padding: 0 var(--content-padding-x);
+    margin-bottom: 8em;
     display: block;
     width: 100%;
+    height: fit-content;
 
     & h1,
     & h2,

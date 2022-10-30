@@ -32,7 +32,7 @@ fetchResults()
 
     for (const key of keyMap.all) {
       /// TODO: handle pcode
-      // if (key === keyMap.pcode) continue; 
+      if (key === keyMap.pcode) continue; 
 
       const result_div = document.createElement("div");
       result_div.classList.add("results-display");

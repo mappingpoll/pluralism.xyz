@@ -3,11 +3,11 @@ head
     include includes/head
     block head-scripts
 body(style=style)
-    div(class="lang-links")
-        a(href=`/results-wip?lang=fr`) #{__("french")}
-        a(href=`/results-wip?lang=en`) #{__("english")}
     div(class="page-container")
         div(class="results-content")
+            div(class="lang-links" style="position: static; padding: 0 0 1em 0;")
+                a(href=`/results-wip?lang=fr`) #{__("french")}
+                a(href=`/results-wip?lang=en`) #{__("english")}
             h1 !{title}
             div(class="credits") !{credits}
             figure 
