@@ -4,8 +4,14 @@
     display: block;
     width: 100%;
 
-    &>h1 {
+    & h1,
+    & h2,
+    & h3 {
         text-align: center;
+    }
+
+    & p {
+        font-weight: bold;
     }
 }
 
@@ -14,7 +20,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 6em;
+    margin-bottom: 3em;
 
     &>canvas {
         margin: 3em 0;
@@ -30,10 +36,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    margin: 3em 0;
 
     &>div {
-        margin-bottom: 4em;
+        margin-bottom: 1em;
     }
 
 
@@ -54,8 +59,27 @@
     display: flex;
     justify-content: space-between;
 
-    &>select {
+
+    & select {
         margin: auto;
+    }
+}
+
+#custom-graph-text {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    &>div {
+        max-width: 48%;
+    }
+
+    &>#custom-graph-text-left {
+        justify-self: flex-start;
+    }
+
+    &>#custom-graph-text-right {
+        justify-self: flex-end;
     }
 }
 
@@ -148,11 +172,20 @@
 .credits {
     text-align: center;
     font-weight: normal;
-    margin: 5em 0;
+    margin: 2em 0;
 
-    &>p {
+    & p {
         text-align: center;
+        font-weight: normal;
     }
+}
+
+.separator::before {
+    content: "≈";
+    display: block;
+    font-size: 10em;
+    font-weight: normal;
+    text-align: center;
 }
 
 .legend {

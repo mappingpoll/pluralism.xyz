@@ -4,10 +4,12 @@ import { Graph } from "./graph.js";
 
 const legend_text = window.__legendText;
 const results = document.querySelector(".results");
-
-const menu = document.querySelector(".results-menu");
-const select_x = menu.querySelector("#select-x");
-const select_y = menu.querySelector("#select-y");
+const reset_btn = document.querySelector("#reset-btn");
+reset_btn.addEventListener("click", resetOptions)
+const select_x = document.querySelector("#select-x");
+const select_y = document.querySelector("#select-y");
+const custom_graph_text_left = document.querySelector("#custom-graph-text-left");
+const custom_graph_text_right = document.querySelector("#custom-graph-text-right");
 select_y.disabled = true;
 const pairing_graph = document.querySelector("#pairing-graph");
 const pairing_graph_b = document.querySelector("#pairing-graph-b");
@@ -29,7 +31,8 @@ fetchResults()
     const parsed = parse(data.rows);
 
     for (const key of keyMap.all) {
-      if (key === keyMap.pcode) continue; /// TODO: handle pcode
+      /// TODO: handle pcode
+      // if (key === keyMap.pcode) continue; 
 
       const result_div = document.createElement("div");
       result_div.classList.add("results-display");
@@ -209,16 +212,49 @@ function handleSelectChange(e) {
   const x_key = select_x.value;
   const y_key = select_y.value;
 
+  if (x_key) {
+    fetchQinfo(x_key).then(info => {
+      const html = info.topContent;
+      custom_graph_text_left.innerHTML = html;
+    });
+  } else {
+    custom_graph_text_left.innerHTML = "";
+  }
+  if (y_key) {
+    fetchQinfo(y_key).then(info => {
+      const html = info.topContent;
+      custom_graph_text_right.innerHTML = html;
+    });
+  } else {
+    custom_graph_text_right.innerHTML = "";
+  }
+
   const data = window.parsed;
 
-  pairing_graph.innerHTML = "";
-  pairing_graph_b.innerHTML = "";
+  clearCustomGraphs();
 
   make_pairing_graph({ x_key, y_key, data });
 }
 
+function clearCustomGraphs() {
+  pairing_graph.innerHTML = "";
+  pairing_graph_b.innerHTML = "";
+}
+
+function clearCustomGraphText() {
+  custom_graph_text_left.innerHTML = "";
+  custom_graph_text_right.innerHTML = "";
+}
+
 function resetOptions() {
-  // todo
+  [select_x, select_y].forEach(select => {
+    select.value = "";
+  });
+  select_y.disabled = true;
+
+  clearCustomGraphs();
+  clearCustomGraphText();
+
 }
 
 function updateOptions(selected_key, other_select) {

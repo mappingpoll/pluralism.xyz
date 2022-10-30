@@ -109,3 +109,11 @@ input[type="checkbox"] {
     height: 2em;
     filter: saturate(0);
 }
+
+figure {
+    margin: 0 auto;
+
+    & img {
+        max-width: 100%;
+    }
+}

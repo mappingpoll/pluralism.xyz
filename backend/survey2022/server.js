@@ -210,12 +210,20 @@ app.get("/results-wip", (req, res) => {
     title: res.__("results.title"),
     credits: res.__("results.credits"),
     textContent: res.__("results.textContent"),
+    defaultDisplay: res.__("results.defaultDisplay"),
+    customDisplay: res.__("results.customDisplay"),
+    reset: res.__("reset"),
+    choose: res.__("results.choose"),
     resultsTitle: res.__("results.results"),
     questionsA: res.__("results.questions-A"),
     questionsB: res.__("results.questions-B"),
     commentsTitle: res.__("results.comments"),
     commentsQ: res.__("results.commentsQ"),
     legendText: JSON.stringify(legendText),
+    aboutTitle: res.__("results.aboutTitle"),
+    aboutText: res.__("results.aboutText"),
+    ackTitle: res.__("results.ackTitle"),
+    ackText: res.__("results.ackText"),
   };
   res.render("results-wip", opts);
 });
