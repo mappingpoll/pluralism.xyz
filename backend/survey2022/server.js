@@ -123,7 +123,7 @@ function getQuestionText(res, key, results = false) {
     yLabelMax: res.__(`${key}.yLabelMax`),
   };
 
-  if (results) obj.topContent = res.__(`results.${key}`)
+  if (results) obj.topContent = res.__(`results.${key}`);
 
   return obj;
 }
@@ -182,18 +182,6 @@ app.get("/data", (req, res) => {
 });
 
 app.get("/results", (req, res) => {
-  const opts = {
-    ...pageConfig.default,
-    ...pageConfig.pages.results,
-    title: res.__("results.title"),
-    textContent: res.__("results.textContent"),
-    keyMap: JSON.stringify(keyMap),
-  };
-
-  res.render("results", opts);
-});
-
-app.get("/results-wip", (req, res) => {
   if (req.query?.lang == "en" || req.query?.lang == "fr") {
     res.cookie("lang", req.query.lang, { maxAge: 900000, httpOnly: true });
     res.redirect("/results-wip");
@@ -225,7 +213,11 @@ app.get("/results-wip", (req, res) => {
     ackTitle: res.__("results.ackTitle"),
     ackText: res.__("results.ackText"),
   };
-  res.render("results-wip", opts);
+  if (req.query.wip) {
+    res.render("results-wip", opts);
+  } else {
+    res.render("results", opts);
+  }
 });
 
 app.get("/error", (req, res) => {

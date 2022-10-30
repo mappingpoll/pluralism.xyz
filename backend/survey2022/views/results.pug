@@ -1,6 +1,50 @@
-extends base
+doctype html
+head
+    include includes/head
+    block head-scripts
+body(style=style)
+    div(class="page-container")
+        div(class="results-content")
+            div(class="lang-links" style="position: static; padding: 0 0 1em 0;")
+                a(href=`/results-wip?lang=fr`) #{__("french")}
+                a(href=`/results-wip?lang=en`) #{__("english")}
+            h1 !{title}
+            div(class="credits") !{credits}
+            figure 
+                img(src="/images/installation.png" alt="Three screenshots of the installation; one with an overview of the table, one with a man sitting at the table filling out the survey on his phone, one with a close-up of the man's phone showing the survey." width="100%" margin="0 auto")
+                figcaption Photos: Guy L'Heureux
+            div !{textContent}
+            div(class="separator")
+            div(class="results")
+                h2 !{resultsTitle}
+                p !{defaultDisplay}
+                button(id="reset-btn") !{reset}
+                p !{customDisplay}
+                div(class="results-menu")
+                    select(id="select-x")
+                        option(value="" selected) !{choose}
+                    select(id="select-y")
+                        option(value="" selected) !{choose}
+                div
+                    div(id="custom-graph-text")
+                        div(id="custom-graph-text-left") 
+                        div(id="custom-graph-text-right") 
+                    div(id="pairing-graph" class="xy-graph")
+                    div(id="pairing-graph-b" class="results-display")
+                div(class="separator")
+                div(id="questionsA") !{questionsA}
+                div(id="questionsB") !{questionsB}
+            div(id="comments" class="comments")
+                h2 !{commentsTitle}
+                div !{commentsQ}
+            div(class="separator")
+            div
+                h2 !{aboutTitle}
+                div !{aboutText}
+            div
+                h2 !{ackTitle}
+                div !{ackText}
+    include includes/nav
 
-block content
-    div(class="results")
-        div !{textContent}
-
+    script window.__legendText = JSON.parse('!{legendText}')
+    script(defer type="module" src="/results.js")

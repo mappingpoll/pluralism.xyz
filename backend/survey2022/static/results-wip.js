@@ -64,22 +64,22 @@ fetchResults()
           const colors = parsed[key].map(({ value }) => value);
           const legend = make_legend(colors.length);
 
-          // const ctx0 = makeGraphCtx({ containerW: results.clientWidth, marginBottom: "2em" });
-          // result_div.appendChild(ctx0.canvas);
-          // ctx0.graph.scatterLS(
-          //   colors.map(c => c.clone()),
-          //   12
-          // );
-          // result_div.appendChild(legend);
+          const ctx0 = makeGraphCtx({ containerW: results.clientWidth, marginBottom: "2em" });
+          result_div.appendChild(ctx0.canvas);
+          ctx0.graph.scatterLS(
+            colors.map(c => c.clone()),
+            12
+          );
+          result_div.appendChild(legend);
 
           const ctx1 = makeGraphCtx({ containerW: results.clientWidth, marginBottom: "2em" });
           result_div.appendChild(ctx1.canvas);
           ctx1.graph.mosaic(colors.map(c => c.clone()));
           result_div.appendChild(legend.cloneNode(true));
 
-          // const ctx2 = makeGraphCtx({ containerW: results.clientWidth, marginBottom: "2em" });
-          // result_div.appendChild(ctx2.canvas);
-          // ctx2.graph.averageColor(colors.map(c => c.clone()));
+          const ctx2 = makeGraphCtx({ containerW: results.clientWidth, marginBottom: "2em" });
+          result_div.appendChild(ctx2.canvas);
+          ctx2.graph.averageColor(colors.map(c => c.clone()));
         }
 
         if (keyMap.points.includes(key)) {
