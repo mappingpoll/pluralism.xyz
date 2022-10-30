@@ -184,7 +184,8 @@ app.get("/data", (req, res) => {
 app.get("/results", (req, res) => {
   if (req.query?.lang == "en" || req.query?.lang == "fr") {
     res.cookie("lang", req.query.lang, { maxAge: 900000, httpOnly: true });
-    res.redirect("/results-wip");
+    const redir = req.query.wip ? "/results?wip=true" : "/results";
+    res.redirect(redir);
     return;
   }
 
