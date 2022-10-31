@@ -1,7 +1,7 @@
 {
   "landing": {
     "title": "Introduction",
-    "textContent": "<p>Cette œuvre prend la forme d’un questionnaire qui utilise la couleur comme moyen de communication. Pour participer, cliquer sur “continuer”, ci-dessous.</p><p>Vos réponses resteront anonymes. Une fois rassemblées à la fin de l’exposition, vos réponses individuelles créeront collectivement une sorte de portrait de société.</p><p>Les résultats seront présentés à la fin de la triennale sous forme de graphiques.</p>"
+    "textContent": "<p>Cette œuvre prend la forme d’un questionnaire qui utilise la couleur comme moyen de communication. Pour participer, cliquer sur “continuer”, ci-dessous.</p><p>Vos réponses resteront anonymes. Une fois rassemblées, vos réponses individuelles créeront collectivement une sorte de portrait de société.</p><p>Vous pourrez voir les résultats obtenus jusqu'à présent sous forme de graphiques après avoir complété le questionnaire.</p>"
   },
   "instructions": {
     "title": "Instructions",
@@ -84,17 +84,18 @@
   },
   "submit": {
     "title": "Fin",
-    "topText": "Si vous voulez voir les résultats du projet, veuillez laisser votre courriel pour recevoir un lien de visualisation à la fin de l'exposition. (Votre courriel ne sera pas partagé.)",
-    "bottomText": "Si vous avez des commentaires, suggestions, critiques, etc., ne vous gênez pas! Ils seront publiés anonymement avec les résultats."
+    "bottomText": "Si vous avez des commentaires, suggestions, critiques, etc., ne vous gênez pas! Ils seront publiés anonymement avec les résultats.",
+    "note": "<p>(Si vous souhaitez contacter l'artiste au sujet de ce projet, vous pouvez écrire directement à Nicolas&nbsp;Grenier: <a href=\"mailto:grenier.nicolas@gmail.com\">grenier.nicolas@gmail.com</a>)</p>",
+    "redir": "Vous serez redirigé.e vers la page des résultats."
   },
   "results": {
     "title": "Exercice de cartographie :<br>Banlieue",
     "credits": "<p>Nicolas Grenier 2022<br>Questionnaire interactif, site web, installation<br>Programmation : Nicolas&nbsp;Epstein<br>Fabrication du mobilier : Anne-Sophie&nbsp;Jetté & Ange&nbsp;Houti</p>",
     "caption": "Photos: Guy L'Heureux",
-    "textContent": "<p>Cette œuvre prenait la forme d’un sondage d’opinion et d’une installation à la Maison des arts de Laval (Qc, Canada), durant la «&nbsp;Triennale Banlieue ! / Interrègne&nbsp;», qui s’est déroulée du 31 juillet au 30 octobre 2022. Le sondage était accessible par un code QR posté à différents lieux de la Triennale. Les résultats ci-dessous représentent la totalité des réponses collectées. Vous pouvez consulter le questionnaire ici, mais les données ne sont plus collectées : <a href=\"https://banlieue.pluralism.xyz/\" target=\"_blank\">https://banlieue.pluralism.xyz/</a></p>",
+    "textContent": "<p>Cette œuvre prend la forme d’un sondage d’opinion qui fut créé pour la «&nbsp;Triennale Banlieue ! / Interrègne&nbsp;» (31 juillet au 30 octobre 2022), durant laquelle le sondage était accompagné d’une installation à la Maison des arts de Laval (Qc, Canada), et accessible par un code QR posté à différents lieux de la Triennale.</p><p>Les résultats ci-dessous représentent la totalité des réponses collectées jusqu’ici, durant et après la Triennale. Vous pouvez toujours participer en remplissant le questionnaire : <a href=\"https://banlieue.pluralism.xyz/\" target=\"_blank\">https://banlieue.pluralism.xyz/</a></p>",
     "results": "Affichage des résultats",
     "defaultDisplay": "Affichage par défaut : voir toutes les questions et réponses",
-    "customDisplay": "Dans les graphiques ci-dessous, chaque carré ou unité correspond à la réponse d'un répondant. Par défaut, toutes les questions et réponses sont affichées, mais vous pouvez également créer un graphique personnalisé en combinant deux questions :",
+    "customDisplay": "Dans les graphiques ci-dessous, chaque carré ou unité correspond à la réponse d'un.e répondant.e. Par défaut, toutes les questions et réponses sont affichées, mais vous pouvez également créer un graphique personnalisé en combinant deux questions :",
     "choose": "-choisir",
     "legend": "1 carré = 1 réponse",
     "legend2": "1 unité = 1 réponse",

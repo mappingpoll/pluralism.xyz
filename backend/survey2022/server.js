@@ -14,7 +14,6 @@ import winston from "winston";
 import { parseDocument } from "yaml";
 
 import { Database } from "./database.js";
-import { keyMap } from "./static/const.js";
 
 const db = new Database();
 
@@ -158,8 +157,9 @@ app.get("/submit", (req, res) => {
     ...pageConfig.default,
     ...pageConfig.pages.submit,
     title: res.__("submit.title"),
-    topText: res.__("submit.topText"),
     bottomText: res.__("submit.bottomText"),
+    note: res.__("submit.note"),
+    redir: res.__("submit.redir"),
   };
   res.render("submit", opts);
 });

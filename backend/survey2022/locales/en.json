@@ -1,7 +1,7 @@
 {
   "landing": {
     "title": "Introduction",
-    "textContent": "<p>This work takes the form of a questionnaire that uses colour as a means of communication. To participate, click on \"continue\" below.</p><p>Your answers will remain anonymous. Once compiled at the end of the exhibition, your individual responses will collectively create a kind of picture of society</p><p>The results will be presented at the end of the triennial in the form of graphics.</p>"
+    "textContent": "<p>This work takes the form of a questionnaire that uses colour as a means of communication. To participate, click on \"continue\" below.</p><p>Your responses will remain anonymous. Once collected, your individual responses will collectively create a sort of societal portrait.</p><p>You will be able to see the results in graph form after completing the questionnaire.</p>"
   },
   "instructions": {
     "title": "Instructions",
@@ -84,13 +84,14 @@
   },
   "submit": {
     "title": "End",
-    "topText": "If you would like to see the results of the project, please leave your email to receive a viewing link at the end of the exhibition. (Your email will not be shared.)",
-    "bottomText": "If you have any comments, suggestions, criticisms, etc., don't hesitate to contact us! They will be published anonymously with the results."
+    "bottomText": "<p>If you have any comments / suggestions / criticisms about the survey, please write them here! All comments will be published anonymously with the results.</p>",
+    "note": "<p>(If you wish to contact the artist about this project, you can write directly to Nicolas&nbsp;Grenier: <a href=\"mailto:grenier.nicolas@gmail.com\">grenier.nicolas@gmail.com</a>)</p>",
+    "redir": "You will be redirected to the results page."
   },
   "results": {
     "title": "Mapping Exercise:<br>Banlieue",
     "credits": "<p>Nicolas Grenier 2022<br>Interactive questionnaire, website, installation<br>Programming: Nicolas&nbsp;Epstein<br>Furniture fabrication: Anne-Sophie&nbsp;Jetté & Ange&nbsp;Houtin</p>",
-    "textContent": "<p>This work took the form of an opinion poll and an installation at the Maison des arts de Laval (Qc, Canada), during the \"Triennale Banlieue! / Interrègne\", which took place from July 31st to October 30th 2022. The survey was accessible through a QR code posted at various locations of the Triennale. The results below represent all the responses collected. You can view the survey here, but the data is no longer collected: <a href=\"https://banlieue.pluralism.xyz/\" target=\"_blank\">https://banlieue.pluralism.xyz/</a>",
+    "textContent": "<p>This work takes the form of an opinion poll that was created for the \"Triennale Banlieue! / Interrègne\" (July 31 to October 30, 2022), during which the poll was accompanied by an installation at the Maison des arts de Laval (Qc, Canada), and accessible by a QR code posted at various locations of the Triennale.</p><p>The results below represent the totality of the responses collected so far, during and after the Triennial. You can still participate by filling out the questionnaire: <a href=\"https://banlieue.pluralism.xyz/\" target=\"_blank\">https://banlieue.pluralism.xyz/</a>",
     "results": "Display of Results",
     "defaultDisplay": "Default display: see all questions & answers",
     "customDisplay": "In the graphs below, each square or unit corresponds to the answer of one respondent. By default, all the questions and answers are displayed, but you can also create a custom graph by combining two questions:",

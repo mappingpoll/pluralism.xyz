@@ -4,18 +4,19 @@ block content
     div(class="submit")
         h1 !{title}
         div(class="centered-content" style="flex-direction: column;")
-            div 
-                p !{topText}
-            div(class="email-div")
-                span [
-                input(id="email" type="email" name="email" placeholder="abc123@email.com")
-                span ]
-            div 
-                p !{bottomText}
+            //- div 
+            //-     p !{topText}
+            //- div(class="email-div")
+            //-     span [
+            //-     input(id="email" type="email" name="email" placeholder="abc123@email.com")
+            //-     span ]
+            div !{bottomText}
             textarea(id="comment" name="comment" rows="10" placeholder=`${__("commentPlaceholder")}`)
+            div !{note}
             div(style="position: relative;")
                 button(type="button") #{__("submitLabel")}
                 div(class="spinner hidden")
+            div !{redir}
 
 block scripts
     script(defer type="module" src="/submit.js")

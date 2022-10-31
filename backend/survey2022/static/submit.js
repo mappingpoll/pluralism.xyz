@@ -1,16 +1,16 @@
-const emailInput = document.querySelector("#email");
+// const emailInput = document.querySelector("#email");
 const commentInput = document.querySelector("#comment");
 
-const email = window.localStorage.getItem("email") ?? "";
-emailInput.value = email;
+// const email = window.localStorage.getItem("email") ?? "";
+// emailInput.value = email;
 const comment = window.localStorage.getItem("comment") ?? "";
 commentInput.value = comment;
 
 function onblur(event) {
-  window.localStorage.setItem(event.target.name, event.target.value);
+  window.localStorage.setItem(event.target.name, event.target.value.trim());
 }
 
-emailInput.addEventListener("blur", onblur);
+// emailInput.addEventListener("blur", onblur);
 commentInput.addEventListener("blur", onblur);
 
 const submitBtn = document.querySelector("button");
@@ -60,10 +60,10 @@ function collectLocalStorage() {
 
   // finally, get the email and comment, if any
 
-  const email = emailInput.value;
-  const comment = commentInput.value;
+  // const email = emailInput.value;
+  const comment = commentInput.value.trim();
 
-  return { data, lang, email, comment };
+  return { data, lang, /* email, */ comment };
 }
 
 submitBtn.addEventListener("click", submit);
